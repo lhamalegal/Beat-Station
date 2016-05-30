@@ -1,17 +1,16 @@
-**Problem Description**:
-What is the problem?
+**Descrição do problema**:
+Qual é o problema?
 
-**What did you expect to happen**: 
-Why do you think this is a bug?
+**O que você esperava que acontecece**: 
+O que era para acontecer?
 
-**What happened instead**:
-How is what happened different from what you expected?
+**O que ocorreu**:
+O que aconteceu no lugar?
 
-**Why is this bad/What are the consequences:**
-Why do you think this is an important issue?
+**Por quê você acha que isso é ruim?**
+Por quê isso deveria ser consertado?
 
-**Steps to reproduce the problem**:
-The most important section. Review everything you did leading up to causing the issue.
+**Como reproduzir o problema**:
+A parte mais importante. Conte o que fazer para que o problema ocorra novamente.
 
-**Possibly related stuff (which gamemode was it? What were you doing at the time? Was
-anything else out of the ordinary happening?)**: Anything else you can tell us.
+**Qualquer coisa relacionada(Qual era o gamemode, se os admns tavam mechendo com eventos, etc)  :**: Qualquer coisa que possa nos contar.
