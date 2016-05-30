@@ -13,4 +13,4 @@ Por quê isso deveria ser consertado?
 **Como reproduzir o problema**:
 A parte mais importante. Conte o que fazer para que o problema ocorra novamente.
 
-**Qualquer coisa relacionada(Qual era o gamemode, se os admns tavam mechendo com eventos, etc)  :**: Qualquer coisa que possa nos contar.
+**Qualquer coisa relacionada(Qual era o gamemode, se os admns tavam mechendo com eventos, etc):** Qualquer coisa que possa nos contar.
