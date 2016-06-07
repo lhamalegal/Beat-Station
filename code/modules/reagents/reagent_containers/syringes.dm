@@ -17,6 +17,38 @@
 	w_class = 1
 	sharp = 1
 	var/mode = SYRINGE_DRAW
+/* Fucked up syringe
+/obj/item/weapon/reagent_containers/lethal_syringe
+    name = "Letha Injection Syringe 2.0"
+    desc = "A Giant syringe, which kills instantly."
+    icon = 'icons/obj/syringe.dmi'
+    item_state = "syringe_0"
+    icon_state = "0"
+    amount_per_transfer_from_this = 50
+    possible_transfer_amounts = null
+    volume = 50
+    w_class = 1
+    sharp = 1
+    var/mode = SYRINGE_DRAW
+
+/obj/item/weapon/reagent_containers/lethal_syringe/full
+	New()
+		..()
+		reagents.add_reagent("cyanide", 10)
+		reagents.add_reagent("neurotoxin2", 40)
+		mode = SYRINGE_INJECT
+		update_icon()
+
+*/
+/obj/item/weapon/reagent_containers/syringe/lethal
+	New()
+		..()
+		reagents.add_reagent("cyanide", 10)
+		reagents.add_reagent("neurotoxin2", 40)
+		volume = 50
+		mode = SYRINGE_INJECT
+		update_icon()
+
 
 /obj/item/weapon/reagent_containers/syringe/on_reagent_change()
 	update_icon()
