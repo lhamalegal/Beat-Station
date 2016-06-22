@@ -54,5 +54,5 @@ var/global/list/boo_phrases=list(
 			if(istype(AT, /obj/item/device/flashlight))
 				var/obj/item/device/flashlight/F = AT
 				F.on = 0
-				F.icon_state = initial(icon_state)
+				F.icon_state = initial(F.icon_state)
 				F.set_light(0)
