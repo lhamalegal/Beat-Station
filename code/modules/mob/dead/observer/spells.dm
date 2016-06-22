@@ -52,4 +52,4 @@ var/global/list/boo_phrases=list(
 
 			// Turn flashlights off
 			if(istype(AT, /obj/item/device/flashlight))
-				AT.on = 0
+				AT:on=0
