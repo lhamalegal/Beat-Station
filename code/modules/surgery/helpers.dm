@@ -1,48 +1,89 @@
-/mob/proc/get_int_organ(typepath) //int stands for internal
-	return
+/proc/attempt_initiate_surgery(obj/item/I, mob/living/M, mob/user, var/override )
+	if(istype(M))
+		var/mob/living/carbon/human/H
+		var/obj/item/organ/external/affecting
+		var/selected_zone = user.zone_sel.selecting
 
-/mob/proc/get_organs_zone(zone)
-	return
+		if(istype(M, /mob/living/carbon/human))
+			H = M
+			affecting = H.get_organ(check_zone(selected_zone))
 
-/mob/proc/get_organ_slot(slot) //is it a brain, is it a brain_tumor?
-	return
+		if(can_operate(M) || isslime(M))	//if they're prone or a slime
+			var/datum/surgery/current_surgery
+			for(var/datum/surgery/S in M.surgeries)
+				if(S.location == selected_zone)
+					current_surgery = S
 
-/mob/proc/get_int_organ_tag(tag) //is it a brain, is it a brain_tumor?
-	return
+			if(!current_surgery)
+				var/list/all_surgeries = surgeries_list.Copy()
+				var/list/available_surgeries = list()
 
-/mob/living/carbon/get_int_organ(typepath)
-	return (locate(typepath) in internal_organs)
+				for(var/datum/surgery/S in all_surgeries)
+					if(!S.possible_locs.Find(selected_zone))
+						continue
+					if(affecting && S.requires_organic_bodypart && affecting.status == ORGAN_ROBOT)
+						continue
+					if(!S.can_start(user, M))
+						continue
+
+					for(var/path in S.allowed_mob)
+						if(istype(M, path))
+							available_surgeries[S.name] = S
+							break
+
+				if(override)
+					if(istype(I,/obj/item/robot_parts))
+						var/datum/surgery/S = available_surgeries["robotic limb attachment"]
+						if(S)
+							var/datum/surgery/procedure = new S.type
+							if(procedure)
+								procedure.location = selected_zone
+								M.surgeries += procedure
+								procedure.organ_ref = affecting
+								procedure.next_step(user, M)
+
+				else
+					var/P = input("Begin which procedure?", "Surgery", null, null) as null|anything in available_surgeries
+					if(P && user && user.Adjacent(M) && (I in user))
+						var/datum/surgery/S = available_surgeries[P]
+						var/datum/surgery/procedure = new S.type
+						if(procedure)
+							procedure.location = selected_zone
+							M.surgeries += procedure
+							procedure.organ_ref = affecting
+							user.visible_message("[user] prepares to operate on [M]'s [parse_zone(selected_zone)].", \
+							"<span class='notice'>You prepare to operate on [M]'s [parse_zone(selected_zone)].</span>")
+
+			else if(!current_surgery.step_in_progress)
+				if(current_surgery.status == 1 )
+					M.surgeries -= current_surgery
+					to_chat(user, "You stop the surgery.")
+					qdel(current_surgery)
+				else if(istype(user.get_inactive_hand(), /obj/item/weapon/cautery) && current_surgery.can_cancel)
+					M.surgeries -= current_surgery
+					user.visible_message("[user] mends the incision on [M]'s [parse_zone(selected_zone)] with the [I] .", \
+						"<span class='notice'>You mend the incision on [M]'s [parse_zone(selected_zone)].</span>")
+					if(affecting)
+						affecting.open = 0
+						affecting.germ_level = 0
+						affecting.status &= ~ORGAN_BLEEDING
+					qdel(current_surgery)
+				else if(current_surgery.can_cancel)
+					to_chat(user, "<span class='warning'>You need to hold a cautery in inactive hand to stop [M]'s surgery!</span>")
 
 
-/mob/living/carbon/get_organs_zone(zone, var/subzones = 0)
-	var/list/returnorg = list()
-	if(subzones)
-		// Include subzones - groin for chest, eyes and mouth for head
-		//Fethas note:We have check_zone, i may need to remove the below
-		if(zone == "head")
-			returnorg = get_organs_zone("eyes") + get_organs_zone("mouth")
-		if(zone == "chest")
-			returnorg = get_organs_zone("groin")
+			return 1
+	return 0
 
-	for(var/obj/item/organ/internal/O in internal_organs)
-		if(zone == O.parent_organ)
-			returnorg += O
-	return returnorg
 
-/mob/living/carbon/get_organ_slot(slot)
-	for(var/obj/item/organ/internal/O in internal_organs)
-		if(slot == O.slot)
-			return O
 
-/mob/living/carbon/get_int_organ_tag(tag)
-	for(var/obj/item/organ/internal/O in internal_organs)
-		if(tag == O.organ_tag)
-			return O
-
-/proc/is_int_organ(atom/A)
-	return istype(A, /obj/item/organ/internal)
-
-/mob/living/carbon/human/proc/get_limb_by_name(limb_name) //Look for a limb with the given limb name in the source mob, and return it if found.
-	for(var/obj/item/organ/external/O in organs)
-		if(limb_name == O.limb_name)
-			return O
+proc/get_location_modifier(mob/M)
+	var/turf/T = get_turf(M)
+	if(locate(/obj/machinery/optable, T))
+		return 1
+	else if(locate(/obj/structure/table, T))
+		return 0.8
+	else if(locate(/obj/structure/stool/bed, T))
+		return 0.7
+	else
+		return 0.5
