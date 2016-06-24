@@ -175,6 +175,7 @@ var/list/chatrooms = list(new /datum/chatroom("General Discussion"))
 				return
 
 			var/t = input("Please enter message", target) as text|null
+			t = replace_special_characters(t)
 			spawn()
 				if(!t || !check_messaging_available())
 					return
@@ -189,6 +190,7 @@ var/list/chatrooms = list(new /datum/chatroom("General Discussion"))
 				return
 
 			var/t = input("Enter new topic:", current_room, current_room.topic) as text|null
+			t = replace_special_characters(t)
 			spawn()
 				if(!t || !check_messaging_available() || !pda.can_use())
 					return
@@ -228,6 +230,7 @@ var/list/chatrooms = list(new /datum/chatroom("General Discussion"))
 				return
 
 			var/t = input("Enter room name:", name) as text|null
+			t = replace_special_characters(t)
 			if(!t)
 				return
 			t = sanitize(copytext(t, 1, MAX_NAME_LEN))
