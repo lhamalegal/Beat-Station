@@ -57,9 +57,6 @@
 	message_admins("[key_name_admin(usr)] " + message, 1)
 
 /proc/replace_special_characters(var/text as text)
-	text = replacetext(text, "Ç", "C")
-	text = replacetext(text, "ç", "c")
-
 	text = replacetext(text, "Á", "A")
 	text = replacetext(text, "á", "a")
 	text = replacetext(text, "À", "A")
@@ -102,4 +99,8 @@
 
 	text = replacetext(text, "ñ", "n")
 	text = replacetext(text, "Ñ", "N")
+	text = replacetext(text, "Ç", "C")
+	text = replacetext(text, "ç", "c")
+	text = replacetext(text, "Ý", "Y")
+	text = replacetext(text, "ý", "y")
 	return text
