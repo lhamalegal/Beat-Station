@@ -41,7 +41,7 @@
 		var/obj/item/weapon/weldingtool/WT = W
 		if(WT.isOn())//Badasses dont get blinded while lighting their cig with a welding tool
 			if(istype(src, /obj/item/flag/nt))
-				for(/obj/item/F in user.contents)
+				for(var/obj/item/F in user.contents)
 					if(istype(F, /obj/item/weapon/implant/loyalty))
 						to_chat(user, "You try to burn the flag, but some force prevents you!")
 						return
@@ -52,7 +52,7 @@
 		var/obj/item/weapon/lighter/zippo/Z = W
 		if(Z.lit)
 			if(istype(src, /obj/item/flag/nt))
-				for(/obj/item/F in user.contents)
+				for(var/obj/item/F in user.contents)
 					if(istype(F, /obj/item/weapon/implant/loyalty))
 						to_chat(user, "You try to burn the flag, but some force prevents you!")
 						return
@@ -63,7 +63,7 @@
 		var/obj/item/weapon/lighter/L = W
 		if(L.lit)
 			if(istype(src, /obj/item/flag/nt))
-				for(/obj/item/F in user.contents)
+				for(var/obj/item/F in user.contents)
 					if(istype(F, /obj/item/weapon/implant/loyalty))
 						to_chat(user, "You try to burn the flag, but some force prevents you!")
 						return
@@ -74,7 +74,7 @@
 		var/obj/item/weapon/match/M = W
 		if(M.lit)
 			if(istype(src, /obj/item/flag/nt))
-				for(/obj/item/F in user.contents)
+				for(var/obj/item/F in user.contents)
 					if(istype(F, /obj/item/weapon/implant/loyalty))
 						to_chat(user, "You try to burn the flag, but some force prevents you!")
 						return
@@ -85,7 +85,7 @@
 		var/obj/item/weapon/melee/energy/sword/saber/S = W
 		if(S.active)
 			if(istype(src, /obj/item/flag/nt))
-				for(/obj/item/F in user.contents)
+				for(var/obj/item/F in user.contents)
 					if(istype(F, /obj/item/weapon/implant/loyalty))
 						to_chat(user, "You try to burn the flag, but some force prevents you!")
 						return
@@ -94,7 +94,7 @@
 
 	else if(istype(W, /obj/item/device/assembly/igniter))
 		if(istype(src, /obj/item/flag/nt))
-			for(/obj/item/F in user.contents)
+			for(var/obj/item/F in user.contents)
 				if(istype(F, /obj/item/weapon/implant/loyalty))
 					to_chat(user, "You try to burn the flag, but some force prevents you!")
 					return
