@@ -6163,7 +6163,7 @@
 "coA" = (/obj/structure/extinguisher_cabinet{pixel_x = 0; pixel_y = 30},/obj/structure/closet/firecloset,/obj/item/taperoll/engineering,/turf/simulated/floor/plasteel,/area/engine/controlroom)
 "coB" = (/obj/structure/closet/firecloset,/obj/item/taperoll/engineering,/turf/simulated/floor/plasteel,/area/engine/controlroom)
 "coC" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/machinery/computer/security/telescreen{desc = "Used for watching the singularity chamber."; dir = 8; layer = 4; name = "Singularity Engine Telescreen"; network = list("Singularity"); pixel_x = 0; pixel_y = 30},/obj/structure/stool/bed/chair/office/dark{dir = 4},/turf/simulated/floor/plasteel,/area/engine/controlroom)
-"coD" = (/obj/structure/cable,/obj/machinery/computer/monitor{name = "Grid Power Monitoring Computer"},/obj/machinery/door_control{name = "Engineering Control Door-Control"; step_x = 27; id = "engcontrol"},/turf/simulated/floor/plasteel{icon_state = "caution"; dir = 5},/area/engine/controlroom)
+"coD" = (/obj/structure/cable,/obj/machinery/computer/monitor{name = "Grid Power Monitoring Computer"},/obj/machinery/door_control{id = "engcontrol"; step_x = 28},/turf/simulated/floor/plasteel{icon_state = "caution"; dir = 5},/area/engine/controlroom)
 "coE" = (/obj/structure/table,/obj/effect/spawner/lootdrop/maintenance,/turf/simulated/floor/plating,/area/maintenance/asmaint)
 "coF" = (/turf/simulated/floor/plating,/area/maintenance/asmaint)
 "coG" = (/obj/structure/rack{dir = 1},/obj/effect/spawner/lootdrop/maintenance{lootcount = 2; name = "2maintenance loot spawner"},/turf/simulated/floor/plating,/area/maintenance/asmaint)
