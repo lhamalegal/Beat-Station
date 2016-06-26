@@ -8,7 +8,7 @@
 /obj/item/weapon/reagent_containers/syringe
 	name = "Syringe"
 	desc = "A syringe."
-	icon = 'icons/obj/syringe.dmi'
+	icon = 'icons/goonstation/objects/syringe.dmi'
 	item_state = "syringe_0"
 	icon_state = "0"
 	amount_per_transfer_from_this = 5
@@ -17,38 +17,7 @@
 	w_class = 1
 	sharp = 1
 	var/mode = SYRINGE_DRAW
-/* Fucked up syringe
-/obj/item/weapon/reagent_containers/lethal_syringe
-    name = "Letha Injection Syringe 2.0"
-    desc = "A Giant syringe, which kills instantly."
-    icon = 'icons/obj/syringe.dmi'
-    item_state = "syringe_0"
-    icon_state = "0"
-    amount_per_transfer_from_this = 50
-    possible_transfer_amounts = null
-    volume = 50
-    w_class = 1
-    sharp = 1
-    var/mode = SYRINGE_DRAW
-
-/obj/item/weapon/reagent_containers/lethal_syringe/full
-	New()
-		..()
-		reagents.add_reagent("cyanide", 10)
-		reagents.add_reagent("neurotoxin2", 40)
-		mode = SYRINGE_INJECT
-		update_icon()
-
-*/
-/obj/item/weapon/reagent_containers/syringe/lethal
-	New()
-		..()
-		reagents.add_reagent("cyanide", 10)
-		reagents.add_reagent("neurotoxin2", 40)
-		volume = 50
-		mode = SYRINGE_INJECT
-		update_icon()
-
+	var/projectile_type = /obj/item/projectile/bullet/dart/syringe
 
 /obj/item/weapon/reagent_containers/syringe/on_reagent_change()
 	update_icon()
@@ -250,7 +219,7 @@
 						if(reagents.has_reagent(bad_reagent))
 							badshit += reagents_to_log[bad_reagent]
 					if(badshit.len)
-						var/hl="\red <b>([english_list(badshit)])</b> \black"
+						var/hl = "<span class='danger'>([english_list(badshit)])</span>"
 						message_admins("[key_name_admin(user)] added [reagents.get_reagent_ids(1)] to \a [target] with [src].[hl] ")
 						log_game("[key_name(user)] added [reagents.get_reagent_ids(1)] to \a [target] with [src].")
 
@@ -284,6 +253,7 @@
 						if(P.instant_application)
 							to_chat(user, "<span class=warning>You break the medical seal on the [P]!</span>")
 							P.instant_application = 0
+
 				if (reagents.total_volume <= 0 && mode==SYRINGE_INJECT)
 					mode = SYRINGE_DRAW
 					update_icon()
@@ -373,7 +343,7 @@
 /obj/item/weapon/reagent_containers/ld50_syringe
 	name = "Lethal Injection Syringe"
 	desc = "A syringe used for lethal injections."
-	icon = 'icons/obj/syringe.dmi'
+	icon = 'icons/goonstation/objects/syringe.dmi'
 	item_state = "syringe_0"
 	icon_state = "0"
 	amount_per_transfer_from_this = 50

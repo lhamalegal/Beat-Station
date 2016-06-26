@@ -506,7 +506,6 @@
 
 		var/timeout = world.time + 600
 		var/reason = input(usr,"Reason:","Why do you require this item?","") as null|text
-		reason = replace_special_characters(reason)
 		if(world.time > timeout || !reason || ..())
 			return 1
 		reason = sanitize(copytext(reason, 1, MAX_MESSAGE_LEN))
@@ -681,7 +680,6 @@
 
 		var/timeout = world.time + 600
 		var/reason = input(usr,"Reason:","Why do you require this item?","") as null|text
-		reason = replace_special_characters(reason)
 		if(world.time > timeout || !reason || !is_authorized(usr) || ..())
 			return 1
 		reason = sanitize(copytext(reason, 1, MAX_MESSAGE_LEN))
