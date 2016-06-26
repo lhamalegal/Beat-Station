@@ -68,7 +68,6 @@
 
 	text = replacetext(text, "é", "e")
 	text = replacetext(text, "É", "E")
-	text = replacetext(text, "é", "e")
 	text = replacetext(text, "è", "e")
 	text = replacetext(text, "È", "E")
 	text = replacetext(text, "ê", "e")
