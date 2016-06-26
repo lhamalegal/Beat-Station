@@ -72,7 +72,8 @@ var/list/admin_verbs_admin = list(
 	/client/proc/change_human_appearance_admin,	/* Allows an admin to change the basic appearance of human-based mobs */
 	/client/proc/change_human_appearance_self,	/* Allows the human-based mob itself change its basic appearance */
 	/client/proc/debug_variables,
-	/client/proc/show_snpc_verbs
+	/client/proc/show_snpc_verbs,
+	/client/proc/reset_all_tcs			/*resets all telecomms scripts*/
 )
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
@@ -125,6 +126,7 @@ var/list/admin_verbs_server = list(
 	/datum/admins/proc/toggleAI,
 	/client/proc/cmd_admin_delete,		/*delete an instance/object/mob/etc*/
 	/client/proc/cmd_debug_del_all,
+	/client/proc/cmd_debug_del_sing,
 	/datum/admins/proc/toggle_aliens,
 	/client/proc/delbook,
 	/client/proc/view_flagged_books,
@@ -141,6 +143,7 @@ var/list/admin_verbs_debug = list(
 	/client/proc/cmd_debug_mob_lists,
 	/client/proc/cmd_admin_delete,
 	/client/proc/cmd_debug_del_all,
+	/client/proc/cmd_debug_del_sing,
 	/client/proc/reload_admins,
 	/client/proc/restart_controller,
 	/client/proc/enable_debug_verbs,
@@ -156,7 +159,8 @@ var/list/admin_verbs_debug = list(
 	/client/proc/cinematic,
 	/proc/machine_upgrade,
 	/client/proc/map_template_load,
-	/client/proc/map_template_upload
+	/client/proc/map_template_upload,
+	/client/proc/view_runtimes
 	)
 var/list/admin_verbs_possess = list(
 	/proc/possess,

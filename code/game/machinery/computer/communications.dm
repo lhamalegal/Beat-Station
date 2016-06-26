@@ -205,15 +205,13 @@
 			setMenuState(usr,COMM_SCREEN_STAT)
 
 		if("setmsg1")
-			var/input = input("Line 1", "Enter Message Text", stat_msg1)
-			input = replace_special_characters(input)
-			stat_msg1 = input
+			stat_msg1 = input("Line 1", "Enter Message Text", stat_msg1) as text|null
+			stat_msg1 = replace_special_characters(stat_msg1)
 			setMenuState(usr,COMM_SCREEN_STAT)
 
 		if("setmsg2")
-			var/input = input("Line 2", "Enter Message Text", stat_msg2)
-			input = replace_special_characters(input)
-			stat_msg2 = input
+			stat_msg2 = input("Line 2", "Enter Message Text", stat_msg2) as text|null
+			stat_msg2 = replace_special_characters(stat_msg2)
 			setMenuState(usr,COMM_SCREEN_STAT)
 
 		if("nukerequest")
@@ -276,6 +274,17 @@
 			to_chat(usr, "Backup routing data restored!")
 			src.emagged = 0
 			setMenuState(usr,COMM_SCREEN_MAIN)
+
+		if("AcceptDocking")
+			to_chat(usr, "Docking request accepted!")
+			trade_dock_timelimit = world.time + 1200
+			trade_dockrequest_timelimit = 0
+			command_announcement.Announce("Docking request for trading ship approved, please dock at port bay 4.", "Docking Request")
+		if("DenyDocking")
+			to_chat(usr, "Docking requeset denied!")
+			trade_dock_timelimit = 0
+			trade_dockrequest_timelimit = 0
+			command_announcement.Announce("Docking request for trading ship denied.", "Docking request")
 
 	nanomanager.update_uis(src)
 	return 1
@@ -361,6 +370,11 @@
 		shuttle["eta"] = "[timeleft / 60 % 60]:[add_zero(num2text(timeleft % 60), 2)]"
 
 	data["shuttle"] = shuttle
+
+	if(trade_dockrequest_timelimit > world.time)
+		data["dock_request"] = 1
+	else
+		data["dock_request"] = 0
 
 	// update the ui if it exists, returns null if no ui is passed/found
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data)

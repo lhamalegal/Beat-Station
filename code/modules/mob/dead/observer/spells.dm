@@ -28,6 +28,7 @@ var/global/list/boo_phrases=list(
 	var/area/A = get_area(src)
 	for(var/turf/T in A.contents)
 		for(var/atom/AT in T.contents)
+
 			// Bug humans
 			if(ishuman(AT))
 				var/mob/living/carbon/human/H = AT
@@ -50,7 +51,6 @@ var/global/list/boo_phrases=list(
 			if(istype(AT, /obj/machinery/ai_status_display))
 				AT:spookymode=1
 
-			// Turn flashlights off
 			if(istype(AT, /obj/item/device/flashlight))
 				var/obj/item/device/flashlight/F = AT
 				F.on = 0

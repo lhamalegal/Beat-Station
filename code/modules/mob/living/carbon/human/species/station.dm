@@ -57,6 +57,17 @@
 	base_color = "#066000"
 	//Default styles for created mobs.
 	default_hair = "Unathi Horns"
+	butt_sprite = "unathi"
+
+	has_organ = list(
+		"heart" =    /obj/item/organ/internal/heart,
+		"lungs" =    /obj/item/organ/internal/lungs,
+		"liver" =    /obj/item/organ/internal/liver/unathi,
+		"kidneys" =  /obj/item/organ/internal/kidneys,
+		"brain" =    /obj/item/organ/internal/brain,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"eyes" =     /obj/item/organ/internal/eyes,
+		)
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/lizard, /mob/living/simple_animal/chick, /mob/living/simple_animal/chicken,
 								 /mob/living/simple_animal/crab, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot, /mob/living/simple_animal/tribble)
@@ -113,6 +124,17 @@
 	base_color = "#333333"
 	//Default styles for created mobs.
 	default_headacc = "Tajaran Ears"
+	butt_sprite = "tajaran"
+
+	has_organ = list(
+		"heart" =    /obj/item/organ/internal/heart,
+		"lungs" =    /obj/item/organ/internal/lungs,
+		"liver" =    /obj/item/organ/internal/liver/tajaran,
+		"kidneys" =  /obj/item/organ/internal/kidneys,
+		"brain" =    /obj/item/organ/internal/brain,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"eyes" =     /obj/item/organ/internal/eyes,
+		)
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/chick, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot,
 								 /mob/living/simple_animal/tribble)
@@ -157,6 +179,17 @@
 	reagent_tag = PROCESS_ORG
 	flesh_color = "#966464"
 	base_color = "#B43214"
+	butt_sprite = "vulp"
+
+	has_organ = list(
+		"heart" =    /obj/item/organ/internal/heart,
+		"lungs" =    /obj/item/organ/internal/lungs,
+		"liver" =    /obj/item/organ/internal/liver/vulpkanin,
+		"kidneys" =  /obj/item/organ/internal/kidneys,
+		"brain" =    /obj/item/organ/internal/brain,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"eyes" =     /obj/item/organ/internal/eyes,
+		)
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/lizard, /mob/living/simple_animal/chick, /mob/living/simple_animal/chicken,
 								 /mob/living/simple_animal/crab, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot, /mob/living/simple_animal/tribble)
@@ -196,6 +229,17 @@
 	//Default styles for created mobs.
 	default_hair = "Skrell Male Tentacles"
 	reagent_tag = PROCESS_ORG
+	butt_sprite = "skrell"
+
+	has_organ = list(
+		"heart" =    /obj/item/organ/internal/heart,
+		"lungs" =    /obj/item/organ/internal/lungs,
+		"liver" =    /obj/item/organ/internal/liver/skrell,
+		"kidneys" =  /obj/item/organ/internal/kidneys,
+		"brain" =    /obj/item/organ/internal/brain,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"eyes" =     /obj/item/organ/internal/eyes,
+		)
 
 	suicide_messages = list(
 		"is attempting to bite their tongue off!",
@@ -207,8 +251,8 @@
 /datum/species/vox
 	name = "Vox"
 	name_plural = "Vox"
-	icobase = 'icons/mob/human_races/r_vox.dmi'
-	deform = 'icons/mob/human_races/r_def_vox.dmi'
+	icobase = 'icons/mob/human_races/vox/r_vox.dmi'
+	deform = 'icons/mob/human_races/vox/r_def_vox.dmi'
 	path = /mob/living/carbon/human/vox
 
 	default_language = "Galactic Common"
@@ -253,22 +297,33 @@
 	flags = NO_SCAN | IS_WHITELISTED
 	clothing_flags = HAS_SOCKS
 	dietflags = DIET_OMNI
-	bodyflags = HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED
+	bodyflags = HAS_ICON_SKIN_TONE | HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED
 
 	blood_color = "#2299FC"
 	flesh_color = "#808D11"
 	//Default styles for created mobs.
 	default_hair = "Short Vox Quills"
+	default_hair_colour = "#614f19" //R: 97, G: 79, B: 25
+	butt_sprite = "vox"
 
 	reagent_tag = PROCESS_ORG
 	scream_verb = "shrieks"
 	male_scream_sound = 'sound/voice/shriek1.ogg'
 	female_scream_sound = 'sound/voice/shriek1.ogg'
 
+	icon_skin_tones = list(
+		1 = "Default Green",
+		2 = "Dark Green",
+		3 = "Brown",
+		4 = "Grey",
+		5 = "Emerald",
+		6 = "Azure"
+		)
+
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart,
 		"lungs" =    /obj/item/organ/internal/lungs,
-		"liver" =    /obj/item/organ/internal/liver,
+		"liver" =    /obj/item/organ/internal/liver/vox,
 		"kidneys" =  /obj/item/organ/internal/kidneys,
 		"brain" =    /obj/item/organ/internal/brain,
 		"appendix" = /obj/item/organ/internal/appendix,
@@ -312,12 +367,44 @@
 	if (H.internals)
 		H.internals.icon_state = "internal1"
 
-/*
 /datum/species/vox/handle_post_spawn(var/mob/living/carbon/human/H)
-	H.verbs += /mob/living/carbon/human/proc/leap
-	..() */
+	updatespeciescolor(H)
+	H.update_icons()
+	//H.verbs += /mob/living/carbon/human/proc/leap
+	..()
+
+/datum/species/vox/updatespeciescolor(var/mob/living/carbon/human/H) //Handling species-specific skin-tones for the Vox race.
+	if(H.species.name == "Vox") //Making sure we don't break Armalis.
+		switch(H.s_tone)
+			if(6) //Azure Vox.
+				icobase = 'icons/mob/human_races/vox/r_voxazu.dmi'
+				deform = 'icons/mob/human_races/vox/r_def_voxazu.dmi'
+				tail = "voxtail_azu"
+			if(5) //Emerald Vox.
+				icobase = 'icons/mob/human_races/vox/r_voxemrl.dmi'
+				deform = 'icons/mob/human_races/vox/r_def_voxemrl.dmi'
+				tail = "voxtail_emrl"
+			if(4) //Grey Vox.
+				icobase = 'icons/mob/human_races/vox/r_voxgry.dmi'
+				deform = 'icons/mob/human_races/vox/r_def_voxgry.dmi'
+				tail = "voxtail_gry"
+			if(3) //Brown Vox.
+				icobase = 'icons/mob/human_races/vox/r_voxbrn.dmi'
+				deform = 'icons/mob/human_races/vox/r_def_voxbrn.dmi'
+				tail = "voxtail_brn"
+			if(2) //Dark Green Vox.
+				icobase = 'icons/mob/human_races/vox/r_voxdgrn.dmi'
+				deform = 'icons/mob/human_races/vox/r_def_voxdgrn.dmi'
+				tail = "voxtail_dgrn"
+			else  //Default Green Vox.
+				icobase = 'icons/mob/human_races/vox/r_vox.dmi'
+				deform = 'icons/mob/human_races/vox/r_def_vox.dmi'
+				tail = "voxtail" //Ensures they get an appropriately coloured tail depending on the skin-tone.
+
+		H.update_dna()
 
 /datum/species/vox/armalis/handle_post_spawn(var/mob/living/carbon/human/H)
+	H.verbs += /mob/living/carbon/human/proc/leap
 	H.verbs += /mob/living/carbon/human/proc/gut
 	..()
 
@@ -395,6 +482,17 @@
 	dietflags = DIET_HERB
 	blood_color = "#FB9800"
 	reagent_tag = PROCESS_ORG
+	butt_sprite = "kidan"
+
+	has_organ = list(
+		"heart" =    /obj/item/organ/internal/heart,
+		"lungs" =    /obj/item/organ/internal/lungs,
+		"liver" =    /obj/item/organ/internal/liver/kidan,
+		"kidneys" =  /obj/item/organ/internal/kidneys,
+		"brain" =    /obj/item/organ/internal/brain,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"eyes" =     /obj/item/organ/internal/eyes,
+		)
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/diona)
 
@@ -427,6 +525,7 @@
 	reagent_tag = PROCESS_ORG
 	exotic_blood = "water"
 	//ventcrawler = 1 //ventcrawling commented out
+	butt_sprite = "slime"
 
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/slime
@@ -597,6 +696,17 @@
 	unarmed_type = /datum/unarmed_attack/punch
 	darksight = 5 // BOOSTED from 2
 	eyes = "grey_eyes_s"
+	butt_sprite = "grey"
+
+	has_organ = list(
+		"heart" =    /obj/item/organ/internal/heart,
+		"lungs" =    /obj/item/organ/internal/lungs,
+		"liver" =    /obj/item/organ/internal/liver/grey,
+		"kidneys" =  /obj/item/organ/internal/kidneys,
+		"brain" =    /obj/item/organ/internal/brain,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"eyes" =     /obj/item/organ/internal/eyes,
+		)
 
 	brute_mod = 1.25 //greys are fragile
 
@@ -661,6 +771,7 @@
 	body_temperature = T0C + 15		//make the plant people have a bit lower body temperature, why not
 	blood_color = "#004400"
 	flesh_color = "#907E4A"
+	butt_sprite = "diona"
 
 	reagent_tag = PROCESS_ORG
 
@@ -777,6 +888,7 @@
 	reagent_tag = PROCESS_SYN
 	male_scream_sound = 'sound/goonstation/voice/robot_scream.ogg'
 	female_scream_sound = 'sound/goonstation/voice/robot_scream.ogg'
+	butt_sprite = "machine"
 
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/mmi_holder/posibrain,

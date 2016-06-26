@@ -19,9 +19,6 @@ datum/game_mode/mutiny
 	required_players = 20
 	ert_disabled = 1
 
-	uplink_welcome = "Mutineers Uplink Console:"
-	uplink_uses = 0
-
 	New()
 		fluff = new(src)
 
@@ -227,7 +224,7 @@ datum/game_mode/mutiny
 		else if (!directives_completed && !ead_activated)
 			to_chat(world, fluff.mutineer_major_victory())
 
-		to_chat(world, sound('sound/machines/twobeep.ogg'))
+		world << sound('sound/machines/twobeep.ogg')
 
 	proc/update_all_icons()
 		spawn(0)

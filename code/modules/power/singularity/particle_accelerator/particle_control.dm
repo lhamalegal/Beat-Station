@@ -186,6 +186,7 @@
 				return 1
 	return 0
 
+
 /obj/machinery/particle_accelerator/control_box/proc/toggle_power()
 	src.active = !src.active
 	investigate_log("turned [active?"<font color='red'>ON</font>":"<font color='green'>OFF</font>"] by [usr ? usr.key : "outside forces"]","singulo")
@@ -239,8 +240,7 @@
 	popup.set_content(dat)
 	popup.set_title_image(user.browse_rsc_icon(src.icon, src.icon_state))
 	popup.open()
-	return
-	*/
+	return*/
 
 // Updated NanoUI
 
