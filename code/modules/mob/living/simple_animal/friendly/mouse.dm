@@ -156,7 +156,6 @@
 /mob/living/simple_animal/mouse/Charlie
 	name = "Charlie"
 	desc = "A cuddly mouse, apparently he's trying to drop a few squeaks."
-	icon_state = "mouse_mime"
 	mouse_color = "mime"
 	response_help = "pets"
 	response_disarm = "gently pushes aside"
