@@ -280,3 +280,8 @@
 /obj/item/projectile/bullet/cap/fire()
 	loc = null
 	qdel(src)
+
+/obj/item/projectile/bullet/fnfal
+	name = "fnfal bullet"
+	damage = 5
+	weaken = 2

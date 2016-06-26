@@ -33,6 +33,7 @@
 	T.date = current_date_string
 	T.time = worldtime2text()
 	T.source_terminal = machine_id
+	T.purpose = replace_special_characters(T.purpose)
 	return T
 
 /obj/machinery/computer/account_database/proc/accounting_letterhead(report_name)

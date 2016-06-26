@@ -187,6 +187,13 @@
 	caliber = ".45"
 	max_ammo = 8
 
+/obj/item/ammo_box/magazine/fnfal
+	name = "fn fal magazine (7.62)"
+	icon_state = "fnfal"
+	ammo_type = "/obj/item/ammo_casing/fnfal"
+	caliber = "7.62"
+	max_ammo = 20
+
 /obj/item/ammo_box/magazine/m45/update_icon()
 	..()
 	icon_state = "[initial(icon_state)]-[ammo_count() ? "8" : "0"]"

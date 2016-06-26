@@ -123,6 +123,13 @@
 	projectile_type = /obj/item/projectile/bullet/weakbullet/rubber
 	materials = list(MAT_METAL=250)
 
+/obj/item/ammo_casing/fnfal
+	name = "fn fal shot"
+	desc = "Special type of ammo used by FN FAL"
+	icon_state = "s-casing"
+	projectile_type = "/obj/item/projectile/bullet/fnfal"
+	caliber = "7.62"
+
 /obj/item/ammo_casing/shotgun/improvised
 	name = "improvised shell"
 	desc = "An extremely weak shotgun shell with multiple small pellets made out of metal shards."

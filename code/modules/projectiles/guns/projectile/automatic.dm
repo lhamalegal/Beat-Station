@@ -247,3 +247,15 @@
 /obj/item/weapon/gun/projectile/automatic/shotgun/bulldog/afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, flag)
 	..()
 	empty_alarm()
+
+/obj/item/weapon/gun/projectile/automatic/fnfal
+	name = "FN FAL Rifle"
+	w_class = 4.0
+	automatic = 1
+	can_suppress = 0
+	burst_size = 10
+	fire_delay = 1
+	action_button_name = "Toggle Firemode"
+	origin_tech = "combat=4;materials=3;syndicate=8"
+	icon_state = "fnfal"
+	mag_type = "/obj/item/ammo_box/magazine/fnfal"

@@ -188,3 +188,19 @@
 //Behavior for magazines
 /obj/item/ammo_box/magazine/proc/ammo_count()
 	return stored_ammo.len
+
+/obj/item/fnfalammo
+	name = "FN FAL bullet casing"
+	desc = "A specific kind of bullet casing used by FN FAL rifles"
+	icon = 'icons/obj/ammo.dmi'
+	icon_state = "s-casing"
+	flags = CONDUCT
+	slot_flags = SLOT_BELT
+	throwforce = 1.0
+	w_class = 1.0
+	var/caliber = ""
+	var/projectile_type = ""
+	var/obj/item/projectile/BB = null
+	var/pellets = 1
+	var/deviation = 0
+	var/spread = 0

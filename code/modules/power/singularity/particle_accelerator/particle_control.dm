@@ -37,8 +37,9 @@
 	return src.attack_hand(user)
 
 /obj/machinery/particle_accelerator/control_box/attack_hand(mob/user as mob)
+	add_fingerprint(user)
 	if(construction_state >= 3)
-		interact(user)
+		ui_interact(user)
 	else if(construction_state == 2) // Wires exposed
 		wires.Interact(user)
 
@@ -80,38 +81,6 @@
 				else
 					icon_state = "[reference]c"
 	return
-
-/obj/machinery/particle_accelerator/control_box/Topic(href, href_list)
-	if(..(href, href_list))
-		return 1
-
-	if(!interface_control)
-		to_chat(usr, "<span class='error'>ERROR: Request timed out. Check wire contacts.</span>")
-		return
-
-	if( href_list["close"] )
-		usr << browse(null, "window=pacontrol")
-		usr.unset_machine()
-		return
-	if(href_list["togglep"])
-		if(!wires.IsIndexCut(PARTICLE_TOGGLE_WIRE))
-			src.toggle_power()
-
-	else if(href_list["scan"])
-		src.part_scan()
-
-	else if(href_list["strengthup"])
-		if(!wires.IsIndexCut(PARTICLE_STRENGTH_WIRE))
-			add_strength()
-
-	else if(href_list["strengthdown"])
-		if(!wires.IsIndexCut(PARTICLE_STRENGTH_WIRE))
-			remove_strength()
-
-	src.updateDialog()
-	src.update_icon()
-	return
-
 
 /obj/machinery/particle_accelerator/control_box/proc/strength_change()
 	for(var/obj/structure/particle_accelerator/part in connected_parts)
@@ -239,7 +208,7 @@
 			part.update_icon()
 	return 1
 
-
+/* Outdated PA UI
 /obj/machinery/particle_accelerator/control_box/interact(mob/user)
 	if(((get_dist(src, user) > 1) && !isobserver(user)) || (stat & (BROKEN|NOPOWER)))
 		if(!istype(user, /mob/living/silicon))
@@ -271,4 +240,47 @@
 	popup.set_content(dat)
 	popup.set_title_image(user.browse_rsc_icon(src.icon, src.icon_state))
 	popup.open()
-	return
+	return*/
+
+// Updated NanoUI
+
+/obj/machinery/particle_accelerator/control_box/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	var/data[0]
+	if(assembled)
+		data["connection"] = "All parts in place."
+	else
+		data["connection"] = "Unable to detect all parts!"
+	data["assembled"] = assembled
+	data["active"] = active
+	data["power"] = strength
+
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
+	if (!ui)
+		ui = new(user, src, ui_key, "control_box.tmpl", "Particle Accelerator UI", 540, 450)
+		ui.set_initial_data(data)
+		ui.open()
+
+/obj/machinery/particle_accelerator/control_box/Topic(href, href_list)
+	if(..())
+		return 1
+
+	if(!interface_control)
+		to_chat(usr, "<span class='error'>ERROR: Request timed out. Check wire contacts.</span>")
+		return
+
+	if(href_list["toggle"])
+		if(!wires.IsIndexCut(PARTICLE_TOGGLE_WIRE))
+			src.toggle_power()
+
+	if(href_list["scan"])
+		part_scan()
+
+	if(href_list["strengthup"])
+		if(!wires.IsIndexCut(PARTICLE_STRENGTH_WIRE))
+			add_strength()
+
+	if(href_list["strengthdown"])
+		if(!wires.IsIndexCut(PARTICLE_STRENGTH_WIRE))
+			remove_strength()
+
+	nanomanager.update_uis(src)

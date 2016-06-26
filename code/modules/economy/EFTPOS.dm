@@ -151,6 +151,7 @@
 					to_chat(usr, "[bicon(src)]<span class='warning'>Unable to connect to accounts database.</span>")
 			if("trans_purpose")
 				var/purpose = input("Enter reason for EFTPOS transaction", "Transaction purpose") as text|null
+				purpose = replace_special_characters(purpose)
 				if(purpose)
 					transaction_purpose = purpose
 			if("trans_value")
