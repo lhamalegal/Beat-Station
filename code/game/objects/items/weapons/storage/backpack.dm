@@ -20,23 +20,6 @@
 		"Vox" = 'icons/mob/species/vox/back.dmi'
 		)
 
-/obj/item/weapon/storage/ultrapack //Because the admin toolbelt wasn't enough.
-    name = "ultrapack"
-    desc = "A ultra sized backpack used by admins."
-    icon_state = "backpack"
-    item_state = "backpack"
-    lefthand_file = "icons/mob/inhands/clothing_lefthand.dmi"
-    righthand_file = "icons/mob/inhands/clothing_righthand.dmi"
-    w_class = 1.0
-    slot_flags = SLOT_BACK
-    max_w_class = 3
-    max_combined_w_class = 9000
-    storage_slots = 9000
-    species_fit = list ("Vox")
-    sprite_sheets = list (
-    "Vox" = "icons/mob/species/vox/back.dmi"
-    )
-
 /obj/item/weapon/storage/backpack/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	playsound(src.loc, "rustle", 50, 1, -5)
 	..()

@@ -40,66 +40,30 @@
 	if(istype(W, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = W
 		if(WT.isOn())//Badasses dont get blinded while lighting their cig with a welding tool
-			if(istype(src, /obj/item/flag/nt))
-				for(var/obj/item/F in user.contents)
-					if(istype(F, /obj/item/weapon/implant/loyalty))
-						to_chat(user, "You try to burn the flag, but some force prevents you!")
-						return
 			light("<span class='notice'>[user] casually lights the [name] with [W], what a badass.</span>")
-			message_admins("Flag litted by [key_name_admin(user)] in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
 
 	else if(istype(W, /obj/item/weapon/lighter/zippo))
 		var/obj/item/weapon/lighter/zippo/Z = W
 		if(Z.lit)
-			if(istype(src, /obj/item/flag/nt))
-				for(var/obj/item/F in user.contents)
-					if(istype(F, /obj/item/weapon/implant/loyalty))
-						to_chat(user, "You try to burn the flag, but some force prevents you!")
-						return
 			light("<span class='rose'>With a single flick of their wrist, [user] smoothly lights the [name] with their [W]. Damn they're cool.</span>")
-			message_admins("Flag litted by [key_name_admin(user)] in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
 
 	else if(istype(W, /obj/item/weapon/lighter))
 		var/obj/item/weapon/lighter/L = W
 		if(L.lit)
-			if(istype(src, /obj/item/flag/nt))
-				for(var/obj/item/F in user.contents)
-					if(istype(F, /obj/item/weapon/implant/loyalty))
-						to_chat(user, "You try to burn the flag, but some force prevents you!")
-						return
 			light("<span class='notice'>After some fiddling, [user] manages to light the [name] with [W].</span>")
-			message_admins("Flag litted by [key_name_admin(user)] in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
 
 	else if(istype(W, /obj/item/weapon/match))
 		var/obj/item/weapon/match/M = W
 		if(M.lit)
-			if(istype(src, /obj/item/flag/nt))
-				for(var/obj/item/F in user.contents)
-					if(istype(F, /obj/item/weapon/implant/loyalty))
-						to_chat(user, "You try to burn the flag, but some force prevents you!")
-						return
 			light("<span class='notice'>[user] lights the [name] with their [W].</span>")
-			message_admins("Flag litted by [key_name_admin(user)] in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
 
 	else if(istype(W, /obj/item/weapon/melee/energy/sword/saber))
 		var/obj/item/weapon/melee/energy/sword/saber/S = W
 		if(S.active)
-			if(istype(src, /obj/item/flag/nt))
-				for(var/obj/item/F in user.contents)
-					if(istype(F, /obj/item/weapon/implant/loyalty))
-						to_chat(user, "You try to burn the flag, but some force prevents you!")
-						return
 			light("<span class='warning'>[user] swings their [W], barely missing their nose. They light the [name] in the process.</span>")
-			message_admins("Flag litted by [key_name_admin(user)] in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
 
 	else if(istype(W, /obj/item/device/assembly/igniter))
-		if(istype(src, /obj/item/flag/nt))
-			for(var/obj/item/F in user.contents)
-				if(istype(F, /obj/item/weapon/implant/loyalty))
-					to_chat(user, "You try to burn the flag, but some force prevents you!")
-					return
 		light("<span class='notice'>[user] fiddles with [W], and manages to light the [name].</span>")
-		message_admins("Flag litted by [key_name_admin(user)] in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
 
 /obj/item/flag/proc/light(var/flavor_text = "[usr] lights the [name].")
 	if(!src.lit)
