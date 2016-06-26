@@ -2,9 +2,9 @@
 	name = "goose"
 	real_name = "goose"
 	desc = "It's a goose!"
-	icon_state = "goose"
-	icon_living = "goose"
-	icon_dead = "goose_dead"
+	icon_state = "goose_normal"
+	icon_living = "goose_normal"
+	icon_dead = "goose_normal_dead"
 	speak = list("fuck this shit")
 	speak_emote = list("flaps")
 	emote_hear = list("flaps")
@@ -79,8 +79,6 @@
 	if(goose_type == "clown")
 		desc = "HONK is dead."
 	layer = MOB_LAYER
-	if(client)
-		client.time_died_as_mouse = world.time
 	..()
 
 /mob/living/simple_animal/goose/clown
