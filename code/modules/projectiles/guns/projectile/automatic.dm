@@ -251,7 +251,6 @@
 /obj/item/weapon/gun/projectile/automatic/fnfal
 	name = "FN FAL Rifle"
 	w_class = 4.0
-	automatic = 1
 	can_suppress = 0
 	burst_size = 10
 	fire_delay = 1
