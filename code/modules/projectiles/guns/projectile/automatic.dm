@@ -257,4 +257,4 @@
 	action_button_name = "Toggle Firemode"
 	origin_tech = "combat=4;materials=3;syndicate=8"
 	icon_state = "fnfal"
-	mag_type = "/obj/item/ammo_box/magazine/fnfal"
+	mag_type = /obj/item/ammo_box/magazine/fnfal
