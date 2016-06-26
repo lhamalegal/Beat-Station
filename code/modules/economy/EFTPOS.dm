@@ -151,6 +151,7 @@
 					to_chat(usr, "\icon[src]<span class='warning'>Unable to connect to accounts database.</span>")
 			if("trans_purpose")
 				var/purpose = input("Enter reason for EFTPOS transaction", "Transaction purpose") as text|null
+				purpose = replace_special_characters(purpose)
 				if(purpose)
 					transaction_purpose = purpose
 			if("trans_value")
@@ -215,6 +216,7 @@
 						var/datum/transaction/T = new()
 						T.target_name = "[linked_account.owner_name] (via [eftpos_name])"
 						T.purpose = transaction_purpose
+						T.purpose = replace_special_characters(T.purpose)
 						if(transaction_amount > 0)
 							T.amount = "([transaction_amount])"
 						else

@@ -119,6 +119,7 @@
 
 /datum/data/pda/app/messenger/proc/create_message(var/mob/living/U, var/obj/item/device/pda/P)
 	var/t = input(U, "Please enter message", name, null) as text|null
+	t = replace_special_characters(t)
 	if(!t)
 		return
 	t = sanitize(copytext(t, 1, MAX_MESSAGE_LEN))

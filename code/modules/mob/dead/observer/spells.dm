@@ -22,30 +22,37 @@ var/global/list/boo_phrases=list(
 	clothes_req = 0
 	invocation = ""
 	invocation_type = "none"
-	range = 1 // Or maybe 3?
+	range = 0 // Or maybe 3?
 
 /obj/effect/proc_holder/spell/aoe_turf/boo/cast(list/targets)
-	for(var/turf/T in targets)
-		for(var/atom/A in T.contents)
-
+	var/area/A = get_area(src)
+	for(var/turf/T in A.contents)
+		for(var/atom/AT in T.contents)
 			// Bug humans
-			if(ishuman(A))
-				var/mob/living/carbon/human/H = A
+			if(ishuman(AT))
+				var/mob/living/carbon/human/H = AT
 				if(H && H.client)
 					to_chat(H, "<i>[pick(boo_phrases)]</i>")
 
 			// Flicker unblessed lights in range
-			if(istype(A,/obj/machinery/light))
-				var/obj/machinery/light/L = A
+			if(istype(AT,/obj/machinery/light))
+				var/obj/machinery/light/L = AT
 				if(L)
 					L.flicker()
 
 			// OH GOD BLUE APC (single animation cycle)
-			if(istype(A, /obj/machinery/power/apc))
-				A:spookify()
+			if(istype(AT, /obj/machinery/power/apc))
+				AT:spookify()
 
-			if(istype(A, /obj/machinery/status_display))
-				A:spookymode=1
+			if(istype(AT, /obj/machinery/status_display))
+				AT:spookymode=1
 
-			if(istype(A, /obj/machinery/ai_status_display))
-				A:spookymode=1
+			if(istype(AT, /obj/machinery/ai_status_display))
+				AT:spookymode=1
+
+			// Turn flashlights off
+			if(istype(AT, /obj/item/device/flashlight))
+				var/obj/item/device/flashlight/F = AT
+				F.on = 0
+				F.icon_state = initial(F.icon_state)
+				F.set_light(0)

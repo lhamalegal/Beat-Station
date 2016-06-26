@@ -37,6 +37,7 @@
 	icon_state = "voxmask"
 	item_state = "voxmask"
 	permeability_coefficient = 0.01
-	species_restricted = list("Vox")
+	species_restricted = list("Vox", "Vox Armalis")
+	species_fit = list("Vox", "Vox Armalis")
 	action_button_name = null
 	ignore_maskadjust = 1

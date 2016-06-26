@@ -439,6 +439,7 @@
 					//Select Your Name
 					if("Sender")
 						customsender 	= input(usr, "Please enter the sender's name.") as text|null
+						customsender = replace_special_characters(customsender)
 
 					//Select Receiver
 					if("Recepient")
@@ -458,11 +459,13 @@
 					//Enter custom job
 					if("RecJob")
 						customjob	 	= input(usr, "Please enter the sender's job.") as text|null
+						customjob = replace_special_characters(customjob)
 
 					//Enter message
 					if("Message")
 						custommessage	= input(usr, "Please enter your message.") as text|null
 						custommessage	= sanitize(copytext(custommessage, 1, MAX_MESSAGE_LEN))
+						custommessage = replace_special_characters(custommessage)
 
 					//Send message
 					if("Send")

@@ -31,7 +31,7 @@
 /obj/item/weapon/gun/syringe/examine(mob/user)
 	..(user)
 	to_chat(user, "Can hold [max_syringes] syringe\s. Has [syringes.len] syringe\s remaining.")
-	
+
 /obj/item/weapon/gun/syringe/attack_self(mob/living/user as mob)
 	if(!syringes.len)
 		to_chat(user, "<span class='notice'>[src] is empty.</span>")
@@ -64,7 +64,7 @@
 	desc = "A modification of the syringe gun design, using a rotating cylinder to store up to six syringes."
 	icon_state = "rapidsyringegun"
 	max_syringes = 6
-	
+
 /obj/item/weapon/gun/syringe/syndicate
 	name = "dart pistol"
 	desc = "A small spring-loaded sidearm that functions identically to a syringe gun."

@@ -57,6 +57,7 @@
 	switch(href_list["choice"])
 		if("Edit")
 			var/n = input("Please enter message", name, notehtml) as message
+			n = replace_special_characters(n)
 			if(pda.loc == usr)
 				note = adminscrub(n)
 				notehtml = html_decode(note)

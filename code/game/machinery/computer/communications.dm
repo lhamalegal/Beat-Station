@@ -205,11 +205,15 @@
 			setMenuState(usr,COMM_SCREEN_STAT)
 
 		if("setmsg1")
-			stat_msg1 = input("Line 1", "Enter Message Text", stat_msg1) as text|null
+			var/input = input("Line 1", "Enter Message Text", stat_msg1)
+			input = replace_special_characters(input)
+			stat_msg1 = input
 			setMenuState(usr,COMM_SCREEN_STAT)
 
 		if("setmsg2")
-			stat_msg2 = input("Line 2", "Enter Message Text", stat_msg2) as text|null
+			var/input = input("Line 2", "Enter Message Text", stat_msg2)
+			input = replace_special_characters(input)
+			stat_msg2 = input
 			setMenuState(usr,COMM_SCREEN_STAT)
 
 		if("nukerequest")

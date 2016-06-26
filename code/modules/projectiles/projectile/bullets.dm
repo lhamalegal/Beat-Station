@@ -8,6 +8,11 @@
 	embed = 1
 	sharp = 1
 
+/obj/item/projectile/bullet/fnfal
+    name = "fnfal bullet"
+    damage = 0.5
+    weaken = 2
+
 /obj/item/projectile/bullet/cap
 	name = "cap"
 	damage = 0
