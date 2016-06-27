@@ -23,8 +23,6 @@
 		else if(response == "No")
 			return
 	*/
-	if(istype(usr, /mob/living/simple_animal/mouse/Charlie/))
-		return
 	set_typing_indicator(0)
 	usr.say(message)
 
