@@ -164,7 +164,7 @@
 	..()
 	desc = "A cuddly mouse, apparently he's trying to drop a few squeaks."
 
-/mob/living/simple_animal/mouse/Charlie/proc/splat()
+/mob/living/simple_animal/mouse/Charlie/splat()
 	src.health = 0
 	src.stat = DEAD
 	src.icon_dead = "mouse_[mouse_color]_dead"
@@ -175,7 +175,7 @@
 
 /mob/living/simple_animal/mouse/Charlie/Crossed(AM as mob|obj)
 	return
-	
+
 /mob/living/simple_animal/mouse/Charlie/death()
 	desc = "A minute of silence please."
 	..()
