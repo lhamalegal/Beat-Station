@@ -35,8 +35,6 @@
 
 /mob/living/simple_animal/mouse/handle_automated_speech()
 	..()
-	if(mouse_color == "mime")
-		return
 	if(prob(speak_chance))
 		for(var/mob/M in view())
 			M << 'sound/effects/mousesqueek.ogg'
@@ -67,19 +65,13 @@
 	icon_state = "mouse_[mouse_color]"
 	icon_living = "mouse_[mouse_color]"
 	icon_dead = "mouse_[mouse_color]_dead"
-	if(mouse_color == "mime")
-		desc = "A cuddly mouse, apparently he's trying to drop a few squeaks."
-		return
 	desc = "It's a small [mouse_color] rodent, often seen hiding in maintenance areas and making a nuisance of itself."
 
 /mob/living/simple_animal/mouse/proc/splat()
 	src.health = 0
 	src.stat = DEAD
 	src.icon_dead = "mouse_[mouse_color]_splat"
-	src.icon_state = "mouse_[mouse_color]_splat"
-	if(istype(src, /mob/living/simple_animal/mouse/Charlie))
-		src.icon_dead = "mouse_[mouse_color]_dead"
-		src.icon_state = "mouse_[mouse_color]_dead"
+	src.icon_state = src.icon_dead
 	layer = MOB_LAYER
 	if(client)
 		client.time_died_as_mouse = world.time
@@ -119,8 +111,6 @@
 /mob/living/simple_animal/mouse/Crossed(AM as mob|obj)
 	if( ishuman(AM) )
 		if(!stat)
-			if(mouse_color == "mime")
-				return
 			var/mob/M = AM
 			to_chat(M, "\blue [bicon(src)] Squeek!")
 			M << 'sound/effects/mousesqueek.ogg'
@@ -169,3 +159,25 @@
 	emote_hear = list()
 	emote_see = list("runs in a circle", "shakes", "scritches at something")
 	speak_chance = 0
+
+/mob/living/simple_animal/mouse/New()
+	..()
+	desc = "A cuddly mouse, apparently he's trying to drop a few squeaks."
+
+/mob/living/simple_animal/mouse/Charlie/proc/splat()
+	src.health = 0
+	src.stat = DEAD
+	src.icon_dead = "mouse_[mouse_color]_dead"
+	src.icon_state = "mouse_[mouse_color]_dead"
+	layer = MOB_LAYER
+	if(client)
+		client.time_died_as_mouse = world.time
+
+/mob/living/simple_animal/mouse/Charlie/Crossed(AM as mob|obj)
+	return
+	
+/mob/living/simple_animal/mouse/Charlie/death()
+	desc = "A minute of silence please."
+	..()
+/mob/living/simple_animal/mouse/Charlie/say_verb(message as text)
+	return

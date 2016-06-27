@@ -32,12 +32,6 @@
 	can_collar = 1
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
-/mob/living/simple_animal/goose/clown/handle_automated_speech()
-	..()
-	if(prob(speak_chance))
-		for(var/mob/M in view())
-			custom_emote(1, pick("honks.","honks!"))
-			M << 'sound/items/bikehorn.ogg'
 
 /mob/living/simple_animal/goose/Life()
 	. = ..()
@@ -48,6 +42,40 @@
 			wander = 1
 		else if(prob(5))
 			emote("snuffles")
+
+/mob/living/simple_animal/goose/New()
+	..()
+
+/mob/living/simple_animal/goose/death()
+	layer = MOB_LAYER
+	..()
+
+/mob/living/simple_animal/goose/clown
+	name = "Gonk"
+	desc = "Says the legends that goose ate a bicycle horn, this explains why it is so annoying."
+	goose_type = "clown"
+	response_help = "honks"
+	response_disarm = "gently pushes aside"
+	response_harm   = "splats"
+	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	speak = list("Honk!","HONK!","Honk?")
+	speak_emote = list("honks")
+	emote_hear = list("honks")
+	emote_see = list("runs in a honk", "honks", "honks at something")
+
+/mob/living/simple_animal/goose/clown/New()
+	..()
+
+/mob/living/simple_animal/goose/clown/death()
+	desc = "HONK is dead."
+	..()
+
+/mob/living/simple_animal/goose/clown/handle_automated_speech()
+	..()
+	if(prob(speak_chance))
+		for(var/mob/M in view())
+			custom_emote(1, pick("honks.","honks!"))
+			M << 'sound/items/bikehorn.ogg'
 
 /mob/living/simple_animal/goose/clown/process_ai()
 	..()
@@ -101,35 +129,3 @@
 			custom_emote(1, pick("honks.","honks!"))
 			for(var/mob/M in view())
 				M << 'sound/items/bikehorn.ogg'
-
-/mob/living/simple_animal/goose/New()
-	..()
-	if(!goose_type)
-		goose_type = "normal"
-	icon_state = "goose_[goose_type]"
-	icon_living = "goose_[goose_type]"
-	icon_dead = "goose_[goose_type]_dead"
-	if(goose_type == "clown")
-		desc = "Says the legends that goose ate a bicycle horn, this explains why it is so annoying."
-	else
-		desc = "It's a goose!"
-
-/mob/living/simple_animal/goose/death()
-	if(goose_type == "clown")
-		desc = "HONK is dead."
-	layer = MOB_LAYER
-	..()
-
-/mob/living/simple_animal/goose/clown
-	name = "Gonk"
-	desc = "Says the legends that goose ate a bicycle horn, this explains why it is so annoying."
-	goose_type = "clown"
-	response_help = "honks"
-	response_disarm = "gently pushes aside"
-	response_harm   = "splats"
-	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
-	speak = list("Honk!","HONK!","Honk?")
-	speak_emote = list("honks")
-	emote_hear = list("honks")
-	emote_see = list("runs in a honk", "honks", "honks at something")
-
