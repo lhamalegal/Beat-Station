@@ -9,7 +9,7 @@
 	speak_emote = list("squeeks","squeeks","squiks")
 	emote_hear = list("squeeks","squeaks","squiks")
 	emote_see = list("runs in a circle", "shakes", "scritches at something")
-	small = 1
+	small = 0
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
@@ -35,6 +35,8 @@
 
 /mob/living/simple_animal/mouse/handle_automated_speech()
 	..()
+	if(mouse_color == "mime")
+		return
 	if(prob(speak_chance))
 		for(var/mob/M in view())
 			M << 'sound/effects/mousesqueek.ogg'
@@ -65,6 +67,9 @@
 	icon_state = "mouse_[mouse_color]"
 	icon_living = "mouse_[mouse_color]"
 	icon_dead = "mouse_[mouse_color]_dead"
+	if(mouse_color == "mime")
+		desc = "A cuddly mouse, apparently he's trying to drop a few squeaks."
+		return
 	desc = "It's a small [mouse_color] rodent, often seen hiding in maintenance areas and making a nuisance of itself."
 
 /mob/living/simple_animal/mouse/proc/splat()
@@ -72,6 +77,9 @@
 	src.stat = DEAD
 	src.icon_dead = "mouse_[mouse_color]_splat"
 	src.icon_state = "mouse_[mouse_color]_splat"
+	if(istype(src, /mob/living/simple_animal/mouse/Charlie))
+		src.icon_dead = "mouse_[mouse_color]_dead"
+		src.icon_state = "mouse_[mouse_color]_dead"
 	layer = MOB_LAYER
 	if(client)
 		client.time_died_as_mouse = world.time
@@ -111,6 +119,8 @@
 /mob/living/simple_animal/mouse/Crossed(AM as mob|obj)
 	if( ishuman(AM) )
 		if(!stat)
+			if(mouse_color == "mime")
+				return
 			var/mob/M = AM
 			to_chat(M, "\blue [bicon(src)] Squeek!")
 			M << 'sound/effects/mousesqueek.ogg'
@@ -138,7 +148,6 @@
 	mouse_color = "brown"
 	icon_state = "mouse_brown"
 
-//TOM IS ALIVE! SQUEEEEEEEE~K :)
 /mob/living/simple_animal/mouse/brown/Tom
 	name = "Tom"
 	desc = "Jerry the cat is not amused."
@@ -146,3 +155,17 @@
 	response_disarm = "gently pushes aside"
 	response_harm   = "splats"
 	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+
+/mob/living/simple_animal/mouse/Charlie
+	name = "Charlie"
+	desc = "A cuddly mouse, apparently he's trying to drop a few squeaks."
+	mouse_color = "mime"
+	response_help = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "splats"
+	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	speak = list()
+	speak_emote = list()
+	emote_hear = list()
+	emote_see = list("runs in a circle", "shakes", "scritches at something")
+	speak_chance = 0
