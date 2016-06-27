@@ -169,6 +169,3 @@
 	emote_hear = list()
 	emote_see = list("runs in a circle", "shakes", "scritches at something")
 	speak_chance = 0
-
-/mob/living/simple_animal/mouse/Charlie/verb/say_verb(message as text)
-	return

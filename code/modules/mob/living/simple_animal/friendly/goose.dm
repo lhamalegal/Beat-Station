@@ -36,6 +36,7 @@
 	..()
 	if(prob(speak_chance))
 		for(var/mob/M in view())
+			custom_emote(1, pick("honks.","honks!"))
 			M << 'sound/items/bikehorn.ogg'
 
 /mob/living/simple_animal/goose/Life()
@@ -48,14 +49,58 @@
 		else if(prob(5))
 			emote("snuffles")
 
-/mob/living/simple_animal/goose/process_ai()
+/mob/living/simple_animal/goose/clown/process_ai()
 	..()
 
-	if(prob(0.5))
-		stat = UNCONSCIOUS
-		icon_state = "goose_[goose_type]_dead"
-		wander = 0
-		speak_chance = 0
+	//Feeding, chasing food, FOOOOODDDD
+	if(!resting && !buckled)
+		turns_since_scan++
+		if(turns_since_scan > 5)
+			turns_since_scan = 0
+			if((movement_target) && !(isturf(movement_target.loc) || ishuman(movement_target.loc) ))
+				movement_target = null
+				stop_automated_movement = 0
+			if( !movement_target || !(movement_target.loc in oview(src, 3)) )
+				movement_target = null
+				stop_automated_movement = 0
+				for(var/obj/item/weapon/reagent_containers/food/snacks/grown/banana/B in oview(src,3))
+					if(isturf(B.loc) || ishuman(B.loc))
+						movement_target = B
+						break
+			if(movement_target)
+				spawn(0)
+					stop_automated_movement = 1
+					step_to(src,movement_target,1)
+					sleep(3)
+					step_to(src,movement_target,1)
+					sleep(3)
+					step_to(src,movement_target,1)
+
+					if(movement_target)		//Not redundant due to sleeps, Item can be gone in 6 decisecomds
+						if (movement_target.loc.x < src.x)
+							dir = WEST
+						else if (movement_target.loc.x > src.x)
+							dir = EAST
+						else if (movement_target.loc.y < src.y)
+							dir = SOUTH
+						else if (movement_target.loc.y > src.y)
+							dir = NORTH
+						else
+							dir = SOUTH
+
+						if(!Adjacent(movement_target)) //can't reach food through windows.
+							return
+
+						if(isturf(movement_target.loc) )
+							movement_target.attack_animal(src)
+						else if(ishuman(movement_target.loc) )
+							if(prob(20))
+								custom_emote(1, "stares at [movement_target.loc]'s [movement_target] with a sad puppy-face")
+
+		if(prob(1))
+			custom_emote(1, pick("honks.","honks!"))
+			for(var/mob/M in view())
+				M << 'sound/items/bikehorn.ogg'
 
 /mob/living/simple_animal/goose/New()
 	..()
@@ -87,3 +132,4 @@
 	speak_emote = list("honks")
 	emote_hear = list("honks")
 	emote_see = list("runs in a honk", "honks", "honks at something")
+

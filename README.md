@@ -1,6 +1,6 @@
 # Beat!Station
 
-It's based on [Paradise Station](https://github.com/ParadiseSS13/Paradise) - This is the customized code we use at Brazilian Station server on BYOND. I've made some modifications, so i'm uploading the source. Enjoy.
+It's based on [Paradise Station](https://github.com/ParadiseSS13/Paradise) and [Goon Station] (https://github.com/goonstation/goonstation-2016) - This is the customized code we use at Brazilian Station server on BYOND. I've made some modifications, so i'm uploading the source. Enjoy.
 
 # Information
 This is a code used in a Brazilian server. Everyone is welcome to contribute though.
