@@ -43,12 +43,6 @@
 		else if(prob(5))
 			emote("snuffles")
 
-/mob/living/simple_animal/goose/New()
-	..()
-
-/mob/living/simple_animal/goose/death()
-	layer = MOB_LAYER
-	..()
 
 /mob/living/simple_animal/goose/clown
 	name = "Gonk"
@@ -67,9 +61,6 @@
 	emote_see = list("runs in a honk", "honks", "honks at something")
 	var/turns_since_scan = 0
 	var/obj/movement_target
-
-/mob/living/simple_animal/goose/clown/New()
-	..()
 
 /mob/living/simple_animal/goose/clown/death()
 	desc = "HONK is dead."
