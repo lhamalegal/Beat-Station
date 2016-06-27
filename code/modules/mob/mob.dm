@@ -1276,6 +1276,8 @@ mob/proc/yank_out_object()
 	if((usr in respawnable_list) && (stat==2 || istype(usr,/mob/dead/observer)))
 		var/list/creatures = list("Mouse")
 		for(var/mob/living/L in living_mob_list)
+			if(istype(L, /mob/living/simple_animal/mouse/Charlie)) //This doesn't make much sense the list only has a string "Mouse" Charlie never enters the list even 
+				creatures -= L
 			if(safe_respawn(L.type) && L.stat!=2)
 				if(!L.key)
 					creatures += L

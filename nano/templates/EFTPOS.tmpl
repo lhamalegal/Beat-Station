@@ -1,0 +1,81 @@
+<div class='item'>
+	 <h2>{{:data.eftpos_name}}</h2>
+</div>
+<span class='exclamation-triangle'><i>This terminal is {{:data.machine_id}}. Report this code when contacting Nanotrasen IT Support</i></span><br>
+{{if data.transation_locked}}
+	{{if data.transaction_paid}}}
+		{{:helper.link('Reset', 'repeat', {'choice' : 'toggle_lock'})}}
+	{{else}}
+		{{:helper.link('Reset (authentication required)', 'key', {'choice' : 'toggle_lock'})}}
+	{{/if}}<br>
+	<div class='itemLabel'>
+		Transaction purpose:
+	</div> 
+	<div class='itemContent'>
+		<b>{{:data.transaction_purpose}}</b><br>
+	</div>
+	
+	<div class='itemLabel'>
+		Value:
+	</div> 
+	<div class='itemContent'>
+		<b>${{:data.transaction_amount}}</b><br>
+	</div>
+	
+	<div class='itemLabel'>
+		Linked account:
+	</div>
+	<div class='itemContent'>
+		{{if data.linked_account}}
+			<b>{{:data.linked_account_owner_name}}</b>
+		{{else}}
+			<b>None</b>
+		{{/if}}
+	</div><br><hr>
+	{{if data.transaction_paid}}
+		<span class='exclamation-triangle'><i>This transaction has been processed successfully.</i></span><hr>
+	{{else}}
+		<div class='itemLabel'>
+			<span class='exclamation-triangle'><i>Swipe your card below the line to finish this transaction.</i></span><hr>
+		</div>
+		<div class='itemContent'>
+			{{:helper.link('------', 'eject', {'choice' : 'scan_card'})}}
+		</div>
+	{{/if}}
+{{else}}
+	{{:helper.link('Lock in new transaction', 'lock', {'choice' : 'toggle_lock'})}}<br><hr>
+	<div class='itemLabel'>
+	Transaction purpose:
+	</div>
+	<div class='itemContent'>
+	{{:helper.link(data.transaction_purpose, 'info', {'choice' : 'trans_purpose'})}}
+	</div>
+	<br>
+	
+	<div class='itemLabel'>
+	Value:
+	</div>
+	<div class='itemContent'>
+	{{:helper.link(data.transaction_amount, 'usd', {'choice' : 'trans_value'})}}
+	</div>
+	<br>
+	
+	<div class='itemLabel'>
+	Linked account:
+	</div>
+	<div class='itemContent'>
+	{{:helper.link(data.linked_account ? data.linked_account_owner_name : 'None', data.linked_account ? 'user' : 'close', {'choice' : 'link_account'})}}
+	</div>
+	<br><br>
+	<hr>
+	
+	<div class='itemLabel'>
+		{{:helper.link('Change access code', 'key', {'choice' : 'change_code'})}}
+	</div><br><br>
+	<div class='itemLabel'>
+		{{:helper.link('Change EFTPOS ID', 'key', {'choice' : 'change_id'})}}
+	</div><br><br>
+	<div class='itemLabel'>
+		{{:helper.link('Scan card to reset acess code', 'key', {'choice' : 'reset'})}}
+	</div>
+{{/if}}

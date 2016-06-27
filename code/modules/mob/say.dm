@@ -23,7 +23,6 @@
 		else if(response == "No")
 			return
 	*/
-
 	set_typing_indicator(0)
 	usr.say(message)
 

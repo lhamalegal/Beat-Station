@@ -66,12 +66,18 @@
 		light("<span class='notice'>[user] fiddles with [W], and manages to light the [name].</span>")
 
 /obj/item/flag/proc/light(var/flavor_text = "[usr] lights the [name].")
+	if(istype(src, /obj/item/flag/nt))
+		for(var/obj/item/F in usr.contents)
+			if(istype(F, /obj/item/weapon/implant/loyalty))
+				to_chat(usr, "You try to burn the flag, but some force prevents you!")
+				return
 	if(!src.lit)
 		src.lit = 1
 		var/turf/T = get_turf(src)
 		T.visible_message(flavor_text)
 		update_icons()
 		processing_objects.Add(src)
+		message_admins("Flag litted by [key_name_admin(usr)] in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
 
 /obj/item/flag/proc/update_icons()
 	overlays = null

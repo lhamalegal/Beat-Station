@@ -374,6 +374,10 @@
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/butterfly))
 		return 1
+	if(ispath(MP, /mob/living/simple_animal/goose/clown))
+		return 1
+	if(ispath(MP, /mob/living/simple_animal/mouse/Charlie))
+		return 1
 
 	if(ispath(MP, /mob/living/simple_animal/borer) && !jobban_isbanned(src, ROLE_BORER) && !jobban_isbanned(src, "Syndicate"))
 		return 1
