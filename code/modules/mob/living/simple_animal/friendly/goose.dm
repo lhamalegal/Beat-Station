@@ -22,7 +22,7 @@
 	density = 0
 	ventcrawler = 2
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
-	var/goose_type
+	var/goose_type //This variable is useless
 	layer = MOB_LAYER
 	atmos_requirements = list("min_oxy" = 16, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 223		//Below -50 Degrees Celcius
@@ -53,7 +53,10 @@
 /mob/living/simple_animal/goose/clown
 	name = "Gonk"
 	desc = "Says the legends that goose ate a bicycle horn, this explains why it is so annoying."
-	goose_type = "clown"
+	icon_state = "goose_clown"
+	icon_living = "goose_clown"
+	icon_dead = "goose_clown_dead"
+	goose_type = "clown" //Daughter of an useless variable
 	response_help = "honks"
 	response_disarm = "gently pushes aside"
 	response_harm   = "splats"
