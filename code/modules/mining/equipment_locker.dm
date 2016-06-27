@@ -292,6 +292,7 @@
 			s.use(s.max_amount)
 		s.forceMove(loc)
 		s.layer = initial(s.layer)
+		s.plane = initial(s.plane)
 
 /obj/machinery/mineral/ore_redemption/power_change()
 	..()
@@ -730,13 +731,13 @@
 	if(istype(I, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/W = I
 		if(W.welding && !stat)
-			if(AIStatus == AI_ON)
+			if(FindTarget())//if the bot has anything to shoot at, to prevent combat repair cheesing
 				to_chat(user, "<span class='info'>[src] is moving around too much to repair!</span>")
 				return
 			if(maxHealth == health)
 				to_chat(user, "<span class='info'>[src] is at full integrity.</span>")
 			else
-				health += 10
+				adjustHealth(-10)//actually repairs the bot, not damages it
 				to_chat(user, "<span class='info'>You repair some of the armor on [src].</span>")
 			return
 	if(istype(I, /obj/item/device/mining_scanner) || istype(I, /obj/item/device/t_scanner/adv_mining_scanner))
@@ -897,7 +898,7 @@
 /obj/item/weapon/lazarus_injector
 	name = "lazarus injector"
 	desc = "An injector with a cocktail of nanomachines and chemicals, this device can seemingly raise animals from the dead, making them become friendly to the user. Unfortunately, the process is useless on higher forms of life and incredibly costly, so these were hidden in storage until an executive thought they'd be great motivation for some of their employees."
-	icon = 'icons/obj/syringe.dmi'
+	icon = 'icons/obj/hypo.dmi'
 	icon_state = "lazarus_hypo"
 	item_state = "hypo"
 	throwforce = 0
@@ -916,6 +917,7 @@
 			if(M.stat == DEAD)
 				M.faction = list("neutral")
 				M.revive()
+				M.can_collar = 1
 				if(istype(target, /mob/living/simple_animal/hostile))
 					var/mob/living/simple_animal/hostile/H = M
 					if(malfunctioning)

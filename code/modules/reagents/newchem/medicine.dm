@@ -646,11 +646,14 @@ datum/reagent/strange_reagent
 	metabolization_rate = 0.2
 
 datum/reagent/strange_reagent/reaction_mob(var/mob/living/M as mob, var/method=TOUCH, var/volume)
-	if(istype(M, /mob/living/simple_animal))
+	if(isanimal(M))
 		if(method == TOUCH)
-			if(M.stat == DEAD)
-				M.revive()
-				M.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
+			var/mob/living/simple_animal/SM = M
+			if(SM.stat == DEAD)
+				SM.revive()
+				SM.loot.Cut() //no abusing strange reagent for unlimited farming of resources
+				SM.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
+
 	if(istype(M, /mob/living/carbon))
 		if(method == INGEST)
 			if(M.stat == DEAD)
@@ -661,7 +664,7 @@ datum/reagent/strange_reagent/reaction_mob(var/mob/living/M as mob, var/method=T
 				var/mob/dead/observer/ghost = M.get_ghost()
 				if(ghost)
 					to_chat(ghost, "<span class='ghostalert'>Your are attempting to be revived with Strange Reagent. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
-					to_chat(ghost, sound('sound/effects/genetics.ogg'))
+					ghost << sound('sound/effects/genetics.ogg')
 					M.visible_message("<span class='notice'>[M] doesn't appear to respond, perhaps try again later?</span>")
 				if(!M.suiciding && !ghost && !(NOCLONE in M.mutations))
 					M.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
@@ -771,6 +774,7 @@ datum/reagent/antihol
 
 datum/reagent/antihol/on_mob_life(var/mob/living/M as mob)
 	M.slurring = 0
+	M.AdjustDrunk(-4)
 	M.reagents.remove_all_type(/datum/reagent/ethanol, 8, 0, 1)
 	if(M.toxloss <= 25)
 		M.adjustToxLoss(-2.0)

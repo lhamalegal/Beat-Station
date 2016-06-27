@@ -1297,12 +1297,11 @@
 		if(!(organ in types_of_int_organs)) //If the mob is missing this particular organ...
 			var/obj/item/organ/internal/I = new organ(temp_holder) //Create the organ inside our holder so we can check it before implantation.
 			if(H.get_organ_slot(I.slot)) //Check to see if the user already has an organ in the slot the 'missing organ' belongs to. If they do, skip implantation.
-				continue				//In an example, this will prevent duplication of the mob's eyes if the mob is a Human and they have Nucleation eyes, since,
-										//while the organ in the eyes slot may not be listed in the mob's species' organs definition, it is still viable and fits in the appropriate organ slot.
+				continue				 //In an example, this will prevent duplication of the mob's eyes if the mob is a Human and they have Nucleation eyes, since,
+										 //while the organ in the eyes slot may not be listed in the mob's species' organs definition, it is still viable and fits in the appropriate organ slot.
 			else
-				I = new organ(H) 		//Create the organ inside the player.
+				I = new organ(H) //Create the organ inside the player.
 				I.insert(H)
-
 
 /mob/living/carbon/human/revive()
 
@@ -1323,6 +1322,16 @@
 		mutations.Remove(NOCLONE)
 	if(HUSK in mutations)
 		mutations.Remove(HUSK)
+
+	if(!client || !key) //Don't boot out anyone already in the mob.
+		for (var/obj/item/organ/internal/brain/H in world)
+			if(H.brainmob)
+				if(H.brainmob.real_name == src.real_name)
+					if(H.brainmob.mind)
+						H.brainmob.mind.transfer_to(src)
+						qdel(H)
+
+	..()
 
 /mob/living/carbon/human/proc/is_lung_ruptured()
 	var/obj/item/organ/internal/lungs/L = get_int_organ(/obj/item/organ/internal/lungs)
@@ -1528,13 +1537,16 @@
 
 	if(species.base_color && default_colour)
 		//Apply colour.
-		r_skin = hex2num(copytext(species.base_color,2,4))
-		g_skin = hex2num(copytext(species.base_color,4,6))
-		b_skin = hex2num(copytext(species.base_color,6,8))
+		r_skin = hex2num(copytext(species.base_color, 2, 4))
+		g_skin = hex2num(copytext(species.base_color, 4, 6))
+		b_skin = hex2num(copytext(species.base_color, 6, 8))
 	else
 		r_skin = 0
 		g_skin = 0
 		b_skin = 0
+
+	if(!(species.bodyflags & HAS_SKIN_TONE))
+		s_tone = 0
 
 	species.create_organs(src)
 
@@ -1546,6 +1558,32 @@
 		H.f_style = species.default_fhair
 	if(species.default_headacc)
 		H.ha_style = species.default_headacc
+
+	if(species.default_hair_colour)
+		//Apply colour.
+		H.r_hair = hex2num(copytext(species.default_hair_colour, 2, 4))
+		H.g_hair = hex2num(copytext(species.default_hair_colour, 4, 6))
+		H.b_hair = hex2num(copytext(species.default_hair_colour, 6, 8))
+	else
+		H.r_hair = 0
+		H.g_hair = 0
+		H.b_hair = 0
+	if(species.default_fhair_colour)
+		H.r_facial = hex2num(copytext(species.default_fhair_colour, 2, 4))
+		H.g_facial = hex2num(copytext(species.default_fhair_colour, 4, 6))
+		H.b_facial = hex2num(copytext(species.default_fhair_colour, 6, 8))
+	else
+		H.r_facial = 0
+		H.g_facial = 0
+		H.b_facial = 0
+	if(species.default_headacc_colour)
+		H.r_headacc = hex2num(copytext(species.default_headacc_colour, 2, 4))
+		H.g_headacc = hex2num(copytext(species.default_headacc_colour, 4, 6))
+		H.b_headacc = hex2num(copytext(species.default_headacc_colour, 6, 8))
+	else
+		H.r_headacc = 0
+		H.g_headacc = 0
+		H.b_headacc = 0
 
 	if(!dna)
 		dna = new /datum/dna(null)
@@ -1974,3 +2012,20 @@
 
 /mob/living/carbon/human/is_mechanical()
 	return ..() || (species.flags & ALL_RPARTS) != 0
+
+/mob/living/carbon/human/can_use_guns(var/obj/item/weapon/gun/G)
+	. = ..()
+
+	if(G.trigger_guard == TRIGGER_GUARD_NORMAL)
+		if(HULK in mutations)
+			to_chat(src, "<span class='warning'>Your meaty finger is much too large for the trigger guard!</span>")
+			return 0
+		if(species.flags & NOGUNS)
+			to_chat(src, "<span class='warning'>Your fingers don't fit in the trigger guard!</span>")
+			return 0
+
+	if(martial_art && martial_art.name == "The Sleeping Carp") //great dishonor to famiry
+		to_chat(src, "<span class='warning'>Use of ranged weaponry would bring dishonor to the clan.</span>")
+		return 0
+
+	return .
