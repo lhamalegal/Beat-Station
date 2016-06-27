@@ -60,7 +60,10 @@
 			break
 
 /obj/item/device/eftpos/attack_self(mob/user as mob)
-	if(get_dist(src,user) <= 1)
+	ui_interact(user)
+
+// OLD UI
+/*	if(get_dist(src,user) <= 1)
 
 		// AUTOFIXED BY fix_string_idiocy.py
 		// C:\Users\Rob\Documents\Projects\vgstation13\code\WorkInProgress\Cael_Aislinn\Economy\EFTPOS.dm:59: var/dat = "<b>[eftpos_name]</b><br>"
@@ -99,7 +102,25 @@
 			// END AUTOFIX
 		user << browse(dat,"window=eftpos")
 	else
-		user << browse(null,"window=eftpos")
+		user << browse(null,"window=eftpos")*/
+
+/obj/item/device/eftpos/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	var/data[0]
+	data["eftpos_name"] = eftpos_name
+	data["machine_id"] = machine_id
+	data["transaction_locked"] = transaction_locked
+	data["transaction_paid"] = transaction_paid
+	data["transaction_purpose"] = transaction_purpose
+	data["transaction_amount"] = transaction_amount
+	data["linked_account"] = linked_account
+	if(linked_account)
+		data["linked_account_owner_name"] = linked_account.owner_name
+
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
+	if (!ui)
+		ui = new(user, src, ui_key, "EFTPOS.tmpl", "EFTPOS UI", 790, 250)
+		ui.set_initial_data(data)
+		ui.open()
 
 /obj/item/device/eftpos/attackby(O as obj, user as mob, params)
 	if(istype(O, /obj/item/weapon/card))
@@ -117,7 +138,10 @@
 	else
 		..()
 
-/obj/item/device/eftpos/Topic(var/href, var/href_list)
+/obj/item/device/eftpos/Topic(href, href_list)
+	if(..())
+		return 1
+
 	if(href_list["choice"])
 		switch(href_list["choice"])
 			if("change_code")
@@ -178,6 +202,8 @@
 					var/obj/item/I = usr.get_active_hand()
 					if (istype(I, /obj/item/weapon/card))
 						scan_card(I)
+					else
+						to_chat(usr, "[bicon(src)]<span class='warning'>Unable to scan card.</span>")
 				else
 					to_chat(usr, "[bicon(src)]<span class='warning'>Unable to link accounts.</span>")
 			if("reset")
@@ -188,11 +214,13 @@
 					if(access_cent_commander in C.access || access_hop in C.access || access_captain in C.access)
 						access_code = 0
 						to_chat(usr, "[bicon(src)]<span class='info'>Access code reset to 0.</span>")
+					else
+						to_chat(usr, "[bicon(src)]<span class='warning'>Unable to scan card.</span>")
 				else if (istype(I, /obj/item/weapon/card/emag))
 					access_code = 0
 					to_chat(usr, "[bicon(src)]<span class='info'>Access code reset to 0.</span>")
 
-	src.attack_self(usr)
+	nanomanager.update_uis(src)
 
 /obj/item/device/eftpos/proc/scan_card(var/obj/item/weapon/card/I)
 	if (istype(I, /obj/item/weapon/card/id))

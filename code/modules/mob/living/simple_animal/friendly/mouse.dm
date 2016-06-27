@@ -9,7 +9,7 @@
 	speak_emote = list("squeeks","squeeks","squiks")
 	emote_hear = list("squeeks","squeaks","squiks")
 	emote_see = list("runs in a circle", "shakes", "scritches at something")
-	small = 0
+	small = 1
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
@@ -30,7 +30,7 @@
 	universal_speak = 0
 	can_hide = 1
 	holder_type = /obj/item/weapon/holder/mouse
-	can_collar = 1
+	can_collar = 0
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
 /mob/living/simple_animal/mouse/handle_automated_speech()
@@ -159,6 +159,7 @@
 	emote_hear = list()
 	emote_see = list("runs in a circle", "shakes", "scritches at something")
 	speak_chance = 0
+	small = 0
 
 /mob/living/simple_animal/mouse/New()
 	..()

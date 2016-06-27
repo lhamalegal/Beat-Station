@@ -29,7 +29,7 @@
 	maxbodytemp = 323	//Above 50 Degrees Celcius
 	universal_speak = 0
 	can_hide = 0
-	can_collar = 1
+	can_collar = 0
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
 
@@ -65,6 +65,8 @@
 	speak_emote = list("honks")
 	emote_hear = list("honks")
 	emote_see = list("runs in a honk", "honks", "honks at something")
+	var/turns_since_scan = 0
+	var/obj/movement_target
 
 /mob/living/simple_animal/goose/clown/New()
 	..()
