@@ -9,7 +9,7 @@
 	speak_emote = list("squeeks","squeeks","squiks")
 	emote_hear = list("squeeks","squeaks","squiks")
 	emote_see = list("runs in a circle", "shakes", "scritches at something")
-	small = 1
+	small = 0
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
@@ -67,6 +67,9 @@
 	icon_state = "mouse_[mouse_color]"
 	icon_living = "mouse_[mouse_color]"
 	icon_dead = "mouse_[mouse_color]_dead"
+	if(mouse_color == "mime")
+		desc = "A cuddly mouse, apparently he's trying to drop a few squeaks."
+		return
 	desc = "It's a small [mouse_color] rodent, often seen hiding in maintenance areas and making a nuisance of itself."
 
 /mob/living/simple_animal/mouse/proc/splat()
@@ -165,3 +168,7 @@
 	speak_emote = list()
 	emote_hear = list()
 	emote_see = list("runs in a circle", "shakes", "scritches at something")
+	speak_chance = 0
+
+/mob/living/simple_animal/mouse/Charlie/verb/say_verb(message as text)
+	return

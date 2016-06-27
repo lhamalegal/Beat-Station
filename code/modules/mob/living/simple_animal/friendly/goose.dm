@@ -9,13 +9,13 @@
 	speak_emote = list("flaps")
 	emote_hear = list("flaps")
 	emote_see = list("flaps")
-	small = 1
 	speak_chance = 1
 	turns_per_move = 5
+	small = 0
 	see_in_dark = 6
-	maxHealth = 5
-	health = 5
-	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat = 1)
+	maxHealth = 20
+	health = 20
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat = 2)
 	response_help  = "flaps"
 	response_disarm = "gently pushes aside"
 	response_harm   = "stamps on"
@@ -29,7 +29,6 @@
 	maxbodytemp = 323	//Above 50 Degrees Celcius
 	universal_speak = 0
 	can_hide = 0
-	holder_type = /obj/item/weapon/holder/goose
 	can_collar = 1
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
@@ -69,11 +68,6 @@
 		desc = "Says the legends that goose ate a bicycle horn, this explains why it is so annoying."
 	else
 		desc = "It's a goose!"
-
-/mob/living/simple_animal/goose/attack_hand(mob/living/carbon/human/M as mob)
-	if(M.a_intent == I_HELP)
-		get_scooped(M)
-	..()
 
 /mob/living/simple_animal/goose/death()
 	if(goose_type == "clown")
