@@ -114,3 +114,6 @@
 #define AFFECT_ROBOTIC_ORGAN	1
 #define AFFECT_ORGANIC_ORGAN	2
 #define AFFECT_ALL_ORGANS		3
+
+//Convenience
+#define ALL ~0
