@@ -845,6 +845,9 @@ var/list/slot_equipment_priority = list( \
 /mob/proc/stripPanelEquip(obj/item/what, mob/who)
 	return
 
+/mob/proc/update_health_hud()
+	return
+
 
 /mob/proc/pull_damage()
 	if(ishuman(src))
