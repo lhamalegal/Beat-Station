@@ -1,6 +1,6 @@
 
 /datum/objective/build
-	dangerrating = 15
+//	dangerrating = 15
 	martyr_compatible = 1
 
 
@@ -25,7 +25,7 @@
 
 
 /datum/objective/deicide
-	dangerrating = 20
+//	dangerrating = 20
 	martyr_compatible = 1
 
 /datum/objective/deicide/check_completion()
@@ -62,7 +62,7 @@
 
 /datum/objective/follower_block
 	explanation_text = "Do not allow any followers of the false god to escape on the station's shuttle alive."
-	dangerrating = 25
+//	dangerrating = 25
 	martyr_compatible = 1
 
 /datum/objective/follower_block/check_completion()
@@ -89,7 +89,7 @@
 
 
 /datum/objective/escape_followers
-	dangerrating = 5
+//	dangerrating = 5
 
 
 /datum/objective/escape_followers/proc/gen_amount_goal(lower,upper)
@@ -119,7 +119,7 @@
 
 /datum/objective/sacrifice_prophet
 	explanation_text = "A false prophet is preaching their god's faith on the station. Sacrificing them will show the mortals who the true god is."
-	dangerrating = 10
+//	dangerrating = 10
 
 
 /datum/objective/sacrifice_prophet/check_completion()
