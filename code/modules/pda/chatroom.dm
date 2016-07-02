@@ -91,8 +91,8 @@ var/list/chatrooms = list(new /datum/chatroom("General Discussion"))
 		data["no_server"] = 1
 		has_back = 0
 	else if(current_room)
-		data["room"] = current_room.name
-		data["topic"] = current_room.topic
+		data["room"] = fix_ui(current_room.name)
+		data["topic"] = fix_ui(current_room.topic)
 		if(inviting)
 			data["inviting"] = 1
 			var/list/pdas = list()
@@ -106,7 +106,7 @@ var/list/chatrooms = list(new /datum/chatroom("General Discussion"))
 				pdas += list(list(name = "[P.owner] ([P.ownjob])", ref = "\ref[C]"))
 			data["people"] = pdas
 		else
-			data["history"] = current_room.logs
+			data["history"] = fix_ui(current_room.logs)
 			var/list/users[0]
 			for(var/U in current_room.users)
 				var/datum/data/pda/app/chatroom/ch = U
@@ -116,7 +116,7 @@ var/list/chatrooms = list(new /datum/chatroom("General Discussion"))
 				users += "<span class='average'>[ch.pda.owner]</span>"
 			data["users"] = users
 			data["auto_scroll"] = auto_scroll
-			data["latest_post"] = latest_post
+			data["latest_post"] = fix_ui(latest_post)
 			latest_post = current_room.logs.len
 		has_back = 1
 	else
@@ -124,7 +124,7 @@ var/list/chatrooms = list(new /datum/chatroom("General Discussion"))
 		for(var/datum/chatroom/c in chatrooms)
 			if((src in c.users) || (src in c.invites) || c.is_public)
 				rooms += list(list(name = "[c]", ref = "\ref[c]"))
-		data["rooms"] = rooms
+		data["rooms"] = fix_ui(rooms)
 		has_back = 0
 
 /datum/data/pda/app/chatroom/proc/messaging_available(cheap = 0)

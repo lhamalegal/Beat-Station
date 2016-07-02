@@ -9,23 +9,21 @@
 
 /datum/data/pda/app/status_display/update_ui(mob/user as mob, list/data)
 	data["records"] = list(
-		"message1" = message1 ? message1 : "(none)",
-		"message2" = message2 ? message2 : "(none)")
+		"message1" = message1 ? fix_ui(message1) : "(none)",
+		"message2" = message2 ? fix_ui(message2) : "(none)")
 
 /datum/data/pda/app/status_display/Topic(href, list/href_list)
 	switch(href_list["choice"])
 		if("Status")
 			switch(href_list["statdisp"])
 				if("message")
-					post_status("message", message1, message2)
+					post_status("message", replace_special_characters(message1), replace_special_characters(message2))
 				if("alert")
 					post_status("alert", href_list["alert"])
 				if("setmsg1")
 					message1 = input("Line 1", "Enter Message Text", message1) as text|null
-					message1 = replace_special_characters(message1)
 				if("setmsg2")
 					message2 = input("Line 2", "Enter Message Text", message2) as text|null
-					message2 = replace_special_characters(message2)
 				else
 					post_status(href_list["statdisp"])
 
@@ -169,7 +167,7 @@
 		return
 
 	if(medical_records && (medical_records in data_core.medical))
-		medical_records.fields["b_type"] = replace_special_characters(medical_records.fields["b_type"])
+		/*medical_records.fields["b_type"] = replace_special_characters(medical_records.fields["b_type"])
 		medical_records.fields["b_dna"] = replace_special_characters(medical_records.fields["b_dna"])
 		medical_records.fields["mi_dis"] = replace_special_characters(medical_records.fields["mi_dis"])
 		medical_records.fields["mi_dis_d"] = replace_special_characters(medical_records.fields["mi_dis_d"])
@@ -179,8 +177,8 @@
 		medical_records.fields["alg_d"] = replace_special_characters(medical_records.fields["alg_d"])
 		medical_records.fields["cdi"] = replace_special_characters(medical_records.fields["cdi"])
 		medical_records.fields["cdi_d"] = replace_special_characters(medical_records.fields["cdi_d"])
-		medical_records.fields["notes"] = replace_special_characters(medical_records.fields["notes"])
-		records["medical"] = medical_records.fields
+		medical_records.fields["notes"] = replace_special_characters(medical_records.fields["notes"])*/
+		records["medical"] = fix_ui(medical_records.fields)
 
 	return records
 
@@ -206,13 +204,13 @@
 		return
 
 	if(security_records && (security_records in data_core.security))
-		security_records.fields["criminal"] = replace_special_characters(security_records.fields["criminal"])
+		/*security_records.fields["criminal"] = replace_special_characters(security_records.fields["criminal"])
 		security_records.fields["mi_crim"] = replace_special_characters(security_records.fields["mi_crim"])
 		security_records.fields["mi_crim_d"] = replace_special_characters(security_records.fields["mi_crim_d"])
 		security_records.fields["ma_crim"] = replace_special_characters(security_records.fields["ma_crim"])
 		security_records.fields["ma_crim_d"] = replace_special_characters(security_records.fields["ma_crim_d"])
-		security_records.fields["notes"] = replace_special_characters(security_records.fields["notes"])
-		records["security"] = security_records.fields
+		security_records.fields["notes"] = replace_special_characters(security_records.fields["notes"])*/
+		records["security"] = fix_ui(security_records.fields)
 
 	return records
 

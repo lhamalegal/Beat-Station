@@ -531,11 +531,12 @@ obj/item/toy/cards/deck/MouseDrop(atom/over_object)
 					if(!remove_item_from_storage(M))
 						M.unEquip(src)
 					M.put_in_l_hand(src)
-				else if("r_hand")
+					to_chat(usr, "<span class='notice'>You pick up the deck.</span>")
+				if("r_hand")
 					if(!remove_item_from_storage(M))
 						M.unEquip(src)
 					M.put_in_r_hand(src)
-				to_chat(usr, "<span class='notice'>You pick up the deck.</span>")
+					to_chat(usr, "<span class='notice'>You pick up the deck.</span>")
 	else
 		to_chat(usr, "<span class='notice'>You can't reach it from here.</span>")
 
@@ -860,7 +861,7 @@ obj/item/toy/cards/deck/syndicate/black
 
 /obj/item/toy/minimeteor
 	name = "Mini-Meteor"
-	desc = "Relive the excitement of a meteor shower! SweetMeat-eor. Co is not responsible for any injuries, headaches or hearing loss caused by Mini-Meteor"
+	desc = "Relive the excitement of a meteor shower! SweetMeat-eor. Co is not responsible for any injuries, headaches or hearing loss caused by Mini-Meteor?"
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "minimeteor"
 	w_class = 2.0

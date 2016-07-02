@@ -118,7 +118,7 @@
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
-		ui = new(user, src, ui_key, "EFTPOS.tmpl", "EFTPOS UI", 790, 250)
+		ui = new(user, src, ui_key, "EFTPOS.tmpl", "EFTPOS UI", 700, 300)
 		ui.set_initial_data(data)
 		ui.open()
 
@@ -211,11 +211,13 @@
 				var/obj/item/I = usr.get_active_hand()
 				if (istype(I, /obj/item/weapon/card))
 					var/obj/item/weapon/card/id/C = I
-					if(access_cent_commander in C.access || access_hop in C.access || access_captain in C.access)
-						access_code = 0
-						to_chat(usr, "[bicon(src)]<span class='info'>Access code reset to 0.</span>")
-					else
-						to_chat(usr, "[bicon(src)]<span class='warning'>Unable to scan card.</span>")
+					for(var/A in C.access)
+						if(A == access_cent_commander || A == access_hop || A == access_captain)
+							access_code = 0
+							to_chat(usr, "[bicon(src)]<span class='info'>Access code reset to 0.</span>")
+							nanomanager.update_uis(src)
+							return
+					to_chat(usr, "[bicon(src)]<span class='warning'>Unable to scan card.</span>")
 				else if (istype(I, /obj/item/weapon/card/emag))
 					access_code = 0
 					to_chat(usr, "[bicon(src)]<span class='info'>Access code reset to 0.</span>")

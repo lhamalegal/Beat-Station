@@ -1,128 +1,90 @@
-/obj/item/weapon/implant/explosive
-	name = "microbomb implant"
-	desc = "And boom goes the weasel."
-	icon_state = "explosive"
-	origin_tech = "materials=2;combat=3;biotech=4;syndicate=4"
-	var/weak = 2
-	var/medium = 0.8
-	var/heavy = 0.4
-	var/delay = 7
+/obj/item/weapon/implanter
+	name = "implanter"
+	desc = "A sterile automatic implant injector."
+	icon = 'icons/obj/items.dmi'
+	icon_state = "implanter0"
+	item_state = "syringe_0"
+	throw_speed = 3
+	throw_range = 5
+	w_class = 2
+	origin_tech = "materials=1;biotech=3;programming=2"
+	materials = list(MAT_METAL=600, MAT_GLASS=200)
+	var/obj/item/weapon/implant/imp = null
 
-/obj/item/weapon/implant/explosive/get_data()
-	var/dat = {"<b>Implant Specifications:</b><BR>
-				<b>Name:</b> Robust Corp RX-78 Employee Management Implant<BR>
-				<b>Life:</b> Activates upon death.<BR>
-				<b>Important Notes:</b> Explodes<BR>
-				<HR>
-				<b>Implant Details:</b><BR>
-				<b>Function:</b> Contains a compact, electrically detonated explosive that detonates upon receiving a specially encoded signal or upon host death.<BR>
-				<b>Special Features:</b> Explodes<BR>
-				"}
-	return dat
 
-/obj/item/weapon/implant/explosive/trigger(emote, mob/source)
-	if(emote == "deathgasp")
-		activate("death")
+/obj/item/weapon/implanter/update_icon()
+	if(imp)
+		icon_state = "implanter1"
+		origin_tech = imp.origin_tech
+	else
+		icon_state = "implanter0"
+		origin_tech = initial(origin_tech)
 
-/obj/item/weapon/implant/explosive/activate(cause)
-	if(!cause || !imp_in)	return 0
-	if(cause == "action_button" && alert(imp_in, "Are you sure you want to activate your microbomb implant? This will cause you to explode!", "Microbomb Implant Confirmation", "Yes", "No") != "Yes")
-		return 0
-	heavy = round(heavy)
-	medium = round(medium)
-	weak = round(weak)
-	to_chat(imp_in, "<span class='notice'>You activate your microbomb implant.</span>")
-//If the delay is short, just blow up already jeez
-	if(delay <= 7)
-		explosion(src,heavy,medium,weak,weak, flame_range = weak)
-		if(imp_in)
-			imp_in.gib()
-		qdel(src)
+
+/obj/item/weapon/implanter/attack(mob/living/carbon/M, mob/user)
+	if(!iscarbon(M))
 		return
-	timed_explosion()
+	if(user && imp)
+		if(M != user)
+			M.visible_message("<span class='warning'>[user] is attemping to implant [M].</span>")
 
-/obj/item/weapon/implant/explosive/implant(mob/source)
-	var/obj/item/weapon/implant/explosive/imp_e = locate(src.type) in source
-	if(imp_e && imp_e != src)
-		imp_e.heavy += heavy
-		imp_e.medium += medium
-		imp_e.weak += weak
-		imp_e.delay += delay
-		qdel(src)
-		return 1
+		var/turf/T = get_turf(M)
+		if(T && (M == user || do_after(user, 50, target = M)))
+			if(user && M && (get_turf(M) == T) && src && imp)
+				if(imp.implant(M, user))
+					if (M == user)
+						to_chat(user, "<span class='notice'>You implant yourself.</span>")
+					else
+						M.visible_message("[user] has implanted [M].", "<span class='notice'>[user] implants you.</span>")
+					imp = null
+					update_icon()
 
-	return ..()
+/obj/item/weapon/implanter/attackby(obj/item/weapon/W, mob/user, params)
+	..()
+	if(istype(W, /obj/item/weapon/pen))
+		var/t = stripped_input(user, "What would you like the label to be?", name, null)
+		if(user.get_active_hand() != W)
+			return
+		if(!in_range(src, user) && loc != user)
+			return
+		if(t)
+			name = "implanter ([t])"
+		else
+			name = "implanter"
 
-/obj/item/weapon/implant/explosive/proc/timed_explosion()
-	imp_in.visible_message("<span class = 'warning'>[imp_in] starts beeping ominously!</span>")
-	playsound(loc, 'sound/items/timer.ogg', 30, 0)
-	sleep(delay/4)
-	if(imp_in && imp_in.stat)
-		imp_in.visible_message("<span class = 'warning'>[imp_in] doubles over in pain!</span>")
-		imp_in.Weaken(7)
-	playsound(loc, 'sound/items/timer.ogg', 30, 0)
-	sleep(delay/4)
-	playsound(loc, 'sound/items/timer.ogg', 30, 0)
-	sleep(delay/4)
-	playsound(loc, 'sound/items/timer.ogg', 30, 0)
-	sleep(delay/4)
-	explosion(src,heavy,medium,weak,weak, flame_range = weak)
-	if(imp_in)
-		imp_in.gib()
-	qdel(src)
-
-/obj/item/weapon/implant/explosive/macro
-	name = "macrobomb implant"
-	desc = "And boom goes the weasel. And everything else nearby."
-	icon_state = "explosive"
-	origin_tech = "materials=3;combat=5;biotech=4;syndicate=5"
-	weak = 16
-	medium = 8
-	heavy = 4
-	delay = 70
-
-/obj/item/weapon/implant/explosive/macro/activate(cause)
-	if(!cause || !imp_in)	return 0
-	if(cause == "action_button" && alert(imp_in, "Are you sure you want to activate your macrobomb implant? This will cause you to explode and gib!", "Macrobomb Implant Confirmation", "Yes", "No") != "Yes")
-		return 0
-	to_chat(imp_in, "<span class='notice'>You activate your macrobomb implant.</span>")
-	timed_explosion()
-
-/obj/item/weapon/implant/explosive/macro/implant(mob/source)
-	var/obj/item/weapon/implant/explosive/imp_e = locate(src.type) in source
-	if(imp_e && imp_e != src)
-		return 0
-	imp_e = locate(/obj/item/weapon/implant/explosive) in source
-	if(imp_e && imp_e != src)
-		heavy += imp_e.heavy
-		medium += imp_e.medium
-		weak += imp_e.weak
-		delay += imp_e.delay
-		qdel(imp_e)
-
-	return ..()
+/obj/item/weapon/implanter/New()
+	..()
+	spawn(1)
+		update_icon()
 
 
-/obj/item/weapon/implanter/explosive
-	name = "implanter (explosive)"
 
-/obj/item/weapon/implanter/explosive/New()
-	imp = new /obj/item/weapon/implant/explosive(src)
+
+/obj/item/weapon/implanter/adrenalin
+	name = "implanter (adrenalin)"
+
+/obj/item/weapon/implanter/adrenalin/New()
+	imp = new /obj/item/weapon/implant/adrenalin(src)
 	..()
 
 
-/obj/item/weapon/implantcase/explosive
-	name = "implant case - 'Explosive'"
-	desc = "A glass case containing an explosive implant."
+/obj/item/weapon/implanter/emp
+	name = "implanter (EMP)"
 
-/obj/item/weapon/implantcase/explosive/New()
-	imp = new /obj/item/weapon/implant/explosive(src)
+/obj/item/weapon/implanter/emp/New()
+	imp = new /obj/item/weapon/implant/emp(src)
 	..()
 
+/obj/item/weapon/implanter/traitor
+	name = "implanter (Mindslave)"
 
-/obj/item/weapon/implanter/explosive_macro
-	name = "implanter (macro-explosive)"
+/obj/item/weapon/implanter/traitor/New()
+	imp = new /obj/item/weapon/implant/traitor(src)
+	..()
 
-/obj/item/weapon/implanter/explosive_macro/New()
-	imp = new /obj/item/weapon/implant/explosive/macro(src)
+/obj/item/weapon/implanter/death_alarm
+	name = "implanter (Death Alarm)"
+
+/obj/item/weapon/implanter/death_alarm/New()
+	imp = new /obj/item/weapon/implant/death_alarm(src)
 	..()

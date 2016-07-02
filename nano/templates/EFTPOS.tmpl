@@ -1,25 +1,35 @@
+<head>
+	<style type="text/css">
+		html {
+			height: 100%; 
+			overflow: auto;
+		}
+			
+		.infoButton {
+			background: none;
+			border: none;
+		}
+		</style>
+	</head>
 <div class='item'>
 	 <h2>{{:data.eftpos_name}}</h2>
 </div>
-<span class='exclamation-triangle'><i>This terminal is {{:data.machine_id}}. Report this code when contacting Nanotrasen IT Support</i></span><br>
-{{if data.transation_locked}}
-	{{if data.transaction_paid}}}
-		{{:helper.link('Reset', 'repeat', {'choice' : 'toggle_lock'})}}
-	{{else}}
-		{{:helper.link('Reset (authentication required)', 'key', {'choice' : 'toggle_lock'})}}
-	{{/if}}<br>
+<span class='exclamation-triangle'><i>This terminal is</i> {{:data.machine_id}}. <i>Report this code when contacting Nanotrasen IT Support</i></span><br>
+{{if data.transaction_locked == 1}}
+	{{:helper.link(data.transaction_paid ? 'Reset' : 'Reset (authentication required)', 'unlock', {'choice' : 'toggle_lock'})}}<br><hr>
+	
 	<div class='itemLabel'>
 		Transaction purpose:
 	</div> 
 	<div class='itemContent'>
-		<b>{{:data.transaction_purpose}}</b><br>
+		<b>{{:helper.link(data.transaction_purpose, 'info', null, null, 'link infoButton')}}</b><br>
 	</div>
 	
 	<div class='itemLabel'>
 		Value:
 	</div> 
 	<div class='itemContent'>
-		<b>${{:data.transaction_amount}}</b><br>
+		<b>{{:helper.link(data.transaction_amount, 'usd', null, null, 'link infoButton')}}</b><br>
 	</div>
 	
 	<div class='itemLabel'>
@@ -27,21 +37,22 @@
 	</div>
 	<div class='itemContent'>
 		{{if data.linked_account}}
-			<b>{{:data.linked_account_owner_name}}</b>
+			<b>{{:helper.link(data.linked_account_owner_name, 'user', null, null, 'link infoButton')}}</b>
 		{{else}}
-			<b>None</b>
+			<b>{{:helper.link(None, 'close', null, null, 'link infoButton')}}</b>
 		{{/if}}
-	</div><br><hr>
+	</div>
+	<br><br>
+	<hr><br>
 	{{if data.transaction_paid}}
-		<span class='exclamation-triangle'><i>This transaction has been processed successfully.</i></span><hr>
+		<span class='exclamation-triangle'><i>This transaction has been processed successfully.</i></span>
+		<br><hr>
 	{{else}}
-		<div class='itemLabel'>
-			<span class='exclamation-triangle'><i>Swipe your card below the line to finish this transaction.</i></span><hr>
-		</div>
-		<div class='itemContent'>
-			{{:helper.link('------', 'eject', {'choice' : 'scan_card'})}}
-		</div>
-	{{/if}}
+		<span class='exclamation-triangle'><i>Swipe your card below the line to finish this transaction.</i></span>
+		<br><hr>
+		<span class='exclamation-triangle'>{{:helper.link('------', 'eject', {'choice' : 'scan_card'})}}</span>
+		{{/if}}
+	</div><br><br>
 {{else}}
 	{{:helper.link('Lock in new transaction', 'lock', {'choice' : 'toggle_lock'})}}<br><hr>
 	<div class='itemLabel'>
@@ -69,13 +80,7 @@
 	<br><br>
 	<hr>
 	
-	<div class='itemLabel'>
-		{{:helper.link('Change access code', 'key', {'choice' : 'change_code'})}}
-	</div><br><br>
-	<div class='itemLabel'>
-		{{:helper.link('Change EFTPOS ID', 'key', {'choice' : 'change_id'})}}
-	</div><br><br>
-	<div class='itemLabel'>
-		{{:helper.link('Scan card to reset acess code', 'key', {'choice' : 'reset'})}}
-	</div>
+	<span>{{:helper.link('Change access code', 'key', {'choice' : 'change_code'})}}</span>
+	<span>{{:helper.link('Change EFTPOS ID', 'key', {'choice' : 'change_id'})}}</span>
+	<span>{{:helper.link('Scan card to reset acess code', 'key', {'choice' : 'reset'})}}</span>
 {{/if}}
