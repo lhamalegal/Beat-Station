@@ -114,6 +114,20 @@ Thus, the two variables affect pump operation are set in New():
 		ui.set_initial_data(data)
 		ui.open()
 
+/obj/machinery/atmospherics/binary/pump/Topic(href, href_list)
+	if(..())
+		return 1
+	if(href_list["power"])
+		on = !on
+		investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", "atmos")
+		src.update_icon()
+	if(href_list["set_press"])
+		var/new_pressure = input(usr,"Enter new output pressure (0-4500kPa)","Pressure control",src.target_pressure) as num
+		src.target_pressure = max(0, min(4500, new_pressure))
+		investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", "atmos")
+	nanomanager.update_uis(src)
+	return
+
 /obj/machinery/atmospherics/binary/pump/initialize()
 	..()
 	if(frequency)
@@ -159,20 +173,6 @@ Thus, the two variables affect pump operation are set in New():
 		to_chat(user, "<span class='alert'>Access denied.</span>")
 		return
 	ui_interact(user)
-	return
-
-/obj/machinery/atmospherics/binary/pump/Topic(href, href_list)
-	if(..())
-		return 1
-	if(href_list["power"])
-		on = !on
-		investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", "atmos")
-		src.update_icon()
-	if(href_list["set_press"])
-		var/new_pressure = input(usr,"Enter new output pressure (0-4500kPa)","Pressure control",src.target_pressure) as num
-		src.target_pressure = max(0, min(4500, new_pressure))
-		investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", "atmos")
-	nanomanager.update_uis(src)
 	return
 
 /obj/machinery/atmospherics/binary/pump/power_change()
