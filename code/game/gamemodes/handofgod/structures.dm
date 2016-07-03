@@ -414,7 +414,6 @@
 					deity.prophets_sacrificed_in_name++
 			else
 				new /obj/item/stack/sheet/lessergem(get_turf(src))
-
 		else if(isAI(L) || istype(L, /mob/living/carbon/alien/humanoid/queen))
 			new /obj/item/stack/sheet/greatergem(get_turf(src))
 		else
