@@ -136,8 +136,7 @@ datum/admins/proc/DB_ban_record(var/bantype, var/mob/banned_mob, var/duration = 
 	template += "Can Ban Appeal: [ban_appeal]\n"
 	template += "Ban type: [bantype_str == "JOB_TEMPBAN" || bantype_str == "JOB_PERMABAN" ? "[bantype_str] ([job])" : bantype_str] \n"
 	template += "Admin Key: [usr.client.ckey]\n"
-	if(victim)
-		template += "Victim: [victim]"
+	template += "Victim: [victim ? victim : "N/A"]"
 	to_chat(usr, template)
 
 	if(announceinirc)
