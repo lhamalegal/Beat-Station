@@ -27,7 +27,7 @@
 
 	has_back = active_conversation
 	if(active_conversation)
-		data["messages"] = tnote
+		data["messages"] = fix_ui(tnote)
 		for(var/c in tnote)
 			if(c["target"] == active_conversation)
 				data["convo_name"] = sanitize(c["owner"])

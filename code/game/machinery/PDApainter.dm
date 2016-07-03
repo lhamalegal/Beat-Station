@@ -53,14 +53,72 @@
 				P.loc = src
 				P.add_fingerprint(usr)
 				update_icon()
+				nanomanager.update_uis(src)
 
+/obj/machinery/pdapainter/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	var/data[0]
+	data["storedpda"] = storedpda
+	if(storedpda)
+		data["pda_name"] = storedpda.name
+
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
+	if (!ui)
+		ui = new(user, src, ui_key, "pda_painter.tmpl", "PDA Painter UI", 400, 120)
+		ui.set_initial_data(data)
+		ui.open()
+
+/obj/machinery/pdapainter/Topic(href, href_list)
+	if(..())
+		return 1
+
+	if(href_list["choice"])
+		switch(href_list["choice"])
+			if("eject_pda")
+				if(storedpda)
+					storedpda.loc = get_turf(src.loc)
+					if(!usr.get_active_hand())
+						usr.put_in_hands(storedpda)
+					storedpda = null
+					update_icon()
+				else
+					to_chat(usr, "<span class='notice'>The [src] is empty.</span>")
+			if("paint_pda")
+				if(storedpda)
+					var/obj/item/device/pda/P = null
+					P = input(usr, "Select your color!", "PDA Painting") as null|anything in colorlist
+					if(!P)
+						return
+					if(!in_range(src, usr))
+						return
+
+					storedpda.icon_state = P.icon_state
+					storedpda.desc = P.desc
+
+				else
+					to_chat(usr, "<span class='notice'>The [src] is empty.</span>")
+			if("insert_pda")
+				var/obj/item/I = usr.get_active_hand()
+				if(istype(I, /obj/item/device/pda))
+					if(storedpda)
+						to_chat(usr, "There is already a PDA inside.")
+						return
+					else
+						var/obj/item/device/pda/P = I
+						if(istype(P))
+							usr.drop_item()
+							storedpda = P
+							P.loc = src
+							P.add_fingerprint(usr)
+							update_icon()
+
+	nanomanager.update_uis(src)
 
 /obj/machinery/pdapainter/attack_hand(mob/user as mob)
 	..()
-
 	src.add_fingerprint(user)
+	ui_interact(user)
 
-	if(storedpda)
+	/*if(storedpda)
 		var/obj/item/device/pda/P
 		P = input(user, "Select your color!", "PDA Painting") as null|anything in colorlist
 		if(!P)
@@ -90,4 +148,4 @@
 
 /obj/machinery/pdapainter/power_change()
 	..()
-	update_icon()
+	update_icon()*/

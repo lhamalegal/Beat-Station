@@ -618,6 +618,8 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 				visible_message("<span class='danger'>[user.name] starts loading [M.name] into the pod!</span>")
 				if(do_after(user, 50, target = M))
 					moved_other_inside(M)
+			else
+				visible_message("<span class='danger'>\The pod is full!</span>")
 			return
 
 		if(M == user)
@@ -705,6 +707,81 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 			to_chat(user, "<span class='notice'>You stop entering \the [src].</span>")
 	else
 		to_chat(user, "<span class='danger'>You can't fit in \the [src], it's full!</span>")
+
+/obj/spacepod/proc/remove_passengers(mob/user)
+	var/mob/P = null
+	var/mob/PA = null
+
+	if (user.stat != CONSCIOUS)
+		return 0
+
+	if(equipment_system.lock_system && !unlocked)
+		to_chat(user, "<span class='warning'>\The [src]'s doors are locked!</span>")
+		return 0
+
+	if(get_dist(src, user) > 2 || get_dist(usr, user) > 1)
+		to_chat(usr, "They are too far away to remove someone from \the [src].")
+		return 0
+
+	if(!istype(user))
+		return 0
+
+	if(user.incapacitated()) //are you cuffed, dying, lying, stunned or other
+		return 0
+	if(!ishuman(user))
+		return 0
+
+	for(var/mob/living/carbon/slime/S in range(1,usr))
+		if(S.Victim == user)
+			to_chat(user, "You're too busy getting your life sucked out of you.")
+			return 0
+
+	if(pilot || pilot != null)
+		P = pilot
+		visible_message("<span class='notice'>[user] starts to remove [P.name] from \the [src].</span>")
+	else if(passengers.len > 0)
+		PA = passengers[1]
+		visible_message("<span class='notice'>[user] starts to remove [PA.name] from \the [src].</span>")
+	else
+		to_chat(user, "<span class='danger'>There is nobody in [src]!</span>")
+		return 0
+
+
+	if(do_after(user, 40, target = src))
+		if(P)
+			P.forceMove(get_turf(src))
+			pilot = null
+			to_chat(user, "<span class='notice'>You get [P.name] out of \the [src].</span>")
+			add_fingerprint(user)
+			playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
+			return
+		else if(PA)
+			PA.forceMove(get_turf(src))
+			passengers -= P
+			to_chat(user, "<span class='notice'>You get [P.name] out of \the [src].</span>")
+			add_fingerprint(user)
+			playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
+	else
+		to_chat(user, "<span class='notice'>You stop getting [P ? P : PA] from \the [src].</span>")
+
+/obj/spacepod/MouseDrop(obj/over_mob as mob, src_location, over_location)
+	var/mob/M = usr
+	if(M == pilot || M in passengers)
+		return
+	if(M != usr)
+		return
+
+	if(istype(M, /mob))
+		if(!isliving(M))
+			return
+
+		if(get_dist(src, usr) > 2 || get_dist(M, usr) > 1)
+			to_chat(usr, "You are too far away to remove someone from \the pod.")
+			return
+
+		occupant_sanity_check()
+
+		remove_passengers(M)
 
 /obj/spacepod/proc/occupant_sanity_check()  // going to have to adjust this later for cargo refactor
 	if(passengers)

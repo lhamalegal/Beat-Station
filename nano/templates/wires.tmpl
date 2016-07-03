@@ -1,0 +1,18 @@
+<div class="block">
+	{{for data.wires}}
+		<div class="item">
+			<div class="itemLabelNarrow">{{:value.color}}</div>
+			<div class="itemContentWide">
+				{{:helper.link(value.cut ? 'Mend' : 'Cut', 'scissors', {'wire' : value.color , 'action' : 'cut'})}}
+				{{:helper.link('Pulse', 'gear', {'wire' : value.color , 'action' : 'pulse'})}}
+				{{:helper.link(value.attached ? 'Detach' : 'Attach', 'signal', {'wire' : value.color , 'action' : 'attach'})}}
+			</div>
+		</div>
+	{{/for}}
+</div>
+<br><hr><br>
+{{if data.status}}
+	{{for data.status}}
+		<div class='line'>{{:value}}</div><br>
+	{{/for}}
+{{/if}}

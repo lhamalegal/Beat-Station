@@ -62,48 +62,6 @@
 /obj/item/device/eftpos/attack_self(mob/user as mob)
 	ui_interact(user)
 
-// OLD UI
-/*	if(get_dist(src,user) <= 1)
-
-		// AUTOFIXED BY fix_string_idiocy.py
-		// C:\Users\Rob\Documents\Projects\vgstation13\code\WorkInProgress\Cael_Aislinn\Economy\EFTPOS.dm:59: var/dat = "<b>[eftpos_name]</b><br>"
-		var/dat = {"<b>[eftpos_name]</b><br>
-<i>This terminal is</i> [machine_id]. <i>Report this code when contacting Nanotrasen IT Support</i><br>"}
-		// END AUTOFIX
-		if(transaction_locked)
-
-			// AUTOFIXED BY fix_string_idiocy.py
-			// C:\Users\Rob\Documents\Projects\vgstation13\code\WorkInProgress\Cael_Aislinn\Economy\EFTPOS.dm:59: dat += "<a href='?src=\ref[src];choice=toggle_lock'>Reset[transaction_paid ? "" : " (authentication required)"]</a><br><br>"
-			dat += {"<a href='?src=\ref[src];choice=toggle_lock'>Reset[transaction_paid ? "" : " (authentication required)"]</a><br><br>
-				Transaction purpose: <b>[transaction_purpose]</b><br>
-				Value: <b>$[transaction_amount]</b><br>
-				Linked account: <b>[linked_account ? linked_account.owner_name : "None"]</b><hr>"}
-			// END AUTOFIX
-			if(transaction_paid)
-				dat += "<i>This transaction has been processed successfully.</i><hr>"
-			else
-
-				// AUTOFIXED BY fix_string_idiocy.py
-				// C:\Users\Rob\Documents\Projects\vgstation13\code\WorkInProgress\Cael_Aislinn\Economy\EFTPOS.dm:67: dat += "<i>Swipe your card below the line to finish this transaction.</i><hr>"
-				dat += {"<i>Swipe your card below the line to finish this transaction.</i><hr>
-					<a href='?src=\ref[src];choice=scan_card'>\[------\]</a>"}
-				// END AUTOFIX
-		else
-
-			// AUTOFIXED BY fix_string_idiocy.py
-			// C:\Users\Rob\Documents\Projects\vgstation13\code\WorkInProgress\Cael_Aislinn\Economy\EFTPOS.dm:70: dat += "<a href='?src=\ref[src];choice=toggle_lock'>Lock in new transaction</a><br><br>"
-			dat += {"<a href='?src=\ref[src];choice=toggle_lock'>Lock in new transaction</a><br><br>
-				Transaction purpose: <a href='?src=\ref[src];choice=trans_purpose'>[transaction_purpose]</a><br>
-				Value: <a href='?src=\ref[src];choice=trans_value'>$[transaction_amount]</a><br>
-				Linked account: <a href='?src=\ref[src];choice=link_account'>[linked_account ? linked_account.owner_name : "None"]</a><hr>
-				<a href='?src=\ref[src];choice=change_code'>Change access code</a><br>
-				<a href='?src=\ref[src];choice=change_id'>Change EFTPOS ID</a><br>
-				Scan card to reset access code <a href='?src=\ref[src];choice=reset'>\[------\]</a>"}
-			// END AUTOFIX
-		user << browse(dat,"window=eftpos")
-	else
-		user << browse(null,"window=eftpos")*/
-
 /obj/item/device/eftpos/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	var/data[0]
 	data["eftpos_name"] = eftpos_name
@@ -118,7 +76,7 @@
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
-		ui = new(user, src, ui_key, "EFTPOS.tmpl", "EFTPOS UI", 790, 250)
+		ui = new(user, src, ui_key, "EFTPOS.tmpl", "EFTPOS UI", 700, 300)
 		ui.set_initial_data(data)
 		ui.open()
 
@@ -211,11 +169,13 @@
 				var/obj/item/I = usr.get_active_hand()
 				if (istype(I, /obj/item/weapon/card))
 					var/obj/item/weapon/card/id/C = I
-					if(access_cent_commander in C.access || access_hop in C.access || access_captain in C.access)
-						access_code = 0
-						to_chat(usr, "[bicon(src)]<span class='info'>Access code reset to 0.</span>")
-					else
-						to_chat(usr, "[bicon(src)]<span class='warning'>Unable to scan card.</span>")
+					for(var/A in C.access)
+						if(A == access_cent_commander || A == access_hop || A == access_captain)
+							access_code = 0
+							to_chat(usr, "[bicon(src)]<span class='info'>Access code reset to 0.</span>")
+							nanomanager.update_uis(src)
+							return
+					to_chat(usr, "[bicon(src)]<span class='warning'>Unable to scan card.</span>")
 				else if (istype(I, /obj/item/weapon/card/emag))
 					access_code = 0
 					to_chat(usr, "[bicon(src)]<span class='info'>Access code reset to 0.</span>")
