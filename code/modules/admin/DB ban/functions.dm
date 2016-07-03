@@ -132,9 +132,9 @@ datum/admins/proc/DB_ban_record(var/bantype, var/mob/banned_mob, var/duration = 
 	template += "Banned User\n"
 	template += "BYOND Key: [ckey]\n"
 	template += "Ban reason: [reason]\n"
-	template += "Ban duration: [bantype_str == "TEMPBAN" ? (duration >0) ? "[duration] minutos" : "" : "PERMABAN"]\n"
+	template += "Ban duration: [bantype_str == "TEMPBAN" || bantype_str == "ADMIN_TEMPBAN" ? (duration >0) ? "[duration] minutos" : "" : "PERMABAN"]\n"
 	template += "Can Ban Appeal: [ban_appeal]\n"
-	template += "Ban type: [bantype_str == "JOB_TEMBAN"||bantype_str == "JOB_PERMABAN" ? "bantype_str ([job]) : bantype_str]\n"
+	template += "Ban type: [bantype_str == "JOB_TEMPBAN" || bantype_str == "JOB_PERMABAN" ? "[bantype_str] ([job])" : bantype_str] \n"
 	template += "Admin Key: [usr.client.ckey]\n"
 	if(victim)
 		template += "Victim: [victim]"
