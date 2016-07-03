@@ -1,6 +1,6 @@
 #define MAX_ADMIN_BANS_PER_ADMIN 1
 
-datum/admins/proc/DB_ban_record(var/bantype, var/mob/banned_mob, var/duration = -1, var/reason, var/job = "", var/rounds = 0, var/banckey = null, var/banip = null, var/bancid = null)
+datum/admins/proc/DB_ban_record(var/bantype, var/mob/banned_mob, var/duration = -1, var/reason, var/job = "", var/rounds = 0, var/banckey = null, var/banip = null, var/bancid = null, var/ban_appeal = "", var/victim = "")
 
 	if(!check_rights(R_BAN))	return
 
@@ -125,7 +125,20 @@ datum/admins/proc/DB_ban_record(var/bantype, var/mob/banned_mob, var/duration = 
 	var/DBQuery/query_insert = dbcon.NewQuery(sql)
 	query_insert.Execute()
 	to_chat(usr, "\blue Ban saved to database.")
-	message_admins("[key_name_admin(usr)] has added a [bantype_str] for [ckey] [(job)?"([job])":""] [(duration > 0)?"([duration] minutes)":""] with the reason: \"[reason]\" to the ban database.",1)
+	message_admins("[key_name_admin(usr)] has added a [bantype_str] for [ckey] [(job)?"([job])":""] [(duration > 0)?"([duration] minutes)":""] with the reason: \"[reason]\". Ban Appeal: [ban_appeal ? ban_appeal : "No"], Victim: [victim ? victim : "No victims"] to the ban database.",1)
+
+	var/template = "<b>Auto-generated Discord Template:</b>\n"
+
+	template += "Banned User\n"
+	template += "BYOND Key: [ckey]\n"
+	template += "Ban reason: [reason]\n"
+	template += "Ban duration: [bantype_str == "TEMPBAN" ? (duration >0) ? "[duration] minutos" : "" : "PERMABAN"]\n"
+	template += "Can Ban Appeal: [ban_appeal]\n"
+	template += "Ban type: [bantype_str]\n"
+	template += "Admin Key: [usr.client.ckey]\n"
+	if(victim)
+		template += "Victim: [victim]"
+	to_chat(usr, template)
 
 	if(announceinirc)
 		send2irc("BAN ALERT","[a_ckey] applied a [bantype_str] on [ckey]")
