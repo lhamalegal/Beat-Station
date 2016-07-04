@@ -962,12 +962,16 @@
 				var/reason = input(usr,"Please state the reason","Reason") as message|null
 				if(!reason)
 					return
+				var/ban_appeal = alert("Can ban appeal?",,"Yes","No", "Cancel")
+				if(ban_appeal == "Cancel")
+					return
+				var/victim = input(usr,"Victim of the event","Victim") as message|null
 				AddBan(M.ckey, M.computer_id, reason, usr.ckey, 1, mins)
 				ban_unban_log_save("[usr.client.ckey] has banned [M.ckey]. - Reason: [reason] - This will be removed in [mins] minutes.")
 				to_chat(M, "\red<BIG><B>You have been banned by [usr.client.ckey].\nReason: [reason].</B></BIG>")
 				to_chat(M, "\red This is a temporary ban, it will be removed in [mins] minutes.")
 				feedback_inc("ban_tmp",1)
-				DB_ban_record(BANTYPE_TEMP, M, mins, reason)
+				DB_ban_record(BANTYPE_TEMP, M, mins, reason,,,,,, ban_appeal, victim)
 				feedback_inc("ban_tmp_mins",mins)
 				if(config.banappeals)
 					to_chat(M, "\red To try to resolve this matter head to [config.banappeals]")
@@ -988,6 +992,10 @@
 						AddBan(M.ckey, M.computer_id, reason, usr.ckey, 0, 0, M.lastKnownIP)
 					if("No")
 						AddBan(M.ckey, M.computer_id, reason, usr.ckey, 0, 0)
+				var/ban_appeal = alert("Can ban appeal?",,"Yes","No", "Cancel")
+				if(ban_appeal == "Cancel")
+					return
+				var/victim = input(usr,"Victim of the event","Victim") as message|null
 				to_chat(M, "\red<BIG><B>You have been banned by [usr.client.ckey].\nReason: [reason].</B></BIG>")
 				to_chat(M, "\red This is a permanent ban.")
 				if(config.banappeals)
@@ -998,7 +1006,7 @@
 				log_admin("[key_name(usr)] has banned [M.ckey].\nReason: [reason]\nThis is a permanent ban.")
 				message_admins("\blue[key_name_admin(usr)] has banned [M.ckey].\nReason: [reason]\nThis is a permanent ban.")
 				feedback_inc("ban_perma",1)
-				DB_ban_record(BANTYPE_PERMA, M, -1, reason)
+				DB_ban_record(BANTYPE_PERMA, M, -1, reason,,,,,, ban_appeal, victim)
 
 				del(M.client)
 				//qdel(M)
@@ -1124,7 +1132,7 @@
 		if(!istype(H))
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 			return
-		if(alert(usr, "Confirm make monkey?", "Yes", "No") != "Yes")
+		if(alert(usr, "Confirm make monkey?",, "Yes", "No") != "Yes")
 			return
 
 		log_admin("[key_name(usr)] attempting to monkeyize [key_name(H)]")
@@ -1140,7 +1148,7 @@
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 			return
 
-		if(alert(usr, "Confirm make corgi?", "Yes", "No") != "Yes")
+		if(alert(usr, "Confirm make corgi?",, "Yes", "No") != "Yes")
 			return
 
 		log_admin("[key_name(usr)] attempting to corgize [key_name(H)]")
@@ -1154,7 +1162,7 @@
 		if(!istype(H))
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 			return
-		if(alert(usr, "Confirm make pai?", "Yes", "No") != "Yes")
+		if(alert(usr, "Confirm make pai?",, "Yes", "No") != "Yes")
 			return
 
 		var/painame = "Default"
@@ -1414,7 +1422,7 @@
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 			return
 
-		if(alert(usr, "Confirm make ai?", "Yes", "No") != "Yes")
+		if(alert(usr, "Confirm make ai?",, "Yes", "No") != "Yes")
 			return
 
 		message_admins("\red Admin [key_name_admin(usr)] AIized [key_name_admin(H)]!", 1)
@@ -1425,7 +1433,7 @@
 	else if(href_list["makemask"])
 		if(!check_rights(R_SPAWN))	return
 
-		if(alert(usr, "Confirm make mask?", "Yes", "No") != "Yes")
+		if(alert(usr, "Confirm make mask?",, "Yes", "No") != "Yes")
 			return
 
 		var/mob/currentMob = locate(href_list["makemask"])
@@ -1441,7 +1449,7 @@
 		if(!istype(H))
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 			return
-		if(alert(usr, "Confirm make alien?", "Yes", "No") != "Yes")
+		if(alert(usr, "Confirm make alien?",, "Yes", "No") != "Yes")
 			return
 
 		usr.client.cmd_admin_alienize(H)
@@ -1453,7 +1461,7 @@
 		if(!istype(H))
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 			return
-		if(alert(usr, "Confirm make slime?", "Yes", "No") != "Yes")
+		if(alert(usr, "Confirm make slime?",, "Yes", "No") != "Yes")
 			return
 
 		usr.client.cmd_admin_slimeize(H)
@@ -1466,7 +1474,7 @@
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 			return
 
-		if(alert(usr, "Confirm make superhero?", "Yes", "No") != "Yes")
+		if(alert(usr, "Confirm make superhero?",, "Yes", "No") != "Yes")
 			return
 
 		usr.client.cmd_admin_super(H)
@@ -1478,7 +1486,7 @@
 		if(!istype(H))
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 			return
-		if(alert(usr, "Confirm make robot?", "Yes", "No") != "Yes")
+		if(alert(usr, "Confirm make robot?",, "Yes", "No") != "Yes")
 			return
 
 		usr.client.cmd_admin_robotize(H)
@@ -1490,7 +1498,7 @@
 		if(istype(M, /mob/new_player))
 			to_chat(usr, "This cannot be used on instances of type /mob/new_player")
 			return
-		if(alert(usr, "Confirm make animal?", "Yes", "No") != "Yes")
+		if(alert(usr, "Confirm make animal?",, "Yes", "No") != "Yes")
 			return
 
 		usr.client.cmd_admin_animalize(M)

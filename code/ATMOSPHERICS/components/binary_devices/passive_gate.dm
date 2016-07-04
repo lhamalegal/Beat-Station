@@ -87,15 +87,29 @@
 	radio_connection.post_signal(src, signal, filter = RADIO_ATMOSIA)
 
 	return 1
+/obj/machinery/atmospherics/binary/passive_gate/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	var/data[0]
+	data["target_pressure"] = round(target_pressure,0.1)
+	data["on"] = on
 
-/obj/machinery/atmospherics/binary/passive_gate/interact(mob/user as mob)
-	var/dat = {"<b>Power: </b><a href='?src=\ref[src];power=1'>[on?"On":"Off"]</a><br>
-				<b>Desirable output pressure: </b>
-				[round(target_pressure,0.1)]kPa | <a href='?src=\ref[src];set_press=1'>Change</a>
-				"}
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
+	if (!ui)
+		ui = new(user, src, ui_key, "passive_gate.tmpl", "[src.name] UI", 500, 120)
+		ui.set_initial_data(data)
+		ui.open()
 
-	user << browse("<HEAD><TITLE>[src.name] control</TITLE></HEAD><TT>[dat]</TT>", "window=atmo_pump")
-	onclose(user, "atmo_pump")
+/obj/machinery/atmospherics/binary/passive_gate/Topic(href,href_list)
+	if(..()) return
+	if(href_list["power"])
+		on = !on
+		investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", "atmos")
+		src.update_icon()
+	if(href_list["set_press"])
+		var/new_pressure = input(usr,"Enter new output pressure (0-4500kPa)","Pressure control",src.target_pressure) as num
+		src.target_pressure = max(0, min(4500, new_pressure))
+		investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", "atmos")
+	nanomanager.update_uis(src)
+	return
 
 /obj/machinery/atmospherics/binary/passive_gate/receive_signal(datum/signal/signal)
 	if(!signal.data["tag"] || (signal.data["tag"] != id) || (signal.data["sigtype"]!="command"))
@@ -137,21 +151,7 @@
 		to_chat(user, "<span class='alert'>Access denied.</span>")
 		return
 	usr.set_machine(src)
-	interact(user)
-	return
-
-/obj/machinery/atmospherics/binary/passive_gate/Topic(href,href_list)
-	if(..()) return
-	if(href_list["power"])
-		on = !on
-		investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", "atmos")
-	if(href_list["set_press"])
-		var/new_pressure = input(usr,"Enter new output pressure (0-4500kPa)","Pressure control",src.target_pressure) as num
-		src.target_pressure = max(0, min(4500, new_pressure))
-		investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", "atmos")
-	usr.set_machine(src)
-	src.update_icon()
-	src.updateUsrDialog()
+	ui_interact(user)
 	return
 
 /obj/machinery/atmospherics/binary/passive_gate/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
