@@ -99,15 +99,30 @@ Thus, the two variables affect pump operation are set in New():
 
 	return 1
 
-/obj/machinery/atmospherics/binary/volume_pump/interact(mob/user as mob)
-	var/dat = {"<b>Power: </b><a href='?src=\ref[src];power=1'>[on?"On":"Off"]</a><br>
-				<b>Desirable output flow: </b>
-				[round(transfer_rate,1)]l/s | <a href='?src=\ref[src];set_transfer_rate=1'>Change</a>
-				"}
+/obj/machinery/atmospherics/binary/volume_pump/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	var/data[0]
+	data["transfer_rate"] = round(transfer_rate,1)
+	data["on"] = on
 
-	user << browse("<HEAD><TITLE>[src.name] control</TITLE></HEAD><TT>[dat]</TT>", "window=atmo_pump")
-	onclose(user, "atmo_pump")
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
+	if (!ui)
+		ui = new(user, src, ui_key, "volume_pump.tmpl", "[src.name] UI", 500, 120)
+		ui.set_initial_data(data)
+		ui.open()
 
+/obj/machinery/atmospherics/binary/volume_pump/Topic(href,href_list)
+	if(..())
+		return 1
+	if(href_list["power"])
+		on = !on
+		investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", "atmos")
+		src.update_icon()
+	if(href_list["set_transfer_rate"])
+		var/new_transfer_rate = input(usr,"Enter new output volume (0-200l/s)","Flow control",src.transfer_rate) as num
+		src.transfer_rate = max(0, min(200, new_transfer_rate))
+		investigate_log("was set to [transfer_rate] L/s by [key_name(usr)]", "atmos")
+	nanomanager.update_uis(src)
+	return
 
 /obj/machinery/atmospherics/binary/volume_pump/receive_signal(datum/signal/signal)
 	if(!signal.data["tag"] || (signal.data["tag"] != id) || (signal.data["sigtype"]!="command"))
@@ -148,22 +163,7 @@ Thus, the two variables affect pump operation are set in New():
 		to_chat(user, "<span class='alert'>Access denied.</span>")
 		return
 	usr.set_machine(src)
-	interact(user)
-	return
-
-/obj/machinery/atmospherics/binary/volume_pump/Topic(href,href_list)
-	if(..())
-		return 1
-	if(href_list["power"])
-		on = !on
-		investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", "atmos")
-	if(href_list["set_transfer_rate"])
-		var/new_transfer_rate = input(usr,"Enter new output volume (0-200l/s)","Flow control",src.transfer_rate) as num
-		src.transfer_rate = max(0, min(200, new_transfer_rate))
-		investigate_log("was set to [transfer_rate] L/s by [key_name(usr)]", "atmos")
-	usr.set_machine(src)
-	src.update_icon()
-	src.updateUsrDialog()
+	ui_interact(user)
 	return
 
 /obj/machinery/atmospherics/binary/volume_pump/power_change()
