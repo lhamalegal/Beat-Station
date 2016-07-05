@@ -150,6 +150,11 @@
 	mymobR.lamp_button.screen_loc = ui_borg_lamp
 	static_inventory += mymobR.lamp_button
 
+//Gun
+	mymob.gun_mode = new /obj/screen/gun/mode(null)
+	mymob.gun_item = new /obj/screen/gun/item(null)
+	mymob.gun_move = new /obj/screen/gun/move(null)
+	mymob.gun_radio = new /obj/screen/gun/radio(null)
 
 /datum/hud/proc/toggle_show_robot_modules()
 	if(!isrobot(mymob))

@@ -45,22 +45,22 @@
 	var/list/modifiers = params2list(params)
 	if(modifiers["shift"] && modifiers["ctrl"])
 		CtrlShiftClickOn(A)
-		return
+		return 1
 	if(modifiers["shift"] && modifiers["alt"])
 		AltShiftClickOn(A)
 		return
 	if(modifiers["middle"])
 		MiddleClickOn(A)
-		return
+		return 1
 	if(modifiers["shift"])
 		ShiftClickOn(A)
-		return
+		return 0
 	if(modifiers["alt"]) // alt and alt-gr (rightalt)
 		AltClickOn(A)
-		return
+		return 1
 	if(modifiers["ctrl"])
 		CtrlClickOn(A)
-		return
+		return 1
 
 	if(stat || paralysis || stunned || weakened)
 		return
@@ -79,11 +79,11 @@
 	if(restrained())
 		changeNext_move(CLICK_CD_HANDCUFFED) //Doing shit in cuffs shall be vey slow
 		RestrainedClickOn(A)
-		return
+		return 1
 
 	if(in_throw_mode)
 		throw_item(A)
-		return
+		return 1
 
 	var/obj/item/W = get_active_hand()
 
@@ -93,7 +93,7 @@
 			update_inv_l_hand(0)
 		else
 			update_inv_r_hand(0)
-		return
+		return 1
 
 	// operate two STORAGE levels deep here (item in backpack in src; NOT item in box in backpack in src)
 	var/sdepth = A.storage_depth(src)
@@ -127,17 +127,25 @@
 					changeNext_move(CLICK_CD_MELEE)
 				UnarmedAttack(A, 1)
 
-			return
+			return 1
 		else // non-adjacent click
 			if(W)
 				W.afterattack(A,src,0,params) // 0: not Adjacent
 			else
 				RangedAttack(A, params)
 
-	return
+	return 1
 
 /mob/proc/changeNext_move(num)
 	next_move = world.time + num
+
+/mob/proc/setClickCooldown(var/timeout)
+	next_move = max(world.time + timeout, next_move)
+
+/mob/proc/canClick()
+	if(config.no_click_cooldown || next_move <= world.time)
+		return 1
+	return 0
 
 // Default behavior: ignore double clicks, consider them normal clicks instead
 /mob/proc/DblClickOn(var/atom/A, var/params)
