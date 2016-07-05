@@ -199,7 +199,7 @@
 	selection_color = "#ffeeee"
 	idtype = /obj/item/weapon/card/id/security
 	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics)
-	minimal_access = list(access_medical, access_morgue, access_surgery, access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels)
+	minimal_access = list(access_medical, access_morgue, access_surgery, access_sec_doors, access_brig, access_court, access_maint_tunnels)
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
@@ -219,7 +219,7 @@
 			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_r_hand)
 		else
 			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
-		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
+		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)xx
 		L.imp_in = H
 		L.implanted = 1
 		H.sec_hud_set_implants()
