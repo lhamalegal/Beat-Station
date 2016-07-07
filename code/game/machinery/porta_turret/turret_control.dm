@@ -13,10 +13,9 @@
 	icon_state = "control_standby"
 	anchored = 1
 	density = 0
-	var/enabled = 0
-	var/lethal = 0
-	var/locked = 1
-	var/area/control_area //can be area name, path or nothing.
+	enabled = 0
+	lethal = 0
+	locked = 1
 
 	var/check_arrest = 1	//checks if the perp is set to arrest
 	var/check_records = 1	//checks if a security record exists at all
@@ -24,7 +23,7 @@
 	var/check_access = 1	//if this is active, the turret shoots everything that does not meet the access requirements
 	var/check_anomalies = 1	//checks if it can shoot at unidentified lifeforms (ie xenos)
 	var/check_synth = 0 	//if active, will shoot at anything not an AI or cyborg
-	var/ailock = 0 	//Silicons cannot use this
+	ailock = 0 	//Silicons cannot use this
 
 	req_access = list(access_ai_upload)
 

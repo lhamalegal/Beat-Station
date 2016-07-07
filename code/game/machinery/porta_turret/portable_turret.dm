@@ -76,6 +76,16 @@
 	if(!has_cover)
 		popUp()
 
+/datum/turret_checks
+	var/enabled
+	var/lethal
+	var/check_synth
+	var/check_access
+	var/check_records
+	var/check_arrest
+	var/check_weapons
+	var/check_anomalies
+	var/ailock
 
 /obj/machinery/porta_turret/proc/get_base_icon()
 	if(installation)
