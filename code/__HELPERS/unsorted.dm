@@ -23,9 +23,6 @@
 
 	return 0
 
-/proc/sign(x)
-	return x!=0?x/abs(x):0
-
 //Inverts the colour of an HTML string
 /proc/invertHTML(HTMLstring)
 
