@@ -1,4 +1,7 @@
 // Credits to Nickr5 for the useful procs I've taken from his library resource.
+// Macro functions.
+#define RAND_F(LOW, HIGH) (rand()*(HIGH-LOW) + LOW)
+#define ceil(x) (-round(-(x)))
 
 var/const/E		= 2.71828183
 var/const/Sqrt2	= 1.41421356

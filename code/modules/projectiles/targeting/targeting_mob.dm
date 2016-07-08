@@ -42,3 +42,7 @@
 	aimed.Cut()
 	return ..()
 
+
+mob/living/Move()
+	. = ..()
+	trigger_aiming(TARGET_CAN_MOVE)

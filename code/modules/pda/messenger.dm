@@ -27,7 +27,7 @@
 
 	has_back = active_conversation
 	if(active_conversation)
-		data["messages"] = fix_ui(tnote)
+		data["messages"] = tnote
 		for(var/c in tnote)
 			if(c["target"] == active_conversation)
 				data["convo_name"] = sanitize(c["owner"])
@@ -117,7 +117,9 @@
 		if("Autoscroll")
 			auto_scroll = !auto_scroll
 
-/datum/data/pda/app/messenger/proc/create_message(var/mob/living/U, var/obj/item/device/pda/P)
+/datum/data/pda/app/messenger/proc/create_message(var/mob/living/U, var/obj/item/device/pda/P, var/tap = 1)
+	if(tap)
+		U.visible_message("<span class='notice'>\The [U] taps on \his PDA's screen.</span>")
 	var/t = input(U, "Please enter message", name, null) as text|null
 	t = replace_special_characters(t)
 	if(!t)

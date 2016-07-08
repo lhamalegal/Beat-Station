@@ -5719,7 +5719,7 @@
 "cfY" = (/obj/machinery/door/airlock/glass{name = "Central Access"},/turf/simulated/floor/plasteel{dir = 2; icon_state = "yellowcorner"},/area/hallway/primary/aft)
 "cfZ" = (/obj/structure/closet/jcloset,/obj/machinery/atmospherics/unary/vent_scrubber{dir = 4; on = 1},/obj/item/device/radio/intercom{broadcasting = 0; name = "station intercom (General)"; pixel_y = 25},/turf/simulated/floor/plasteel,/area/janitor)
 "cga" = (/obj/structure/closet/l3closet/janitor,/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{dir = 1; initialize_directions = 11; level = 1},/obj/machinery/alarm{frequency = 1439; pixel_y = 23},/turf/simulated/floor/plasteel,/area/janitor)
-"cgb" = (/obj/vehicle/janicart,/turf/simulated/floor/plasteel,/area/janitor)
+"cgb" = (/obj/vehicle/janicart,/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 4; level = 1},/turf/simulated/floor/plasteel,/area/janitor)
 "cgc" = (/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{level = 1},/obj/machinery/newscaster{pixel_y = 30},/obj/item/weapon/storage/box/lights/mixed,/obj/item/weapon/storage/box/lights/mixed,/turf/simulated/floor/plasteel,/area/janitor)
 "cgd" = (/obj/structure/disposalpipe/segment,/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 4},/turf/simulated/floor/plasteel,/area/janitor)
 "cge" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 4},/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"; tag = ""},/obj/structure/reagent_dispensers/spacecleanertank{pixel_y = 30},/turf/simulated/floor/plasteel,/area/janitor)

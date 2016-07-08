@@ -39,7 +39,7 @@
 
 /obj/screen/gun/mode
 	name = "Toggle Gun Mode"
-	icon_state = "gun0"
+	icon_state = "gun1"
 	screen_loc = ui_gun_select
 
 /obj/screen/gun/mode/Click(location, control, params)

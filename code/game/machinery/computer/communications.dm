@@ -206,10 +206,12 @@
 
 		if("setmsg1")
 			stat_msg1 = input("Line 1", "Enter Message Text", stat_msg1) as text|null
+			stat_msg1 = replace_special_characters(stat_msg1)
 			setMenuState(usr,COMM_SCREEN_STAT)
 
 		if("setmsg2")
 			stat_msg2 = input("Line 2", "Enter Message Text", stat_msg2) as text|null
+			stat_msg2 = replace_special_characters(stat_msg2)
 			setMenuState(usr,COMM_SCREEN_STAT)
 
 		if("nukerequest")
@@ -320,8 +322,8 @@
 
 	data["stat_display"] =  list(
 		"type"   = display_type,
-		"line_1" = (stat_msg1 ? fix_ui(stat_msg1) : "-----"),
-		"line_2" = (stat_msg2 ? fix_ui(stat_msg2) : "-----"),
+		"line_1" = (stat_msg1 ? stat_msg1 : "-----"),
+		"line_2" = (stat_msg2 ? stat_msg2 : "-----"),
 
 		"presets" = list(
 			list("name" = "blank",    "label" = "Clear",       "desc" = "Blank slate"),
@@ -348,8 +350,8 @@
 	var/msg_data[0]
 	for(var/i = 1; i <= src.messagetext.len; i++)
 		var/cur_msg[0]
-		cur_msg["title"] = fix_ui(messagetitle[i])
-		cur_msg["body"]  = fix_ui(messagetext[i])
+		cur_msg["title"] = messagetitle[i]
+		cur_msg["body"]  = messagetext[i]
 		msg_data        += list(cur_msg)
 
 	data["messages"]        = msg_data

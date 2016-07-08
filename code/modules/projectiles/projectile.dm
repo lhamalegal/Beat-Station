@@ -50,6 +50,19 @@
 	var/embed = 0 // whether or not the projectile can embed itself in the mob
 	var/forcedodge = 0 //to pass through everything
 
+	var/hitscan = 0		// whether the projectile should be hitscan
+	var/step_delay = 1
+
+	var/fire_sound
+
+	var/matrix/effect_transform
+
+	var/muzzle_type
+	var/tracer_type
+	var/impact_type
+
+	var/shot_from = ""
+
 /obj/item/projectile/New()
 	permutated = list()
 	return ..()

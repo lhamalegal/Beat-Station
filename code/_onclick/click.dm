@@ -83,12 +83,14 @@
 
 	if(in_throw_mode)
 		throw_item(A)
+		trigger_aiming(TARGET_CAN_CLICK)
 		return 1
 
 	var/obj/item/W = get_active_hand()
 
 	if(W == A)
 		W.attack_self(src)
+		trigger_aiming(TARGET_CAN_CLICK)
 		if(hand)
 			update_inv_l_hand(0)
 		else
@@ -108,7 +110,8 @@
 				changeNext_move(CLICK_CD_MELEE)
 			UnarmedAttack(A, 1)
 
-		return
+		trigger_aiming(TARGET_CAN_CLICK)
+		return 1
 
 	if(!isturf(loc)) // This is going to stop you from telekinesing from inside a closet, but I don't shed many tears for that
 		return
@@ -119,14 +122,15 @@
 		if(A.Adjacent(src)) // see adjacent.dm
 			if(W)
 				// Return 1 in attackby() to prevent afterattack() effects (when safely moving items for example, params)
-				var/resolved = A.attackby(W,src,params)
+				var/resolved = A.attackby(W, src, params)
 				if(!resolved && A && W)
-					W.afterattack(A,src,1,params) // 1: clicking something Adjacent
+					W.afterattack(A, src, 1, params) // 1: clicking something Adjacent
 			else
 				if(ismob(A))
 					changeNext_move(CLICK_CD_MELEE)
 				UnarmedAttack(A, 1)
 
+			trigger_aiming(TARGET_CAN_CLICK)
 			return 1
 		else // non-adjacent click
 			if(W)
@@ -134,6 +138,7 @@
 			else
 				RangedAttack(A, params)
 
+			trigger_aiming(TARGET_CAN_CLICK)
 	return 1
 
 /mob/proc/changeNext_move(num)
