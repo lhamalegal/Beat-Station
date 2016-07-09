@@ -533,7 +533,7 @@
 	invisibility = 2
 	icon_state = "[base_icon_state][off_state]"
 
-/obj/machinery/porta_turret/proc/assess_perp(mob/living/carbon/human/perp)
+/obj/machinery/porta_turret/assess_perp(mob/living/carbon/human/perp)
 	var/threatcount = 0	//the integer returned
 
 	if(emagged)
