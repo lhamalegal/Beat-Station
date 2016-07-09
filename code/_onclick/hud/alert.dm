@@ -162,7 +162,7 @@ The box in your backpack has an oxygen tank and gas mask in it."
 	name = "Too Cold"
 	desc = "You're freezing cold! Get somewhere warmer and take off any insulating clothing like a space suit."
 	icon_state = "cold"
-	
+
 /obj/screen/alert/cold/drask
     name = "Cold"
     desc = "You're breathing supercooled gas! It's stimulating your metabolism to regenerate damaged tissue."
@@ -350,8 +350,8 @@ so as to remain in compliance with the most up-to-date laws."
 	if(isliving(usr))
 		var/mob/living/L = usr
 		return L.resist()
-// PRIVATE = only edit, use, or override these if you're editing the system as a whole
 
+// PRIVATE = only edit, use, or override these if you're editing the system as a whole
 // Re-render all alerts - also called in /datum/hud/show_hud() because it's needed there
 /datum/hud/proc/reorganize_alerts()
 	var/list/alerts = mymob.alerts
