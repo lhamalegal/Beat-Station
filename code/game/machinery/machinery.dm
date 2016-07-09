@@ -566,3 +566,17 @@ Class Procs:
 		ex_act(2)
 	else
 		ex_act(1)
+
+////////////////////////////
+
+/obj/machinery/proc/take_damage(damage, damage_type = BRUTE, sound_effect = 1)
+	switch(damage_type)
+		if(BRUTE)
+			if(sound_effect)
+				if(damage)
+					playsound(loc, 'sound/weapons/smash.ogg', 50, 1)
+				else
+					playsound(loc, 'sound/weapons/tap.ogg', 50, 1)
+		if(BURN)
+			if(sound_effect)
+				playsound(src.loc, 'sound/items/Welder.ogg', 100, 1)
