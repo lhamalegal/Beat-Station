@@ -32,7 +32,7 @@
 	var/uplink_welcome = "Syndicate Uplink Console:"
 	var/uplink_uses = 20
 	var/antag_flag = null
-	var/antag_candidates = list()
+	var/list/datum/mind/antag_candidates = list()
 
 	var/const/waittime_l = 600  //lower bound on time before intercept arrives (in tenths of seconds)
 	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
