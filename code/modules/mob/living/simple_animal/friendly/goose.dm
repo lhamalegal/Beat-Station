@@ -11,7 +11,6 @@
 	emote_see = list("flaps")
 	speak_chance = 1
 	turns_per_move = 5
-	small = 0
 	see_in_dark = 6
 	maxHealth = 20
 	health = 20
@@ -19,8 +18,7 @@
 	response_help  = "flaps"
 	response_disarm = "gently pushes aside"
 	response_harm   = "stamps on"
-	density = 0
-	ventcrawler = 2
+	density = 1
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	var/goose_type //This variable is useless
 	layer = MOB_LAYER
@@ -28,7 +26,6 @@
 	minbodytemp = 223		//Below -50 Degrees Celcius
 	maxbodytemp = 323	//Above 50 Degrees Celcius
 	universal_speak = 0
-	can_hide = 0
 	can_collar = 0
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
@@ -61,6 +58,18 @@
 	emote_see = list("runs in a honk", "honks", "honks at something")
 	var/turns_since_scan = 0
 	var/obj/movement_target
+	var/honktime = 0
+
+/mob/living/simple_animal/goose/clown/verb/Honk()
+	set name = "Honk"
+	set category = "IC"
+	set desc = "HONK!"
+
+	if(honktime > world.time)
+		return
+	honktime = world.time + 30
+	playsound(src, 'sound/items/bikehorn.ogg', 100, 1)
+	custom_emote(1, pick("honks.","honks!"))
 
 /mob/living/simple_animal/goose/clown/death()
 	desc = "HONK is dead."
