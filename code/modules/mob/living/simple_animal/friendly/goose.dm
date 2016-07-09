@@ -71,10 +71,6 @@
 	honktime = world.time + 30
 	playsound(src, 'sound/items/bikehorn.ogg', 100, 1)
 
-/obj/screen/verbs/honk
-	name = "Buckled"
-	desc = "You've been buckled to something. Click the alert to unbuckle unless you're handcuffed."
-
 /mob/living/simple_animal/goose/clown/death()
 	desc = "HONK is dead."
 	..()
