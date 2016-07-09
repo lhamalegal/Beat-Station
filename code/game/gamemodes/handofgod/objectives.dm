@@ -74,7 +74,7 @@
 	if(side == "ABORT")
 		return 0
 
-	var/area/A = SSshuttle.emergency.areaInstance
+	var/area/A = shuttle_master.emergency.areaInstance
 
 	for(var/mob/living/player in player_list)
 		if(player.mind && player.stat != DEAD && get_area(player) == A)
