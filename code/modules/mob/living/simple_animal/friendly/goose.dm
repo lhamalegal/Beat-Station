@@ -26,7 +26,6 @@
 	minbodytemp = 223		//Below -50 Degrees Celcius
 	maxbodytemp = 323	//Above 50 Degrees Celcius
 	universal_speak = 0
-	can_hide = 0
 	can_collar = 0
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
@@ -70,6 +69,7 @@
 		return
 	honktime = world.time + 30
 	playsound(src, 'sound/items/bikehorn.ogg', 100, 1)
+	custom_emote(1, pick("honks.","honks!"))
 
 /mob/living/simple_animal/goose/clown/death()
 	desc = "HONK is dead."
