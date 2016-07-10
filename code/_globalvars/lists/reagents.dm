@@ -64,3 +64,17 @@ var/global/list/safe_chem_list = list("antihol", "charcoal", "epinephrine", "ins
 									  "omnizine", "stimulants", "synaptizine", "potass_iodide", "oculine", "mannitol", "styptic_powder",
 									  "spaceacillin", "salglu_solution", "sal_acid", "cryoxadone", "blood", "synthflesh", "hydrocodone",
 									  "mitocholide", "rezadone")
+
+var/global/list/flammable_chems = list("plasma", "fuel", "glycerol", "nitroglycerin","unholywater", "beer2",
+									"thirteenloko", "beer","whiskey","gin","rum","vodka","tequilla",
+									"vermouth","wine","tonic","kahlua","cognac","ale","sodawater",
+									"ice","bilk","atomicbomb","threemileisland","goldschlager","patron",
+									"gintonic","cubalibre","whiskeycola","martini","vodkamartini","whiterussian",
+									"screwdrivercocktail","booger","bloodymary","gargleblaster","bravebull",
+									"tequillasunrise","toxinsspecial","beepskysmash","salglu_solution","irishcream",
+									"manlydorf","longislandicedtea","moonshine","b52","irishcoffee","margarita",
+									"blackrussian","manhattan","manhattan_proj","whiskeysoda","antifreeze","barefoot",
+									"snowwhite","demonsblood","vodkatonic","ginfizz","bahama_mama","singulo","sbiten",
+									"devilskiss","red_mead","mead","iced_beer","grog","aloe","andalusia","alliescocktail",
+									"soy_latte","cafe_latte","acidspit","amasec","neurotoxin","hippiesdelight","bananahonk",
+									"silencer","changelingsting","irishcarbomb","syndicatebomb","erikasurprise","driestmartini")
