@@ -671,7 +671,6 @@
 	..()
 	if(istype(I, /obj/item/weapon/reagent_containers/syringe))
 		var/obj/item/weapon/reagent_containers/syringe/S = I
-
 		if(!rigged)
 			for(var/R in flammable_chems)
 				if(S.reagents.has_reagent(R, 15))
