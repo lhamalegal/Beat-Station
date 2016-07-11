@@ -56,6 +56,7 @@
 	log_admin("[key_name(usr)] " + message)
 	message_admins("[key_name_admin(usr)] " + message, 1)
 
+//FIX THIS SHIT LATER
 /proc/replace_special_characters(var/text as text)
 	text = replacetext(text, "Á", "A")
 	text = replacetext(text, "á", "a")
