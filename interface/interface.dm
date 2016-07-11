@@ -20,24 +20,27 @@
 
 	getFiles(
 		'html/88x31.png',
-		'html/bug-minus.png',
-		'html/cross-circle.png',
-		'html/hard-hat-exclamation.png',
-		'html/image-minus.png',
-		'html/image-plus.png',
-		'html/music-minus.png',
-		'html/music-plus.png',
-		'html/tick-circle.png',
-		'html/wrench-screwdriver.png',
-		'html/spell-check.png',
-		'html/burn-exclamation.png',
+		'html/bugfix.png',
+		'html/wip.png',
+		'html/imagedel.png',
+		'html/imageadd.png',
+		'html/sounddel.png',
+		'html/soundadd.png',
+		'html/rscadd.png',
+		'html/rscdelete.png',
+		'html/tweak.png',
+		'html/spellcheck.png',
+		'html/experiment.png',
 		'html/chevron.png',
 		'html/chevron-expand.png',
 		'html/changelog.css',
 		'html/changelog.js',
-		'html/changelog.html'
+		'html/changelog.html',
+		'html/font-awesome/css/font-awesome.min.css',
+		'html/font-awesome/css/font-awesome.css',
+		'html/style.css',
 		)
-	src << browse('html/changelog.html', "window=changes;size=675x650")
+	src << browse('html/changelog.html', "window=changes;size=675x660")
 
 /client/verb/forum()
 	set name = "forum"

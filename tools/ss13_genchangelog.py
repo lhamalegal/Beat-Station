@@ -98,7 +98,7 @@ if failed_cache_read and os.path.isfile(args.targetFile):
         for e in soup.find_all('div', {'class':'commit'}):
             entry = {}
             date = datetime.strptime(e.h2.string.strip(), dateformat).date()  # key
-            for authorT in e.find_all('h3', {'class':'author'}):
+            for authorT in e.find_all('li', {'class':'admin'}):
                 author = authorT.string
                 # Strip suffix
                 if author.endswith('updated:'):
@@ -175,19 +175,22 @@ with open(args.targetFile.replace('.htm', '.dry.htm') if args.dryRun else args.t
     
     for _date in reversed(sorted(all_changelog_entries.keys())):
         entry_htm = '\n'
-        entry_htm += '\t\t\t<h2 class="date">{date}</h2>\n'.format(date=_date.strftime(dateformat))
+        entry_htm += '\t\t\t<li class="date">{date}</li>\n'.format(date=_date.strftime(dateformat))
         write_entry = False
         for author in sorted(all_changelog_entries[_date].keys()):
             if len(all_changelog_entries[_date]) == 0: continue
-            author_htm = '\t\t\t<h3 class="author">{author} updated:</h3>\n'.format(author=author)
-            author_htm += '\t\t\t<ul class="changes bgimages16">\n'
+            author_htm = '\t\t\t<li class="admin"><span><i class="icon-check"></i> {author}</span> updated:</li>'.format(author=author)
+            author_htm += '\t\t\t<li>'
             changes_added = []
             for (css_class, change) in (dictToTuples(e)[0] for e in all_changelog_entries[_date][author]):
                 if change in changes_added: continue
                 write_entry = True
                 changes_added += [change] 
-                author_htm += '\t\t\t\t<li class="{css_class}">{change}</li>\n'.format(css_class=css_class, change=change.strip())
-            author_htm += '\t\t\t</ul>\n'
+                if css_class == "rscdel":
+                    author_htm += '\t\t\t\t<img src="rscdelete.png">  {change}<br>'.format(change=change.strip())
+                else:
+                    author_htm += '\t\t\t\t<img src="{css_class}.png">  {change}<br>'.format(css_class=css_class, change=change.strip())
+            author_htm += '\t\t\t</li>'
             if len(changes_added) > 0:
                 entry_htm += author_htm
         if write_entry:
