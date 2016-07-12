@@ -213,7 +213,7 @@ var/round_start_time = 0
 		if(C.holder)
 			admins_number++
 	if(admins_number == 0)
-		send2adminirc("Round has started with no admins online.")
+		send_to_admin_discord("Round has started with no admins online.")
 	auto_toggle_ooc(0) // Turn it off
 	round_start_time = world.time
 

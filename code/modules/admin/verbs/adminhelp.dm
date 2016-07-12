@@ -128,11 +128,11 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 	log_admin("[selected_type]: [key_name(src)]: [original_msg] - heard by [admin_number_present] non-AFK admins.")
 	if(admin_number_present <= 0)
 		if(!admin_number_afk)
-			send2adminirc("[selected_type] from [key_name(src)]: [original_msg] - !!No admins online!!")
+			send_to_admin_discord("[selected_type] from [key_name(src)]: [original_msg] - !!No admins online!!")
 		else
-			send2adminirc("[selected_type] from [key_name(src)]: [original_msg] - !!All admins AFK ([admin_number_afk])!!")
+			send_to_admin_discord("[selected_type] from [key_name(src)]: [original_msg] - !!All admins AFK ([admin_number_afk])!!")
 	else
-		send2adminirc("[selected_type] from [key_name(src)]: [original_msg]")
+		send_to_admin_discord("[selected_type] from [key_name(src)]: [original_msg]")
 	feedback_add_details("admin_verb","AH") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 
@@ -158,7 +158,7 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 	var/admin_number_present = admin_number_total - admin_number_decrease	//Number of admins who are neither afk nor invalid
 	if(admin_number_present <= 0)
 		if(!admin_number_afk && !admin_number_ignored)
-			send2irc(source, "[msg] - No admins online")
+			send_to_info_discord(source, "[msg] - No admins online")
 		else
-			send2irc(source, "[msg] - All admins AFK ([admin_number_afk]/[admin_number_total]) or skipped ([admin_number_ignored]/[admin_number_total])")
+			send_to_info_discord(source, "[msg] - All admins AFK ([admin_number_afk]/[admin_number_total]) or skipped ([admin_number_ignored]/[admin_number_total])")
 	return admin_number_present

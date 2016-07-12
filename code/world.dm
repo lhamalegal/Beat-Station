@@ -95,6 +95,17 @@ var/world_topic_spam_protect_ip = "0.0.0.0"
 var/world_topic_spam_protect_time = world.timeofday
 
 /world/Topic(T, addr, master, key)
+	var/list/players = list()
+	var/player_count = 0
+	var/admin_count = 0
+
+	for(var/client/C in clients)
+		if(C.holder)
+			if(C.holder.fakekey)
+				continue	//so stealthmins aren't revealed by the hub
+			admin_count++
+		player_count++
+		players += C.ckey
 	diary << "TOPIC: \"[T]\", from:[addr], master:[master], key:[key]"
 
 	var/list/input = params2list(T)
@@ -107,11 +118,15 @@ var/world_topic_spam_protect_time = world.timeofday
 		return x
 
 	else if("players" in input)
-		var/n = 0
-		for(var/mob/M in player_list)
-			if(M.client)
-				n++
+		var/n = player_count
 		return n
+
+	else if ("admins" in input)
+		var/n = admin_count
+		return n
+
+	else if ("gamemode" in input)
+		return master_mode
 
 	else if ("status" in input)
 		var/list/s = list()
@@ -125,17 +140,6 @@ var/world_topic_spam_protect_time = world.timeofday
 		s["host"] = host ? host : null
 		s["players"] = list()
 		s["stationtime"] = worldtime2text()
-		var/player_count = 0
-		var/admin_count = 0
-
-		for(var/client/C in clients)
-			if(C.holder)
-				if(C.holder.fakekey)
-					continue	//so stealthmins aren't revealed by the hub
-				admin_count++
-				admins += list(list(C.key, C.holder.rank))
-			s["player[player_count]"] = C.key
-			player_count++
 		s["players"] = player_count
 		s["admins"] = admin_count
 		s["map_name"] = map_name ? map_name : "Unknown"
@@ -180,11 +184,11 @@ var/world_topic_spam_protect_time = world.timeofday
 		if(!C)
 			return "No client with that name on server"
 
-		var/message =	"<font color='red'>IRC-Admin PM from <b><a href='?irc_msg=1'>[C.holder ? "IRC-" + input["sender"] : "Administrator"]</a></b>: [input["msg"]]</font>"
-		var/amessage =  "<font color='blue'>IRC-Admin PM from <a href='?irc_msg=1'>IRC-[input["sender"]]</a> to <b>[key_name(C)]</b> : [input["msg"]]</font>"
+		var/message =	"<font color='red'>Discord-Admin PM from <b><a href='?discord_msg=1'>[C.holder ? "Discord-" + input["sender"] : "Administrator"]</a></b>: [input["msg"]]</font>"
+		var/amessage =  "<font color='blue'>Discord-Admin PM from <a href='?discord_msg=1'>Discord-[input["sender"]]</a> to <b>[key_name(C)]</b> : [input["msg"]]</font>"
 
-		C.received_irc_pm = world.time
-		C.irc_admin = input["sender"]
+		C.received_discord_pm = world.time
+		C.discord_admin = input["sender"]
 
 		C << 'sound/effects/adminhelp.ogg'
 		to_chat(C, message)
@@ -207,13 +211,22 @@ var/world_topic_spam_protect_time = world.timeofday
 
 		return show_player_info_irc(input["notes"])
 
-	else if("announce" in input)
+	/*else if("announce" in input)
 		if(config.comms_password)
 			if(input["key"] != config.comms_password)
 				return "Bad Key"
 			else
 				for(var/client/C in clients)
-					to_chat(C, "<span class='announce'>PR: [input["announce"]]</span>")
+					to_chat(C, "<span class='announce'>PR: [input["announce"]]</span>")*/
+
+	else if ("announce" in input)
+		if(config.comms_password)
+			if(input["key"] != config.comms_password)
+				return "Bad Key"
+			var/message = replacetext(input["msg"], "\n", "<br>")
+			for(var/client/C in clients)
+				to_chat(C, "<span class='announce'>Announces via Discord: [message]</span>")
+			return "Announcement successfully sent."
 
 /proc/keySpamProtect(var/addr)
 	if(world_topic_spam_protect_ip == addr && abs(world_topic_spam_protect_time - world.time) < 50)
