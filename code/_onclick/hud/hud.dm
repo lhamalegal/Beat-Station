@@ -16,10 +16,8 @@
 	var/obj/screen/lingchemdisplay
 	var/obj/screen/lingstingdisplay
 
-	var/obj/screen/guardianhealthdisplay
-
 	var/obj/screen/blobpwrdisplay
-	var/obj/screen/blobhealthdisplay
+
 	var/obj/screen/vampire_blood_display
 	var/obj/screen/alien_plasma_display
 	var/obj/screen/nightvisionicon
@@ -35,6 +33,8 @@
 
 	var/obj/screen/movable/action_button/hide_toggle/hide_actions_toggle
 	var/action_buttons_hidden = 0
+
+	var/obj/screen/healths
 
 /mob/proc/create_mob_hud()
 	if(client && !hud_used)
