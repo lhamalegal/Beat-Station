@@ -10,7 +10,7 @@
 	sight = SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF
 	var/languages_spoken = ALL
 	var/languages_understood = ALL
-	hud_possible = list(ANTAG_HUD)
+	hud_possible = list(SPECIALROLE_HUD)
 	mouse_opacity = 0 //can't be clicked
 
 	var/faith = 100 //For initial prophet appointing/stupid purchase
