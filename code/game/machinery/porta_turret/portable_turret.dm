@@ -774,14 +774,14 @@
 			src.attack_hand(user)
 
 /obj/machinery/turretid/attack_ai(mob/user)
-	if(!ailock || IsAdminGhost(user))
+	if(!ailock || check_rights(R_ADMIN, 0, user))
 		return attack_hand(user)
 	else
 		user << "<span class='notice'>There seems to be a firewall preventing you from accessing this device.</span>"
 
 /obj/machinery/turretid/attack_hand(mob/user as mob)
 	if ( get_dist(src, user) > 0 )
-		if ( !(issilicon(user) || IsAdminGhost(user)) )
+		if ( !(issilicon(user) ||  check_rights(R_ADMIN, 0, user)) )
 			user << "<span class='notice'>You are too far away.</span>"
 			user.unset_machine()
 			user << browse(null, "window=turretid")
@@ -791,10 +791,10 @@
 	var/area/area = get_area(src)
 	var/t = ""
 
-	if(src.locked && (!(istype(user, /mob/living/silicon) || IsAdminGhost(user))))
+	if(src.locked && (!(istype(user, /mob/living/silicon) || check_rights(R_ADMIN, 0, user))))
 		t += "<div class='notice icon'>Swipe ID card to unlock interface</div>"
 	else
-		if (!istype(user, /mob/living/silicon) && !IsAdminGhost(user))
+		if (!istype(user, /mob/living/silicon) && check_rights(R_ADMIN, 0, user))
 			t += "<div class='notice icon'>Swipe ID card to lock interface</div>"
 		t += text("Turrets [] - <A href='?src=\ref[];toggleOn=1'>[]?</a><br>\n", src.enabled?"activated":"deactivated", src, src.enabled?"Disable":"Enable")
 		t += text("Currently set for [] - <A href='?src=\ref[];toggleLethal=1'>Change to []?</a><br>\n", src.lethal?"lethal":"stun repeatedly", src,  src.lethal?"Stun repeatedly":"Lethal")
@@ -810,7 +810,7 @@
 	if(..())
 		return
 	if (src.locked)
-		if (!(istype(usr, /mob/living/silicon) || IsAdminGhost(usr)))
+		if (!(istype(usr, /mob/living/silicon) || check_rights(R_ADMIN, 0, user)))
 			usr << "Control panel is locked!"
 			return
 	if (href_list["toggleOn"])
@@ -826,12 +826,12 @@
 /obj/machinery/turretid/proc/toggle_on()
 	enabled = !enabled
 	updateTurrets()
-
+/*
 /obj/machinery/turretid/proc/updateTurrets()
 	for (var/obj/machinery/porta_turret/aTurret in turrets)
 		aTurret.setState(enabled, lethal)
 	src.update_icon()
-
+*/
 /obj/machinery/turretid/power_change()
 	..()
 	update_icon()

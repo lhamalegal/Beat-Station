@@ -4,7 +4,7 @@
 
 /obj/machinery/porta_turret/tag
 	// Reasonable defaults, in case someone manually spawns us
-	var/lasercolor = "r"	//Something to do with lasertag turrets, blame Sieve for not adding a comment.
+	lasercolor = "r"	//Something to do with lasertag turrets, blame Sieve for not adding a comment.
 	installation = /obj/item/weapon/gun/energy/laser/redtag
 
 /obj/machinery/porta_turret/tag/red
