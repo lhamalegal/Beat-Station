@@ -147,7 +147,7 @@
 	src.operating = 0
 	return 1
 
-/obj/machinery/door/window/proc/take_damage(var/damage)
+/obj/machinery/door/window/take_damage(var/damage)
 	src.health = max(0, src.health - damage)
 	if (src.health <= 0)
 		var/debris = list(

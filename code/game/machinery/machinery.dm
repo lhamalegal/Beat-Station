@@ -568,6 +568,9 @@ Class Procs:
 		ex_act(1)
 
 ////////////////////////////
+/obj/machinery/attacked_by(obj/item/I, mob/living/user)
+	..()
+	take_damage(I.force, I.damtype, 1)
 
 /obj/machinery/proc/take_damage(damage, damage_type = BRUTE, sound_effect = 1)
 	switch(damage_type)
