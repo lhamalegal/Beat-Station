@@ -1,7 +1,7 @@
 #define CHAN_ADMIN "staff_chat"
 #define CHAN_BAN "bans"
 #define CHAN_GENERAL "general"
-#define CHAN_INFO "server_info"
+#define CHAN_INFO "anuncios"
 
 /proc/send_to_discord(var/channel, var/message)
 	if (!config.use_discord_bot)

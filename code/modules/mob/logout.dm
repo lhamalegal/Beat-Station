@@ -8,7 +8,7 @@
 
 			message_admins("Admin logout: [key_name_admin(src)]")
 			if(admins_number == 0) //Apparently the admin logging out is no longer an admin at this point, so we have to check this towards 0 and not towards 1. Awell.
-				send_to_admin_discord("[key_name(src)] logged out - no more admins online.")
+				send_to_admin_discord("**[key_name(src)]** logged out - no more admins online.")
 	..()
 
 	CallHook("Logout", list("client" = src.client, "mob" = src))

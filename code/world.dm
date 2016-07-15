@@ -96,16 +96,19 @@ var/world_topic_spam_protect_time = world.timeofday
 
 /world/Topic(T, addr, master, key)
 	var/list/players = list()
-	var/player_count = 0
-	var/admin_count = 0
 
+	var/player_count = 0
 	for(var/client/C in clients)
-		if(C.holder)
-			if(C.holder.fakekey)
-				continue	//so stealthmins aren't revealed by the hub
-			admin_count++
-		player_count++
+		if(C.holder && C.holder.big_brother) // BB doesn't show up at all
+			continue
 		players += C.ckey
+		player_count++
+
+	var/admin_count = 0
+	for(var/client/C)
+		if(C.holder)
+			admin_count++
+
 	diary << "TOPIC: \"[T]\", from:[addr], master:[master], key:[key]"
 
 	var/list/input = params2list(T)
@@ -118,12 +121,10 @@ var/world_topic_spam_protect_time = world.timeofday
 		return x
 
 	else if("players" in input)
-		var/n = player_count
-		return n
+		return player_count
 
 	else if ("admins" in input)
-		var/n = admin_count
-		return n
+		return admin_count
 
 	else if ("gamemode" in input)
 		return master_mode
@@ -163,6 +164,63 @@ var/world_topic_spam_protect_time = world.timeofday
 
 		return list2params(s)
 
+	else if("manifest" in input)
+		if (!ticker)
+			return "Game not started yet!"
+
+		var/list/positions = list()
+		var/list/set_names = list(
+				"heads" = command_positions,
+				"sec" = security_positions,
+				"eng" = engineering_positions,
+				"med" = medical_positions,
+				"sci" = science_positions,
+				"civ" = civilian_positions,
+				"bot" = nonhuman_positions
+			)
+
+		for(var/datum/data/record/t in data_core.general)
+			var/name = t.fields["name"]
+			var/rank = t.fields["rank"]
+			var/real_rank = t.fields["real_rank"]
+
+			var/department = 0
+			for(var/k in set_names)
+				if(real_rank in set_names[k])
+					if(!positions[k])
+						positions[k] = list()
+					positions[k][name] = rank
+					department = 1
+			if(!department)
+				if(!positions["misc"])
+					positions["misc"] = list()
+				positions["misc"][name] = rank
+
+		for(var/k in positions)
+			positions[k] = list2params(positions[k]) // converts positions["heads"] = list("Bob"="Captain", "Bill"="CMO") into positions["heads"] = "Bob=Captain&Bill=CMO"
+
+		return list2params(positions)
+
+	else if("mute" in input)
+		if(!key_valid)
+			return keySpamProtect(addr)
+
+		for (var/client/C in clients)
+			if (C.ckey == ckey(input["mute"]))
+				C.mute_discord = !C.mute_discord
+
+				switch (C.mute_discord)
+					if (1)
+						to_chat(C, "<b><font color='red'>You have been muted from replying to Discord PMs by [input["admin"]]!</font></b>")
+						log_and_message_admins("[C] has been muted from Discord PMs by [input["admin"]].")
+						return "[C.key] is now muted from replying to Discord PMs."
+					if (0)
+						to_chat(C, "<b><font color='red'>You have been unmuted from replying to Discord PMs by [input["admin"]]!</font></b>")
+						log_and_message_admins("[C] has been unmuted from Discord PMs by [input["admin"]].")
+						return "[C.key] is now unmuted from replying to Discord PMs."
+
+		return "couldn't find that ckey!"
+
 	else if("adminmsg" in input)
 		/*
 			We got an adminmsg from IRC bot lets split the input then validate the input.
@@ -182,10 +240,10 @@ var/world_topic_spam_protect_time = world.timeofday
 				C = K
 				break
 		if(!C)
-			return "No client with that name on server"
+			return "no client with that name on server!"
 
-		var/message =	"<font color='red'>Discord-Admin PM from <b><a href='?discord_msg=1'>[C.holder ? "Discord-" + input["sender"] : "Administrator"]</a></b>: [input["msg"]]</font>"
-		var/amessage =  "<font color='blue'>Discord-Admin PM from <a href='?discord_msg=1'>Discord-[input["sender"]]</a> to <b>[key_name(C)]</b> : [input["msg"]]</font>"
+		var/message =	"<font color='red'>Discord-Admin PM from <b><a href='?discord_msg=[input["sender"]]'>[C.holder ? "Discord-" + input["sender"] : "Administrator"]</a></b>: [input["msg"]]</font>"
+		var/amessage =  "<font color='blue'>Discord-Admin PM from <a href='?discord_msg=[input["sender"]]'>Discord-[input["sender"]]</a> to <b>[key_name(C)]</b> : [input["msg"]]</font>"
 
 		C.received_discord_pm = world.time
 		C.discord_admin = input["sender"]
@@ -197,7 +255,7 @@ var/world_topic_spam_protect_time = world.timeofday
 			if(A != C)
 				to_chat(A, amessage)
 
-		return "Message Successful"
+		return "message successfully sents!"
 
 	else if("notes" in input)
 		/*
@@ -220,13 +278,33 @@ var/world_topic_spam_protect_time = world.timeofday
 					to_chat(C, "<span class='announce'>PR: [input["announce"]]</span>")*/
 
 	else if ("announce" in input)
-		if(config.comms_password)
-			if(input["key"] != config.comms_password)
-				return "Bad Key"
-			var/message = replacetext(input["msg"], "\n", "<br>")
-			for(var/client/C in clients)
-				to_chat(C, "<span class='announce'>Announces via Discord: [message]</span>")
-			return "Announcement successfully sent."
+		if(!key_valid)
+			return keySpamProtect(addr)
+		var/message = replacetext(input["msg"], "\n", "<br>")
+		for(var/client/C in clients)
+			to_chat(C, "<span class='announce'>Announces via Discord: [message]</span>")
+		return "announcement successfully sents!"
+
+	else if ("who" in input)
+		return list2params(players)
+
+/proc/do_topic_spam_protection(var/addr, var/key)
+	if (!config.comms_password || config.comms_password == "")
+		return "No comms password configured, aborting."
+
+	if (key == config.comms_password)
+		return 0
+	else
+		if (world_topic_spam_protect_ip == addr && abs(world_topic_spam_protect_time - world.time) < 50)
+
+			spawn(50)
+				world_topic_spam_protect_time = world.time
+				return "Bad Key (Throttled)"
+
+		world_topic_spam_protect_time = world.time
+		world_topic_spam_protect_ip = addr
+
+		return "Bad Key"
 
 /proc/keySpamProtect(var/addr)
 	if(world_topic_spam_protect_ip == addr && abs(world_topic_spam_protect_time - world.time) < 50)
