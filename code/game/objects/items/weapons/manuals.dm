@@ -804,7 +804,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://beatstation.miraheze.org/wiki/Space_Law&printable=yes" frameborder="0" id="main_frame"></iframe>		</body>
+		<iframe width='100%' height='97%' src="https://beatstation.miraheze.org/w/index.php?title=Space_Law&printable=yes" frameborder="0" id="main_frame"></iframe>		</body>
 
 		</html>
 
