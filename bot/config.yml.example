@@ -1,0 +1,24 @@
+# Command Prefix
+prefix: "^"
+
+# Bot Token
+token: ""
+
+# Server connect with the bot with this info. Key must be the same as comms_password in ../config/config.txt.
+nudge_host: "localhost"
+nudge_port: 5555
+nudge_key: 'pass'
+listen_nudges: true
+receive_nudges: true
+
+#Server info for the game. Key must be the same as comms_password in ../config/config.txt.
+server_host: 'localhost'
+server_port: 0000
+server_key: 'pass'
+
+# Channels IDs
+channels:
+    general: ''
+    staff_chat: ''
+    bans: ''
+    server_info: ''

@@ -180,30 +180,30 @@
 					if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
 						to_chat(X, "<span class='boldnotice'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]: [msg]</span>")
 
-/client/proc/cmd_admin_irc_pm()
+/client/proc/cmd_admin_discord_pm(sender)
 	if(prefs.muted & MUTE_ADMINHELP)
 		to_chat(src, "<font color='red'>Error: Private-Message: You are unable to use PM-s (muted).</font>")
 		return
 
-	var/msg = input(src,"Message:", "Private message to admins on IRC / 400 character limit") as text|null
+	var/msg = input(src,"Message:", "Reply private message to [sender] on Discord") as text|null
 
 	if(!msg)
 		return
 
 	sanitize(msg)
 
-	if(length(msg) > 400) // TODO: if message length is over 400, divide it up into seperate messages, the message length restriction is based on IRC limitations.  Probably easier to do this on the bots ends.
-		to_chat(src, "\red Your message was not sent because it was more then 400 characters find your message below for ease of copy/pasting")
+	if(length(msg) > 2000) // TODO: if message length is over 2000, divide it up into seperate messages, the message length restriction is based on IRC limitations.  Probably easier to do this on the bots ends.
+		to_chat(src, "\red Your message was not sent because it was more then 2000 characters find your message below for ease of copy/pasting")
 		to_chat(src, "\blue [msg]")
 		return
 
-	send2adminirc("PlayerPM from [key_name(src)]: [html_decode(msg)]")
+	send_to_admin_discord("Player PM to [sender] from **[key_name(src)]**: *[html_decode(msg)]*")
 
-	to_chat(src, "<font color='blue'>IRC PM to-<b>IRC-Admins</b>: [msg]</font>")
+	to_chat(src, "<font color='blue'>Discord-[sender]: [msg]</font>")
 
-	log_admin("PM: [key_name(src)]->IRC: [msg]")
+	log_admin("PM: [key_name(src)]->Discord: [msg]")
 	for(var/client/X in admins)
 		if(X == src)
 			continue
 		if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, X.mob))
-			to_chat(X, "<B><font color='blue'>PM: [key_name(src, X, 0)]-&gt;IRC-Admins:</B> \blue [msg]</font>")
+			to_chat(X, "<B><font color='blue'>PM: [key_name(src, X, 0)]-&gt;Discord-Admins:</B> \blue [msg]</font>")

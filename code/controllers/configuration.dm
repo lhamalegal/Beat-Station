@@ -137,12 +137,10 @@
 	var/ghost_interaction = 0
 
 	var/comms_password = ""
-
-	var/use_irc_bot = 0
-	var/list/irc_bot_host = list()
-	var/main_irc = ""
-	var/admin_irc = ""
-	var/python_path = "" //Path to the python executable.  Defaults to "python" on windows and "/usr/bin/env python2" on unix
+	var/discord_bot_host = "localhost"
+	var/discord_bot_port = 0
+	var/use_discord_bot = 0
+	var/python_path = "python" //Path to the python executable.  Defaults to "python" on windows and "/usr/bin/env python2" on unix
 
 	var/default_laws = 0 //Controls what laws the AI spawns with.
 
@@ -410,9 +408,6 @@
 				if("allow_holidays")
 					config.allow_holidays = 1
 
-				if("use_irc_bot")
-					use_irc_bot = 1
-
 				if("ticklag")
 					Ticklag = text2num(value)
 
@@ -459,14 +454,14 @@
 				if("comms_password")
 					config.comms_password = value
 
-				if("irc_bot_host")
-					config.irc_bot_host = splittext(value, ";")
+				if("use_discord_bot")
+					config.use_discord_bot = value
 
-				if("main_irc")
-					config.main_irc = value
+				if("discord_bot_host")
+					config.discord_bot_host = value
 
-				if("admin_irc")
-					config.admin_irc = value
+				if("discord_bot_port")
+					config.discord_bot_port = value
 
 				if("python_path")
 					if(value)
