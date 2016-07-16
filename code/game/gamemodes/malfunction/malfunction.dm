@@ -282,42 +282,42 @@
 	if      ( station_captured &&                station_was_nuked)
 		feedback_set_details("round_end_result","win - AI win - nuke")
 		text += "<FONT size = 3><B>AI Victory</B></FONT>"
-		text += "<br><B>Everyone was killed by the self-destruct!</B>")
+		text += "<br><B>Everyone was killed by the self-destruct!</B>"
 
 	else if ( station_captured &&  malf_dead && !station_was_nuked)
 		feedback_set_details("round_end_result","halfwin - AI killed, staff lost control")
 		text += "<FONT size = 3><B>Neutral Victory</B></FONT>"
-		text += "<B>The AI has been killed!</B> The staff has lose control over the station.")
+		text += "<B>The AI has been killed!</B> The staff has lose control over the station."
 
 	else if ( station_captured && !malf_dead && !station_was_nuked)
 		feedback_set_details("round_end_result","win - AI win - no explosion")
 		text += "<FONT size = 3><B>AI Victory</B></FONT>"
-		text += "<B>The AI has chosen not to explode you all!</B>")
+		text += "<B>The AI has chosen not to explode you all!</B>"
 
 	else if (!station_captured &&                station_was_nuked)
 		feedback_set_details("round_end_result","halfwin - everyone killed by nuke")
 		text += "<FONT size = 3><B>Neutral Victory</B></FONT>"
-		text += "<B>Everyone was killed by the nuclear blast!</B>")
+		text += "<B>Everyone was killed by the nuclear blast!</B>"
 
 	else if (!station_captured &&  malf_dead && !station_was_nuked)
 		feedback_set_details("round_end_result","loss - staff win")
 		text += "<FONT size = 3><B>Human Victory</B></FONT>"
-		text += "<B>The AI has been killed!</B> The staff is victorious.")
+		text += "<B>The AI has been killed!</B> The staff is victorious."
 
 	else if(!station_captured && !malf_dead && !check_ai_loc())
 		feedback_set_details("round_end_result", "loss - malf ai left zlevel")
 		text += "<font size=3><b>Minor Human Victory</b></font>"
-		text += "<b>The malfunctioning AI has left the station's z-level and was disconnected from its systems!</b> The crew are victorious.")
+		text += "<b>The malfunctioning AI has left the station's z-level and was disconnected from its systems!</b> The crew are victorious."
 
 	else if (!station_captured && !malf_dead && !station_was_nuked && crew_evacuated)
 		feedback_set_details("round_end_result","halfwin - evacuated")
 		text += "<FONT size = 3><B>Neutral Victory</B></FONT>"
-		text += "<B>The Corporation has lose [station_name()]! All survived personnel will be fired!</B>")
+		text += "<B>The Corporation has lose [station_name()]! All survived personnel will be fired!</B>"
 
 	else if (!station_captured && !malf_dead && !station_was_nuked && !crew_evacuated)
 		feedback_set_details("round_end_result","nalfwin - interrupted")
 		text += "<FONT size = 3><B>Neutral Victory</B></FONT>"
-		text += "<B>Round was mysteriously interrupted!</B>")
+		text += "<B>Round was mysteriously interrupted!</B>"
 	to_chat(world, text)
 
 	text = replace(text, '<B>', '**')
