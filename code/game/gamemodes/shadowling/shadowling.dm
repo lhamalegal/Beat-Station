@@ -77,6 +77,7 @@ Made by Xhuis
 /datum/game_mode/shadowling/announce()
 	to_chat(world, "<b>The current game mode is - Shadowling!</b>")
 	to_chat(world, "<b>There are alien <span class='deadsay'>shadowlings</span> on the station. Crew: Kill the shadowlings before they can eat or enthrall the crew. Shadowlings: Enthrall the crew while remaining in hiding.</b>")
+	send_to_info_discord("**The current game mode is - Shadowling!**\n**There are alien shadowlings on the station. Crew: Kill the shadowlings before they can eat or enthrall the crew. Shadowlings: Enthrall the crew while remaining in hiding.**")
 
 /datum/game_mode/shadowling/pre_setup()
 	if(config.protect_roles_from_antagonist)
@@ -239,14 +240,22 @@ Made by Xhuis
 
 
 /datum/game_mode/shadowling/declare_completion()
+	var/text = ""
 	if(check_shadow_victory() && shuttle_master.emergency.mode >= SHUTTLE_ESCAPE) //Doesn't end instantly - this is hacky and I don't know of a better way ~X
-		to_chat(world, "<span class='greentext'><b>The shadowlings have ascended and taken over the station!</b></span>")
+		text += "<span class='greentext'><b>The shadowlings have ascended and taken over the station!</b></span>")
 	else if(shadowling_dead && !check_shadow_victory()) //If the shadowlings have ascended, they can not lose the round
-		to_chat(world, "<span class='redtext'><b>The shadowlings have been killed by the crew!</b></span>")
+		text += "<span class='redtext'><b>The shadowlings have been killed by the crew!</b></span>")
 	else if(!check_shadow_victory() && shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
-		to_chat(world, "<span class='redtext'><b>The crew escaped the station before the shadowlings could ascend!</b></span>")
+		text += "<span class='redtext'><b>The crew escaped the station before the shadowlings could ascend!</b></span>")
 	else
-		to_chat(world, "<span class='redtext'><b>The shadowlings have failed!</b></span>")
+		text += "<span class='redtext'><b>The shadowlings have failed!</b></span>")
+	to_chat(world, text)
+	text = replace(text, '<b>', '**')
+	text = replace(text, '</b>', '**')
+	text = replace(text, "<span class='redtext'>", '')
+	text = replace(text, "</span>", '')
+	text = replace(text, "<br>", '\n')
+	send_to_info_discord(text)
 	..()
 	return 1
 
@@ -284,6 +293,12 @@ Made by Xhuis
 				text += ")"
 	text += "<br>"
 	to_chat(world, text)
+	text = replace(text, '<b>', '**')
+	text = replace(text, '</b>', '**')
+	text = replace(text, "<span class='big'>", '')
+	text = replace(text, "</span>", '')
+	text = replace(text, "<br>", '\n')
+	send_to_info_discord(text)
 
 
 /*

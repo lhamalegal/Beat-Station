@@ -52,7 +52,7 @@
 /datum/game_mode/cult/announce()
 	to_chat(world, "<B>The current game mode is - Cult!</B>")
 	to_chat(world, "<B>Some crewmembers are attempting to start a cult!<BR>\nCultists - complete your objectives. Convert crewmembers to your cause by using the convert rune. Remember - there is no you, there is only the cult.<BR>\nPersonnel - Do not let the cult succeed in its mission. Brainwashing them with the chaplain's bible reverts them to whatever CentComm-allowed faith they had.</B>")
-
+	send_to_info_discord("**The current game mode is - Cult!**\n**Some crewmembers are attempting to start a cult!\nCultists - complete your objectives. Convert crewmembers to your cause by using the convert rune. Remember - there is no you, there is only the cult.\nPersonnel - Do not let the cult succeed in its mission. Brainwashing them with the chaplain's bible reverts them to whatever CentComm-allowed faith they had.**")
 
 /datum/game_mode/cult/pre_setup()
 	if(prob(50))
@@ -332,6 +332,15 @@
 			text += "<br><B>Objective #[obj_count]</B>: [explanation]"
 
 	to_chat(world, text)
+	text = replace(text, '<B>', '**')
+	text = replace(text, '</B>', '**')
+	text = replace(text, '<FONT size = 2>', '')
+	text = replace(text, "<font color='red'>", '*')
+	text = replace(text, "<font color='green'>", '*')
+	text = replace(text, "</font>", '*')
+	text = replace(text, "</FONT>", '')
+	text = replace(text, "<br>", '\n')
+	send_to_info_discord(text)
 	..()
 	return 1
 

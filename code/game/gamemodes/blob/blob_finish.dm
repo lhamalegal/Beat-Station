@@ -27,6 +27,15 @@
 		to_chat(world, "<B>The alien organism has been eradicated from the station</B>")
 		log_game("Blob mode completed with a crew victory.")
 		to_chat(world, "<span class='notice'>Rebooting in 30s</span>")
+	text = replace(text, '<B>', '**')
+	text = replace(text, '</B>', '**')
+	text = replace(text, '<FONT size = 3>', '**__')
+	text = replace(text, "<font color='red'>", '*')
+	text = replace(text, "<font color='green'>", '*')
+	text = replace(text, "</font>", '*')
+	text = replace(text, "</FONT>", '__**')
+	text = replace(text, "<br>", '\n')
+	send_to_info_discord(text)
 	..()
 	return 1
 
@@ -37,6 +46,15 @@
 			var/text = "<FONT size = 2><B>The blob[(blob_mode.infected_crew.len > 1 ? "s were" : " was")]:</B></FONT>"
 
 			for(var/datum/mind/blob in blob_mode.infected_crew)
-				text += "<br><b>[blob.key]</b> was <b>[blob.name]</b>"
+				text += "<br><B>[blob.key]</B> was <B>[blob.name]</B>"
 			to_chat(world, text)
+			text = replace(text, '<B>', '**')
+			text = replace(text, '</B>', '**')
+			text = replace(text, '<FONT size = 2>', '***')
+			text = replace(text, "<font color='red'>", '*')
+			text = replace(text, "<font color='green'>", '*')
+			text = replace(text, "</font>", '*')
+			text = replace(text, "</FONT>", '***')
+			text = replace(text, "<br>", '\n')
+			send_to_info_discord(text)
 		return 1

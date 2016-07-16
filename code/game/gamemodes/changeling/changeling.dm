@@ -36,6 +36,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 /datum/game_mode/changeling/announce()
 	to_chat(world, "<B>The current game mode is - Changeling!</B>")
 	to_chat(world, "<B>There are alien changelings on the station. Do not let the changelings succeed!</B>")
+	send_to_info_discord("**The current game mode is - Changeling!**\n**There are alien changelings on the station. Do not let the changelings succeed!**")
 
 /datum/game_mode/changeling/pre_setup()
 
@@ -216,8 +217,8 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 			text += ")"
 
 			//Removed sanity if(changeling) because we -want- a runtime to inform us that the changelings list is incorrect and needs to be fixed.
-			text += "<br><b>Changeling ID:</b> [changeling.changeling.changelingID]."
-			text += "<br><b>Genomes Extracted:</b> [changeling.changeling.absorbedcount]"
+			text += "<br><B>Changeling ID:</B> [changeling.changeling.changelingID]."
+			text += "<br><B>Genomes Extracted:</B> [changeling.changeling.absorbedcount]"
 
 			if(changeling.objectives.len)
 				var/count = 1
@@ -239,7 +240,15 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 				feedback_add_details("changeling_success","FAIL")
 
 		to_chat(world, text)
-
+		text = replace(text, '<B>', '**')
+		text = replace(text, '</B>', '**')
+		text = replace(text, '<FONT size = 2>', '')
+		text = replace(text, "<font color='red'>", '*')
+		text = replace(text, "<font color='green'>", '*')
+		text = replace(text, "</font>", '*')
+		text = replace(text, "</FONT>", '')
+		text = replace(text, "<br>", '\n')
+		send_to_info_discord(text)
 
 	return 1
 

@@ -23,6 +23,7 @@
 /datum/game_mode/traitor/announce()
 	to_chat(world, "<B>The current game mode is - Traitor!</B>")
 	to_chat(world, "<B>There is a syndicate traitor on the station. Do not let the traitor succeed!</B>")
+	send_to_info_discord('**The current game mode is - Traitor!**\n**There is a syndicate traitor on the station. Do not let the traitor succeed!**')
 
 
 /datum/game_mode/traitor/pre_setup()
@@ -280,6 +281,15 @@
 
 
 		to_chat(world, text)
+		text = replace(text, '<B>', '**')
+		text = replace(text, '</B>', '**')
+		text = replace(text, '<FONT size = 2>', '')
+		text = replace(text, "<font color='red'>", '*')
+		text = replace(text, "<font color='green'>", '*')
+		text = replace(text, "</font>", '*')
+		text = replace(text, "</FONT>", '')
+		text = replace(text, "<br>", '\n')
+		send_to_info_discord(text)
 	return 1
 
 

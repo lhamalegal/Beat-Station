@@ -30,7 +30,7 @@
 /datum/game_mode/revolution/announce()
 	to_chat(world, "<B>The current game mode is - Revolution!</B>")
 	to_chat(world, "<B>Some crewmembers are attempting to start a revolution!<BR>\nRevolutionaries - Kill the Captain, HoP, HoS, CE, RD and CMO. Convert other crewmembers (excluding the heads of staff, and security officers) to your cause by flashing them. Protect your leaders.<BR>\nPersonnel - Protect the heads of staff. Kill the leaders of the revolution, and brainwash the other revolutionaries (by beating them in the head).</B>")
-
+	send_to_info_discord("**The current game mode is - Revolution!**\n**Some crewmembers are attempting to start a revolution!**\nRevolutionaries - Kill the Captain, HoP, HoS, CE, RD and CMO. Convert other crewmembers (excluding the heads of staff, and security officers) to your cause by flashing them. Protect your leaders.**\nPersonnel - Protect the heads of staff. Kill the leaders of the revolution, and brainwash the other revolutionaries (by beating them in the head).**")
 
 ///////////////////////////////////////////////////////////////////////////////
 //Gets the round setup, cancelling if there's not enough players at the start//
@@ -323,6 +323,7 @@
 //Announces the end of the game with all relavent information stated//
 //////////////////////////////////////////////////////////////////////
 /datum/game_mode/revolution/declare_completion()
+	var/text = ""
 	if(finished == 1)
 		feedback_set_details("round_end_result","win - heads killed")
 		to_chat(world, "<span class='redtext'>The heads of staff were killed or exiled! The revolutionaries win!</span>")
@@ -368,6 +369,15 @@
 			text += printplayer(head, 1)
 		text += "<br>"
 		to_chat(world, text)
+	text = replace(text, "<span class='boldannounce'>", '**')
+	text = replace(text, '</span>', '**')
+	text = replace(text, "<B>", '**')
+	text = replace(text, "</B>", '**')
+	text = replace(text, '</span>', '**')
+	text = replace(text, '<font size=3>', '')
+	text = replace(text, "</font>", '*')
+	text = replace(text, "<br>", '\n')
+	send_to_info_discord(text)
 
 /datum/game_mode/revolution/set_scoreboard_gvars()
 	var/foecount = 0

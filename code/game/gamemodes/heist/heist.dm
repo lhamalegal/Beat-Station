@@ -26,6 +26,8 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 	to_chat(world, "Whoever they are, they're likely up to no good. Protect the crew and station resources against this dastardly threat!")
 	to_chat(world, "<B>Raiders:</B> Loot [station_name()] for anything and everything you need, or choose the peaceful route and attempt to trade with them.")
 	to_chat(world, "<B>Personnel:</B> Trade with the raiders, or repel them and their low, low prices and/or crossbows.")
+	send_to_info_discord("**The current game mode is - Heist!**\n**An unidentified bluespace signature has slipped past the Icarus and is approaching [station_name()]!**\nWhoever they are, they're likely up to no good. Protect the crew and station resources against this dastardly threat!")
+	send_to_info_discord("**Raiders:** Loot [station_name()] for anything and everything you need, or choose the peaceful route and attempt to trade with them.\n**Personnel:** Trade with the raiders, or repel them and their low, low prices and/or crossbows.")
 
 /datum/game_mode/heist/can_start()
 
@@ -190,7 +192,7 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 
 	var/win_type = "Major"
 	var/win_group = "Crew"
-	var/win_msg = ""
+	var/text = ""
 
 	var/success = raid_objectives.len
 
@@ -214,7 +216,7 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 
 		win_type = "Major"
 		win_group = "Crew"
-		win_msg += "<B>The Vox Raiders have been wiped out!</B>"
+		text += "<B>The Vox Raiders have been wiped out!</B>"
 
 	else if(!is_raider_crew_safe())
 
@@ -222,7 +224,7 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 			win_type = "Major"
 
 		win_group = "Crew"
-		win_msg += "<B>The Vox Raiders have left someone behind!</B>"
+		text += "<B>The Vox Raiders have left someone behind!</B>"
 
 	else
 
@@ -230,12 +232,23 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 			if(win_type == "Minor")
 
 				win_type = "Major"
-			win_msg += "<B>The Vox Raiders escaped the station!</B>"
+			text += "<B>The Vox Raiders escaped the station!</B>"
 		else
-			win_msg += "<B>The Vox Raiders were repelled!</B>"
+			text += "<B>The Vox Raiders were repelled!</B>"
 
 	to_chat(world, "\red <FONT size = 3><B>[win_type] [win_group] victory!</B></FONT>")
-	to_chat(world, "[win_msg]")
+	to_chat(world, text)
+	text = replace(text, '<B>', '**')
+	text = replace(text, '</B>', '**')
+	text = replace(text, '<FONT size = 3>', '')
+	text = replace(text, "<font color='red'>", '*')
+	text = replace(text, "<font color='green'>", '*')
+	text = replace(text, "</font>", '*')
+	text = replace(text, "</FONT>", '')
+	text = replace(text, "\red ", '')
+	text = replace(text, "<br>", '\n')
+	send_to_info_discord(text)
+
 	feedback_set_details("round_end_result","heist - [win_type] [win_group]")
 
 	var/count = 1

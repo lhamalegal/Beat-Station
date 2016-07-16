@@ -22,6 +22,7 @@
 	to_chat(world, "There are alien <b>abductors</b> sent to [world.name] to perform nefarious experiments!")
 	to_chat(world, "<b>Abductors</b> - kidnap the crew and replace their organs with experimental ones.")
 	to_chat(world, "<b>Crew</b> - don't get abducted and stop the abductors.")
+	send_to_info_discord("**The current game mode is - Abduction!**\nThere are alien **abductors** sent to [world.name] to perform nefarious experiments!\n**Abductors** - kidnap the crew and replace their organs with experimental ones.\n**Crew** - don't get abducted and stop the abductors.")
 
 /datum/game_mode/abduction/pre_setup()
 	possible_abductors = get_players_for_role(ROLE_ABDUCTOR)
@@ -303,6 +304,13 @@
 				text += printobjectives(abductee_mind)
 	text += "<br>"
 	to_chat(world, text)
+	text = replace(text, '<b>', '**')
+	text = replace(text, '</b>', '**')
+	text = replace(text, "<span class='big'>", '')
+	text = replace(text, "</font>", '*')
+	text = replace(text, "</span>", '')
+	text = replace(text, "<br>", '\n')
+	send_to_info_discord(text)
 
 //Landmarks
 // TODO: Split into seperate landmarks for prettier ships
