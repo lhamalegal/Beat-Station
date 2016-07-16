@@ -358,12 +358,12 @@ proc/issyndicate(mob/living/M as mob)
 		text += "<FONT size = 3><B>Neutral Victory</B></FONT>"
 		text += "<B>Round was mysteriously interrupted!</B>"
 
-	text = replace(text, '<B>', '**')
-	text = replace(text, '</B>', '**')
-	text = replace(text, '<FONT size = 3>', '')
-	text = replace(text, "</font>", '*')
-	text = replace(text, "</FONT>", '')
-	text = replace(text, "<br>", '\n')
+	text = replacetext(text, '<B>', '**')
+	text = replacetext(text, '</B>', '**')
+	text = replacetext(text, '<FONT size = 3>', '')
+	text = replacetext(text, "</font>", '*')
+	text = replacetext(text, "</FONT>", '')
+	text = replacetext(text, "<br>", '\n')
 	send_to_info_discord(text)
 	..()
 	return
@@ -402,12 +402,12 @@ proc/issyndicate(mob/living/M as mob)
 			text += "<BIG><IMG CLASS=icon SRC=\ref['icons/BadAss.dmi'] ICONSTATE='badass'></BIG>"
 
 		to_chat(world, text)
-		text = replace(text, '<b>', '**')
-		text = replace(text, '</b>', '**')
-		text = replace(text, '<FONT size = 3>', '')
-		text = replace(text, "</font>", '*')
-		text = replace(text, "</FONT>", '')
-		text = replace(text, "<br>", '\n')
+		text = replacetext(text, '<b>', '**')
+		text = replacetext(text, '</b>', '**')
+		text = replacetext(text, '<FONT size = 3>', '')
+		text = replacetext(text, "</font>", '*')
+		text = replacetext(text, "</FONT>", '')
+		text = replacetext(text, "<br>", '\n')
 		send_to_info_discord(text)
 	return 1
 

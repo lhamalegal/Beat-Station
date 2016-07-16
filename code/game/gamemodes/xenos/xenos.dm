@@ -167,11 +167,11 @@
 		text += "<FONT size = 3><B>Draw</B></FONT>"
 		text += "<B>The crew has escaped from the aliens but did not exterminate them, allowing them to overrun the station.</B>"
 	to_chat(world, text)
-	text = replace(text, '<B>', '**')
-	text = replace(text, '</B>', '**')
-	text = replace(text, '<FONT size = 3>', '')
-	text = replace(text, "</FONT>", '')
-	text = replace(text, "<br>", '\n')
+	text = replacetext(text, '<B>', '**')
+	text = replacetext(text, '</B>', '**')
+	text = replacetext(text, '<FONT size = 3>', '')
+	text = replacetext(text, "</FONT>", '')
+	text = replacetext(text, "<br>", '\n')
 	send_to_info_discord(text)
 
 	var/text = "<br><FONT size=3><b>There were [xenos.len] aliens.</b></FONT>"
@@ -189,11 +189,11 @@
 			text += "body destroyed"
 		text += ")"
 	to_chat(world, text)
-	text = replace(text, '<b>', '**')
-	text = replace(text, '</b>', '**')
-	text = replace(text, '<FONT size=3>', '')
-	text = replace(text, "</FONT>", '')
-	text = replace(text, "<br>", '\n')
+	text = replacetext(text, '<b>', '**')
+	text = replacetext(text, '</b>', '**')
+	text = replacetext(text, '<FONT size=3>', '')
+	text = replacetext(text, "</FONT>", '')
+	text = replacetext(text, "<br>", '\n')
 	send_to_info_discord(text)
 
 	..()

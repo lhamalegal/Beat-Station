@@ -304,12 +304,12 @@
 				text += printobjectives(abductee_mind)
 	text += "<br>"
 	to_chat(world, text)
-	text = replace(text, '<b>', '**')
-	text = replace(text, '</b>', '**')
-	text = replace(text, "<span class='big'>", '')
-	text = replace(text, "</font>", '*')
-	text = replace(text, "</span>", '')
-	text = replace(text, "<br>", '\n')
+	text = replacetext(text, '<b>', '**')
+	text = replacetext(text, '</b>', '**')
+	text = replacetext(text, "<span class='big'>", '')
+	text = replacetext(text, "</font>", '*')
+	text = replacetext(text, "</span>", '')
+	text = replacetext(text, "<br>", '\n')
 	send_to_info_discord(text)
 
 //Landmarks

@@ -231,12 +231,12 @@
 		feedback_set_details("round_end_result","loss - wizard killed")
 		text += "\red <FONT size = 3><B> The wizard[(wizards.len>1)?"s":""] has been killed by the crew! The Space Wizards Federation has been taught a lesson they will not soon forget!</B></FONT>"
 		to_chat(world, text)
-		text = replace(text, '<B>', '**')
-		text = replace(text, '</B>', '**')
-		text = replace(text, '<FONT size = 3>', '')
-		text = replace(text, "\red ", '')
-		text = replace(text, "</FONT>", '')
-		text = replace(text, "<br>", '\n')
+		text = replacetext(text, '<B>', '**')
+		text = replacetext(text, '</B>', '**')
+		text = replacetext(text, '<FONT size = 3>', '')
+		text = replacetext(text, "\red ", '')
+		text = replacetext(text, "</FONT>", '')
+		text = replacetext(text, "<br>", '\n')
 		send_to_info_discord(text)
 	..()
 	return 1
@@ -289,14 +289,14 @@
 			text += "<br>"
 
 		to_chat(world, text)
-		text = replace(text, '<B>', '**')
-		text = replace(text, '</B>', '**')
-		text = replace(text, '<FONT size = 3>', '')
-		text = replace(text, "<font color='red'>", '')
-		text = replace(text, "<font color='green'>", '')
-		text = replace(text, "</font>", '')
-		text = replace(text, "</FONT>", '')
-		text = replace(text, "<br>", '\n')
+		text = replacetext(text, '<B>', '**')
+		text = replacetext(text, '</B>', '**')
+		text = replacetext(text, '<FONT size = 3>', '')
+		text = replacetext(text, "<font color='red'>", '')
+		text = replacetext(text, "<font color='green'>", '')
+		text = replacetext(text, "</font>", '')
+		text = replacetext(text, "</FONT>", '')
+		text = replacetext(text, "<br>", '\n')
 		send_to_info_discord(text)
 	return 1
 
