@@ -27,7 +27,7 @@
 		text += "<FONT size = 3><B>The staff has won!</B></FONT>"
 		text += "<B>The alien organism has been eradicated from the station</B>"
 		log_game("Blob mode completed with a crew victory.")
-		to_chat(world, "<span class='notice'>Rebooting in 30s</span>")
+	to_chat(world, text)
 	text = replacetext(text, "<B>", "**")
 	text = replacetext(text, "</B>", "**")
 	text = replacetext(text, "<FONT size = 3>", "")
