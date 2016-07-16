@@ -242,13 +242,13 @@ Made by Xhuis
 /datum/game_mode/shadowling/declare_completion()
 	var/text = ""
 	if(check_shadow_victory() && shuttle_master.emergency.mode >= SHUTTLE_ESCAPE) //Doesn't end instantly - this is hacky and I don't know of a better way ~X
-		text += "<span class='greentext'><b>The shadowlings have ascended and taken over the station!</b></span>")
+		text += "<span class='greentext'><b>The shadowlings have ascended and taken over the station!</b></span>"
 	else if(shadowling_dead && !check_shadow_victory()) //If the shadowlings have ascended, they can not lose the round
-		text += "<span class='redtext'><b>The shadowlings have been killed by the crew!</b></span>")
+		text += "<span class='redtext'><b>The shadowlings have been killed by the crew!</b></span>"
 	else if(!check_shadow_victory() && shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
-		text += "<span class='redtext'><b>The crew escaped the station before the shadowlings could ascend!</b></span>")
+		text += "<span class='redtext'><b>The crew escaped the station before the shadowlings could ascend!</b></span>"
 	else
-		text += "<span class='redtext'><b>The shadowlings have failed!</b></span>")
+		text += "<span class='redtext'><b>The shadowlings have failed!</b></span>"
 	to_chat(world, text)
 	text = replace(text, '<b>', '**')
 	text = replace(text, '</b>', '**')
