@@ -326,15 +326,21 @@
 	var/text = ""
 	if(finished == 1)
 		feedback_set_details("round_end_result","win - heads killed")
-		to_chat(world, "<span class='redtext'>The heads of staff were killed or exiled! The revolutionaries win!</span>")
+		text += "<span class='redtext'>The heads of staff were killed or exiled! The revolutionaries win!</span>"
 	else if(finished == 2)
 		feedback_set_details("round_end_result","loss - rev heads killed")
-		to_chat(world, "<span class='redtext'>The heads of staff managed to stop the revolution!</span>")
+		text += "<span class='redtext'>The heads of staff managed to stop the revolution!</span>"
+	to_chat(world, text)
+	text = replacetext(text, "<span class='redtext'>", "**")
+	text = replacetext(text, "</span>", "**")
+	text = replacetext(text, "<br>", "\n")
+	send_to_info_discord(text)
 	..()
 	return 1
 
 /datum/game_mode/proc/auto_declare_completion_revolution()
 	var/list/targets = list()
+	var/text = ""
 	if(head_revolutionaries.len || istype(ticker.mode,/datum/game_mode/revolution))
 		var/num_revs = 0
 		var/num_survivors = 0
@@ -373,7 +379,6 @@
 	text = replacetext(text, "</span>", "**")
 	text = replacetext(text, "<B>", "**")
 	text = replacetext(text, "</B>", "**")
-	text = replacetext(text, "</span>", "**")
 	text = replacetext(text, "<font size=3>", "")
 	text = replacetext(text, "</font>", "*")
 	text = replacetext(text, "<br>", "\n")
@@ -458,4 +463,11 @@
 	dat += "<b>Revolution Successful:</b> [score_traitorswon ? "Yes" : "No"] (-[score_traitorswon * 10000] Points)<br>"
 	dat += "<HR>"
 
+	text = replacetext(text, "<u>", "")
+	text = replacetext(text, "</u>", "")
+	text = replacetext(text, "<HR>", "")
+	text = replacetext(text, "<b>", "**")
+	text = replacetext(text, "</b>", "**")
+	text = replacetext(text, "<br>", "\n")
+	send_to_info_discord(text)
 	return dat

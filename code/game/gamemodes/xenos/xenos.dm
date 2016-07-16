@@ -167,14 +167,14 @@
 		text += "<FONT size = 3><B>Draw</B></FONT>"
 		text += "<B>The crew has escaped from the aliens but did not exterminate them, allowing them to overrun the station.</B>"
 	to_chat(world, text)
-	text = replacetext(text, '<B>', '**')
-	text = replacetext(text, '</B>', '**')
-	text = replacetext(text, '<FONT size = 3>', '')
-	text = replacetext(text, "</FONT>", '')
-	text = replacetext(text, "<br>", '\n')
+	text = replacetext(text, "<B>", "**")
+	text = replacetext(text, "</B>", "**")
+	text = replacetext(text, "<FONT size = 3>", "")
+	text = replacetext(text, "</FONT>", "")
+	text = replacetext(text, "<br>", "\n")
 	send_to_info_discord(text)
 
-	var/text = "<br><FONT size=3><b>There were [xenos.len] aliens.</b></FONT>"
+	text = "<br><FONT size=3><b>There were [xenos.len] aliens.</b></FONT>"
 	text += "<br><FONT size=3><b>The aliens were:</b></FONT>"
 	for(var/datum/mind/xeno in xenos)
 		text += "<br><b>[xeno.key]</b> was <b>[xeno.name]</b> ("

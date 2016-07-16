@@ -37,7 +37,7 @@
 /datum/game_mode/vampire/announce()
 	to_chat(world, "<B>The current game mode is - Vampires!</B>")
 	to_chat(world, "<B>There are Vampires from Space Transylvania on the station, keep your blood close and neck safe!</B>")
-	send_to_info_discord('**The current game mode is - Vampires!**\n**There are Vampires from Space Transylvania on the station, keep your blood close and neck safe!**')
+	send_to_info_discord("**The current game mode is - Vampires!**\n**There are Vampires from Space Transylvania on the station, keep your blood close and neck safe!**")
 
 /datum/game_mode/vampire/pre_setup()
 
@@ -142,11 +142,11 @@
 				text += "body destroyed"
 			text += ")"
 		to_chat(world, text)
-		text = replacetext(text, '<B>', '**')
-		text = replacetext(text, '</B>', '**')
-		text = replacetext(text, '<FONT size = 2>', '')
-		text = replacetext(text, "</FONT>", '')
-		text = replacetext(text, "<br>", '\n')
+		text = replacetext(text, "<B>", "**")
+		text = replacetext(text, "</B>", "**")
+		text = replacetext(text, "<FONT size = 2>", "")
+		text = replacetext(text, "</FONT>", "")
+		text = replacetext(text, "<br>", "\n")
 		send_to_info_discord(text)
 	return 1
 
