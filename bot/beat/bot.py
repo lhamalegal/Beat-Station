@@ -55,13 +55,6 @@ class BotBeat(discord.Client):
 			self.logger.critical("Runtime error during nudge initialization: {0}".format(e.message))
 			raise RuntimeError("Runtime error during nudge initialization.")
 
-		try:
-			self.logger.info("Setting up gitbot.")
-			self.gitbot.setup(self, self.logger)
-		except RuntimeError as e:
-			self.logger.critical("Runtime error during gitbot initialization: {0}".format(e.message))
-			raise RuntimeError("Runtime error during gitbot initialization.")
-
 		self.loadCommands()
 
 		self.logger.info("Bot setup completed.")
