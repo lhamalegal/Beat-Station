@@ -107,6 +107,8 @@ var/world_topic_spam_protect_time = world.timeofday
 	var/admin_count = 0
 	for(var/client/C)
 		if(C.holder)
+			if(C.holder.big_brother) // BB doesn't show up at all
+				continue
 			admin_count++
 
 	diary << "TOPIC: \"[T]\", from:[addr], master:[master], key:[key]"
@@ -333,14 +335,17 @@ var/world_topic_spam_protect_time = world.timeofday
 		to_chat(world, "<span class='boldannounce'>An admin has delayed the round end.</span>")
 		return
 	to_chat(world, "<span class='boldannounce'>Rebooting world in [delay/10] [delay > 10 ? "seconds" : "second"]. [reason]</span>")
+	send_to_info_discord("Rebooting world in [delay/10] [delay > 10 ? "seconds" : "second"]. [reason]")
 	sleep(delay)
 	if(blackbox)
 		blackbox.save_all_data_to_sql()
 	if(ticker.delay_end)
 		to_chat(world, "<span class='boldannounce'>Reboot was cancelled by an admin.</span>")
+		send_to_info_discord("Reboot was cancelled by an admin.")
 		return
 	feedback_set_details("[feedback_c]","[feedback_r]")
 	log_game("<span class='boldannounce'>Rebooting world. [reason]</span>")
+	send_to_info_discord("Rebooting world.")
 	//kick_clients_in_lobby("<span class='boldannounce'>The round came to an end with you in the lobby.</span>", 1)
 
 	spawn(0)
