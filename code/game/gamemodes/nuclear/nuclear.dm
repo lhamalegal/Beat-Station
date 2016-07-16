@@ -358,12 +358,12 @@ proc/issyndicate(mob/living/M as mob)
 		text += "<FONT size = 3><B>Neutral Victory</B></FONT>"
 		text += "<B>Round was mysteriously interrupted!</B>"
 
-	text = replacetext(text, '<B>', '**')
-	text = replacetext(text, '</B>', '**')
-	text = replacetext(text, '<FONT size = 3>', '')
-	text = replacetext(text, "</font>", '*')
-	text = replacetext(text, "</FONT>", '')
-	text = replacetext(text, "<br>", '\n')
+	text = replacetext(text, "<B>", "**")
+	text = replacetext(text, "</B>", "**")
+	text = replacetext(text, "<FONT size = 3>", "")
+	text = replacetext(text, "</font>", "*")
+	text = replacetext(text, "</FONT>", "")
+	text = replacetext(text, "<br>", "\n")
 	send_to_info_discord(text)
 	..()
 	return

@@ -250,11 +250,11 @@ Made by Xhuis
 	else
 		text += "<span class='redtext'><b>The shadowlings have failed!</b></span>"
 	to_chat(world, text)
-	text = replacetext(text, '<b>', '**')
-	text = replacetext(text, '</b>', '**')
-	text = replacetext(text, "<span class='redtext'>", '')
-	text = replacetext(text, "</span>", '')
-	text = replacetext(text, "<br>", '\n')
+	text = replacetext(text, "<b>", "**")
+	text = replacetext(text, "</b>", "**")
+	text = replacetext(text, "<span class='redtext'>", "")
+	text = replacetext(text, "</span>", "")
+	text = replacetext(text, "<br>", "\n")
 	send_to_info_discord(text)
 	..()
 	return 1
@@ -293,11 +293,11 @@ Made by Xhuis
 				text += ")"
 	text += "<br>"
 	to_chat(world, text)
-	text = replacetext(text, '<b>', '**')
-	text = replacetext(text, '</b>', '**')
-	text = replacetext(text, "<span class='big'>", '')
-	text = replacetext(text, "</span>", '')
-	text = replacetext(text, "<br>", '\n')
+	text = replacetext(text, "<b>", "**")
+	text = replacetext(text, "</b>", "**")
+	text = replacetext(text, "<span class='big'>", "")
+	text = replacetext(text, "</span>", "")
+	text = replacetext(text, "<br>", "\n")
 	send_to_info_discord(text)
 
 

@@ -151,11 +151,11 @@
 			feedback_add_details("borer_success","FAIL")
 
 		to_chat(world, text)
-		text = replacetext(text, '<B>', '**')
-		text = replacetext(text, '</B>', '**')
-		text = replacetext(text, "\red ", '*')
-		text = replacetext(text, "\green ", '*')
-		text = replacetext(text, "<br>", '\n')
+		text = replacetext(text, "<B>", "**")
+		text = replacetext(text, "</B>", "**")
+		text = replacetext(text, "\red ", "*")
+		text = replacetext(text, "\green ", "*")
+		text = replacetext(text, "<br>", "\n")
 		send_to_info_discord(text)
 	return 1
 

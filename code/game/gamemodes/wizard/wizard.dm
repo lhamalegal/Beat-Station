@@ -231,12 +231,12 @@
 		feedback_set_details("round_end_result","loss - wizard killed")
 		text += "\red <FONT size = 3><B> The wizard[(wizards.len>1)?"s":""] has been killed by the crew! The Space Wizards Federation has been taught a lesson they will not soon forget!</B></FONT>"
 		to_chat(world, text)
-		text = replacetext(text, '<B>', '**')
-		text = replacetext(text, '</B>', '**')
-		text = replacetext(text, '<FONT size = 3>', '')
-		text = replacetext(text, "\red ", '')
-		text = replacetext(text, "</FONT>", '')
-		text = replacetext(text, "<br>", '\n')
+		text = replacetext(text, "<B>", "**")
+		text = replacetext(text, "</B>", "**")
+		text = replacetext(text, "<FONT size = 3>", ")
+		text = replacetext(text, "\red ", "")
+		text = replacetext(text, "</FONT>", "")
+		text = replacetext(text, "<br>", "\n")
 		send_to_info_discord(text)
 	..()
 	return 1

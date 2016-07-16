@@ -189,11 +189,11 @@
 			text += "body destroyed"
 		text += ")"
 	to_chat(world, text)
-	text = replacetext(text, '<b>', '**')
-	text = replacetext(text, '</b>', '**')
-	text = replacetext(text, '<FONT size=3>', '')
-	text = replacetext(text, "</FONT>", '')
-	text = replacetext(text, "<br>", '\n')
+	text = replacetext(text, "<b>", "**")
+	text = replacetext(text, "</b>", "**")
+	text = replacetext(text, "<FONT size=3>", "")
+	text = replacetext(text, "</FONT>", "")
+	text = replacetext(text, "<br>", "\n")
 	send_to_info_discord(text)
 
 	..()

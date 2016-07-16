@@ -320,14 +320,14 @@
 		text += "<B>Round was mysteriously interrupted!</B>"
 	to_chat(world, text)
 
-	text = replacetext(text, '<B>', '**')
-	text = replacetext(text, '</B>', '**')
-	text = replacetext(text, '<FONT size = 3>', '')
-	text = replacetext(text, "<font color='red'>", '*')
-	text = replacetext(text, "<font color='green'>", '*')
-	text = replacetext(text, "</font>", '*')
-	text = replacetext(text, "</FONT>", '')
-	text = replacetext(text, "<br>", '\n')
+	text = replacetext(text, "<B>", "**")
+	text = replacetext(text, "</B>", "**")
+	text = replacetext(text, "<FONT size = 3>", "")
+	text = replacetext(text, "<font color='red'>", "*")
+	text = replacetext(text, "<font color='green'>", "*")
+	text = replacetext(text, "</font>", "*")
+	text = replacetext(text, "</FONT>", "")
+	text = replacetext(text, "<br>", "\n")
 	send_to_info_discord(text)
 	..()
 	return 1

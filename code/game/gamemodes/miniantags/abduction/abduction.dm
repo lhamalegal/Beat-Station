@@ -284,8 +284,10 @@
 		var/team_name = team_names[team_number]
 		if(console.experiment.points >= objective.target_amount)
 			to_chat(world, "<span class='greenannounce'>[team_name] team fullfilled its mission!</span>")
+			send_to_info_discord("[team_name] team fullfilled its mission!")
 		else
 			to_chat(world, "<span class='boldannounce'>[team_name] team failed its mission.</span>")
+			send_to_info_discord("[team_name] team failed its mission.")
 	..()
 	return 1
 
@@ -304,12 +306,12 @@
 				text += printobjectives(abductee_mind)
 	text += "<br>"
 	to_chat(world, text)
-	text = replacetext(text, '<b>', '**')
-	text = replacetext(text, '</b>', '**')
-	text = replacetext(text, "<span class='big'>", '')
-	text = replacetext(text, "</font>", '*')
-	text = replacetext(text, "</span>", '')
-	text = replacetext(text, "<br>", '\n')
+	text = replacetext(text, "<b>", "**")
+	text = replacetext(text, "</b>", "**")
+	text = replacetext(text, "<span class='big'>", "")
+	text = replacetext(text, "</font>", "*")
+	text = replacetext(text, "</span>", "")
+	text = replacetext(text, "<br>", "\n")
 	send_to_info_discord(text)
 
 //Landmarks
