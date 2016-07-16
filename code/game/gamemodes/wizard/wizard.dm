@@ -233,7 +233,7 @@
 		to_chat(world, text)
 		text = replacetext(text, "<B>", "**")
 		text = replacetext(text, "</B>", "**")
-		text = replacetext(text, "<FONT size = 3>", ")
+		text = replacetext(text, "<FONT size = 3>", "")
 		text = replacetext(text, "\red ", "")
 		text = replacetext(text, "</FONT>", "")
 		text = replacetext(text, "<br>", "\n")
