@@ -315,48 +315,48 @@ proc/issyndicate(mob/living/M as mob)
 
 	if      (!disk_rescued &&  station_was_nuked &&          !syndies_didnt_escape)
 		feedback_set_details("round_end_result","win - syndicate nuke")
-		text += "<FONT size = 3><B>Syndicate Major Victory!</B></FONT>")
-		text += "<B>[syndicate_name()] operatives have destroyed [station_name()]!</B>")
+		text += "<FONT size = 3><B>Syndicate Major Victory!</B></FONT>"
+		text += "<B>[syndicate_name()] operatives have destroyed [station_name()]!</B>"
 
 	else if (!disk_rescued &&  station_was_nuked &&           syndies_didnt_escape)
 		feedback_set_details("round_end_result","halfwin - syndicate nuke - did not evacuate in time")
-		text += "<FONT size = 3><B>Total Annihilation</B></FONT>")
-		text += "<B>[syndicate_name()] operatives destroyed [station_name()] but did not leave the area in time and got caught in the explosion.</B> Next time, don't lose the disk!")
+		text += "<FONT size = 3><B>Total Annihilation</B></FONT>"
+		text += "<B>[syndicate_name()] operatives destroyed [station_name()] but did not leave the area in time and got caught in the explosion.</B> Next time, don't lose the disk!"
 
 	else if (!disk_rescued && !station_was_nuked &&  nuke_off_station && !syndies_didnt_escape)
 		feedback_set_details("round_end_result","halfwin - blew wrong station")
-		text += "<FONT size = 3><B>Crew Minor Victory</B></FONT>")
-		text += "<B>[syndicate_name()] operatives secured the authentication disk but blew up something that wasn't [station_name()].</B> Next time, don't lose the disk!")
+		text += "<FONT size = 3><B>Crew Minor Victory</B></FONT>"
+		text += "<B>[syndicate_name()] operatives secured the authentication disk but blew up something that wasn't [station_name()].</B> Next time, don't lose the disk!"
 
 	else if (!disk_rescued && !station_was_nuked &&  nuke_off_station &&  syndies_didnt_escape)
 		feedback_set_details("round_end_result","halfwin - blew wrong station - did not evacuate in time")
-		text += "<FONT size = 3><B>[syndicate_name()] operatives have earned Darwin Award!</B></FONT>")
-		text += "<B>[syndicate_name()] operatives blew up something that wasn't [station_name()] and got caught in the explosion.</B> Next time, don't lose the disk!")
+		text += "<FONT size = 3><B>[syndicate_name()] operatives have earned Darwin Award!</B></FONT>"
+		text += "<B>[syndicate_name()] operatives blew up something that wasn't [station_name()] and got caught in the explosion.</B> Next time, don't lose the disk!"
 
 	else if ( disk_rescued                                         && is_operatives_are_dead())
 		feedback_set_details("round_end_result","loss - evacuation - disk secured - syndi team dead")
-		text += "<FONT size = 3><B>Crew Major Victory!</B></FONT>")
-		text += "<B>The Research Staff has saved the disc and killed the [syndicate_name()] Operatives</B>")
+		text += "<FONT size = 3><B>Crew Major Victory!</B></FONT>"
+		text += "<B>The Research Staff has saved the disc and killed the [syndicate_name()] Operatives</B>"
 
 	else if ( disk_rescued                                        )
 		feedback_set_details("round_end_result","loss - evacuation - disk secured")
-		text += "<FONT size = 3><B>Crew Major Victory</B></FONT>")
-		text += "<B>The Research Staff has saved the disc and stopped the [syndicate_name()] Operatives!</B>")
+		text += "<FONT size = 3><B>Crew Major Victory</B></FONT>"
+		text += "<B>The Research Staff has saved the disc and stopped the [syndicate_name()] Operatives!</B>"
 
 	else if (!disk_rescued                                         && is_operatives_are_dead())
 		feedback_set_details("round_end_result","loss - evacuation - disk not secured")
-		text += "<FONT size = 3><B>Syndicate Minor Victory!</B></FONT>")
-		text += "<B>The Research Staff failed to secure the authentication disk but did manage to kill most of the [syndicate_name()] Operatives!</B>")
+		text += "<FONT size = 3><B>Syndicate Minor Victory!</B></FONT>"
+		text += "<B>The Research Staff failed to secure the authentication disk but did manage to kill most of the [syndicate_name()] Operatives!</B>"
 
 	else if (!disk_rescued                                         &&  crew_evacuated)
 		feedback_set_details("round_end_result","halfwin - detonation averted")
-		text += "<FONT size = 3><B>Syndicate Minor Victory!</B></FONT>")
-		text += "<B>[syndicate_name()] operatives recovered the abandoned authentication disk but detonation of [station_name()] was averted.</B> Next time, don't lose the disk!")
+		text += "<FONT size = 3><B>Syndicate Minor Victory!</B></FONT>"
+		text += "<B>[syndicate_name()] operatives recovered the abandoned authentication disk but detonation of [station_name()] was averted.</B> Next time, don't lose the disk!"
 
 	else if (!disk_rescued                                         && !crew_evacuated)
 		feedback_set_details("round_end_result","halfwin - interrupted")
-		text += "<FONT size = 3><B>Neutral Victory</B></FONT>")
-		text += "<B>Round was mysteriously interrupted!</B>")
+		text += "<FONT size = 3><B>Neutral Victory</B></FONT>"
+		text += "<B>Round was mysteriously interrupted!</B>"
 
 	text = replace(text, '<B>', '**')
 	text = replace(text, '</B>', '**')
