@@ -94,3 +94,4 @@ datum/controller/game_controller/proc/setup_objects()
 	log_startup_progress("  Initialized [count] pipe networks in [stop_watch(watch)]s.")
 
 	log_startup_progress("Finished object initializations in [stop_watch(overwatch)]s.")
+	send_to_info_discord("Server restarted!")

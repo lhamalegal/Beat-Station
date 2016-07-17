@@ -19,6 +19,7 @@
 /datum/game_mode/borer/announce()
 	to_chat(world, "<B>The current game mode is - Cortical Borer!</B>")
 	to_chat(world, "<B>An unknown creature has infested the mind of a crew member. Find and destroy it by any means necessary.</B>")
+	send_to_info_discord("**The current game mode is - Cortical Borer!**\n**An unknown creature has infested the mind of a crew member. Find and destroy it by any means necessary.**")
 
 /datum/game_mode/borer/can_start()
 	if(!..())
@@ -121,19 +122,20 @@
 		return 1
 
 /datum/game_mode/proc/auto_declare_completion_borer()
+	var/text = ""
 	for(var/datum/mind/borer in borers)
 		var/borerwin = 1
 		if((borer.current) && istype(borer.current,/mob/living/simple_animal/borer))
-			to_chat(world, "<B>The borer was [borer.current.key].</B>")
-			to_chat(world, "<B>The last host was [borer.current:host.key].</B>")
+			text += "<B>The borer was [borer.current.key].</B>"
+			text += "<B>The last host was [borer.current:host.key].</B>"
 
 			var/count = 1
 			for(var/datum/objective/objective in borer.objectives)
 				if(objective.check_completion())
-					to_chat(world, "<B>Objective #[count]</B>: [objective.explanation_text] \green <B>Success</B>")
+					text += "<B>Objective #[count]</B>: [objective.explanation_text] \green <B>Success</B>"
 					feedback_add_details("borer_objective","[objective.type]|SUCCESS")
 				else
-					to_chat(world, "<B>Objective #[count]</B>: [objective.explanation_text] \red Failed")
+					text += "<B>Objective #[count]</B>: [objective.explanation_text] \red Failed"
 					feedback_add_details("borer_objective","[objective.type]|FAIL")
 					borerwin = 0
 				count++
@@ -142,11 +144,19 @@
 			borerwin = 0
 
 		if(borerwin)
-			to_chat(world, "<B>The borer was successful!<B>")
+			text += "<B>The borer was successful!<B>"
 			feedback_add_details("borer_success","SUCCESS")
 		else
-			to_chat(world, "<B>The borer has failed!<B>")
+			text += "<B>The borer has failed!<B>"
 			feedback_add_details("borer_success","FAIL")
+
+		to_chat(world, text)
+		text = replacetext(text, "<B>", "**")
+		text = replacetext(text, "</B>", "**")
+		text = replacetext(text, "\red ", "*")
+		text = replacetext(text, "\green ", "*")
+		text = replacetext(text, "<br>", "\n")
+		send_to_info_discord(text)
 	return 1
 
 /datum/game_mode/proc/forge_borer_objectives(var/datum/mind/borer, var/datum/mind/first_host)

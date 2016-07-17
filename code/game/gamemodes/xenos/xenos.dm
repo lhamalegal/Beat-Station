@@ -17,6 +17,7 @@
 /datum/game_mode/xenos/announce()
 	to_chat(world, "<B>The current game mode is - Xenos!</B>")
 	to_chat(world, "<B>There is an Xenomorph attack on the station.<BR>Aliens - Kill or infect the crew. Protect the Queen. <BR>Crew - Protect the station. Exterminate all aliens.</B>")
+	send_to_info_discord("**The current game mode is - Xenos!**\n**There is an Xenomorph attack on the station.\nAliens - Kill or infect the crew. Protect the Queen.\nCrew - Protect the station. Exterminate all aliens.**")
 
 /datum/game_mode/xenos/can_start()
 	if(!..())
@@ -148,25 +149,33 @@
 	return livingplayers.len
 
 /datum/game_mode/xenos/declare_completion()
+	var/text = ""
 	if(station_was_nuked)
 		feedback_set_details("round_end_result","win - xenos nuked")
-		to_chat(world, "<FONT size = 3><B>Crew Victory</B></FONT>")
-		to_chat(world, "<B>The station was destroyed in a nuclear explosion, preventing the aliens from overrunning it!</B>")
+		text += "<FONT size = 3><B>Crew Victory</B></FONT>"
+		text += "<B>The station was destroyed in a nuclear explosion, preventing the aliens from overrunning it!</B>"
 	else if(result == 1)
 		feedback_set_details("round_end_result","win - xenos killed")
-		to_chat(world, "<FONT size = 3><B>Crew Victory</B></FONT>")
-		to_chat(world, "<B>The aliens did not succeed and were exterminated by the crew!</B>")
+		text += "<FONT size = 3><B>Crew Victory</B></FONT>"
+		text += "<B>The aliens did not succeed and were exterminated by the crew!</B>"
 	else if(result == 2)
 		feedback_set_details("round_end_result","win - crew killed")
-		to_chat(world, "<FONT size = 3><B>Alien Victory</B></FONT>")
-		to_chat(world, "<B>The aliens were successful and slaughtered the crew!</B>")
+		text += "<FONT size = 3><B>Alien Victory</B></FONT>"
+		text += "<B>The aliens were successful and slaughtered the crew!</B>"
 	else
 		feedback_set_details("round_end_result","win - crew escaped")
-		to_chat(world, "<FONT size = 3><B>Draw</B></FONT>")
-		to_chat(world, "<B>The crew has escaped from the aliens but did not exterminate them, allowing them to overrun the station.</B>")
+		text += "<FONT size = 3><B>Draw</B></FONT>"
+		text += "<B>The crew has escaped from the aliens but did not exterminate them, allowing them to overrun the station.</B>"
+	to_chat(world, text)
+	text = replacetext(text, "<B>", "**")
+	text = replacetext(text, "</B>", "**")
+	text = replacetext(text, "<FONT size = 3>", "")
+	text = replacetext(text, "</FONT>", "")
+	text = replacetext(text, "<br>", "\n")
+	send_to_info_discord(text)
 
-	var/text = "<br><FONT size=3><B>There were [xenos.len] aliens.</B></FONT>"
-	text += "<br><FONT size=3><B>The aliens were:</B></FONT>"
+	text = "<br><FONT size=3><b>There were [xenos.len] aliens.</b></FONT>"
+	text += "<br><FONT size=3><b>The aliens were:</b></FONT>"
 	for(var/datum/mind/xeno in xenos)
 		text += "<br><b>[xeno.key]</b> was <b>[xeno.name]</b> ("
 		if(xeno.current)
@@ -180,6 +189,12 @@
 			text += "body destroyed"
 		text += ")"
 	to_chat(world, text)
+	text = replacetext(text, "<b>", "**")
+	text = replacetext(text, "</b>", "**")
+	text = replacetext(text, "<FONT size=3>", "")
+	text = replacetext(text, "</FONT>", "")
+	text = replacetext(text, "<br>", "\n")
+	send_to_info_discord(text)
 
 	..()
 	return 1

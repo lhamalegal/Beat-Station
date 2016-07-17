@@ -37,6 +37,7 @@
 /datum/game_mode/vampire/announce()
 	to_chat(world, "<B>The current game mode is - Vampires!</B>")
 	to_chat(world, "<B>There are Vampires from Space Transylvania on the station, keep your blood close and neck safe!</B>")
+	send_to_info_discord("**The current game mode is - Vampires!**\n**There are Vampires from Space Transylvania on the station, keep your blood close and neck safe!**")
 
 /datum/game_mode/vampire/pre_setup()
 
@@ -114,6 +115,15 @@
 				text += "<br><font color='red'><B>The [special_role_text] has failed!</B></font>"
 				feedback_add_details("traitor_success","FAIL")
 		to_chat(world, text)
+		text = replacetext(text, "<B>", "**")
+		text = replacetext(text, "</B>", "**")
+		text = replacetext(text, "<FONT size = 2>", "")
+		text = replacetext(text, "<font color='red'>", "*")
+		text = replacetext(text, "<font color='green'>", "*")
+		text = replacetext(text, "</font>", "*")
+		text = replacetext(text, "</FONT>", "")
+		text = replacetext(text, "<br>", "\n")
+		send_to_info_discord(text)
 	return 1
 
 /datum/game_mode/proc/auto_declare_completion_enthralled()
@@ -132,6 +142,12 @@
 				text += "body destroyed"
 			text += ")"
 		to_chat(world, text)
+		text = replacetext(text, "<B>", "**")
+		text = replacetext(text, "</B>", "**")
+		text = replacetext(text, "<FONT size = 2>", "")
+		text = replacetext(text, "</FONT>", "")
+		text = replacetext(text, "<br>", "\n")
+		send_to_info_discord(text)
 	return 1
 
 /datum/game_mode/proc/forge_vampire_objectives(var/datum/mind/vampire)

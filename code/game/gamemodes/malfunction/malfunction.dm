@@ -20,6 +20,7 @@
 	to_chat(world, {"<B>The current game mode is - AI Malfunction!</B><br>)
 		<B>The AI on the satellite has malfunctioned and must be destroyed.</B><br>
 		The AI satellite is deep in space and can only be accessed with the use of a teleporter! You have [AI_win_timeleft/60] minutes to disable it."})
+	send_to_info_discord("**The current game mode is - AI Malfunction!**\n**The AI on the satellite has malfunctioned and must be destroyed.**\nThe AI satellite is deep in space and can only be accessed with the use of a teleporter! You have [AI_win_timeleft/60] minutes to disable it.")
 
 /datum/game_mode/malfunction/get_players_for_role(var/role = ROLE_MALF)
 	var/roletext = get_roletext(role)
@@ -276,46 +277,58 @@
 /datum/game_mode/malfunction/declare_completion()
 	var/malf_dead = is_malf_ai_dead()
 	var/crew_evacuated = (shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
+	var/text = ""
 
 	if      ( station_captured &&                station_was_nuked)
 		feedback_set_details("round_end_result","win - AI win - nuke")
-		to_chat(world, "<FONT size = 3><B>AI Victory</B></FONT>")
-		to_chat(world, "<B>Everyone was killed by the self-destruct!</B>")
+		text += "<FONT size = 3><B>AI Victory</B></FONT>"
+		text += "<br><B>Everyone was killed by the self-destruct!</B>"
 
 	else if ( station_captured &&  malf_dead && !station_was_nuked)
 		feedback_set_details("round_end_result","halfwin - AI killed, staff lost control")
-		to_chat(world, "<FONT size = 3><B>Neutral Victory</B></FONT>")
-		to_chat(world, "<B>The AI has been killed!</B> The staff has lose control over the station.")
+		text += "<FONT size = 3><B>Neutral Victory</B></FONT>"
+		text += "<B>The AI has been killed!</B> The staff has lose control over the station."
 
 	else if ( station_captured && !malf_dead && !station_was_nuked)
 		feedback_set_details("round_end_result","win - AI win - no explosion")
-		to_chat(world, "<FONT size = 3><B>AI Victory</B></FONT>")
-		to_chat(world, "<B>The AI has chosen not to explode you all!</B>")
+		text += "<FONT size = 3><B>AI Victory</B></FONT>"
+		text += "<B>The AI has chosen not to explode you all!</B>"
 
 	else if (!station_captured &&                station_was_nuked)
 		feedback_set_details("round_end_result","halfwin - everyone killed by nuke")
-		to_chat(world, "<FONT size = 3><B>Neutral Victory</B></FONT>")
-		to_chat(world, "<B>Everyone was killed by the nuclear blast!</B>")
+		text += "<FONT size = 3><B>Neutral Victory</B></FONT>"
+		text += "<B>Everyone was killed by the nuclear blast!</B>"
 
 	else if (!station_captured &&  malf_dead && !station_was_nuked)
 		feedback_set_details("round_end_result","loss - staff win")
-		to_chat(world, "<FONT size = 3><B>Human Victory</B></FONT>")
-		to_chat(world, "<B>The AI has been killed!</B> The staff is victorious.")
+		text += "<FONT size = 3><B>Human Victory</B></FONT>"
+		text += "<B>The AI has been killed!</B> The staff is victorious."
 
 	else if(!station_captured && !malf_dead && !check_ai_loc())
 		feedback_set_details("round_end_result", "loss - malf ai left zlevel")
-		to_chat(world, "<font size=3><b>Minor Human Victory</b></font>")
-		to_chat(world, "<b>The malfunctioning AI has left the station's z-level and was disconnected from its systems!</b> The crew are victorious.")
+		text += "<font size=3><b>Minor Human Victory</b></font>"
+		text += "<b>The malfunctioning AI has left the station's z-level and was disconnected from its systems!</b> The crew are victorious."
 
 	else if (!station_captured && !malf_dead && !station_was_nuked && crew_evacuated)
 		feedback_set_details("round_end_result","halfwin - evacuated")
-		to_chat(world, "<FONT size = 3><B>Neutral Victory</B></FONT>")
-		to_chat(world, "<B>The Corporation has lose [station_name()]! All survived personnel will be fired!</B>")
+		text += "<FONT size = 3><B>Neutral Victory</B></FONT>"
+		text += "<B>The Corporation has lose [station_name()]! All survived personnel will be fired!</B>"
 
 	else if (!station_captured && !malf_dead && !station_was_nuked && !crew_evacuated)
 		feedback_set_details("round_end_result","nalfwin - interrupted")
-		to_chat(world, "<FONT size = 3><B>Neutral Victory</B></FONT>")
-		to_chat(world, "<B>Round was mysteriously interrupted!</B>")
+		text += "<FONT size = 3><B>Neutral Victory</B></FONT>"
+		text += "<B>Round was mysteriously interrupted!</B>"
+	to_chat(world, text)
+
+	text = replacetext(text, "<B>", "**")
+	text = replacetext(text, "</B>", "**")
+	text = replacetext(text, "<FONT size = 3>", "")
+	text = replacetext(text, "<font color='red'>", "*")
+	text = replacetext(text, "<font color='green'>", "*")
+	text = replacetext(text, "</font>", "*")
+	text = replacetext(text, "</FONT>", "")
+	text = replacetext(text, "<br>", "\n")
+	send_to_info_discord(text)
 	..()
 	return 1
 
