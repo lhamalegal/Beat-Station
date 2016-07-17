@@ -4,7 +4,7 @@ import sys
 import pickle
 import socket
 import argparse
-import html
+#import html
 
 def pack(host, port, key, channel, message):
 
@@ -15,7 +15,7 @@ def pack(host, port, key, channel, message):
 	try:
 		d = []
 		for in_data in message:  # The rest of the arguments is data
-			d += [html.unescape(in_data)]
+			d += [in_data]
 		data['data'] = ' '.join(d)
 
         # Buffer overflow prevention.
