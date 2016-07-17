@@ -1,6 +1,5 @@
 # nudge.py --channel="nudges|ahelps" --id="Server ID" --key="access key" Message! More message!
 # Credit to the gents at VGStation13/N3XIS for this code.
-
 import sys
 import pickle
 import socket
@@ -10,7 +9,6 @@ import html
 def pack(host, port, key, channel, message):
 
 	data = {}
-
 	data['key'] = key
 	data['channel'] = channel
 
