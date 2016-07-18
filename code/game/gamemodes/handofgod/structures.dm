@@ -493,6 +493,9 @@
 	if(deity)
 		deity.god_nexus.powerpylons += src
 
+/obj/machinery/porta_turret/defensepylon_internal_turret/pylon_gun
+//	var/base
+
 /obj/structure/divine/defensepylon
 	name = "defense pylon"
 	desc = "A pylon which is blessed to withstand many blows, and fire strong bolts at nonbelievers. A god can toggle it."
@@ -507,7 +510,7 @@
 /obj/structure/divine/defensepylon/New()
 	..()
 	pylon_gun = new(src)
-	pylon_gun.base = src
+//	pylon_gun.base = src
 	pylon_gun.faction = list("[side] god")
 
 
@@ -518,7 +521,7 @@
 
 /obj/structure/divine/defensepylon/examine(mob/user)
         ..()
-        user << "<span class='notice'>\The [src] looks [pylon_gun.on ? "on" : "off"].</span>"
+        user << "<span class='notice'>\The [src] looks [pylon_gun.enabled ? "on" : "off"].</span>"
 
 
 /obj/structure/divine/defensepylon/assign_deity(mob/camera/god/new_deity, alert_old_deity = TRUE)
@@ -531,18 +534,18 @@
 		if(deactivated)
 			user << "You need to reveal it first!"
 			return
-		pylon_gun.on = !pylon_gun.on
-		icon_state = (pylon_gun.on) ? "defensepylon-[side]" : "defensepylon"
+		pylon_gun.enabled = !pylon_gun.enabled
+		icon_state = (pylon_gun.enabled) ? "defensepylon-[side]" : "defensepylon"
 
 /obj/structure/divine/defensepylon/deactivate()
 	..()
-	pylon_gun.on = 0
-	icon_state = (pylon_gun.on) ? "defensepylon-[side]" : "defensepylon"
+	pylon_gun.enabled = 0
+	icon_state = (pylon_gun.enabled) ? "defensepylon-[side]" : "defensepylon"
 
 /obj/structure/divine/defensepylon/activate()
 	..()
-	pylon_gun.on = 1
-	icon_state = (pylon_gun.on) ? "defensepylon-[side]" : "defensepylon"
+	pylon_gun.enabled = 1
+	icon_state = (pylon_gun.enabled) ? "defensepylon-[side]" : "defensepylon"
 
 //This sits inside the defensepylon, to avoid copypasta
 /obj/machinery/porta_turret/defensepylon_internal_turret
@@ -550,19 +553,19 @@
 	desc = "A plyon which is blessed to withstand many blows, and fire strong bolts at nonbelievers."
 	icon = 'icons/obj/hand_of_god_structures.dmi'
 	installation = null
-	always_up = 1
+	raised = 1
 	use_power = 0
-	has_cover = 0
+//	has_cover = 0
 	health = 200
 	projectile =  /obj/item/projectile/beam/pylon_bolt
 	eprojectile =  /obj/item/projectile/beam/pylon_bolt
 	shot_sound =  'sound/weapons/emitter2.ogg'
 	eshot_sound = 'sound/weapons/emitter2.ogg'
-	base_icon_state = "defensepylon"
-	active_state = ""
-	off_state = ""
+//	base_icon_state = "defensepylon" //This might be important later.
+//	active_state = ""
+//	off_state = ""
 	faction = null
-	emp_vunerable = 0
+//	emp_vunerable = 0
 	var/side = "neutral"
 
 /obj/machinery/porta_turret/defensepylon_internal_turret/setup()
