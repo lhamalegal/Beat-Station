@@ -124,9 +124,7 @@ datum/admins/proc/DB_ban_record(var/bantype, var/mob/banned_mob, var/duration = 
 	to_chat(usr, "\blue Ban saved to database.")
 	message_admins("[key_name_admin(usr)] has added a [bantype_str] for [ckey] [(job)?"([job])":""] [(duration > 0)?"([duration] minutes)":""] with the reason: \"[reason]\". Ban Appeal: [ban_appeal ? ban_appeal : "No"], Victim: [victim ? victim : "No victims"] to the ban database.",1)
 
-	var/template = "**Auto-generated Discord Template:**\n"
-
-	template += "Banned User\n"
+	var/template = "Banned User\n"
 	template += "**BYOND Key**: [ckey]\n"
 	template += "**Ban reason**: [reason]\n"
 	template += "**Ban duration**: [bantype_str == "TEMPBAN" || bantype_str == "ADMIN_TEMPBAN" ? (duration >0) ? "[duration] minutos" : "" : "PERMABAN"]\n"
@@ -134,9 +132,9 @@ datum/admins/proc/DB_ban_record(var/bantype, var/mob/banned_mob, var/duration = 
 	template += "**Ban type**: [bantype_str == "JOB_TEMPBAN" || bantype_str == "JOB_PERMABAN" ? "[bantype_str] ([job])" : bantype_str] \n"
 	template += "**Admin Key**: [usr.client.ckey]\n"
 	template += "**Victim**: [victim ? victim : "N/A"]"
-	//to_chat(usr, template)
+	to_chat(usr, "<b>Auto-generated Discord Template:</b>\n" + template)
 
-	send_to_ban_discord(template)
+	send_to_ban_discord("**Auto-generated Discord Template:**\n" + template)
 
 	if(kickbannedckey)
 		if(banned_mob && banned_mob.client && banned_mob.client.ckey == banckey)
