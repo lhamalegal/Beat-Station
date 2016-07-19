@@ -124,7 +124,7 @@ datum/admins/proc/DB_ban_record(var/bantype, var/mob/banned_mob, var/duration = 
 	to_chat(usr, "\blue Ban saved to database.")
 	message_admins("[key_name_admin(usr)] has added a [bantype_str] for [ckey] [(job)?"([job])":""] [(duration > 0)?"([duration] minutes)":""] with the reason: \"[reason]\". Ban Appeal: [ban_appeal ? ban_appeal : "No"], Victim: [victim ? victim : "No victims"] to the ban database.",1)
 
-	var/template += "Banned User\n"
+	var/template = "Banned User\n"
 	template += "**BYOND Key**: [ckey]\n"
 	template += "**Ban reason**: [reason]\n"
 	template += "**Ban duration**: [bantype_str == "TEMPBAN" || bantype_str == "ADMIN_TEMPBAN" ? (duration >0) ? "[duration] minutos" : "" : "PERMABAN"]\n"
