@@ -37,9 +37,7 @@
 
 /datum/game_mode/proc/announce(var/text="<B>Notice</B>: [src] did not define announce()") //to be calles when round starts
 	to_chat(world, text)
-	text = replacetext(text, "<B>", "**")
-	text = replacetext(text, "</B>", "**")
-	text = replacetext(text, "<br>", "\n")
+	text = html2discord(text)
 	send_to_info_discord(text)
 	return
 
@@ -148,14 +146,7 @@
 	return
 
 /datum/game_mode/proc/declare_completion(var/text="")
-	text = replacetext(text, "<B>", "**")
-	text = replacetext(text, "</B>", "**")
-	text = replacetext(text, "<FONT size = 3>", "")
-	text = replacetext(text, "<font color='red'>", "*")
-	text = replacetext(text, "<font color='green'>", "*")
-	text = replacetext(text, "</font>", "*")
-	text = replacetext(text, "</FONT>", "")
-	text = replacetext(text, "<br>", "\n")
+	text = html2discord(text)
 	send_to_info_discord(text)
 	var/clients = 0
 	var/surviving_humans = 0

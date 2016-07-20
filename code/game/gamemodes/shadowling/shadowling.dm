@@ -287,11 +287,7 @@ Made by Xhuis
 				text += ")"
 	text += "<br>"
 	to_chat(world, text)
-	text = replacetext(text, "<b>", "**")
-	text = replacetext(text, "</b>", "**")
-	text = replacetext(text, "<span class='big'>", "")
-	text = replacetext(text, "</span>", "")
-	text = replacetext(text, "<br>", "\n")
+	text = html2discord(text)
 	send_to_info_discord(text)
 
 

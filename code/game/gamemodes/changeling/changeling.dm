@@ -240,14 +240,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 				feedback_add_details("changeling_success","FAIL")
 
 		to_chat(world, text)
-		text = replacetext(text, "<B>", "**")
-		text = replacetext(text, "</B>", "**")
-		text = replacetext(text, "<FONT size = 2>", "")
-		text = replacetext(text, "<font color='red'>", "*")
-		text = replacetext(text, "<font color='green'>", "*")
-		text = replacetext(text, "</font>", "*")
-		text = replacetext(text, "</FONT>", "")
-		text = replacetext(text, "<br>", "\n")
+		text = html2discord(text)
 		send_to_info_discord(text)
 
 	return 1

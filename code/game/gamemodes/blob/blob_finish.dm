@@ -40,13 +40,6 @@
 			for(var/datum/mind/blob in blob_mode.infected_crew)
 				text += "<br><B>[blob.key]</B> was <B>[blob.name]</B>"
 			to_chat(world, text)
-			text = replacetext(text, "<B>", "**")
-			text = replacetext(text, "</B>", "**")
-			text = replacetext(text, "<FONT size = 2>", "***")
-			text = replacetext(text, "<font color='red'>", "*")
-			text = replacetext(text, "<font color='green'>", "*")
-			text = replacetext(text, "</font>", "*")
-			text = replacetext(text, "</FONT>", "***")
-			text = replacetext(text, "<br>", "\n")
+			text = html2discord(text)
 			send_to_info_discord(text)
 		return 1

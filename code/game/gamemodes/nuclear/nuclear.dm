@@ -395,12 +395,7 @@ proc/issyndicate(mob/living/M as mob)
 			text += "<BIG><IMG CLASS=icon SRC=\ref['icons/BadAss.dmi'] ICONSTATE='badass'></BIG>"
 
 		to_chat(world, text)
-		text = replacetext(text, "<b>", "**")
-		text = replacetext(text, "</b>", "**")
-		text = replacetext(text, "<FONT size = 3>", "")
-		text = replacetext(text, "</font>", "*")
-		text = replacetext(text, "</FONT>", "")
-		text = replacetext(text, "<br>", "\n")
+		text = html2discord(text)
 		send_to_info_discord(text)
 	return 1
 
