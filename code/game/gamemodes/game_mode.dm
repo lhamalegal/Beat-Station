@@ -35,8 +35,13 @@
 	var/const/waittime_l = 600  //lower bound on time before intercept arrives (in tenths of seconds)
 	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
 
-/datum/game_mode/proc/announce() //to be calles when round starts
-	to_chat(world, "<B>Notice</B>: [src] did not define announce()")
+/datum/game_mode/proc/announce(var/text="<B>Notice</B>: [src] did not define announce()") //to be calles when round starts
+	to_chat(world, text)
+	text = replacetext(text, "<B>", "**")
+	text = replacetext(text, "</B>", "**")
+	text = replacetext(text, "<br>", "\n")
+	send_to_info_discord(text)
+	return
 
 
 ///can_start()
@@ -142,7 +147,16 @@
 /datum/game_mode/proc/cleanup()	//This is called when the round has ended but not the game, if any cleanup would be necessary in that case.
 	return
 
-/datum/game_mode/proc/declare_completion()
+/datum/game_mode/proc/declare_completion(var/text="")
+	text = replacetext(text, "<B>", "**")
+	text = replacetext(text, "</B>", "**")
+	text = replacetext(text, "<FONT size = 3>", "")
+	text = replacetext(text, "<font color='red'>", "*")
+	text = replacetext(text, "<font color='green'>", "*")
+	text = replacetext(text, "</font>", "*")
+	text = replacetext(text, "</FONT>", "")
+	text = replacetext(text, "<br>", "\n")
+	send_to_info_discord(text)
 	var/clients = 0
 	var/surviving_humans = 0
 	var/surviving_total = 0

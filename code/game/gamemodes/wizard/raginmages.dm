@@ -13,8 +13,9 @@
 	var/time_till_chaos = 18000 // Half-hour in
 
 /datum/game_mode/wizard/raginmages/announce()
-	to_chat(world, "<B>The current game mode is - Ragin' Mages!</B>")
-	to_chat(world, "<B>The <font color='red'>Space Wizard Federation</font> is pissed, help defeat all the space wizards!</B>")
+	var/text = "<B>The current game mode is - Ragin' Mages!</B><br>"
+	text += "<B>The <font color='red'>Space Wizard Federation</font> is pissed, help defeat all the space wizards!</B>"
+	..(text)
 
 
 /datum/game_mode/wizard/raginmages/greet_wizard(var/datum/mind/wizard, var/you_are=1)

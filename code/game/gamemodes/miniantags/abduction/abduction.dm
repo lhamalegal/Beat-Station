@@ -18,11 +18,11 @@
 	var/list/datum/mind/possible_abductors = list()
 
 /datum/game_mode/abduction/announce()
-	to_chat(world, "<B>The current game mode is - Abduction!</B>")
-	to_chat(world, "There are alien <b>abductors</b> sent to [world.name] to perform nefarious experiments!")
-	to_chat(world, "<b>Abductors</b> - kidnap the crew and replace their organs with experimental ones.")
-	to_chat(world, "<b>Crew</b> - don't get abducted and stop the abductors.")
-	send_to_info_discord("**The current game mode is - Abduction!**\nThere are alien **abductors** sent to [world.name] to perform nefarious experiments!\n**Abductors** - kidnap the crew and replace their organs with experimental ones.\n**Crew** - don't get abducted and stop the abductors.")
+	var/text = "<B>The current game mode is - Abduction!</B><br>"
+	text += "There are alien <b>abductors</b> sent to [world.name] to perform nefarious experiments!<br>"
+	text += "<b>Abductors</b> - kidnap the crew and replace their organs with experimental ones.<br>"
+	text += "<b>Crew</b> - don't get abducted and stop the abductors."
+	..(text)
 
 /datum/game_mode/abduction/pre_setup()
 	possible_abductors = get_players_for_role(ROLE_ABDUCTOR)
@@ -278,17 +278,20 @@
 	return ..()
 
 /datum/game_mode/abduction/declare_completion()
+
+	var/text=""
 	for(var/team_number=1,team_number<=abductor_teams,team_number++)
 		var/obj/machinery/abductor/console/console = get_team_console(team_number)
 		var/datum/objective/objective = team_objectives[team_number]
 		var/team_name = team_names[team_number]
 		if(console.experiment.points >= objective.target_amount)
-			to_chat(world, "<span class='greenannounce'>[team_name] team fullfilled its mission!</span>")
+			text+="<span class='greenannounce'>[team_name] team fullfilled its mission!</span><br>"
 			send_to_info_discord("[team_name] team fullfilled its mission!")
 		else
-			to_chat(world, "<span class='boldannounce'>[team_name] team failed its mission.</span>")
+			text+="<span class='boldannounce'>[team_name] team failed its mission.</span><br>"
 			send_to_info_discord("[team_name] team failed its mission.")
-	..()
+	to_chat(world, text)
+	..(text)
 	return 1
 
 /datum/game_mode/proc/auto_declare_completion_abduction()

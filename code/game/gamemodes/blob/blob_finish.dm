@@ -28,16 +28,7 @@
 		text += "<B>The alien organism has been eradicated from the station</B>"
 		log_game("Blob mode completed with a crew victory.")
 	to_chat(world, text)
-	text = replacetext(text, "<B>", "**")
-	text = replacetext(text, "</B>", "**")
-	text = replacetext(text, "<FONT size = 3>", "")
-	text = replacetext(text, "<font color='red'>", "*")
-	text = replacetext(text, "<font color='green'>", "*")
-	text = replacetext(text, "</font>", "*")
-	text = replacetext(text, "</FONT>", "")
-	text = replacetext(text, "<br>", "\n")
-	send_to_info_discord(text)
-	..()
+	..(text)
 	return 1
 
 /datum/game_mode/proc/auto_declare_completion_blob()

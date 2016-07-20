@@ -7,10 +7,9 @@
 
 
 /datum/game_mode/meteor/announce()
-	to_chat(world, "<B>The current game mode is - Meteor!</B>")
-	to_chat(world, "<B>The space station has been stuck in a major meteor shower. You must escape from the station or at least live.</B>")
-	send_to_info_discord("**The current game mode is - Meteor!**\n**The space station has been stuck in a major meteor shower. You must escape from the station or at least live.**")
-
+	var/text = "<B>The current game mode is - Meteor!</B><br>"
+	text += "<B>The space station has been stuck in a major meteor shower. You must escape from the station or at least live.</B>"
+	..(text)
 
 /datum/game_mode/meteor/post_setup()
 	spawn(rand(waittime_l, waittime_h))
@@ -57,14 +56,6 @@
 
 	feedback_set_details("round_end_result","end - evacuation")
 	feedback_set("round_end_result",survivors)
-	text = replacetext(text, "<b>", "**")
-	text = replacetext(text, "</b>", "**")
-	text = replacetext(text, "<font size=2>", "")
-	text = replacetext(text, "<font size=1>", "")
-	text = replacetext(text, "</font>", "")
-	text = replacetext(text, "\blue ", "")
-	text = replacetext(text, "<br>", "\n")
-	send_to_info_discord(text)
-
-	..()
+	
+	..(text)
 	return 1

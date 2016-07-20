@@ -10,9 +10,7 @@
 	var/num_players = 0
 
 /datum/game_mode/traitor/autotraitor/announce()
-	..()
-	to_chat(world, "<B>Game mode is AutoTraitor. Traitors will be added to the round automagically as needed.</B>")
-	send_to_info_discord("**Game mode is AutoTraitor. Traitors will be added to the round automagically as needed.**")
+	..("<B>Game mode is AutoTraitor. Traitors will be added to the round automagically as needed.</B>")
 
 /datum/game_mode/traitor/autotraitor/pre_setup()
 

@@ -21,13 +21,12 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 	var/win_button_triggered = 0
 
 /datum/game_mode/heist/announce()
-	to_chat(world, "<B>The current game mode is - Heist!</B>")
-	to_chat(world, "<B>An unidentified bluespace signature has slipped past the Icarus and is approaching [station_name()]!</B>")
-	to_chat(world, "Whoever they are, they're likely up to no good. Protect the crew and station resources against this dastardly threat!")
-	to_chat(world, "<B>Raiders:</B> Loot [station_name()] for anything and everything you need, or choose the peaceful route and attempt to trade with them.")
-	to_chat(world, "<B>Personnel:</B> Trade with the raiders, or repel them and their low, low prices and/or crossbows.")
-	send_to_info_discord("**The current game mode is - Heist!**\n**An unidentified bluespace signature has slipped past the Icarus and is approaching [station_name()]!**\nWhoever they are, they're likely up to no good. Protect the crew and station resources against this dastardly threat!")
-	send_to_info_discord("**Raiders:** Loot [station_name()] for anything and everything you need, or choose the peaceful route and attempt to trade with them.\n**Personnel:** Trade with the raiders, or repel them and their low, low prices and/or crossbows.")
+	var/text = "<B>The current game mode is - Heist!</B><br>"
+	text += "<B>An unidentified bluespace signature has slipped past the Icarus and is approaching [station_name()]!</B><br>"
+	text += "Whoever they are, they're likely up to no good. Protect the crew and station resources against this dastardly threat!<br>"
+	text += "<B>Raiders:</B> Loot [station_name()] for anything and everything you need, or choose the peaceful route and attempt to trade with them.<br>"
+	text += "<B>Personnel:</B> Trade with the raiders, or repel them and their low, low prices and/or crossbows."
+	..(text)
 
 /datum/game_mode/heist/can_start()
 
@@ -238,17 +237,7 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 
 	to_chat(world, "\red <FONT size = 3><B>[win_type] [win_group] victory!</B></FONT>")
 	to_chat(world, text)
-	text = replacetext(text, "<B>", "**")
-	text = replacetext(text, "</B>", "**")
-	text = replacetext(text, "<FONT size = 3>", "")
-	text = replacetext(text, "<font color='red'>", "*")
-	text = replacetext(text, "<font color='green'>", "*")
-	text = replacetext(text, "</font>", "*")
-	text = replacetext(text, "</FONT>", "")
-	text = replacetext(text, "\red ", "")
-	text = replacetext(text, "<br>", "\n")
-	send_to_info_discord(text)
-
+	
 	feedback_set_details("round_end_result","heist - [win_type] [win_group]")
 
 	var/count = 1
@@ -261,7 +250,7 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 			feedback_add_details("traitor_objective","[objective.type]|FAIL")
 		count++
 
-	..()
+	..(text)
 
 datum/game_mode/proc/auto_declare_completion_heist()
 	if(raiders.len)
