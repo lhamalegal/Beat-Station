@@ -15,9 +15,9 @@
 	var/gammaratio = 4 //At what alien to human ratio will the Gamma security level be called and the nuke be made available?
 
 /datum/game_mode/xenos/announce()
-	to_chat(world, "<B>The current game mode is - Xenos!</B>")
-	to_chat(world, "<B>There is an Xenomorph attack on the station.<BR>Aliens - Kill or infect the crew. Protect the Queen. <BR>Crew - Protect the station. Exterminate all aliens.</B>")
-	send_to_info_discord("**The current game mode is - Xenos!**\n**There is an Xenomorph attack on the station.\nAliens - Kill or infect the crew. Protect the Queen.\nCrew - Protect the station. Exterminate all aliens.**")
+	var/text = "<B>The current game mode is - Xenos!</B><br>"
+	text += "<B>There is an Xenomorph attack on the station.<BR>Aliens - Kill or infect the crew. Protect the Queen. <BR>Crew - Protect the station. Exterminate all aliens.</B>"
+	..(text)
 
 /datum/game_mode/xenos/can_start()
 	if(!..())
@@ -166,15 +166,8 @@
 		feedback_set_details("round_end_result","win - crew escaped")
 		text += "<FONT size = 3><B>Draw</B></FONT>"
 		text += "<B>The crew has escaped from the aliens but did not exterminate them, allowing them to overrun the station.</B>"
-	to_chat(world, text)
-	text = replacetext(text, "<B>", "**")
-	text = replacetext(text, "</B>", "**")
-	text = replacetext(text, "<FONT size = 3>", "")
-	text = replacetext(text, "</FONT>", "")
-	text = replacetext(text, "<br>", "\n")
-	send_to_info_discord(text)
-
-	text = "<br><FONT size=3><b>There were [xenos.len] aliens.</b></FONT>"
+	
+	text += "<br><br><FONT size=3><b>There were [xenos.len] aliens.</b></FONT>"
 	text += "<br><FONT size=3><b>The aliens were:</b></FONT>"
 	for(var/datum/mind/xeno in xenos)
 		text += "<br><b>[xeno.key]</b> was <b>[xeno.name]</b> ("
@@ -189,12 +182,5 @@
 			text += "body destroyed"
 		text += ")"
 	to_chat(world, text)
-	text = replacetext(text, "<b>", "**")
-	text = replacetext(text, "</b>", "**")
-	text = replacetext(text, "<FONT size=3>", "")
-	text = replacetext(text, "</FONT>", "")
-	text = replacetext(text, "<br>", "\n")
-	send_to_info_discord(text)
-
-	..()
+	..(text)
 	return 1
