@@ -47,7 +47,7 @@
 		if((player.client)&&(player.ready))
 			playerC++
 
-	if(playerC >= required_players)
+	if(playerC >= required_players || Debug2)
 		return 1
 	return 0
 
