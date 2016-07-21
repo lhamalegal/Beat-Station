@@ -28,9 +28,9 @@
 //Announces the game type//
 ///////////////////////////
 /datum/game_mode/revolution/announce()
-	to_chat(world, "<B>The current game mode is - Revolution!</B>")
-	to_chat(world, "<B>Some crewmembers are attempting to start a revolution!<BR>\nRevolutionaries - Kill the Captain, HoP, HoS, CE, RD and CMO. Convert other crewmembers (excluding the heads of staff, and security officers) to your cause by flashing them. Protect your leaders.<BR>\nPersonnel - Protect the heads of staff. Kill the leaders of the revolution, and brainwash the other revolutionaries (by beating them in the head).</B>")
-	send_to_info_discord("**The current game mode is - Revolution!**\n**Some crewmembers are attempting to start a revolution!**\nRevolutionaries - Kill the Captain, HoP, HoS, CE, RD and CMO. Convert other crewmembers (excluding the heads of staff, and security officers) to your cause by flashing them. Protect your leaders.**\nPersonnel - Protect the heads of staff. Kill the leaders of the revolution, and brainwash the other revolutionaries (by beating them in the head).**")
+	var/text = "<B>The current game mode is - Revolution!</B><br>"
+	text += "<B>Some crewmembers are attempting to start a revolution!<BR>\nRevolutionaries - Kill the Captain, HoP, HoS, CE, RD and CMO. Convert other crewmembers (excluding the heads of staff, and security officers) to your cause by flashing them. Protect your leaders.<BR>\nPersonnel - Protect the heads of staff. Kill the leaders of the revolution, and brainwash the other revolutionaries (by beating them in the head).</B>"
+	..(text)
 
 ///////////////////////////////////////////////////////////////////////////////
 //Gets the round setup, cancelling if there's not enough players at the start//
@@ -331,11 +331,7 @@
 		feedback_set_details("round_end_result","loss - rev heads killed")
 		text += "<span class='redtext'>The heads of staff managed to stop the revolution!</span>"
 	to_chat(world, text)
-	text = replacetext(text, "<span class='redtext'>", "**")
-	text = replacetext(text, "</span>", "**")
-	text = replacetext(text, "<br>", "\n")
-	send_to_info_discord(text)
-	..()
+	..(text)
 	return 1
 
 /datum/game_mode/proc/auto_declare_completion_revolution()

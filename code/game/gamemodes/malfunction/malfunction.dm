@@ -17,10 +17,10 @@
 
 
 /datum/game_mode/malfunction/announce()
-	to_chat(world, {"<B>The current game mode is - AI Malfunction!</B><br>)
-		<B>The AI on the satellite has malfunctioned and must be destroyed.</B><br>
-		The AI satellite is deep in space and can only be accessed with the use of a teleporter! You have [AI_win_timeleft/60] minutes to disable it."})
-	send_to_info_discord("**The current game mode is - AI Malfunction!**\n**The AI on the satellite has malfunctioned and must be destroyed.**\nThe AI satellite is deep in space and can only be accessed with the use of a teleporter! You have [AI_win_timeleft/60] minutes to disable it.")
+	var/text = "<B>The current game mode is - AI Malfunction!</B><br>"
+	text += "<B>The AI on the satellite has malfunctioned and must be destroyed.</B><br>"
+	text += "The AI satellite is deep in space and can only be accessed with the use of a teleporter! You have [AI_win_timeleft/60] minutes to disable it."
+	..(text)
 
 /datum/game_mode/malfunction/get_players_for_role(var/role = ROLE_MALF)
 	var/roletext = get_roletext(role)
@@ -319,17 +319,7 @@
 		text += "<FONT size = 3><B>Neutral Victory</B></FONT>"
 		text += "<B>Round was mysteriously interrupted!</B>"
 	to_chat(world, text)
-
-	text = replacetext(text, "<B>", "**")
-	text = replacetext(text, "</B>", "**")
-	text = replacetext(text, "<FONT size = 3>", "")
-	text = replacetext(text, "<font color='red'>", "*")
-	text = replacetext(text, "<font color='green'>", "*")
-	text = replacetext(text, "</font>", "*")
-	text = replacetext(text, "</FONT>", "")
-	text = replacetext(text, "<br>", "\n")
-	send_to_info_discord(text)
-	..()
+	..(text)
 	return 1
 
 

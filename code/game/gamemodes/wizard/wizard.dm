@@ -13,9 +13,9 @@
 	var/but_wait_theres_more = 0
 
 /datum/game_mode/wizard/announce()
-	to_chat(world, "<B>The current game mode is - Wizard!</B>")
-	to_chat(world, "<B>There is a <font color='red'>SPACE WIZARD</font> on the station. You can't let him achieve his objective!</B>")
-	send_to_info_discord("**The current game mode is - Wizard!**\n**There is a __**SPACE WIZARD**__ on the station. You can't let him achieve his objective!**")
+	var/text = "<B>The current game mode is - Wizard!</B><br>"
+	text += "<B>There is a <font color='red'>SPACE WIZARD</font> on the station. You can't let him achieve his objective!</B>"
+	..(text)
 
 
 /datum/game_mode/wizard/can_start()//This could be better, will likely have to recode it later
@@ -231,14 +231,7 @@
 		feedback_set_details("round_end_result","loss - wizard killed")
 		text += "\red <FONT size = 3><B> The wizard[(wizards.len>1)?"s":""] has been killed by the crew! The Space Wizards Federation has been taught a lesson they will not soon forget!</B></FONT>"
 		to_chat(world, text)
-		text = replacetext(text, "<B>", "**")
-		text = replacetext(text, "</B>", "**")
-		text = replacetext(text, "<FONT size = 3>", "")
-		text = replacetext(text, "\red ", "")
-		text = replacetext(text, "</FONT>", "")
-		text = replacetext(text, "<br>", "\n")
-		send_to_info_discord(text)
-	..()
+	..(text)
 	return 1
 
 
@@ -289,14 +282,7 @@
 			text += "<br>"
 
 		to_chat(world, text)
-		text = replacetext(text, "<B>", "**")
-		text = replacetext(text, "</B>", "**")
-		text = replacetext(text, "<FONT size = 3>", "")
-		text = replacetext(text, "<font color='red'>", "")
-		text = replacetext(text, "<font color='green'>", "")
-		text = replacetext(text, "</font>", "")
-		text = replacetext(text, "</FONT>", "")
-		text = replacetext(text, "<br>", "\n")
+		text = html2discord(text)
 		send_to_info_discord(text)
 	return 1
 
