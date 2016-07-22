@@ -29,3 +29,8 @@
 	icon_state = "deity_followers"
 	screen_loc = ui_deityfollowers
 //	layer = HUD_LAYER
+
+/obj/screen/healths/deity
+	name = "Nexus Health"
+	icon_state = "deity_nexus"
+	screen_loc = ui_deityhealth
