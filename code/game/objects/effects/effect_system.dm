@@ -237,8 +237,8 @@ steam.start() -- spawns the effect
 	name = "lightning"
 	icon_state = "electricity"
 
-/datum/effect_system/lightning_spread
-	effect_type = /obj/effect/effect/sparks/electricity
+///datum/effect_system/lightning_spread
+//	effect_type = /obj/effect/effect/sparks/electricity
 
 /////////////////////////////////////////////
 //// SMOKE SYSTEMS

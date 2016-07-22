@@ -27,8 +27,13 @@
 	var/list/prophets = list()
 	var/datum/action/innate/godspeak/speak2god
 
+/mob/camera/god/create_mob_hud()
+	if(client && !hud_used)
+		hud_used = new /datum/hud/hog_god(src)
+
 /mob/camera/god/New()
 	..()
+	create_mob_hud()
 	update_icons()
 	build_hog_construction_lists()
 

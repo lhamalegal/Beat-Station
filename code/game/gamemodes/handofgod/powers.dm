@@ -213,7 +213,7 @@
 	if(!ability_cost(300,0,1))
 		return
 
-	var/event = /datum/event_container/moderate.SelectEvent() // Probably will have to choose the severity of the event -Astral.
+	var/event = new /datum/event_container/moderate // Probably will have to choose the severity of the event -Astral.
 	if(event)
 		new event()
 		add_faith(-300)

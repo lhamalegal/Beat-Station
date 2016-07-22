@@ -34,6 +34,9 @@
 	var/obj/screen/movable/action_button/hide_toggle/hide_actions_toggle
 	var/action_buttons_hidden = 0
 
+	var/obj/screen/deity_power_display
+	var/obj/screen/deity_follower_display
+
 	var/obj/screen/healths
 
 /mob/proc/create_mob_hud()

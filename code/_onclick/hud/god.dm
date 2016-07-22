@@ -1,6 +1,3 @@
-/datum/hud/
-	var/deity_power_display
-	var/deity_follower_display
 
 /datum/hud/hog_god/New(mob/owner)
 	..()
@@ -13,10 +10,6 @@
 	deity_follower_display = new /obj/screen/deity_follower_display()
 	infodisplay += deity_follower_display
 
-
-/mob/camera/god/create_mob_hud()
-	if(client && !hud_used)
-		hud_used = new /datum/hud/hog_god(src)
 
 /obj/screen/deity_power_display
 	name = "Faith"
