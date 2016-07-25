@@ -12,7 +12,7 @@
 		if("red")
 			//Remove old allegiances
 			if(src in ticker.mode.blue_deity_followers || src in ticker.mode.blue_deity_prophets)
-				current << "<span class='danger'><B>You are no longer a member of the Blue cult!<B></span>"
+				to_chat(current, "<span class='danger'><B>You are no longer a member of the Blue cult!<B></span>")
 
 			ticker.mode.blue_deity_followers -= src
 			ticker.mode.blue_deity_prophets -= src
@@ -20,18 +20,18 @@
 			current.faction -= "blue god"
 
 			if(src in ticker.mode.red_deity_prophets)
-				current << "<span class='danger'><B>You have lost the connection with your deity, but you still believe in their grand design, You are no longer a prophet!</b></span>"
+				to_chat(current, "<span class='danger'><B>You have lost the connection with your deity, but you still believe in their grand design, You are no longer a prophet!</b></span>")
 				ticker.mode.red_deity_prophets -= src
 
 			ticker.mode.red_deity_followers |= src
-			current << "<span class='danger'><B>You are now a follower of the red cult's god!</b></span>"
+			to_chat(current, "<span class='danger'><B>You are now a follower of the red cult's god!</b></span>")
 
 			special_role = "Hand of God: Red Follower"
 			. = 1
 		if("blue")
 			//Remove old allegiances
 			if(src in ticker.mode.red_deity_followers || src in ticker.mode.red_deity_prophets)
-				current << "<span class='danger'><B>You are no longer a member of the Red cult!<B></span>"
+				to_chat(current, "<span class='danger'><B>You are no longer a member of the Red cult!<B></span>")
 
 			ticker.mode.red_deity_followers -= src
 			ticker.mode.red_deity_prophets -= src
@@ -39,11 +39,11 @@
 			current.faction |= "blue god"
 
 			if(src in ticker.mode.blue_deity_prophets)
-				current << "<span class='danger'><B>You have lost the connection with your deity, but you still believe in their grand design, You are no longer a prophet!</b></span>"
+				to_chat(current, "<span class='danger'><B>You have lost the connection with your deity, but you still believe in their grand design, You are no longer a prophet!</b></span>")
 				ticker.mode.blue_deity_prophets -= src
 
 			ticker.mode.blue_deity_followers |= src
-			current << "<span class='danger'><B>You are now a follower of the blue cult's god!</b></span>"
+			to_chat(current, "<span class='danger'><B>You are now a follower of the blue cult's god!</b></span>")
 
 			special_role = "Hand of God: Blue Follower"
 			. = 1
@@ -62,7 +62,7 @@
 			//Remove old allegiances
 
 			if(src in ticker.mode.blue_deity_followers || src in ticker.mode.blue_deity_prophets)
-				current << "<span class='danger'><B>You are no longer a member of the Blue cult!<B></span>"
+				to_chat(current, "<span class='danger'><B>You are no longer a member of the Blue cult!<B></span>")
 				current.faction -= "blue god"
 			current.faction |= "red god"
 
@@ -71,7 +71,7 @@
 			ticker.mode.red_deity_followers -= src
 
 			ticker.mode.red_deity_prophets |= src
-			current << "<span class='danger'><B>You are now a prophet of the red cult's god!</b></span>"
+			to_chat(current, "<span class='danger'><B>You are now a prophet of the red cult's god!</b></span>")
 
 			special_role = "Hand of God: Red Prophet"
 			. = 1
@@ -79,7 +79,7 @@
 			//Remove old allegiances
 
 			if(src in ticker.mode.red_deity_followers || src in ticker.mode.red_deity_prophets)
-				current << "<span class='danger'><B>You are no longer a member of the Red cult!<B></span>"
+				to_chat(current, "<span class='danger'><B>You are no longer a member of the Red cult!<B></span>")
 				current.faction -= "red god"
 			current.faction |= "blue god"
 
@@ -88,7 +88,7 @@
 			ticker.mode.blue_deity_followers -= src
 
 			ticker.mode.blue_deity_prophets |= src
-			current << "<span class='danger'><B>You are now a prophet of the blue cult's god!</b></span>"
+			to_chat(current, "<span class='danger'><B>You are now a prophet of the blue cult's god!</b></span>")
 
 			special_role = "Hand of God: Blue Prophet"
 			. = 1
