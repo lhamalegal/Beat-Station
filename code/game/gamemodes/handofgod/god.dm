@@ -267,7 +267,7 @@
 			var/icon/I = icon('icons/obj/hand_of_god_structures.dmi',imgstate)
 			var/img_component = lowertext(t)
 			//I hate byond, but atleast it autocaches these so it's only 1*number_of_structures worth of actual calls
-			user << browse_rsc(I,"hog_structure-[img_component].png"))
+			user << browse_rsc(I,"hog_structure-[img_component].png")
 			dat += "<center><img src='hog_structure-[img_component].png' height=64 width=64></center>"
 			dat += "Description: [initial(apath.desc)]<BR>"
 			dat += "<center><a href='?src=\ref[src];create_structure=[apath]'>Construct [capitalize(t)]</a></center><BR><BR>"
