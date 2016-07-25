@@ -6,8 +6,8 @@
 	..()
 	var/obj/screen/using
 
-	guardianhealthdisplay = new /obj/screen/healths/guardian()
-	infodisplay += guardianhealthdisplay
+	healths = new /obj/screen/healths/guardian()
+	infodisplay += healths
 
 	using = new /obj/screen/guardian/Manifest()
 	using.screen_loc = ui_rhand

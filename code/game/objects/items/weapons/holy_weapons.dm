@@ -452,5 +452,9 @@
 					if(prob(10))
 						to_chat(M, "<span class='userdanger'>Being in the presence of [holder]'s [src] is interfering with your powers!</span>")
 
-
+/mob/proc/null_rod_check() //The null rod, if equipped, will protect the holder from the effects of most runes
+	var/obj/item/weapon/nullrod/N = locate() in src
+	if(N ) //&& !ratvar_awakens) //If Nar-Sie or Ratvar are alive, null rods won't protect you //Ratvar isn't here yet
+		return N
+	return 0
 

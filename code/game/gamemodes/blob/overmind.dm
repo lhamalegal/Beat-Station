@@ -65,7 +65,7 @@
 
 /mob/camera/blob/proc/update_health()
 	if(blob_core)
-		hud_used.blobhealthdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#e36600'>[round(blob_core.health)]</font></div>"
+		hud_used.healths.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#e36600'>[round(blob_core.health)]</font></div>"
 
 /mob/camera/blob/proc/add_points(var/points)
 	if(points != 0)

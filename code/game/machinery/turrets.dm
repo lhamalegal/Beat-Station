@@ -430,7 +430,7 @@
 	return
 
 
-/obj/machinery/gun_turret/proc/take_damage(damage)
+/obj/machinery/gun_turret/take_damage(damage)
 	health -= damage
 	var/orig_health = initial(health)
 	var/health_percent = (health/orig_health) * 100

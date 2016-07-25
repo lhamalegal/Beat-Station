@@ -28,8 +28,8 @@
 	blobpwrdisplay.screen_loc = ui_health
 	static_inventory += blobpwrdisplay
 
-	blobhealthdisplay = new /obj/screen()
-	blobhealthdisplay.name = "blob health"
-	blobhealthdisplay.icon_state = "block"
-	blobhealthdisplay.screen_loc = ui_internal
-	static_inventory += blobhealthdisplay
+	healths = new /obj/screen()
+	healths.name = "blob health"
+	healths.icon_state = "block"
+	healths.screen_loc = ui_internal
+	static_inventory += healths
