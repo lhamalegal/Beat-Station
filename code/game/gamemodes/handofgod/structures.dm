@@ -444,7 +444,7 @@
 		return
 	last_process = world.time
 	if(!is_handofgod_cultist(user) && cult_only)
-		to_chat(user, "<span class='danger'><B>The water burns!</b></spam>"=
+		to_chat(user, "<span class='danger'><B>The water burns!</b></spam>")
 		user.reagents.add_reagent("hell_water",20)
 	else
 		to_chat(user, "<span class='notice'>The water feels warm and soothing as you touch it. The fountain immediately dries up shortly afterwards.</span>")
