@@ -336,3 +336,34 @@
 //Say code
 /atom/movable/proc/get_spans()
 	return list()
+
+/atom/movable/proc/set_loc(var/newloc as turf|mob|obj in world)
+	if (loc == newloc)
+		return src
+
+	if (ismob(src)) // fuck haxploits
+		var/mob/SM = src
+		if (!(SM.client && SM.client.holder))
+			if (istype(newloc, /turf/unsimulated))
+				var/turf/unsimulated/T = newloc
+				if (T.density)
+					return
+
+	if (isturf(loc))
+		loc.Exited(src)
+
+	var/area/my_area = get_area(src)
+	var/area/new_area = get_area(newloc)
+	if(my_area != new_area && my_area)
+		my_area.Exited(src)
+
+	loc = newloc
+
+	if(my_area != new_area && new_area)
+		new_area.Entered(src)
+
+	if(isturf(newloc))
+		var/turf/nloc = newloc
+		nloc.Entered(src)
+
+	return src
