@@ -363,3 +363,8 @@
 		nloc.Entered(src)
 
 	return src
+
+
+//Say code
+/atom/movable/proc/get_spans()
+	return list()
