@@ -39,7 +39,7 @@
 	var/list/proc_res = list() //stores proc owners, like proc_res["functionname"] = owner reference
 	var/datum/effect/system/spark_spread/spark_system = new
 	var/lights = 0
-	var/lights_power = 6
+	var/lights_power = 1.3
 	var/emagged = 0
 
 	//inner atmos
@@ -102,7 +102,7 @@
 	diag_hud_set_mechstat()
 
 	light = new/datum/light/point
-	light.set_brightness(2)
+	light.set_brightness(lights_power)
 	light.attach(src)
 	return
 

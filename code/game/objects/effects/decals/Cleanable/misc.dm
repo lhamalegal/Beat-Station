@@ -73,7 +73,7 @@
 	New()
 		..()
 		light = new /datum/light/point
-		light.set_brightness(1)
+		light.set_brightness(0.1)
 		light.attach(src)
 		spawn(1200)// 2 minutes
 			qdel(src)

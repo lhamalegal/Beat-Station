@@ -103,7 +103,7 @@
 
 	light = new/datum/light/point
 	light.set_color(51, 153, 255)
-	light.set_brightness(2)
+	light.set_brightness(0.2)
 	light.attach(src)
 
 /obj/machinery/portable_atmospherics/hydroponics/upgraded/New()

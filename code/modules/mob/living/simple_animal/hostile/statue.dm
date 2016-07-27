@@ -102,12 +102,12 @@
 	if(!cannot_be_seen)
 		return null
 	// Check for darkness
-	/*var/turf/T = get_turf(loc)
+	var/turf/T = get_turf(loc)
 	if(T && destination && T.lighting_overlay)
-		if(T.get_lumcount() * 10 < 1 && destination.get_lumcount() * 10 < 1) // No one can see us in the darkness, right?
+		if(!T.RL_GetBrightness() > 0 && !destination.RL_GetBrightness() > 0) // No one can see us in the darkness, right?
 			return null
 		if(T == destination)
-			destination = null*/
+			destination = null
 
 	// We aren't in darkness, loop for viewers.
 	var/list/check_list = list(src)

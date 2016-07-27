@@ -16,7 +16,7 @@
 #define ENGINE_EJECT_Z	3
 
 //Object specific defines
-#define CANDLE_LUM 3 //For how bright candles are
+#define CANDLE_LUM 0.3 //For how bright candles are
 
 //Security levels
 #define SEC_LEVEL_GREEN	0

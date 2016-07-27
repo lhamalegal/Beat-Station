@@ -20,7 +20,7 @@
 
 	New()
 		light = new/datum/light/point
-		light.set_brightness(3)
+		light.set_brightness(0.3)
 		light.set_color(66, 133, 244)
 		light.attach(src)
 
@@ -100,11 +100,11 @@
 		return
 	if(on)
 		overlays+="broadcaster on"
-		light.set_brightness(3)
+		light.set_brightness(0.3)
 		light.enable()
 		use_power = 2
 	else
-		light.set_brightness(1)
+		light.set_brightness(0.1)
 		light.enable()
 		use_power = 1
 	if(sources.len)

@@ -13,7 +13,7 @@
 
 	New()
 		light = new /datum/light/point
-		light.set_brightness(1)
+		light.set_brightness(CANDLE_LUM)
 		light.set_color(224, 157, 55)
 		light.attach(src)
 

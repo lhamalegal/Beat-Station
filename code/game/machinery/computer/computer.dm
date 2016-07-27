@@ -17,11 +17,11 @@
 	atom_say_verb = "beeps"
 
 /obj/machinery/computer/New()
+	overlay_layer = layer
 	..()
 	light = new/datum/light/point
 	light.set_brightness(0.1)
 	light.attach(src)
-	overlay_layer = layer
 
 /obj/machinery/computer/initialize()
 	power_change()

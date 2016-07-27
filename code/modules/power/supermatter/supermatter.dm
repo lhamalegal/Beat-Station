@@ -67,7 +67,7 @@
 	radio.listening = 0
 	investigate_log("has been created.", "supermatter")
 	light = new /datum/light/point
-	light.set_brightness(3)
+	light.set_brightness(0.4)
 	light.set_color(255, 255, 77)
 	light.attach(src)
 

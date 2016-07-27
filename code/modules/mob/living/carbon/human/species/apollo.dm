@@ -120,7 +120,7 @@
 /datum/species/nucleation/handle_post_spawn(var/mob/living/carbon/human/H)
 	//H.light_color = "#1C1C00"
 	H.light.set_color(28, 28, 0)
-	H.light.set_brightness(2)
+	H.light.set_brightness(0.1)
 	H.light.enable()
 	return ..()
 

@@ -72,9 +72,10 @@
 	build_zooming()
 
 	light = new/datum/light/point
-	light.set_brightness(2)
+	light.set_brightness(0.6)
 	light.set_color(255, 255, 255)
 	light.attach(src)
+	light.disable()
 
 /obj/item/weapon/gun/examine(mob/user)
 	..()

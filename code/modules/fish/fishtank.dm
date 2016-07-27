@@ -34,7 +34,7 @@
 
 	New()
 		light = new/datum/light/point
-		light.set_brightness(2)
+		light.set_brightness(0.2)
 		light.attach(src)
 
 /obj/machinery/fishtank/bowl
@@ -260,7 +260,6 @@
 				glo_light++
 	if(!light_switch && (glo_light > 0))
 		light.set_color(153, 255, 102)
-		light.set_brightness(2)
 		light.enable()
 	check_food_level()
 	check_filth_level()

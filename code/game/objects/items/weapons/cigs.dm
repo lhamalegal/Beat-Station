@@ -45,7 +45,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	flags |= NOREACT // so it doesn't react until you light it
 	create_reagents(chem_volume) // making the cigarrete a chemical holder with a maximum volume of 30
 	light = new /datum/light/point
-	light.set_brightness(0.05)
+	light.set_brightness(0.1)
 	light.set_color(227, 143, 70)
 	light.attach(src)
 

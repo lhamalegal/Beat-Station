@@ -15,7 +15,6 @@
 	new choice(loc)
 	qdel(src)
 
-
 /obj/machinery/computer/arcade/proc/prizevend(var/score)
 	if(!contents.len)
 		var/prize_amount

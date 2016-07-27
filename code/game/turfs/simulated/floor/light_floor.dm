@@ -18,7 +18,7 @@
 /turf/simulated/floor/light/New()
 	..()
 	light = new /datum/light/point
-	light.set_brightness(1.5)
+	light.set_brightness(0.5)
 	light.attach(src)
 	update_icon()
 
@@ -28,12 +28,12 @@
 		switch(state)
 			if(LIGHTFLOOR_ON)
 				icon_state = "light_on"
-				light.set_color()
-				light.enable(0, 153, 255)
+				light.set_color(0, 153, 255)
+				light.enable()
 			if(LIGHTFLOOR_WHITE)
 				icon_state = "light_on-w"
-				light.set_color()
-				light.enable(255,255,255)
+				light.set_color(255,255,255)
+				light.enable()
 			if(LIGHTFLOOR_RED)
 				icon_state = "light_on-r"
 				light.set_color(180, 0, 0)

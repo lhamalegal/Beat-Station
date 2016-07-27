@@ -34,6 +34,7 @@
 
 /obj/item/device/flashlight/initialize()
 	..()
+	update_brightness()
 
 /obj/item/device/flashlight/proc/update_brightness(var/mob/user = null)
 	if(on)
@@ -160,7 +161,7 @@ obj/item/device/flashlight/lamp/bananalamp
 	name = "flare"
 	desc = "A red Nanotrasen issued flare. There are instructions on the side, it reads 'pull cord, make light'."
 	w_class = 2.0
-	brightness_on = 1.3
+	brightness_on = 0.8
 	icon_state = "flare"
 	item_state = "flare"
 	var/fuel = 0
@@ -236,7 +237,6 @@ obj/item/device/flashlight/lamp/bananalamp
 	item_state = "slime"
 	w_class = 1
 	brightness_on = 0.7
-	//light_color = "#FFBF00"
 	materials = list()
 	on = 1 //Bio-luminesence has one setting, on.
 
@@ -246,7 +246,6 @@ obj/item/device/flashlight/lamp/bananalamp
 		icon_state = initial(icon_state)
 	..()
 	light.set_color(255, 191, 0)
-	light.enable()
 
 /obj/item/device/flashlight/slime/attack_self(mob/user)
 	return //Bio-luminescence does not toggle.

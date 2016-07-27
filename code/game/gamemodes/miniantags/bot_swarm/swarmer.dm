@@ -85,6 +85,11 @@
 	verbs -= /mob/living/verb/pulled
 	updatename()
 
+	light = new/datum/light/point
+	light.set_brightness(0.3)
+	light.attach(src)
+	light.disable()
+
 /mob/living/simple_animal/hostile/swarmer/Stat()
 	..()
 	if(statpanel("Status"))
@@ -378,13 +383,12 @@
 		qdel(src)
 
 /obj/effect/swarmer/destructible //Default destroyable object for swarmer constructions
-	//light_range = 1
 	mouse_opacity = 1
 	var/health = 30
 
 	New()
 		light = new/datum/light/point
-		light.set_brightness(3)
+		light.set_brightness(0.1)
 		light.attach(src)
 
 /obj/effect/swarmer/destructible/proc/TakeDamage(damage)
@@ -440,8 +444,12 @@
 	name = "swarmer trap"
 	desc = "A quickly assembled trap that electrifies living beings and overwhelms machine sensors. Will not retain its form if damaged enough."
 	icon_state = "trap"
-	//light_range = 1
 	health = 10
+
+	New()
+		light = new/datum/light/point
+		light.set_brightness(0.1)
+		light.attach(src)
 
 /obj/effect/swarmer/destructible/trap/Crossed(var/atom/movable/AM)
 	if(isliving(AM))
@@ -472,10 +480,14 @@
 	name = "swarmer blockade"
 	desc = "A quickly assembled energy blockade. Will not retain its form if damaged enough, but disabler beams and swarmers pass right through."
 	icon_state = "barricade"
-	//light_range = 1
 	health = 50
 	density = 1
 	anchored = 1
+
+	New()
+		light = new/datum/light/point
+		light.set_brightness(0.1)
+		light.attach(src)
 
 /obj/effect/swarmer/destructible/blockade/CanPass(atom/movable/O)
 	if(isswarmer(O))

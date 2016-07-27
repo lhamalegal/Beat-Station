@@ -135,7 +135,7 @@
 	update_icon()
 
 	light = new/datum/light/point
-	light.set_brightness(2)
+	light.set_brightness(0.2)
 	light.attach(src)
 
 	spawn(1) // Plants will sometimes be spawned in the turf adjacent to the one they need to end up in, for the sake of correct dir/etc being set.
@@ -171,8 +171,8 @@
 		var/clr
 		if(seed.get_trait(TRAIT_BIOLUM_COLOUR))
 			clr = seed.get_trait(TRAIT_BIOLUM_COLOUR)
-		clr = hrc_hex2rgb(clr)
-		light.set_color(clr[0], clr[1], clr[2])
+			clr = hrc_hex2rgb(clr,1)
+			light.set_color(clr[0], clr[1], clr[2])
 		light.enable()
 		return
 	else

@@ -161,7 +161,7 @@
 	if(fire_stacks > 0 && !on_fire)
 		on_fire = 1
 		light.set_color(237, 146, 0)
-		light.set_brightness(0.5)
+		light.set_brightness(0.3)
 		light.enable()
 		throw_alert("fire", /obj/screen/alert/fire)
 		update_fire()

@@ -76,13 +76,12 @@
 	// Update bioluminescence.
 	if(seed)
 		if(seed.get_trait(TRAIT_BIOLUM))
-			//var/clr
-			//if(seed.get_trait(TRAIT_BIOLUM_COLOUR))
-				//clr = seed.get_trait(TRAIT_BIOLUM_COLOUR)
-				//clr = hrc_hex2rgb(clr)
-			//set_light(round(seed.get_trait(TRAIT_POTENCY)/10), l_color = clr)
-			//light.set_color(clr[0], clr[1], clr[2])
-			light.set_brightness(round(seed.get_trait(TRAIT_POTENCY)/10))
+			var/clr
+			if(seed.get_trait(TRAIT_BIOLUM_COLOUR))
+				clr = seed.get_trait(TRAIT_BIOLUM_COLOUR)
+				clr = hrc_hex2rgb(clr,1)
+				light.set_color(clr[0], clr[1], clr[2])
+			light.set_brightness(round(seed.get_trait(TRAIT_POTENCY)/100))
 			light.enable()
 			return
 

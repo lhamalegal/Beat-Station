@@ -45,7 +45,7 @@
 
 	New()
 		light = new/datum/light/point
-		light.set_brightness(2)
+		light.set_brightness(0.2)
 		light.attach(src)
 
 /obj/machinery/logic_gate/status/receive_signal(datum/signal/signal, receive_method, receive_params)

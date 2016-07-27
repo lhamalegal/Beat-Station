@@ -200,10 +200,6 @@ var/list/ai_verbs_default = list(
 	ai_list += src
 	shuttle_caller_list += src
 	..()
-	light = new/datum/light/point
-	light.set_brightness()
-	light.attach(src)
-	light.enable()
 
 /mob/living/silicon/ai/proc/on_mob_init()
 	to_chat(src, "<B>You are playing the station's AI. The AI cannot move, but can interact with many objects while viewing them (through cameras).</B>")
@@ -860,7 +856,7 @@ var/list/ai_verbs_default = list(
 		to_chat(src, "Camera lights deactivated.")
 
 		for (var/obj/machinery/camera/C in lit_cameras)
-			light.disable()
+			C.light.disable()
 			lit_cameras = list()
 
 		return

@@ -119,7 +119,7 @@
 					emote_hear = list("barks", "woofs", "yaps","pants")
 					emote_see = list("shakes its head", "shivers")
 					desc = "It's a corgi."
-					light.disable()
+					inventory_head.light.disable()
 					flags &= ~NO_BREATHE
 					atmos_requirements = default_atmos_requirements
 					minbodytemp = initial(minbodytemp)
@@ -336,7 +336,7 @@
 				name = "[real_name] the red-nosed Corgi"
 				emote_hear = list("lights the way!", "illuminates.", "yaps!")
 				desc = "He has a very shiny nose."
-				light.enable()
+				item_to_add.light.enable()
 				valid = 1
 
 			if(/obj/item/clothing/head/sombrero)

@@ -31,7 +31,7 @@
 
 	New()
 		light = new/datum/light/point
-		light.set_brightness(4)
+		light.set_brightness(0.4)
 		light.attach(src)
 
 /obj/item/clothing/head/helmet/space/rig/attack_self(mob/user)

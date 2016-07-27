@@ -118,7 +118,7 @@ var/global/list/fish_items_list = list("goldfish" = /obj/item/weapon/fish/goldfi
 /obj/item/weapon/fish/glofish/New()
 		..()
 		light = new/datum/light/point
-		light.set_brightness(2)
+		light.set_brightness(0.2)
 		light.set_color(153, 255, 102)
 		light.attach(src)
 

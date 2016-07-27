@@ -42,12 +42,12 @@
 
 	var/lights = 0
 	var/lights_power = 6
-	var/list/icon_light_color = list("pod_civ" = list(255, 255, 255), \
-									 "pod_mil" = list(187, 240, 147), \
-									 "pod_synd" = list(180, 0, 0), \
-									 "pod_gold" = list(255, 255, 255), \
-									 "pod_black" = list(59, 143, 229), \
-									 "pod_industrial" = list(204, 204, 0))
+	var/list/icon_light_color = list("pod_civ" = LIGHT_COLOR_WHITE, \
+									 "pod_mil" = "#BBF093", \
+									 "pod_synd" = LIGHT_COLOR_RED, \
+									 "pod_gold" = LIGHT_COLOR_WHITE, \
+									 "pod_black" = "#3B8FE5", \
+									 "pod_industrial" = "#CCCC00")
 
 	var/unlocked = 1
 
@@ -84,7 +84,7 @@
 	light = new/datum/light/point
 	light.set_brightness(1.7)
 	light.attach(src)
-	light.enable()
+	light.disable()
 
 /obj/spacepod/Destroy()
 	if (equipment_system.cargo_system)
@@ -132,7 +132,7 @@
 		if(health <= round(initial(health)/4))
 			overlays += pod_overlays[FIRE]
 
-	var/color = icon_light_color[src.icon_state]
+	var/color = hrc_hex2rgb(icon_light_color[src.icon_state], 1)
 	light.set_color(color[0], color[1], color[2])
 	//light_color = icon_light_color[src.icon_state]
 

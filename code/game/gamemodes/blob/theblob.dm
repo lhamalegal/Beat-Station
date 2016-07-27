@@ -13,7 +13,7 @@
 
 	New()
 		light = new /datum/light/point
-		light.set_brightness(2)
+		light.set_brightness(0.3)
 		light.attach(src)
 
 /obj/effect/blob/New(loc)

@@ -98,7 +98,7 @@
 /obj/structure/ladder/dive_point/New()
 	..()
 	light = new/datum/light/point
-	light.set_brightness(1)
+	light.set_brightness(0.5)
 	light.attach(src)
 	light.enable()
 

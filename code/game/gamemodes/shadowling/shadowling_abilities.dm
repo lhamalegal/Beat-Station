@@ -136,8 +136,7 @@
 /obj/effect/proc_holder/spell/aoe_turf/veil/proc/extinguishMob(var/mob/living/H)
 	for(var/obj/item/F in H)
 		if(F.light)
-			if(F.light.radius > 0)
-				extinguishItem(F)
+			extinguishItem(F)
 
 /obj/effect/proc_holder/spell/aoe_turf/veil/cast(list/targets)
 	if(!shadowling_check(usr))

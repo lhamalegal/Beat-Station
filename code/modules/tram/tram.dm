@@ -223,11 +223,11 @@
 	gen_collision() //Look for collisions
 	if(dir in collide_list) //Prevent moving if there are collisions in that direction
 		return 0
-	/*for(var/atom/movable/A in tram)
+	for(var/atom/movable/A in tram)
 		var/turf/T = get_step(A,dir)
 		A.forceMove(T) //Move everything inside the tram and the tram itself manually
-		if(A.light.radius)
-			A.light.enable()*/
+		//if(A.light.radius)
+		//	A.light.enable()
 	gen_collision() //Generate collision again
 	return 1
 

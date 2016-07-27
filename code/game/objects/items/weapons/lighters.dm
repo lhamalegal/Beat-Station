@@ -18,7 +18,7 @@
 
 	New()
 		light = new/datum/light/point
-		light.set_brightness(0.05)
+		light.set_brightness(0.1)
 		light.attach(src)
 
 /obj/item/weapon/lighter/zippo

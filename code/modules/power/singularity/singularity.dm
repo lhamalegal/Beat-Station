@@ -37,7 +37,7 @@
 	processing_objects.Add(src)
 
 	light = new/datum/light/point
-	light.set_brightness(6)
+	light.set_brightness(2)
 	light.attach(src)
 	light.enable()
 
@@ -266,7 +266,7 @@
 		desc = "[initial(desc)] It glows fiercely with inner fire."
 		name = "supermatter-charged [initial(name)]"
 		consumedSupermatter = 1
-		light.set_brightness(7)
+		light.set_brightness(2.5)
 	return
 
 

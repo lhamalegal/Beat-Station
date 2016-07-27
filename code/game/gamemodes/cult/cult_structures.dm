@@ -18,12 +18,10 @@
 	name = "Pylon"
 	desc = "A floating crystal that hums with an unearthly energy"
 	icon_state = "pylon"
-	//light_range = 5
-	//light_color = "#3e0000"
 
 	New()
 		light = new/datum/light/point
-		light.set_brightness(3)
+		light.set_brightness(0.5)
 		light.set_color(62, 0, 0)
 		light.attach(src)
 
