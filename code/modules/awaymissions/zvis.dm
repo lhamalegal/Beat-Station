@@ -1,7 +1,7 @@
 /area/awaymission/upperlevel
 	name = "Open Space"
 	color = "#888"
-	lighting_use_dynamic = 0
+	RL_Lighting = 0
 	requires_power = 0
 
 // Used by /turf/unsimulated/floor/upperlevel as a reference for where the other floor is
@@ -80,8 +80,8 @@
 		call(owner, "trigger")(arglist(params))
 
 /obj/effect/portal_sensor/proc/check_light()
-	var/turf/T = loc
-	if(istype(T) && T.lighting_overlay && !T.lighting_overlay.needs_update)
+	/*var/turf/T = loc
+	if(istype(T) && T.light && !T.lighting_overlay.needs_update)
 		var/atom/movable/lighting_overlay/O = T.lighting_overlay
 		var/hash = O.lum_r + O.lum_g + O.lum_b
 		if(hash != light_hash)
@@ -90,7 +90,8 @@
 	else
 		if(light_hash != -1)
 			light_hash = -1
-			trigger()
+			trigger()*/
+	return
 
 // for second floor showing floor below
 /turf/unsimulated/floor/upperlevel

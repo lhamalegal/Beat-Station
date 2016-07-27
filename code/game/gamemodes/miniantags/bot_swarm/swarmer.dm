@@ -378,9 +378,14 @@
 		qdel(src)
 
 /obj/effect/swarmer/destructible //Default destroyable object for swarmer constructions
-	light_range = 1
+	//light_range = 1
 	mouse_opacity = 1
 	var/health = 30
+
+	New()
+		light = new/datum/light/point
+		light.set_brightness(3)
+		light.attach(src)
 
 /obj/effect/swarmer/destructible/proc/TakeDamage(damage)
 	health -= damage
@@ -435,7 +440,7 @@
 	name = "swarmer trap"
 	desc = "A quickly assembled trap that electrifies living beings and overwhelms machine sensors. Will not retain its form if damaged enough."
 	icon_state = "trap"
-	light_range = 1
+	//light_range = 1
 	health = 10
 
 /obj/effect/swarmer/destructible/trap/Crossed(var/atom/movable/AM)
@@ -467,7 +472,7 @@
 	name = "swarmer blockade"
 	desc = "A quickly assembled energy blockade. Will not retain its form if damaged enough, but disabler beams and swarmers pass right through."
 	icon_state = "barricade"
-	light_range = 1
+	//light_range = 1
 	health = 50
 	density = 1
 	anchored = 1
@@ -505,10 +510,10 @@
 		to_chat(src, "<span class='info'>We successfully repaired ourselves.</span>")
 
 /mob/living/simple_animal/hostile/swarmer/proc/ToggleLight()
-	if(!light_range)
-		set_light(3)
+	if(!light.enabled)
+		light.enable()
 	else
-		set_light(0)
+		light.disable()
 
 /mob/living/simple_animal/hostile/swarmer/proc/ContactSwarmers()
 	var/message = input(src, "Announce to other swarmers", "Swarmer contact")

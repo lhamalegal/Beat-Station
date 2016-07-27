@@ -101,6 +101,11 @@
 	if(closed_system)
 		flags &= ~OPENCONTAINER
 
+	light = new/datum/light/point
+	light.set_color(51, 153, 255)
+	light.set_brightness(2)
+	light.attach(src)
+
 /obj/machinery/portable_atmospherics/hydroponics/upgraded/New()
 	..()
 	component_parts = list()
@@ -684,7 +689,8 @@
 		if(closed_system && mechanical)
 			light_string = "that the internal lights are set to [tray_light] lumens"
 		else
-			var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in T
+			//var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in T
+			var/datum/light/L = locate(/datum/light) in T
 			var/light_available
 			if(L)
 				light_available = L.get_clamped_lum()*10

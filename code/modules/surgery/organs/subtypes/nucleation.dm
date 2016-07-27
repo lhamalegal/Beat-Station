@@ -23,12 +23,14 @@
 	name = "luminescent eyes"
 	icon_state = "crystal-eyes"
 	organ_tag = "luminescent eyes"
-	light_color = "#1C1C00"
 	parent_organ = "head"
 	slot = "eyes"
 
 /obj/item/organ/internal/eyes/luminescent_crystal/New()
-	set_light(2)
+	light = new /datum/light/point
+	light.set_brightness(1)
+	light.set_color(28, 28, 0)
+	light.attach(src)
 
 /obj/item/organ/internal/brain/crystal
 	name = "crystalized brain"

@@ -200,6 +200,10 @@ var/list/ai_verbs_default = list(
 	ai_list += src
 	shuttle_caller_list += src
 	..()
+	light = new/datum/light/point
+	light.set_brightness()
+	light.attach(src)
+	light.enable()
 
 /mob/living/silicon/ai/proc/on_mob_init()
 	to_chat(src, "<B>You are playing the station's AI. The AI cannot move, but can interact with many objects while viewing them (through cameras).</B>")
@@ -619,13 +623,13 @@ var/list/ai_verbs_default = list(
 
 /mob/living/silicon/ai/reset_view(atom/A)
 	if(current)
-		current.set_light(0)
+		current.light.disable()
 	if(istype(A,/obj/machinery/camera))
 		current = A
 	..()
 	if(istype(A,/obj/machinery/camera))
-		if(camera_light_on)	A.set_light(AI_CAMERA_LUMINOSITY)
-		else				A.set_light(0)
+		if(camera_light_on)	A.light.enable()
+		else				A.light.disable()
 
 /mob/living/silicon/ai/proc/botcall()
 	set category = "AI Commands"
@@ -856,7 +860,7 @@ var/list/ai_verbs_default = list(
 		to_chat(src, "Camera lights deactivated.")
 
 		for (var/obj/machinery/camera/C in lit_cameras)
-			C.set_light(0)
+			light.disable()
 			lit_cameras = list()
 
 		return

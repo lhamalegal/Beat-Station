@@ -22,7 +22,7 @@
 
 	var/delay_timer = null
 
-	var/list/blacklist = list(/obj/tram/rail,/atom/movable/lighting_overlay)
+	var/list/blacklist = list(/obj/tram/rail,/datum/light)
 	var/list/ancwhitelist = list(/obj/tram, /obj/vehicle, /obj/structure/stool/bed/chair, /obj/structure/grille, /obj/structure/window)
 
 /obj/tram/tram_controller/New()
@@ -223,11 +223,11 @@
 	gen_collision() //Look for collisions
 	if(dir in collide_list) //Prevent moving if there are collisions in that direction
 		return 0
-	for(var/atom/movable/A in tram)
+	/*for(var/atom/movable/A in tram)
 		var/turf/T = get_step(A,dir)
 		A.forceMove(T) //Move everything inside the tram and the tram itself manually
-		if(A.light_range)
-			A.set_light()
+		if(A.light.radius)
+			A.light.enable()*/
 	gen_collision() //Generate collision again
 	return 1
 

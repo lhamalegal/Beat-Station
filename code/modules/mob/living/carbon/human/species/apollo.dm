@@ -113,9 +113,15 @@
 		)
 	vision_organ = /obj/item/organ/internal/eyes/luminescent_crystal
 
+	/*New()
+		light.set_brightness(2)
+		light.attach(src)*/
+
 /datum/species/nucleation/handle_post_spawn(var/mob/living/carbon/human/H)
-	H.light_color = "#1C1C00"
-	H.set_light(2)
+	//H.light_color = "#1C1C00"
+	H.light.set_color(28, 28, 0)
+	H.light.set_brightness(2)
+	H.light.enable()
 	return ..()
 
 /datum/species/nucleation/handle_death(var/mob/living/carbon/human/H)

@@ -5,7 +5,7 @@
 	name = "Light-emtter"
 	anchored = 1
 	unacidable = 1
-	light_range = 8
+	//light_range = 8
 
 /**********************Miner Lockers**************************/
 

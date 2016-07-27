@@ -11,13 +11,16 @@
 	var/use = 5
 	var/unlocked = 0
 	var/open = 0
-	var/brightness_on = 14
-	light_power = 20
+	var/brightness_on = 1.4
+	//light_power = 20
 	//var/brightness_on = 999		//can't remember what the maxed out value is //Lighting overhaul: No max, stop TRYING TO ILLUMINATE MORE TILES THAN THE MAP CONSISTS OF.
 
 /obj/machinery/floodlight/New()
 	src.cell = new(src)
 	..()
+	light = new/datum/light/point
+	light.set_brightness(brightness_on)
+	light.attach(src)
 
 /obj/machinery/floodlight/proc/updateicon()
 	icon_state = "flood[open ? "o" : ""][open && cell ? "b" : ""]0[on]"
@@ -28,10 +31,10 @@
 		if(cell.charge <= 0)
 			on = 0
 			updateicon()
-			set_light(0)
+			light.disable()
 			src.visible_message("<span class='warning'>[src] shuts down due to lack of power!</span>")
 			return
-			
+
 /obj/machinery/floodlight/attack_ai(mob/user as mob)
 	return
 
@@ -54,7 +57,7 @@
 	if(on)
 		on = 0
 		to_chat(user, "\blue You turn off the light")
-		set_light(0)
+		light.disable()
 	else
 		if(!cell)
 			return
@@ -62,7 +65,7 @@
 			return
 		on = 1
 		to_chat(user, "\blue You turn on the light")
-		set_light(brightness_on)
+		light.enable()
 
 	updateicon()
 

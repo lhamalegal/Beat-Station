@@ -50,8 +50,13 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	var/message = "";
 	var/recipient = ""; //the department which will be receiving the message
 	var/priority = -1 ; //Priority of the message being sent
-	light_range = 0
 	var/datum/announcement/announcement = new
+
+	New()
+		light = new/datum/light/point
+		light.set_brightness(0.1)
+		light.set_height(2.4)
+		light.attach(src)
 
 /obj/machinery/requests_console/power_change()
 	..()
@@ -79,7 +84,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	if (departmentType & RC_INFO)
 		req_console_information |= department
 
-	set_light(1)
+	light.enable()
 
 /obj/machinery/requests_console/Destroy()
 	allConsoles -= src
@@ -194,7 +199,8 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 				if (Console.department == department)
 					Console.newmessagepriority = 0
 					Console.icon_state = "req_comp0"
-					Console.set_light(1)
+					Console.light.set_brightness(1)
+					Console.light.enable()
 		if(tempScreen == RCS_MAINMENU)
 			reset_message()
 		screen = tempScreen
@@ -285,4 +291,4 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 			src.message_log += "<span class='bad'>High Priority</span><BR><b>From:</b> [linkedSender]<BR>[message]"
 		else // Normal
 			src.message_log += "<b>From:</b> [linkedSender]<BR>[message]"
-	set_light(2)
+	light.set_brightness(2)

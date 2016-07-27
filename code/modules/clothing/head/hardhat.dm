@@ -20,8 +20,13 @@
 		icon_state = "hardhat[on]_[item_color]"
 		item_state = "hardhat[on]_[item_color]"
 
-		if(on)	set_light(brightness_on)
-		else	set_light(0)
+		if(on)	light.enable()
+		else	light.disable()
+
+	New()
+		light = new /datum/light/point
+		light.set_brightness(brightness_on)
+		light.attach(src)
 
 
 /obj/item/clothing/head/hardhat/orange

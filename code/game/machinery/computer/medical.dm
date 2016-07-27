@@ -17,7 +17,10 @@
 	var/temp = null
 	var/printing = null
 
-	light_color = LIGHT_COLOR_DARKBLUE
+	//light_color = LIGHT_COLOR_DARKBLUE
+	New()
+		..()
+		light.set_color(49, 90, 180)
 
 /obj/machinery/computer/med_data/attack_ai(user as mob)
 	return src.attack_hand(user)

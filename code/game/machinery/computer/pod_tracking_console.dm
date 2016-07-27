@@ -3,9 +3,13 @@
 	icon = 'icons/obj/computer.dmi'
 	icon_keyboard = "tech_key"
 	icon_screen = "rdcomp"
-	light_color = LIGHT_COLOR_PURPLE
+	//light_color = LIGHT_COLOR_PURPLE
 	req_access = list(access_robotics)
 	circuit = /obj/item/weapon/circuitboard/pod_locater
+
+	New()
+		..()
+		light.set_color(205, 0, 205)
 
 /obj/machinery/computer/podtracker/attack_ai(var/mob/user as mob)
 	return attack_hand(user)

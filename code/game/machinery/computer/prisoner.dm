@@ -15,7 +15,11 @@
 	var/screen = 0 // 0 - No Access Denied, 1 - Access allowed
 	var/obj/item/weapon/card/id/prisoner/inserted_id
 
-	light_color = LIGHT_COLOR_DARKRED
+	//light_color = LIGHT_COLOR_DARKRED
+
+	New()
+		..()
+		light.set_color(169, 21, 21)
 
 /obj/machinery/computer/prisoner/attack_ai(var/mob/user as mob)
 	return src.attack_hand(user)

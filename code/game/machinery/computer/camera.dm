@@ -4,10 +4,11 @@
 	icon_keyboard = "security_key"
 	icon_screen = "cameras"
 	circuit = /obj/item/weapon/circuitboard/camera
+
 	var/obj/machinery/camera/current = null
 	var/list/network = list("")
 	var/last_pic = 1
-	light_color = LIGHT_COLOR_RED
+	//light_color = LIGHT_COLOR_RED
 	var/mapping = 0
 	var/list/networks[0]
 	var/list/data[0]
@@ -37,6 +38,7 @@
 	networks["Thunderdome"] =       list(access_cent_thunder,access_cent_commander)
 
 	..()
+	light.set_color(180, 0, 0)
 
 /obj/machinery/computer/security/attack_ai(var/mob/user as mob)
 	return attack_hand(user)
@@ -274,7 +276,7 @@
 	desc = "Used for watching camera networks."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "telescreen"
-	light_range_on = 0
+	//light_range_on = 0
 	network = list("SS13")
 	density = 0
 
@@ -289,10 +291,12 @@
 	desc = "Damn, they better have Paradise TV on these things."
 	icon = 'icons/obj/status_display.dmi'
 	icon_state = "entertainment"
-	light_color = "#FFEEDB"
-	light_range_on = 0
 	network = list("news")
-	luminosity = 0
+
+	New()
+		..()
+		light.set_color(255, 238, 219)
+
 
 /obj/machinery/computer/security/wooden_tv
 	name = "security camera monitor"
@@ -300,22 +304,30 @@
 	icon_state = "television"
 	icon_keyboard = null
 	icon_screen = "detective_tv"
-	light_color = "#3848B3"
-	light_power_on = 0.5
 	network = list("SS13")
+
+	New()
+		..()
+		light.set_color(56, 72, 179)
 
 /obj/machinery/computer/security/mining
 	name = "outpost camera monitor"
 	desc = "Used to access the various cameras on the outpost."
 	icon_keyboard = "mining_key"
 	icon_screen = "mining"
-	light_color = "#F9BBFC"
 	network = list("Mining Outpost")
+
+	New()
+		..()
+		light.set_color(249, 187, 252)
 
 /obj/machinery/computer/security/engineering
 	name = "engineering camera monitor"
 	desc = "Used to monitor fires and breaches."
 	icon_keyboard = "power_key"
 	icon_screen = "engie_cams"
-	light_color = "#FAC54B"
 	network = list("Power Alarms","Atmosphere Alarms","Fire Alarms")
+
+	New()
+		..()
+		light.set_color(250, 197, 75)

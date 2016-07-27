@@ -30,7 +30,12 @@
 	var/max_health = 0			// Can handle a couple hits
 	var/cur_health = 0			// Current health, starts at max_health
 	var/leaking = 0				// 0 if not leaking, 1 if minor leak, 2 if major leak (not leaking by default)
-	var/shard_count = 0			// Number of glass shards to salvage when broken (1 less than the number of sheets to build the tank)
+	var/shard_count = 0			// Number of glass shards to salvage when broken (1 less than the number of sheets to build the tank)s
+
+	New()
+		light = new/datum/light/point
+		light.set_brightness(2)
+		light.attach(src)
 
 /obj/machinery/fishtank/bowl
 	name = "fish bowl"
@@ -110,9 +115,10 @@
 /obj/machinery/fishtank/proc/toggle_light(var/mob/living/user)
 	light_switch = !light_switch
 	if(light_switch)
-		set_light(2,2,"#a0a080")
+		light.set_color(160, 160, 128)
+		light.enable()
 	else
-		set_light(0)
+		light.disable()
 
 //////////////////////////////
 //		NEW() PROCS			//
@@ -253,7 +259,9 @@
 			if("glofish")
 				glo_light++
 	if(!light_switch && (glo_light > 0))
-		set_light(2,glo_light,"#99FF66")
+		light.set_color(153, 255, 102)
+		light.set_brightness(2)
+		light.enable()
 	check_food_level()
 	check_filth_level()
 	check_water_level()

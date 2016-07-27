@@ -6,12 +6,16 @@
 	item_state = "candle1"
 	w_class = 1
 
-	light_color = "#E09D37"
-
 	var/wax = 200
 	var/lit = 0
 	proc
 		light(var/flavor_text = "\red [usr] lights the [name].")
+
+	New()
+		light = new /datum/light/point
+		light.set_brightness(1)
+		light.set_color(224, 157, 55)
+		light.attach(src)
 
 
 	update_icon()
@@ -50,7 +54,7 @@
 			//src.damtype = "fire"
 			for(var/mob/O in viewers(usr, null))
 				O.show_message(flavor_text, 1)
-			set_light(CANDLE_LUM)
+			light.enable()
 			processing_objects.Add(src)
 
 
@@ -74,7 +78,7 @@
 		if(lit)
 			lit = 0
 			update_icon()
-			set_light(0)
+			light.disable()
 
 /obj/item/candle/eternal
 	desc = "A candle. This one seems to have an odd quality about the wax."

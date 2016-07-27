@@ -100,6 +100,10 @@
 	diag_hud_set_mechhealth()
 	diag_hud_set_mechcell()
 	diag_hud_set_mechstat()
+
+	light = new/datum/light/point
+	light.set_brightness(2)
+	light.attach(src)
 	return
 
 ////////////////////////
@@ -1149,8 +1153,8 @@
 	set popup_menu = 0
 	if(usr!=occupant)	return
 	lights = !lights
-	if(lights)	set_light(light_range + lights_power)
-	else		set_light(light_range - lights_power)
+	if(lights)	light.enable()
+	else		light.disable()
 	src.occupant_message("Toggled lights [lights?"on":"off"].")
 	log_message("Toggled lights [lights?"on":"off"].")
 	return

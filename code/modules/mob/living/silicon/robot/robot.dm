@@ -134,6 +134,9 @@ var/list/robot_verbs_default = list(
 		cell.charge = 7500
 
 	..()
+	light = new/datum/light/point
+	light.set_brightness(3)
+	light.attach(src)
 
 	add_robot_verbs()
 
@@ -1140,7 +1143,7 @@ var/list/robot_verbs_default = list(
 	update_headlamp()
 
 /mob/living/silicon/robot/proc/update_headlamp(var/turn_off = 0, var/cooldown = 100)
-	set_light(0)
+	light.disable()
 
 	if(lamp_intensity && (turn_off || stat))
 		to_chat(src, "<span class='danger'>Your headlamp has been deactivated.</span>")
@@ -1149,8 +1152,8 @@ var/list/robot_verbs_default = list(
 		spawn(cooldown) //10 seconds by default, if the source of the deactivation does not keep stat that long.
 			lamp_recharging = 0
 	else
-		set_light(light_range + lamp_intensity)
-
+		light.set_brightness(lamp_intensity)
+		light.enable()
 	if(lamp_button)
 		lamp_button.icon_state = "lamp[lamp_intensity]"
 

@@ -10,6 +10,8 @@
 #define T20C 293.15					// 20degC
 #define TCMB 2.7					// -270.3degC
 
+#define ceil(x) (-round(-(x)))
+
 #define Clamp(x, y, z)			 	((x) <= (y) ? (y) : ((x) >= (z) ? (z) : (x)))
 #define CLAMP01(x) 					(Clamp((x), 0, 1))
 #define SIMPLE_SIGN(X)				((X) < 0 ? -1 : 1)

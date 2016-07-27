@@ -73,6 +73,10 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	new /obj/item/weapon/pen(src)
 	start_program(find_program(/datum/data/pda/app/main_menu))
 
+	light = new /datum/light/point
+	light.set_brightness(0.4)
+	light.attach(src)
+
 /obj/item/device/pda/proc/can_use()
 	if(!ismob(loc))
 		return 0

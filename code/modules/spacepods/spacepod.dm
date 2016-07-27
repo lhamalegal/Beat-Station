@@ -42,12 +42,12 @@
 
 	var/lights = 0
 	var/lights_power = 6
-	var/list/icon_light_color = list("pod_civ" = LIGHT_COLOR_WHITE, \
-									 "pod_mil" = "#BBF093", \
-									 "pod_synd" = LIGHT_COLOR_RED, \
-									 "pod_gold" = LIGHT_COLOR_WHITE, \
-									 "pod_black" = "#3B8FE5", \
-									 "pod_industrial" = "#CCCC00")
+	var/list/icon_light_color = list("pod_civ" = list(255, 255, 255), \
+									 "pod_mil" = list(187, 240, 147), \
+									 "pod_synd" = list(180, 0, 0), \
+									 "pod_gold" = list(255, 255, 255), \
+									 "pod_black" = list(59, 143, 229), \
+									 "pod_industrial" = list(204, 204, 0))
 
 	var/unlocked = 1
 
@@ -80,6 +80,11 @@
 	cargo_hold.storage_slots = 0	//You need to install cargo modules to use it.
 	cargo_hold.max_w_class = 5		//fit almost anything
 	cargo_hold.max_combined_w_class = 0 //you can optimize your stash with larger items
+
+	light = new/datum/light/point
+	light.set_brightness(1.7)
+	light.attach(src)
+	light.enable()
 
 /obj/spacepod/Destroy()
 	if (equipment_system.cargo_system)
@@ -127,7 +132,9 @@
 		if(health <= round(initial(health)/4))
 			overlays += pod_overlays[FIRE]
 
-	light_color = icon_light_color[src.icon_state]
+	var/color = icon_light_color[src.icon_state]
+	light.set_color(color[0], color[1], color[2])
+	//light_color = icon_light_color[src.icon_state]
 
 /obj/spacepod/bullet_act(var/obj/item/projectile/P)
 	if(P.damage && !P.nodamage)
@@ -905,9 +912,9 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 /obj/spacepod/proc/lightsToggle()
 	lights = !lights
 	if(lights)
-		set_light(lights_power)
+		light.enable()
 	else
-		set_light(0)
+		light.disable()
 	to_chat(usr, "Lights toggled [lights ? "on" : "off"].")
 	for(var/mob/M in passengers)
 		to_chat(M, "Lights toggled [lights ? "on" : "off"].")

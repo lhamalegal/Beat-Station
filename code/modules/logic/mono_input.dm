@@ -43,6 +43,11 @@
 	- STATUS Gates attempt to update their lights whenever they receive a signal.
 */
 
+	New()
+		light = new/datum/light/point
+		light.set_brightness(2)
+		light.attach(src)
+
 /obj/machinery/logic_gate/status/receive_signal(datum/signal/signal, receive_method, receive_params)
 	..()
 	handle_logic()					//STATUS Gate calls handle_logic() when it receives a signal to update its light and output_state
@@ -50,13 +55,16 @@
 /obj/machinery/logic_gate/status/handle_logic()
 	output_state = input1_state				//Output is equal to input, since it is simply a connection with an attached light
 	if(output_state == LOGIC_OFF)			//Red light when OFF
-		set_light(2,2,"#ff0000")
+		light.set_color(255, 0, 0)
+		light.enable()
 		return
 	if(output_state == LOGIC_ON)			//Green light when ON
-		set_light(2,2,"#009933")
+		light.set_color(0, 153, 51)
+		light.enable()
 		return
 	if(output_state == LOGIC_FLICKER)		//Orange light when FLICKER, then update after LOGIC_FLICKER_TIME + 1 to reflect the changed state
-		set_light(2,2,"#ff9900")
+		light.set_color(255, 153, 0)
+		light.enable()
 		spawn(LOGIC_FLICKER_TIME + 1)
 			handle_logic()
 		return

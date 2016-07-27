@@ -8,9 +8,13 @@
 	circuit = /obj/item/weapon/circuitboard/robotics
 	var/temp = null
 
-	light_color = LIGHT_COLOR_PURPLE
+	//light_color = LIGHT_COLOR_PURPLE
 
 	var/safety = 1
+
+	New()
+		..()
+		light.set_color(205, 0, 205)
 
 /obj/machinery/computer/robotics/attack_ai(var/mob/user as mob)
 	return src.attack_hand(user)

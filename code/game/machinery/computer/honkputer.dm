@@ -5,13 +5,17 @@
 	icon_state = "honkputer"
 	icon_keyboard = "key_honk"
 	icon_screen = "honkcomms"
-	light_color = LIGHT_COLOR_PINK
+	//light_color = LIGHT_COLOR_PINK
 	req_access = list(access_clown)
 	circuit = /obj/item/weapon/circuitboard/HONKputer
 	var/authenticated = 0
 	var/message_cooldown = 0
 	var/state = STATE_DEFAULT
 	var/const/STATE_DEFAULT = 1
+
+	New()
+		..()
+		light.set_color(255, 51, 204)
 
 /obj/machinery/computer/HONKputer/process()
 	if(..())

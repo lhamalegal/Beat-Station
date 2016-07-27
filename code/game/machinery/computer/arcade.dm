@@ -5,15 +5,9 @@
 	icon_state = "arcade"
 	icon_keyboard = null
 	icon_screen = "invaders"
-	light_color = "#00FF00"
-	var/prize = /obj/item/stack/tickets
+	//light_color = "#00FF00"
 
-/obj/machinery/computer/arcade/power_change()
-	..()
-	if(!(stat & (BROKEN|NOPOWER)))
-		set_light(2)
-	else
-		set_light(0)
+	var/prize = /obj/item/stack/tickets
 
 /obj/machinery/computer/arcade/New()
 	..()
@@ -77,6 +71,8 @@
 
 	enemy_name = replacetext((name_part1 + name_part2), "the ", "")
 	name = (name_action + name_part1 + name_part2)
+	..()
+	light.set_color(0, 255, 0)
 
 /obj/machinery/computer/arcade/battle/attack_hand(mob/user as mob)
 	if(..())
@@ -325,6 +321,8 @@
 		"You have come into range of the first man-made structure in this region of space. It has been constructed not by travellers from Sol, but by colonists from Orion. It stands as a monument to the colonists' success.",
 		"You have made it to Orion! Congratulations! Your crew is one of the few to start a new foothold for mankind!"
 		)
+	..()
+	light.set_color(0, 255, 0)
 
 /obj/machinery/computer/arcade/orion_trail/proc/newgame()
 	// Set names of settlers in crew

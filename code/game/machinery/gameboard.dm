@@ -7,7 +7,7 @@
 	anchored = 1
 	use_power = 1
 	var/cooling_down = 0
-	light_color = LIGHT_COLOR_LIGHTBLUE
+	//light_color = LIGHT_COLOR_LIGHTBLUE
 
 /obj/machinery/gameboard/New()
 	..()
@@ -17,14 +17,19 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 3)
 	component_parts += new /obj/item/stack/sheet/glass(null, 1)
 	RefreshParts()
+	light = new/datum/light/point
+	light.set_brightness(0.01)
+	light.set_color(0, 153, 255)
+	light.attach(src)
+
 
 /obj/machinery/gameboard/power_change()
 	. = ..()
 	update_icon()
 	if(stat & NOPOWER)
-		set_light(0)
+		light.disable()
 	else
-		set_light(3, 3)
+		light.enable()
 
 /obj/machinery/gameboard/update_icon()
 	if(stat & NOPOWER)

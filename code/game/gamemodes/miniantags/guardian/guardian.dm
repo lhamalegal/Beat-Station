@@ -59,6 +59,9 @@
 		to_chat(src, "<span class='danger'>You somehow lack a summoner! As a result, you dispel!</span>")
 		ghostize()
 		qdel()
+	light = new/datum/light/point
+	light.set_brightness(luminosity_on)
+	light.attach(src)
 
 /mob/living/simple_animal/hostile/guardian/Move() //Returns to summoner if they move out of range
 	..()
@@ -205,10 +208,10 @@
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleLight()
 	if(!light_on)
-		set_light(luminosity_on)
+		light.enable()
 		to_chat(src, "<span class='notice'>You activate your light.</span>")
 	else
-		set_light(0)
+		light.disable()
 		to_chat(src, "<span class='notice'>You deactivate your light.</span>")
 	light_on = !light_on
 

@@ -93,11 +93,14 @@
 	id = "dive"
 	height = 1
 	use_verb = "ascends"
-	light_range = 5
+	//light_range = 5
 
 /obj/structure/ladder/dive_point/New()
 	..()
-	set_light(light_range, light_power)		//magical glowing anchor
+	light = new/datum/light/point
+	light.set_brightness(1)
+	light.attach(src)
+	light.enable()
 
 /obj/structure/ladder/dive_point/update_icon()
 	return

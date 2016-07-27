@@ -4,7 +4,7 @@
 
 	icon = 'icons/obj/machines/broadcast.dmi'
 	icon_state = "broadcaster"
-	light_color="#4285F4"
+	//light_color="#4285F4"
 	use_power = 1
 	idle_power_usage = 50
 	active_power_usage = 1000
@@ -17,6 +17,12 @@
 
 	var/const/RADS_PER_TICK=150
 	var/const/MAX_TEMP=70 // Celsius
+
+	New()
+		light = new/datum/light/point
+		light.set_brightness(3)
+		light.set_color(66, 133, 244)
+		light.attach(src)
 
 /obj/machinery/media/transmitter/broadcast/initialize()
 	testing("[type]/initialize() called!")
@@ -94,10 +100,12 @@
 		return
 	if(on)
 		overlays+="broadcaster on"
-		set_light(3) // OH FUUUUCK
+		light.set_brightness(3)
+		light.enable()
 		use_power = 2
 	else
-		set_light(1) // Only the tile we're on.
+		light.set_brightness(1)
+		light.enable()
 		use_power = 1
 	if(sources.len)
 		overlays+="broadcaster linked"
