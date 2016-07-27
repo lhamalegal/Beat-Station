@@ -75,9 +75,9 @@ Made by Xhuis
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer")
 
 /datum/game_mode/shadowling/announce()
-	to_chat(world, "<b>The current game mode is - Shadowling!</b>")
-	to_chat(world, "<b>There are alien <span class='deadsay'>shadowlings</span> on the station. Crew: Kill the shadowlings before they can eat or enthrall the crew. Shadowlings: Enthrall the crew while remaining in hiding.</b>")
-	send_to_info_discord("**The current game mode is - Shadowling!**\n**There are alien shadowlings on the station. Crew: Kill the shadowlings before they can eat or enthrall the crew. Shadowlings: Enthrall the crew while remaining in hiding.**")
+	var/text = "<b>The current game mode is - Shadowling!</b><br>"
+	text += "<b>There are alien <span class='deadsay'>shadowlings</span> on the station. Crew: Kill the shadowlings before they can eat or enthrall the crew. Shadowlings: Enthrall the crew while remaining in hiding.</b>"
+	..(text)
 
 /datum/game_mode/shadowling/pre_setup()
 	if(config.protect_roles_from_antagonist)
@@ -250,13 +250,7 @@ Made by Xhuis
 	else
 		text += "<span class='redtext'><b>The shadowlings have failed!</b></span>"
 	to_chat(world, text)
-	text = replacetext(text, "<b>", "**")
-	text = replacetext(text, "</b>", "**")
-	text = replacetext(text, "<span class='redtext'>", "")
-	text = replacetext(text, "</span>", "")
-	text = replacetext(text, "<br>", "\n")
-	send_to_info_discord(text)
-	..()
+	..(text)
 	return 1
 
 
@@ -293,11 +287,7 @@ Made by Xhuis
 				text += ")"
 	text += "<br>"
 	to_chat(world, text)
-	text = replacetext(text, "<b>", "**")
-	text = replacetext(text, "</b>", "**")
-	text = replacetext(text, "<span class='big'>", "")
-	text = replacetext(text, "</span>", "")
-	text = replacetext(text, "<br>", "\n")
+	text = html2discord(text)
 	send_to_info_discord(text)
 
 

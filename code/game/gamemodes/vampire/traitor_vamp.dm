@@ -10,9 +10,9 @@
 	var/protected_species_vampire = list("Machine")
 
 /datum/game_mode/traitor/vampire/announce()
-	to_chat(world, "<B>The current game mode is - Traitor+Vampire!</B>")
-	to_chat(world, "<B>There is a Vampire from Space Transylvania on the station along with some syndicate operatives out for their own gain! Do not let the vampire and the traitors succeed!</B>")
-	send_to_info_discord("**The current game mode is - Traitor+Vampire!**\n**There is a Vampire from Space Transylvania on the station along with some syndicate operatives out for their own gain! Do not let the vampire and the traitors succeed!**")
+	var/text = "<B>The current game mode is - Traitor+Vampire!</B><br>"
+	text += "<B>There is a Vampire from Space Transylvania on the station along with some syndicate operatives out for their own gain! Do not let the vampire and the traitors succeed!</B>"
+	..(text)
 
 /datum/game_mode/traitor/vampire/pre_setup()
 	if(config.protect_roles_from_antagonist)

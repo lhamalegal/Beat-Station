@@ -1,6 +1,6 @@
+#!usr/bin/python3.5
 # nudge.py --channel="nudges|ahelps" --id="Server ID" --key="access key" Message! More message!
 # Credit to the gents at VGStation13/N3XIS for this code.
-
 import sys
 import pickle
 import socket

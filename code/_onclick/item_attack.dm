@@ -24,6 +24,10 @@
 			return
 	I.attack(src, user)
 
+/obj/proc/attacked_by(obj/item/I, mob/living/user)
+	if(I.force)
+		user.visible_message("<span class='danger'>[user] has hit [src] with [I]!</span>", "<span class='danger'>You hit [src] with [I]!</span>")
+
 
 // Proximity_flag is 1 if this afterattack was called on something adjacent, in your square, or on your person.
 // Click parameters is the params string from byond Click() code, see that documentation.

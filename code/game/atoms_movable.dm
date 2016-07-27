@@ -332,3 +332,7 @@
 	if(buckled_mob == mover)
 		return 1
 	return ..()
+
+//Say code
+/atom/movable/proc/get_spans()
+	return list()

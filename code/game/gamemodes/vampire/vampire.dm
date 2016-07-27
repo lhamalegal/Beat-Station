@@ -35,9 +35,9 @@
 	var/vampire_amount = 4
 
 /datum/game_mode/vampire/announce()
-	to_chat(world, "<B>The current game mode is - Vampires!</B>")
-	to_chat(world, "<B>There are Vampires from Space Transylvania on the station, keep your blood close and neck safe!</B>")
-	send_to_info_discord("**The current game mode is - Vampires!**\n**There are Vampires from Space Transylvania on the station, keep your blood close and neck safe!**")
+	var/text = "<B>The current game mode is - Vampires!</B><br>"
+	text += "<B>There are Vampires from Space Transylvania on the station, keep your blood close and neck safe!</B>"
+	..(text)
 
 /datum/game_mode/vampire/pre_setup()
 
@@ -115,14 +115,7 @@
 				text += "<br><font color='red'><B>The [special_role_text] has failed!</B></font>"
 				feedback_add_details("traitor_success","FAIL")
 		to_chat(world, text)
-		text = replacetext(text, "<B>", "**")
-		text = replacetext(text, "</B>", "**")
-		text = replacetext(text, "<FONT size = 2>", "")
-		text = replacetext(text, "<font color='red'>", "*")
-		text = replacetext(text, "<font color='green'>", "*")
-		text = replacetext(text, "</font>", "*")
-		text = replacetext(text, "</FONT>", "")
-		text = replacetext(text, "<br>", "\n")
+		text = html2discord(text)
 		send_to_info_discord(text)
 	return 1
 
@@ -142,11 +135,7 @@
 				text += "body destroyed"
 			text += ")"
 		to_chat(world, text)
-		text = replacetext(text, "<B>", "**")
-		text = replacetext(text, "</B>", "**")
-		text = replacetext(text, "<FONT size = 2>", "")
-		text = replacetext(text, "</FONT>", "")
-		text = replacetext(text, "<br>", "\n")
+		text = html2discord(text)
 		send_to_info_discord(text)
 	return 1
 

@@ -19,10 +19,10 @@ proc/issyndicate(mob/living/M as mob)
 
 
 /datum/game_mode/nuclear/announce()
-	to_chat(world, "<B>The current game mode is - Nuclear Emergency!</B>")
-	to_chat(world, "<B>A [syndicate_name()] Strike Force is approaching [station_name()]!</B>")
-	to_chat(world, "A nuclear explosive was being transported by Nanotrasen to a military base. The transport ship mysteriously lost contact with Space Traffic Control (STC). About that time a strange disk was discovered around [station_name()]. It was identified by Nanotrasen as a nuclear authentication disk and now Syndicate Operatives have arrived to retake the disk and detonate SS13! There are most likely Syndicate starships are in the vicinity, so take care not to lose the disk!\n<B>Syndicate</B>: Reclaim the disk and detonate the nuclear bomb anywhere on SS13.\n<B>Personnel</B>: Hold the disk and <B>escape with the disk</B> on the shuttle!")
-	send_to_info_discord("**The current game mode is - Nuclear Emergency!**\n**A [syndicate_name()] Strike Force is approaching [station_name()]!**\nA nuclear explosive was being transported by Nanotrasen to a military base. The transport ship mysteriously lost contact with Space Traffic Control (STC). About that time a strange disk was discovered around [station_name()]. It was identified by Nanotrasen as a nuclear authentication disk and now Syndicate Operatives have arrived to retake the disk and detonate SS13! There are most likely Syndicate starships are in the vicinity, so take care not to lose the disk!\n**Syndicate**: Reclaim the disk and detonate the nuclear bomb anywhere on SS13.\n**Personnel**: Hold the disk and **escape with the disk** on the shuttle!")
+	var/text = "<B>The current game mode is - Nuclear Emergency!</B><br>"
+	text += "<B>A [syndicate_name()] Strike Force is approaching [station_name()]!</B><br>"
+	text += "A nuclear explosive was being transported by Nanotrasen to a military base. The transport ship mysteriously lost contact with Space Traffic Control (STC). About that time a strange disk was discovered around [station_name()]. It was identified by Nanotrasen as a nuclear authentication disk and now Syndicate Operatives have arrived to retake the disk and detonate SS13! There are most likely Syndicate starships are in the vicinity, so take care not to lose the disk!\n<B>Syndicate</B>: Reclaim the disk and detonate the nuclear bomb anywhere on SS13.\n<B>Personnel</B>: Hold the disk and <B>escape with the disk</B> on the shuttle!"
+	..(text)
 
 /datum/game_mode/nuclear/can_start()//This could be better, will likely have to recode it later
 	if(!..())
@@ -358,14 +358,7 @@ proc/issyndicate(mob/living/M as mob)
 		text += "<FONT size = 3><B>Neutral Victory</B></FONT>"
 		text += "<B>Round was mysteriously interrupted!</B>"
 
-	text = replacetext(text, "<B>", "**")
-	text = replacetext(text, "</B>", "**")
-	text = replacetext(text, "<FONT size = 3>", "")
-	text = replacetext(text, "</font>", "*")
-	text = replacetext(text, "</FONT>", "")
-	text = replacetext(text, "<br>", "\n")
-	send_to_info_discord(text)
-	..()
+	..(text)
 	return
 
 
@@ -402,12 +395,7 @@ proc/issyndicate(mob/living/M as mob)
 			text += "<BIG><IMG CLASS=icon SRC=\ref['icons/BadAss.dmi'] ICONSTATE='badass'></BIG>"
 
 		to_chat(world, text)
-		text = replacetext(text, "<b>", "**")
-		text = replacetext(text, "</b>", "**")
-		text = replacetext(text, "<FONT size = 3>", "")
-		text = replacetext(text, "</font>", "*")
-		text = replacetext(text, "</FONT>", "")
-		text = replacetext(text, "<br>", "\n")
+		text = html2discord(text)
 		send_to_info_discord(text)
 	return 1
 

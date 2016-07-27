@@ -17,9 +17,9 @@
 	var/list/found_vents = list()
 
 /datum/game_mode/borer/announce()
-	to_chat(world, "<B>The current game mode is - Cortical Borer!</B>")
-	to_chat(world, "<B>An unknown creature has infested the mind of a crew member. Find and destroy it by any means necessary.</B>")
-	send_to_info_discord("**The current game mode is - Cortical Borer!**\n**An unknown creature has infested the mind of a crew member. Find and destroy it by any means necessary.**")
+	var/text = "<B>The current game mode is - Cortical Borer!</B><br>"
+	text += "<B>An unknown creature has infested the mind of a crew member. Find and destroy it by any means necessary.</B>"
+	..(text)
 
 /datum/game_mode/borer/can_start()
 	if(!..())
@@ -151,11 +151,7 @@
 			feedback_add_details("borer_success","FAIL")
 
 		to_chat(world, text)
-		text = replacetext(text, "<B>", "**")
-		text = replacetext(text, "</B>", "**")
-		text = replacetext(text, "\red ", "*")
-		text = replacetext(text, "\green ", "*")
-		text = replacetext(text, "<br>", "\n")
+		text = html2discord(text)
 		send_to_info_discord(text)
 	return 1
 

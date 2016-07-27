@@ -88,10 +88,10 @@ var/list/blob_nodes = list()
 
 
 /datum/game_mode/blob/announce()
-	to_chat(world, "<B>The current game mode is - <font color='green'>Blob</font>!</B>")
-	to_chat(world, "<B>A dangerous alien organism is rapidly spreading throughout the station!</B>")
-	to_chat(world, "You must kill it all while minimizing the damage to the station.")
-	send_to_info_discord("**The current game mode is - Blob!**\n**A dangerous alien organism is rapidly spreading throughout the station!**\nYou must kill it all while minimizing the damage to the station.")
+	var/text = "<B>The current game mode is - <font color='green'>Blob</font>!</B><br>"
+	text += "<B>A dangerous alien organism is rapidly spreading throughout the station!</B><br>"
+	text += "You must kill it all while minimizing the damage to the station."
+	..(text)
 
 
 /datum/game_mode/blob/proc/greet_blob(var/datum/mind/blob)

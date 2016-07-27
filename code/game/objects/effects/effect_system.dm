@@ -230,6 +230,16 @@ steam.start() -- spawns the effect
 					qdel(sparks)
 					src.total_sparks--
 
+
+//electricity
+
+/obj/effect/effect/sparks/electricity
+	name = "lightning"
+	icon_state = "electricity"
+
+///datum/effect_system/lightning_spread
+//	effect_type = /obj/effect/effect/sparks/electricity
+
 /////////////////////////////////////////////
 //// SMOKE SYSTEMS
 // direct can be optinally added when set_up, to make the smoke always travel in one direction

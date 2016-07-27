@@ -53,6 +53,9 @@ var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 		if(possible_targets.len > 0)
 			target = pick(possible_targets)
 
+	proc/update_explanation_text()
+	//Default does nothing, override where needed
+
 
 /datum/objective/assassinate
 	martyr_compatible = 1
