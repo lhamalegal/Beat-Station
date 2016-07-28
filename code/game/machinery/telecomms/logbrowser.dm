@@ -1,7 +1,10 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
 /obj/machinery/computer/telecomms
 
-	light_color = LIGHT_COLOR_DARKGREEN
+	//light_color = LIGHT_COLOR_DARKGREEN
+	New()
+		..()
+		light.set_color(80, 171, 0)
 
 /obj/machinery/computer/telecomms/server
 	name = "telecommunications server monitor"

@@ -23,7 +23,6 @@
 	icon_state = "darkmatter_shard"
 	density = 1
 	anchored = 0
-	light_range = 4
 
 
 	var/gasefficency = 0.125
@@ -67,6 +66,10 @@
 	radio = new(src)
 	radio.listening = 0
 	investigate_log("has been created.", "supermatter")
+	light = new /datum/light/point
+	light.set_brightness(0.4)
+	light.set_color(255, 255, 77)
+	light.attach(src)
 
 
 /obj/machinery/power/supermatter_shard/Destroy()

@@ -15,11 +15,14 @@ var/syndicate_elite_shuttle_timeleft = 0
 	icon = 'icons/obj/computer.dmi'
 	icon_keyboard = "syndie_key"
 	icon_screen = "syndishuttle"
-	light_color = LIGHT_COLOR_PURE_CYAN
+	//light_color = LIGHT_COLOR_PURE_CYAN
 	req_access = list(access_syndicate)
 	var/temp = null
 	var/hacked = 0
 	var/allowedtocall = 0
+	New()
+		..()
+		light.set_color(0, 255, 255)
 
 /proc/syndicate_elite_process()
 	var/area/syndicate_mothership/control/syndicate_ship = locate()//To find announcer. This area should exist for this proc to work.

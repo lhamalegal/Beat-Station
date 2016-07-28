@@ -3,12 +3,16 @@
 	icon = 'icons/obj/computer.dmi'
 	icon_keyboard = "rd_key"
 	icon_screen = "mecha"
-	light_color = LIGHT_COLOR_FADEDPURPLE
+	//light_color = LIGHT_COLOR_FADEDPURPLE
 	req_access = list(access_robotics)
 	circuit = /obj/item/weapon/circuitboard/mecha_control
 	var/list/located = list()
 	var/screen = 0
 	var/stored_data
+
+	New()
+		..()
+		light.set_color(169, 127, 170)
 
 /obj/machinery/computer/mecha/attack_ai(var/mob/user as mob)
 	return attack_hand(user)

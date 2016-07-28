@@ -51,7 +51,7 @@
 			src.operating = 1
 			flick("pdoorc0", src)
 			src.icon_state = "pdoor0"
-			src.set_opacity(0)
+			src.RL_SetOpacity(0)
 			sleep(15)
 			src.density = 0
 			src.operating = 0
@@ -67,7 +67,7 @@
 		src.operating = 1
 	flick("pdoorc0", src)
 	src.icon_state = "pdoor0"
-	src.set_opacity(0)
+	src.RL_SetOpacity(0)
 	sleep(5)
 	src.density = 0
 	sleep(5)
@@ -87,7 +87,7 @@
 	src.operating = 1
 	flick("pdoorc1", src)
 	src.icon_state = "pdoor1"
-	src.set_opacity(initial(opacity))
+	src.RL_SetOpacity(initial(opacity))
 	air_update_turf(1)
 	update_freelook_sight()
 	sleep(5)

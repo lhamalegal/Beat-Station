@@ -64,6 +64,8 @@ var/global/datum/global_init/init = new ()
 		master_controller.setup()
 		sleep_offline = 1
 
+		RL_Start()
+
 	#ifdef MAP_NAME
 	map_name = "[MAP_NAME]"
 	#else

@@ -44,9 +44,13 @@
 	icon_state = "plasmaman_helmet0"
 	item_state = "plasmaman_helmet0"
 	var/base_state = "plasmaman_helmet"
-	var/brightness_on = 4 //luminosity when on
 	var/on = 0
 	action_button_name = "Toggle Helmet Light"
+
+	New()
+		light = new/datum/light/point
+		light.set_brightness(0.4)
+		light.attach(src)
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/attack_self(mob/user)
 	if(!isturf(user.loc))
@@ -60,9 +64,9 @@
 	icon_state = "[base_state][on]"
 
 	if(on)
-		set_light(brightness_on)
+		light.enable()
 	else
-		set_light(0)
+		light.disable()
 
 	if(istype(user,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user

@@ -9,7 +9,6 @@
 	body_parts_covered = HEAD
 	heat_protection =    HEAD
 	cold_protection =    HEAD
-	var/brightness_on = 4
 	var/on = 0
 	sprite_sheets = list(
 		"Tajara" = 'icons/mob/species/tajaran/helmet.dmi',
@@ -19,6 +18,10 @@
 	species_restricted = null
 
 	flash_protect = 2
+	New()
+		light = new/datum/light/point
+		light.set_brightness(0.4)
+		light.attach(src)
 
 /obj/item/clothing/head/helmet/space/new_rig/attack_self(mob/user)
 	if(!isturf(user.loc))
@@ -32,9 +35,9 @@
 	icon_state = "rig[on]-[item_color]"
 
 	if(on)
-		set_light(brightness_on)
+		light.enable()
 	else
-		set_light(0)
+		light.disable()
 
 	if(istype(user,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user

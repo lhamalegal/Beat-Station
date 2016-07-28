@@ -16,6 +16,11 @@
 	attack_verb = list("burnt", "singed")
 	var/lit = 0
 
+	New()
+		light = new/datum/light/point
+		light.set_brightness(0.1)
+		light.attach(src)
+
 /obj/item/weapon/lighter/zippo
 	name = "zippo lighter"
 	desc = "The zippo."
@@ -55,7 +60,7 @@
 							H.updatehealth()
 					user.visible_message("<span class='notice'>After a few attempts, [user] manages to light the [src], they however burn their finger in the process.</span>")
 
-			set_light(2)
+			light.enable()
 			processing_objects.Add(src)
 		else
 			lit = 0
@@ -68,7 +73,7 @@
 			else
 				user.visible_message("<span class='notice'>[user] quietly shuts off the [src].")
 
-			set_light(0)
+			light.disable()
 			processing_objects.Remove(src)
 	else
 		return ..()

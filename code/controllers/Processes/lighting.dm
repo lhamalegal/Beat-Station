@@ -1,4 +1,4 @@
-var/global/datum/controller/process/lighting/lighting_controller
+/*var/global/datum/controller/process/lighting/lighting_controller
 
 /datum/controller/process/lighting/setup()
 	name = "lighting"
@@ -13,6 +13,14 @@ var/global/datum/controller/process/lighting/lighting_controller
 
 /datum/controller/process/lighting/statProcess()
 	..()
-	stat(null, "[last_light_count] lights, [last_overlay_count] overlays")
+	stat(null, "[last_light_count] lights, [last_overlay_count] overlays")*/
 
 // Lighting process code located in modules\lighting\lighting_process.dm
+
+datum/controller/process/lighting
+	setup()
+		name = "Lighting"
+		schedule_interval = 22
+
+	doWork()
+		// TODO
