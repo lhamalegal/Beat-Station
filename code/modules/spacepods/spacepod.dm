@@ -132,8 +132,10 @@
 		if(health <= round(initial(health)/4))
 			overlays += pod_overlays[FIRE]
 
-	var/color = hrc_hex2rgb(icon_light_color[src.icon_state], 1)
-	light.set_color(color[0], color[1], color[2])
+	to_chat(world, icon_light_color[src.icon_state])
+	var/list/clr = hrc_hex2rgb(icon_light_color[src.icon_state], 1)
+	to_chat(world, clr.len)
+	light.set_color(clr[0], clr[1], clr[2])
 	//light_color = icon_light_color[src.icon_state]
 
 /obj/spacepod/bullet_act(var/obj/item/projectile/P)

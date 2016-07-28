@@ -47,7 +47,7 @@ var/const/HOLOPAD_MODE = 0
 	component_parts += new /obj/item/weapon/stock_parts/capacitor(null)
 	RefreshParts()
 	light = new/datum/light/point
-	light.set_brightness(0.1)
+	light.set_brightness(0.08)
 	light.attach(src)
 
 /obj/machinery/hologram/holopad/RefreshParts()

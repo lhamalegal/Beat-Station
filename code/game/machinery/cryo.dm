@@ -42,7 +42,7 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 	light = new /datum/light/point
-	light.set_brightness(0.1)
+	light.set_brightness(0.08)
 	light.set_color(255, 255, 255)
 	light.attach(src)
 

@@ -20,7 +20,7 @@
 	overlay_layer = layer
 	..()
 	light = new/datum/light/point
-	light.set_brightness(0.1)
+	light.set_brightness(0.08)
 	light.attach(src)
 
 /obj/machinery/computer/initialize()

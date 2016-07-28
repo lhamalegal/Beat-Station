@@ -17,10 +17,10 @@
 
 /obj/machinery/computer/pod/New()
 	..()
-	light.set_color(85, 85, 85)
 	spawn(5)
 		driver_sync()
 	machines += src
+	light.set_color(85, 85, 85)
 
 /obj/machinery/computer/pod/proc/driver_sync()
 	timings = list()

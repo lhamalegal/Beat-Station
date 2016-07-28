@@ -306,7 +306,7 @@
 	RefreshParts()
 
 	light = new/datum/light/point
-	light.set_brightness(0.1)
+	light.set_brightness(0.08)
 	light.set_color(123, 249, 255)
 	light.attach(src)
 

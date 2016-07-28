@@ -11,7 +11,7 @@
 	New()
 		..()
 		light = new/datum/light/point
-		light.set_brightness(0.1)
+		light.set_brightness(0.08)
 		light.attach(src)
 
 /obj/machinery/dye_generator/initialize()
@@ -54,9 +54,9 @@
 		return
 	var/temp = input(usr, "Choose a dye color", "Dye Color") as color
 	dye_color = temp
-	light.set_color()
+	var/clr = hrc_hex2rgb(dye_color, 1)
+	light.set_color(clr[0], clr[1], clr[2])
 	light.enable()
-	//set_light(2, l_color = temp)
 
 /obj/machinery/dye_generator/attackby(obj/item/weapon/W, mob/user, params)
 

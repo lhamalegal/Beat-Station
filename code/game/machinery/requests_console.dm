@@ -54,7 +54,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 
 	New()
 		light = new/datum/light/point
-		light.set_brightness(0.1)
+		light.set_brightness(0.08)
 		light.set_height(2.4)
 		light.attach(src)
 

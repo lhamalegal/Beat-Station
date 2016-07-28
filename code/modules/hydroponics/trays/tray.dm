@@ -95,16 +95,16 @@
 	temp_chem_holder = new()
 	temp_chem_holder.create_reagents(10)
 
+	light = new/datum/light/point
+	light.set_color(51, 153, 255)
+	light.set_brightness(0.2)
+	light.attach(src)
+
 	create_reagents(200)
 	connect()
 	update_icon()
 	if(closed_system)
 		flags &= ~OPENCONTAINER
-
-	light = new/datum/light/point
-	light.set_color(51, 153, 255)
-	light.set_brightness(0.2)
-	light.attach(src)
 
 /obj/machinery/portable_atmospherics/hydroponics/upgraded/New()
 	..()

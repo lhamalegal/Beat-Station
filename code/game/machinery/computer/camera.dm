@@ -296,6 +296,7 @@
 	New()
 		..()
 		light.set_color(255, 238, 219)
+		light.set_height(2.4)
 
 
 /obj/machinery/computer/security/wooden_tv

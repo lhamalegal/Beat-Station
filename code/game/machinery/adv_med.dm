@@ -12,7 +12,7 @@
 	New()
 		..()
 		light = new/datum/light/point
-		light.set_brightness(0.1)
+		light.set_brightness(0.08)
 		light.set_color(0, 255, 0)
 		light.attach(src)
 

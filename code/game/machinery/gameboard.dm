@@ -18,7 +18,7 @@
 	component_parts += new /obj/item/stack/sheet/glass(null, 1)
 	RefreshParts()
 	light = new/datum/light/point
-	light.set_brightness(0.01)
+	light.set_brightness(0.08)
 	light.set_color(0, 153, 255)
 	light.attach(src)
 
