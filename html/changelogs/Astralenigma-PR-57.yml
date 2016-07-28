@@ -32,7 +32,7 @@ delete-after: True
 # Also, this gets changed to [] after reading.  Just remove the brackets when you add new shit.
 # Please surround your changes in  double quotes ("). It works without them, but if you use certain characters it screws up compiling. The quotes will not show up in the changelog.
 changes: 
-  - bugfix: "Os deuses e seus seguidores já aparecem no Check antags."
-  - bugfix: "O deus vermelho já pode ser gerado por admins."
-  - bugfix: "Os deuses são agora omniscientes ou seja percebem todas as línguas."
+  - bugfix: "Gods and their followers will appear in the Check antags."
+  - bugfix: "The red god can be spawned by admins."
+  - bugfix: "Gods are now omniscient, meaning they now understand all languages."
 

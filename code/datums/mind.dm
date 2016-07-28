@@ -144,7 +144,6 @@
 		"nuclear",
 		"traitor", // "traitorchan",
 		"malfunction",
-		"handofgod",
 	)
 	var/text = ""
 	var/mob/living/carbon/human/H = current
