@@ -61,6 +61,10 @@
 
 	..()
 
+	light = new/datum/light/point
+	light.attach(src)
+	light.disable()
+
 /mob/living/proc/handle_breathing()
 	return
 

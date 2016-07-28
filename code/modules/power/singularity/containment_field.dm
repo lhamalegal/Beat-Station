@@ -9,10 +9,16 @@
 	density = 0
 	unacidable = 1
 	use_power = 0
-	light_range = 4
+	//light_range = 4
 	layer = OBJ_LAYER + 0.1
 	var/obj/machinery/field/generator/FG1 = null
 	var/obj/machinery/field/generator/FG2 = null
+	New()
+		..()
+		light = new/datum/light/point
+		light.set_color(51, 153, 255)
+		light.set_brightness(0.5)
+		light.attach(src)
 
 /obj/machinery/field/containment/Destroy()
 	if(FG1 && !FG1.clean_up)

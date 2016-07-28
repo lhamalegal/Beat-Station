@@ -181,3 +181,4 @@ var/global/datum/controller/process/garbage_collector/garbageCollector
 
 /proc/gcwarning(msg)
 	log_to_dd("## GC WARNING: [msg]")
+

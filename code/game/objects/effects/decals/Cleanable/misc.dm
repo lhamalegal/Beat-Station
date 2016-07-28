@@ -67,12 +67,14 @@
 	density = 0
 	anchored = 1
 	layer = 2
-	light_range = 1
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "greenglow"
 
 	New()
 		..()
+		light = new /datum/light/point
+		light.set_brightness(0.1)
+		light.attach(src)
 		spawn(1200)// 2 minutes
 			qdel(src)
 

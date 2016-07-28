@@ -951,8 +951,8 @@ var/list/slot_equipment_priority = list( \
 			for(var/atom/A in listed_turf)
 				if(A.invisibility > see_invisible)
 					continue
-				if(is_type_in_list(A, shouldnt_see))
-					continue
+				//if(is_type_in_list(A, shouldnt_see))
+				//	continue
 				statpanel(listed_turf.name, null, A)
 
 	statpanel("Status") // We only want alt-clicked turfs to come before Status

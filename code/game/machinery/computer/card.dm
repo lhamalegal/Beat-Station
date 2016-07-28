@@ -9,7 +9,8 @@ var/time_last_changed_position = 0
 	icon_screen = "id"
 	req_access = list(access_change_ids)
 	circuit = /obj/item/weapon/circuitboard/card
-	light_color = LIGHT_COLOR_LIGHTBLUE
+	//light_color = LIGHT_COLOR_LIGHTBLUE
+
 	var/obj/item/weapon/card/id/scan = null
 	var/obj/item/weapon/card/id/modify = null
 	var/mode = 0.0
@@ -46,6 +47,10 @@ var/time_last_changed_position = 0
 	//This is used to keep track of opened positions for jobs to allow instant closing
 	//Assoc array: "JobName" = (int)<Opened Positions>
 	var/list/opened_positions = list();
+
+	New()
+		..()
+		light.set_color(0, 153, 255)
 
 /obj/machinery/computer/card/proc/is_centcom()
 	return istype(src, /obj/machinery/computer/card/centcom)

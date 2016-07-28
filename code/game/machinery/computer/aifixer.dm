@@ -8,7 +8,10 @@
 	var/mob/living/silicon/ai/occupant = null
 	var/active = 0
 
-	light_color = LIGHT_COLOR_PURPLE
+	//light_color = LIGHT_COLOR_PURPLE
+	New()
+		..()
+		light.set_color(205, 0, 205)
 
 /obj/machinery/computer/aifixer/attackby(I as obj, user as mob, params)
 	if(occupant && istype(I, /obj/item/weapon/screwdriver))

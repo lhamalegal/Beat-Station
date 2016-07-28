@@ -19,6 +19,9 @@
 /obj/machinery/computer/New()
 	overlay_layer = layer
 	..()
+	light = new/datum/light/point
+	light.set_brightness(0.08)
+	light.attach(src)
 
 /obj/machinery/computer/initialize()
 	power_change()
@@ -88,12 +91,15 @@
 	..()
 	update_icon()
 	if((stat & (BROKEN|NOPOWER)))
-		set_light(0)
+		if(light)
+			light.disable()
 	else
-		set_light(light_range_on, light_power_on)
+		if(light)
+			light.enable()
 
 /obj/machinery/computer/proc/set_broken()
 	stat |= BROKEN
+	light.disable()
 	update_icon()
 
 /obj/machinery/computer/proc/decode(text)

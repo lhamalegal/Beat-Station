@@ -40,14 +40,15 @@
 	var/health = 250
 	var/empcounter = 0 //Used for disabling movement when hit by an EMP
 
-	var/lights = 0
-	var/lights_power = 6
-	var/list/icon_light_color = list("pod_civ" = LIGHT_COLOR_WHITE, \
+	/*var/list/icon_light_color = list("pod_civ" = LIGHT_COLOR_WHITE, \
 									 "pod_mil" = "#BBF093", \
 									 "pod_synd" = LIGHT_COLOR_RED, \
 									 "pod_gold" = LIGHT_COLOR_WHITE, \
 									 "pod_black" = "#3B8FE5", \
-									 "pod_industrial" = "#CCCC00")
+									 "pod_industrial" = "#CCCC00")*/
+
+	var/lights = 0
+	var/lights_power = 6
 
 	var/unlocked = 1
 
@@ -80,6 +81,11 @@
 	cargo_hold.storage_slots = 0	//You need to install cargo modules to use it.
 	cargo_hold.max_w_class = 5		//fit almost anything
 	cargo_hold.max_combined_w_class = 0 //you can optimize your stash with larger items
+
+	light = new/datum/light/point
+	light.set_brightness(1)
+	light.attach(src)
+	light.disable()
 
 /obj/spacepod/Destroy()
 	if (equipment_system.cargo_system)
@@ -115,6 +121,21 @@
 		processing_objects.Remove(src)
 
 /obj/spacepod/proc/update_icons()
+
+	switch(src.icon_state)
+		if("pod_civ")
+			light.set_color(255, 255, 255)
+		if("pod_mil")
+			light.set_color(187, 240, 147)
+		if("pod_synd")
+			light.set_color(180, 0, 0)
+		if("pod_gold")
+			light.set_color(255, 255, 255)
+		if("pod_black")
+			light.set_color(59, 143, 229)
+		if("pod_industrial")
+			light.set_color(204, 204, 0)
+
 	if(!pod_overlays)
 		pod_overlays = new/list(2)
 		pod_overlays[DAMAGE] = image(icon, icon_state="pod_damage")
@@ -126,8 +147,6 @@
 		overlays += pod_overlays[DAMAGE]
 		if(health <= round(initial(health)/4))
 			overlays += pod_overlays[FIRE]
-
-	light_color = icon_light_color[src.icon_state]
 
 /obj/spacepod/bullet_act(var/obj/item/projectile/P)
 	if(P.damage && !P.nodamage)
@@ -905,9 +924,9 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 /obj/spacepod/proc/lightsToggle()
 	lights = !lights
 	if(lights)
-		set_light(lights_power)
+		light.enable()
 	else
-		set_light(0)
+		light.disable()
 	to_chat(usr, "Lights toggled [lights ? "on" : "off"].")
 	for(var/mob/M in passengers)
 		to_chat(M, "Lights toggled [lights ? "on" : "off"].")

@@ -58,8 +58,6 @@
 
 		var/contcount
 		for(var/atom/A in T.contents)
-			if(istype(A,/atom/movable/lighting_overlay))
-				continue
 			if(istype(A,/obj/machinery/light))
 				continue //hacky but whatever, shuttles need three spots each for this shit
 			if(!A.simulated)

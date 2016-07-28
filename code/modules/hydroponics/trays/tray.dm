@@ -95,6 +95,11 @@
 	temp_chem_holder = new()
 	temp_chem_holder.create_reagents(10)
 
+	light = new/datum/light/point
+	light.set_color(51, 153, 255)
+	light.set_brightness(0.2)
+	light.attach(src)
+
 	create_reagents(200)
 	connect()
 	update_icon()
@@ -684,7 +689,8 @@
 		if(closed_system && mechanical)
 			light_string = "that the internal lights are set to [tray_light] lumens"
 		else
-			var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in T
+			//var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in T
+			var/datum/light/L = locate(/datum/light) in T
 			var/light_available
 			if(L)
 				light_available = L.get_clamped_lum()*10

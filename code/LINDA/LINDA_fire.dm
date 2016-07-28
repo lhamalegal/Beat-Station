@@ -49,7 +49,6 @@
 	layer = TURF_LAYER
 
 	blend_mode = BLEND_ADD
-	light_range = 3
 
 	var/volume = 125
 	var/temperature = FIRE_MINIMUM_TEMPERATURE_TO_EXIST
@@ -62,6 +61,10 @@
 	perform_exposure()
 	dir = pick(cardinal)
 	air_update_turf()
+
+	light = new /datum/light/point
+	light.set_brightness(0.5)
+	light.attach(src)
 
 /obj/effect/hotspot/proc/perform_exposure()
 	var/turf/simulated/location = loc
@@ -88,7 +91,7 @@
 			item.fire_act(null, temperature, volume)
 
 	color = heat2color(temperature)
-	set_light(l_color = color)
+	light.set_color(temperature, temperature, temperature)
 	return 0
 
 
@@ -150,7 +153,7 @@
 // Garbage collect itself by nulling reference to it
 
 /obj/effect/hotspot/Destroy()
-	set_light(0)
+	light.disable()
 	air_master.hotspots -= src
 	DestroyTurf()
 	if(istype(loc, /turf/simulated))

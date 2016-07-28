@@ -201,7 +201,6 @@
 
 /turf/simulated/floor/plating/airless/catwalk/New()
 	..()
-	set_light(4) //starlight
 	name = "catwalk"
 	update_icon(1)
 

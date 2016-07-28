@@ -4,7 +4,7 @@
 	name = "mass drivers and pod doors control"
 	desc = "A control for launching pods. Some people prefer firing Mechas."
 	icon_screen = "mass_driver"
-	light_color = "#555555"
+	//light_color = "#555555"
 	circuit = /obj/item/weapon/circuitboard/pod
 	var/list/id_tags = list()
 	var/list/door_only_tags = list()
@@ -20,8 +20,7 @@
 	spawn(5)
 		driver_sync()
 	machines += src
-	return
-
+	light.set_color(85, 85, 85)
 
 /obj/machinery/computer/pod/proc/driver_sync()
 	timings = list()
@@ -272,7 +271,9 @@
 	desc = "The Syndicate operate on a tight budget. Operates external airlocks."
 	req_access = list(access_syndicate)
 	circuit = /obj/item/weapon/circuitboard/syndicatedoor
-	light_color = "#00FFFF"
+	//light_color = "#00FFFF"
+	New()
+		light.set_color(0, 255, 255)
 
 /obj/machinery/computer/pod/old/syndicate/attack_hand(var/mob/user as mob)
 	if(!allowed(user))

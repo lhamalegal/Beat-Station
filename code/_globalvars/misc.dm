@@ -1,6 +1,8 @@
 var/global/obj/effect/overlay/plmaster = null
 var/global/obj/effect/overlay/slmaster = null
 var/global/obj/effect/overlay/icemaster = null
+var/global/list/pool_limit_overrides = null
+var/global/list/object_pools = list()
 
 // nanomanager, the manager for Nano UIs
 var/datum/nanomanager/nanomanager = new()
