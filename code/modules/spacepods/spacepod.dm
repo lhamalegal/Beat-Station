@@ -40,14 +40,15 @@
 	var/health = 250
 	var/empcounter = 0 //Used for disabling movement when hit by an EMP
 
-	var/lights = 0
-	var/lights_power = 6
-	var/list/icon_light_color = list("pod_civ" = LIGHT_COLOR_WHITE, \
+	/*var/list/icon_light_color = list("pod_civ" = LIGHT_COLOR_WHITE, \
 									 "pod_mil" = "#BBF093", \
 									 "pod_synd" = LIGHT_COLOR_RED, \
 									 "pod_gold" = LIGHT_COLOR_WHITE, \
 									 "pod_black" = "#3B8FE5", \
-									 "pod_industrial" = "#CCCC00")
+									 "pod_industrial" = "#CCCC00")*/
+
+	var/lights = 0
+	var/lights_power = 6
 
 	var/unlocked = 1
 
@@ -82,7 +83,7 @@
 	cargo_hold.max_combined_w_class = 0 //you can optimize your stash with larger items
 
 	light = new/datum/light/point
-	light.set_brightness(1.7)
+	light.set_brightness(1)
 	light.attach(src)
 	light.disable()
 
@@ -120,6 +121,21 @@
 		processing_objects.Remove(src)
 
 /obj/spacepod/proc/update_icons()
+
+	switch(src.icon_state)
+		if("pod_civ")
+			light.set_color(255, 255, 255)
+		if("pod_mil")
+			light.set_color(187, 240, 147)
+		if("pod_synd")
+			light.set_color(180, 0, 0)
+		if("pod_gold")
+			light.set_color(255, 255, 255)
+		if("pod_black")
+			light.set_color(59, 143, 229)
+		if("pod_industrial")
+			light.set_color(204, 204, 0)
+
 	if(!pod_overlays)
 		pod_overlays = new/list(2)
 		pod_overlays[DAMAGE] = image(icon, icon_state="pod_damage")
@@ -131,12 +147,6 @@
 		overlays += pod_overlays[DAMAGE]
 		if(health <= round(initial(health)/4))
 			overlays += pod_overlays[FIRE]
-
-	to_chat(world, icon_light_color[src.icon_state])
-	var/list/clr = hrc_hex2rgb(icon_light_color[src.icon_state], 1)
-	to_chat(world, clr.len)
-	light.set_color(clr[0], clr[1], clr[2])
-	//light_color = icon_light_color[src.icon_state]
 
 /obj/spacepod/bullet_act(var/obj/item/projectile/P)
 	if(P.damage && !P.nodamage)

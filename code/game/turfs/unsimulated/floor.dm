@@ -46,9 +46,10 @@
 	var/lava_fire = 20
 
 	New()
+		light = new/datum/light/point
 		light.set_brightness(0.2)
-		light.attach(src)
 		light.set_color(255, 192, 64)
+		light.attach(src)
 		light.enable()
 
 /turf/unsimulated/floor/lava/Entered(mob/living/M, atom/OL, ignoreRest = 0)
