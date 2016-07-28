@@ -204,7 +204,9 @@
 			if(get_trait(TRAIT_BIOLUM))
 				if(get_trait(TRAIT_BIOLUM_COLOUR))
 					clr = get_trait(TRAIT_BIOLUM_COLOUR)
-				//splat.set_light(get_trait(TRAIT_BIOLUM), l_color = clr)
+				clr = hrc_hex2rgb(clr, 1)
+				splat.light.set_brightness(get_trait(TRAIT_BIOLUM))
+				splat.light.set_color(clr[0], clr[1], clr[2])
 			if(get_trait(TRAIT_PRODUCT_COLOUR))
 				splat.color = get_trait(TRAIT_PRODUCT_COLOUR)
 
@@ -767,7 +769,9 @@
 				var/clr
 				if(get_trait(TRAIT_BIOLUM_COLOUR))
 					clr = get_trait(TRAIT_BIOLUM_COLOUR)
-				//product.set_light(get_trait(TRAIT_BIOLUM), l_color = clr)
+				clr = hrc_hex2rgb(clr, 1)
+				splat.light.set_brightness(get_trait(TRAIT_BIOLUM))
+				splat.light.set_color(clr[0], clr[1], clr[2])
 
 			//Handle spawning in living, mobile products (like dionaea).
 			if(istype(product,/mob/living))

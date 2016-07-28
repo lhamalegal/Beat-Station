@@ -103,7 +103,7 @@
 		return null
 	// Check for darkness
 	var/turf/T = get_turf(loc)
-	if(T && destination && T.lighting_overlay)
+	if(T && destination)
 		if(!T.RL_GetBrightness() > 0 && !destination.RL_GetBrightness() > 0) // No one can see us in the darkness, right?
 			return null
 		if(T == destination)
