@@ -6,7 +6,7 @@ var/round_start_time = 0
 	var/current_state = GAME_STATE_PREGAME
 
 	var/hide_mode = 0 // leave here at 0 ! setup() will take care of it when needed for Secret mode -walter0o
-	var/datum/game_mode/mode = null
+	var/global/datum/game_mode/mode = null
 	var/event_time = null
 	var/event = 0
 
