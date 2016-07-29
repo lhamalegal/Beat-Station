@@ -223,7 +223,6 @@
 					E << 'sound/effects/hyperspace_end.ogg'
 				dock(shuttle_master.getDock("emergency_away"))
 				mode = SHUTTLE_ENDGAME
-				var/modename = getmodename()
 				timer = 0
 				open_dock()
 
