@@ -176,7 +176,7 @@
 					return
 				mode = SHUTTLE_DOCKED
 				timer = world.time
-				send_to_info_discord("The Emergency Shuttle has docked with the station.")
+				send_to_info_discord("The Emergency Shuttle has docked. The round is almost ending, try no to join!")
 				emergency_shuttle_docked.Announce("The Emergency Shuttle has docked with the station. You have [timeLeft(600)] minutes to board the Emergency Shuttle.")
 				send_to_info_discord("The Emergency Shuttle has docked with the station. You have [timeLeft(600)] minutes to board the Emergency Shuttle.")
 
