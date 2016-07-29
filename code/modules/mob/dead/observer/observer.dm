@@ -29,6 +29,8 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 	var/seedarkness = 1
 	var/data_hud_seen = 0 //this should one of the defines in __DEFINES/hud.dm
 
+
+
 /mob/dead/observer/New(var/mob/body=null, var/flags=1)
 	sight |= SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF
 	see_invisible = SEE_INVISIBLE_OBSERVER_AI_EYE

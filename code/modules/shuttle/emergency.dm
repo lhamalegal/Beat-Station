@@ -176,7 +176,7 @@
 					return
 				mode = SHUTTLE_DOCKED
 				timer = world.time
-				send_to_info_discord("The Emergency Shuttle has docked with the station.")
+				send_to_info_discord("The Emergency Shuttle has docked. The round is almost ending, try no to join!")
 				emergency_shuttle_docked.Announce("The Emergency Shuttle has docked with the station. You have [timeLeft(600)] minutes to board the Emergency Shuttle.")
 				send_to_info_discord("The Emergency Shuttle has docked with the station. You have [timeLeft(600)] minutes to board the Emergency Shuttle.")
 
@@ -223,6 +223,8 @@
 					E << 'sound/effects/hyperspace_end.ogg'
 				dock(shuttle_master.getDock("emergency_away"))
 				mode = SHUTTLE_ENDGAME
+				send_to_info_discord("The round has ended.[dead_mob_list.len] people have died, [living_mob_list.len] have survived!")
+				send_to_info_discord("The game mode was [mode.name]"!)
 				timer = 0
 				open_dock()
 
