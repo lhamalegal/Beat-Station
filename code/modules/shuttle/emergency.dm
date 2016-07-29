@@ -224,7 +224,7 @@
 				dock(shuttle_master.getDock("emergency_away"))
 				mode = SHUTTLE_ENDGAME
 				send_to_info_discord("The round has ended.[dead_mob_list.len] people have died, [living_mob_list.len] have survived!")
-				send_to_info_discord("The game mode was [mode.name]"!)
+				send_to_info_discord("The game mode was [mode.name]!")
 				timer = 0
 				open_dock()
 
