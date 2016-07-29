@@ -12,10 +12,7 @@
 	var/obj/item/device/assembly/signaler/anomaly/aSignal = null
 
 /obj/effect/anomaly/New()
-	light = new /datum/light/point
-	light.set_brightness(0.3)
-	light.attach(src)
-	light.enable()
+	set_light(initial(luminosity))
 	aSignal = new(src)
 	aSignal.code = rand(1,100)
 

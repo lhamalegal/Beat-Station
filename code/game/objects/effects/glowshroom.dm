@@ -44,11 +44,8 @@
 
 	processing_objects += src
 
-	light = new /datum/light/point
-	light.set_brightness(round(potency/100))
-	light.attach(src)
-	light.enable()
 
+	set_light(round(potency/10))
 	lastTick = world.timeofday
 
 

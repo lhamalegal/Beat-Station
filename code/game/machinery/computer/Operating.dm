@@ -10,7 +10,7 @@
 	circuit = /obj/item/weapon/circuitboard/operating
 	var/obj/machinery/optable/table = null
 	var/mob/living/carbon/human/victim = null
-	//light_color = LIGHT_COLOR_PURE_BLUE
+	light_color = LIGHT_COLOR_PURE_BLUE
 	var/verbose = 1 //general speaker toggle
 	var/patientName = null
 	var/oxyAlarm = 30 //oxy damage at which the computer will beep
@@ -20,10 +20,6 @@
 	var/nextTick = OP_COMPUTER_COOLDOWN
 	var/healthAlarm = 50
 	var/oxy = 1 //oxygen beeping toggle
-
-	New()
-		..()
-		light.set_color(0, 0, 255)
 
 /obj/machinery/computer/operating/New()
 	..()

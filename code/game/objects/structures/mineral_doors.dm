@@ -177,11 +177,7 @@
 /obj/structure/mineral_door/uranium
 	mineralType = "uranium"
 	hardness = 3
-
-	New()
-		light = new/datum/light/point
-		light.set_brightness(0.2)
-		light.attach(src)
+	light_range = 2
 
 /obj/structure/mineral_door/sandstone
 	mineralType = "sandstone"

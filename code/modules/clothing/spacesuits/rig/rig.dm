@@ -272,8 +272,8 @@
 					if(user != wearer)
 						to_chat(user, "<span class='notice'>\The [correct_piece] has been sealed.</span>")
 					wearer.update_inv_head()
-					//if(helmet)
-					//	helmet.update_light(wearer)
+					if(helmet)
+						helmet.update_light(wearer)
 
 			correct_piece.armor["bio"] = 100
 
@@ -375,8 +375,8 @@
 						if(user != wearer)
 							to_chat(user, "<span class='notice'>\The [correct_piece] has been unsealed.</span>")
 						wearer.update_inv_head()
-						//if(helmet)
-						//	helmet.update_light(wearer)
+						if(helmet)
+							helmet.update_light(wearer)
 
 				correct_piece.armor["bio"] = armor["bio"]
 
@@ -768,8 +768,8 @@
 					to_chat(wearer, "<span class='notice'>Your [use_obj.name] [use_obj.gender == PLURAL ? "deploy" : "deploys"] swiftly.</span>")
 				use_obj.flags |= NODROP
 
-	//if(piece == "helmet" && helmet)
-		//helmet.update_light(wearer)
+	if(piece == "helmet" && helmet)
+		helmet.update_light(wearer)
 
 /obj/item/weapon/rig/proc/deploy(mob/user)
 	if(!wearer || !user)

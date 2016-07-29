@@ -41,11 +41,6 @@
 	cameranet.cameras += src
 	cameranet.addCamera(src)
 
-	light = new /datum/light/point
-	light.set_brightness(1)
-	light.attach(src)
-
-
 /obj/machinery/camera/initialize()
 	if(z == ZLEVEL_STATION && prob(3) && !start_active)
 		toggle_cam()
@@ -76,7 +71,7 @@
 			network = list()
 			cameranet.removeCamera(src)
 			stat |= EMPED
-			light.disable()
+			set_light(0)
 			emped = emped+1  //Increase the number of consecutive EMP's
 			var/thisemp = emped //Take note of which EMP this proc is for
 			spawn(900)
@@ -255,7 +250,7 @@
 	if(can_use())
 		cameranet.addCamera(src)
 	else
-		light.disable()
+		set_light(0)
 		cameranet.removeCamera(src)
 	cameranet.updateChunk(x, y, z)
 	var/change_msg = "deactivates"
@@ -371,10 +366,9 @@
 			if(cam == src)
 				return
 	if(on)
-		src.light.set_brightness(AI_CAMERA_LUMINOSITY)
-		src.light.enable()
+		src.set_light(AI_CAMERA_LUMINOSITY)
 	else
-		src.light.disable()
+		src.set_light(0)
 
 /obj/machinery/camera/proc/nano_structure()
 	var/cam[0]

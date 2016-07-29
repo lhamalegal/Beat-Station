@@ -10,10 +10,7 @@
 	var/damaged = 0
 	var/last_change = 0
 
-	//light_color = LIGHT_COLOR_CYAN
-	New()
-		..()
-		light.set_color(123, 249, 255)
+	light_color = LIGHT_COLOR_CYAN
 
 /obj/machinery/computer/HolodeckControl/attack_ai(var/mob/user as mob)
 	return attack_hand(user)

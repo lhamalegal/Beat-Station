@@ -619,13 +619,13 @@ var/list/ai_verbs_default = list(
 
 /mob/living/silicon/ai/reset_view(atom/A)
 	if(current)
-		current.light.disable()
+		current.set_light(0)
 	if(istype(A,/obj/machinery/camera))
 		current = A
 	..()
 	if(istype(A,/obj/machinery/camera))
-		if(camera_light_on)	A.light.enable()
-		else				A.light.disable()
+		if(camera_light_on)	A.set_light(AI_CAMERA_LUMINOSITY)
+		else				A.set_light(0)
 
 /mob/living/silicon/ai/proc/botcall()
 	set category = "AI Commands"
@@ -856,7 +856,7 @@ var/list/ai_verbs_default = list(
 		to_chat(src, "Camera lights deactivated.")
 
 		for (var/obj/machinery/camera/C in lit_cameras)
-			C.light.disable()
+			C.set_light(0)
 			lit_cameras = list()
 
 		return

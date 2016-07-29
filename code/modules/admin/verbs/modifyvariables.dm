@@ -377,8 +377,7 @@ var/list/forbidden_varedit_object_types = list(
 			if(variable=="light_range")
 				var/var_new = input("Enter new number:","Num",O.vars[variable]) as null|num
 				if(var_new == null) return
-				O.light.set_brightness(var_new)
-				O.light.enable()
+				O.set_light(var_new)
 			else if(variable=="stat") // ow, but I guess I'm glad you're trying to prevent at least one kind of inconsistent state...? This is the VARIABLE EDITOR, I'm not sure we need to worry...?
 				var/var_new = input("Enter new number:","Num",O.vars[variable]) as null|num
 				if(var_new == null) return

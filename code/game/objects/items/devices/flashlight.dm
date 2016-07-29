@@ -10,39 +10,24 @@
 	materials = list(MAT_METAL=50, MAT_GLASS=20)
 	action_button_name = "Flashlight"
 	var/on = 0
-	var/brightness_on = 1
-
-	var/col_r = 0.9
-	var/col_g = 0.8
-	var/col_b = 0.7
-
-	New()
-		light = new /datum/light/point
-		light.set_brightness(brightness_on)
-		light.set_color(col_r, col_g, col_b)
-		light.attach(src)
-
-	pickup(mob/user)
-		..()
-		light.attach(user)
-
-	dropped(mob/user)
-		..()
-		spawn(0)
-			if (src.loc != user)
-				light.attach(src)
+	var/brightness_on = 4 //luminosity when on
 
 /obj/item/device/flashlight/initialize()
 	..()
-	update_brightness()
+	if(on)
+		icon_state = "[initial(icon_state)]-on"
+		set_light(brightness_on)
+	else
+		icon_state = initial(icon_state)
+		set_light(0)
 
 /obj/item/device/flashlight/proc/update_brightness(var/mob/user = null)
 	if(on)
 		icon_state = "[initial(icon_state)]-on"
-		light.enable()
+		set_light(brightness_on)
 	else
 		icon_state = initial(icon_state)
-		light.disable()
+		set_light(0)
 
 /obj/item/device/flashlight/attack_self(mob/user)
 	if(!isturf(user.loc))
@@ -101,7 +86,7 @@
 	w_class = 1
 	slot_flags = SLOT_BELT | SLOT_EARS
 	flags = CONDUCT
-	brightness_on = 0.4
+	brightness_on = 2
 
 /obj/item/device/flashlight/seclite
 	name = "seclite"
@@ -109,7 +94,7 @@
 	icon_state = "seclite"
 	item_state = "seclite"
 	force = 9 // Not as good as a stun baton.
-	brightness_on = 1.3 // A little better than the standard flashlight.
+	brightness_on = 5 // A little better than the standard flashlight.
 	hitsound = 'sound/weapons/genhit1.ogg'
 
 /obj/item/device/flashlight/drone
@@ -118,7 +103,7 @@
 	icon_state = "penlight"
 	item_state = ""
 	flags = CONDUCT
-	brightness_on = 0.6
+	brightness_on = 2
 	w_class = 1
 
 // the desk lamps are a bit special
@@ -127,17 +112,20 @@
 	desc = "A desk lamp with an adjustable mount."
 	icon_state = "lamp"
 	item_state = "lamp"
-	brightness_on = 1
+	brightness_on = 5
 	w_class = 4
 	flags = CONDUCT
 	materials = list()
 	on = 1
+
 
 // green-shaded desk lamp
 /obj/item/device/flashlight/lamp/green
 	desc = "A classic green-shaded desk lamp."
 	icon_state = "lampgreen"
 	item_state = "lampgreen"
+
+
 
 /obj/item/device/flashlight/lamp/verb/toggle_light()
 	set name = "Toggle light"
@@ -161,7 +149,8 @@ obj/item/device/flashlight/lamp/bananalamp
 	name = "flare"
 	desc = "A red Nanotrasen issued flare. There are instructions on the side, it reads 'pull cord, make light'."
 	w_class = 2.0
-	brightness_on = 0.8
+	brightness_on = 8 // Made it brighter (from 7 to 8).
+	light_color = "#ff0000" // changed colour to a more brighter red.
 	icon_state = "flare"
 	item_state = "flare"
 	var/fuel = 0
@@ -171,7 +160,6 @@ obj/item/device/flashlight/lamp/bananalamp
 /obj/item/device/flashlight/flare/New()
 	fuel = rand(800, 1000) // Sorry for changing this so much but I keep under-estimating how long X number of ticks last in seconds.
 	..()
-	light.set_color(255, 0, 0)
 
 /obj/item/device/flashlight/flare/process()
 	var/turf/pos = get_turf(src)
@@ -186,7 +174,6 @@ obj/item/device/flashlight/lamp/bananalamp
 
 /obj/item/device/flashlight/flare/proc/turn_off()
 	on = 0
-	light.disable()
 	src.force = initial(src.force)
 	src.damtype = initial(src.damtype)
 	if(ismob(loc))
@@ -223,7 +210,7 @@ obj/item/device/flashlight/lamp/bananalamp
 	name = "torch"
 	desc = "A torch fashioned from some leaves and a log."
 	w_class = 4
-	brightness_on = 1.3
+	brightness_on = 7
 	icon_state = "torch"
 	item_state = "torch"
 	on_damage = 10
@@ -236,16 +223,16 @@ obj/item/device/flashlight/lamp/bananalamp
 	icon_state = "floor1" //not a slime extract sprite but... something close enough!
 	item_state = "slime"
 	w_class = 1
-	brightness_on = 0.7
+	brightness_on = 6
+	light_color = "#FFBF00"
 	materials = list()
 	on = 1 //Bio-luminesence has one setting, on.
 
 /obj/item/device/flashlight/slime/New()
+	set_light(brightness_on)
 	spawn(1) //Might be sloppy, but seems to be necessary to prevent further runtimes and make these work as intended... don't judge me!
 		update_brightness()
 		icon_state = initial(icon_state)
-	..()
-	light.set_color(255, 191, 0)
 
 /obj/item/device/flashlight/slime/attack_self(mob/user)
 	return //Bio-luminescence does not toggle.

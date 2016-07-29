@@ -159,10 +159,10 @@
 /turf/proc/ChangeTurf(var/path)
 	if(!path)			return
 	if(path == type)	return src
-	/*var/old_opacity = opacity
+	var/old_opacity = opacity
 	var/old_dynamic_lighting = dynamic_lighting
 	var/list/old_affecting_lights = affecting_lights
-	var/old_lighting_overlay = lighting_overlay*/
+	var/old_lighting_overlay = lighting_overlay
 	var/old_blueprint_data = blueprint_data
 
 	if(air_master)
@@ -178,7 +178,7 @@
 	for(var/turf/space/S in range(W,1))
 		S.update_starlight()
 
-	/*lighting_overlay = old_lighting_overlay
+	lighting_overlay = old_lighting_overlay
 
 	affecting_lights = old_affecting_lights
 	if((old_opacity != opacity) || (dynamic_lighting != old_dynamic_lighting))
@@ -187,7 +187,7 @@
 		if(dynamic_lighting)
 			lighting_build_overlays()
 		else
-			lighting_clear_overlays()*/
+			lighting_clear_overlays()
 
 	W.levelupdate()
 	W.CalculateAdjacentTurfs()
@@ -368,8 +368,8 @@
 		cameranet.updateVisibility(src)
 
 /turf/proc/get_lumcount() //Gets the lighting level of a given turf.
-	if(light)
-		return light.get_clamped_lum()
+	if(lighting_overlay)
+		return lighting_overlay.get_clamped_lum()
 	return 1
 
 /turf/attackby(obj/item/C, mob/user, params)

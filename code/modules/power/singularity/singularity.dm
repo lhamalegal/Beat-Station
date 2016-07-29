@@ -8,6 +8,7 @@
 	anchored = 1
 	density = 1
 	layer = 6
+	light_range = 6
 	unacidable = 1 //Don't comment this out.
 	var/current_size = 1
 	var/allowed_size = 1
@@ -35,12 +36,6 @@
 	src.energy = starting_energy
 	..()
 	processing_objects.Add(src)
-
-	light = new/datum/light/point
-	light.set_brightness(2)
-	light.attach(src)
-	light.enable()
-
 	for(var/obj/machinery/power/singularity_beacon/singubeacon in world)
 		if(singubeacon.active)
 			target = singubeacon
@@ -266,7 +261,7 @@
 		desc = "[initial(desc)] It glows fiercely with inner fire."
 		name = "supermatter-charged [initial(name)]"
 		consumedSupermatter = 1
-		light.set_brightness(2.5)
+		light_range = 10
 	return
 
 

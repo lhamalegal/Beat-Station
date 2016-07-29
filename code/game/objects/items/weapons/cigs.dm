@@ -44,10 +44,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	..()
 	flags |= NOREACT // so it doesn't react until you light it
 	create_reagents(chem_volume) // making the cigarrete a chemical holder with a maximum volume of 30
-	light = new /datum/light/point
-	light.set_brightness(0.1)
-	light.set_color(227, 143, 70)
-	light.attach(src)
 
 /obj/item/clothing/mask/cigarette/Destroy()
 	qdel(reagents)
@@ -142,7 +138,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		item_state = icon_on
 		var/turf/T = get_turf(src)
 		T.visible_message(flavor_text)
-		light.enable()
+		set_light(2, 0.25, "#E38F46")
 		processing_objects.Add(src)
 
 
@@ -187,7 +183,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/proc/die()
 	var/turf/T = get_turf(src)
-	light.disable()
+	set_light(0)
 	var/obj/item/butt = new type_butt(T)
 	transfer_fingerprints_to(butt)
 	if(ismob(loc))

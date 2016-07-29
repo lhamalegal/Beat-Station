@@ -2,6 +2,7 @@
 /obj/effect/blob
 	name = "blob"
 	icon = 'icons/mob/blob.dmi'
+	light_range = 3
 	desc = "Some blob creature thingy"
 	density = 0
 	opacity = 0
@@ -11,10 +12,6 @@
 	var/brute_resist = 4
 	var/fire_resist = 1
 
-	New()
-		light = new /datum/light/point
-		light.set_brightness(0.3)
-		light.attach(src)
 
 /obj/effect/blob/New(loc)
 	blobs += src
@@ -210,10 +207,8 @@
 
 /obj/effect/blob/normal
 	icon_state = "blob"
+	light_range = 0
 	health = 21
-
-	New()
-		light.set_brightness(0)
 
 /obj/effect/blob/normal/update_icon()
 	if(health <= 0)

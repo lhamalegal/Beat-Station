@@ -20,11 +20,7 @@
 	// 1: The "Best" scan available
 	var/scan_mode = 1
 
-	//light_color = LIGHT_COLOR_DARKBLUE
-
-	New()
-		..()
-		light.set_color(49, 90, 180)
+	light_color = LIGHT_COLOR_DARKBLUE
 
 /obj/machinery/computer/cloning/initialize()
 	..()

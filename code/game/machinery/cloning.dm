@@ -24,20 +24,14 @@
 	var/biomass = 0
 	var/speed_coeff
 	var/efficiency
-	//light_color = LIGHT_COLOR_PURE_GREEN
-	New()
-		..()
-		light = new/datum/light/point
-		light.set_brightness(0.08)
-		light.set_color(0, 255, 0)
-		light.attach(src)
 
+	light_color = LIGHT_COLOR_PURE_GREEN
 	power_change()
 		..()
 		if(!(stat & (BROKEN|NOPOWER)))
-			light.enable()
+			set_light(2)
 		else
-			light.disable()
+			set_light(0)
 
 /obj/machinery/clonepod/biomass
 	biomass = CLONE_BIOMASS

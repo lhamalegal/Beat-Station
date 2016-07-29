@@ -942,7 +942,7 @@ About the new airlock wires panel:
 	if(!override) sleep(5)
 	update_icon()
 	if(visible && !glass)
-		RL_SetOpacity(1)
+		set_opacity(1)
 	operating = 0
 	air_update_turf(1)
 	update_freelook_sight()

@@ -9,8 +9,8 @@
 	var/mob/living/silicon/ai/current = null
 	var/opened = 0
 
-	//light_color = LIGHT_COLOR_WHITE
-	//light_range_on = 2
+	light_color = LIGHT_COLOR_WHITE
+	light_range_on = 2
 
 
 	verb/AccessInternals()
@@ -62,10 +62,6 @@
 
 	attack_ghost(user as mob)
 		return 1
-
-	New()
-		..()
-		light.set_color(255, 255, 255)
 
 /obj/machinery/computer/borgupload
 	name = "cyborg upload console"

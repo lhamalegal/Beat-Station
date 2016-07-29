@@ -8,7 +8,7 @@
 
 /turf/simulated/floor/light
 	name = "Light floor"
-	//light_range = 5
+	light_range = 5
 	icon_state = "light_on"
 	floor_tile = /obj/item/stack/tile/light
 	broken_states = list("light_broken")
@@ -17,9 +17,6 @@
 
 /turf/simulated/floor/light/New()
 	..()
-	light = new /datum/light/point
-	light.set_brightness(0.5)
-	light.attach(src)
 	update_icon()
 
 /turf/simulated/floor/light/update_icon()
@@ -28,41 +25,34 @@
 		switch(state)
 			if(LIGHTFLOOR_ON)
 				icon_state = "light_on"
-				light.set_color(0, 153, 255)
-				light.enable()
+				set_light(5,null,LIGHT_COLOR_LIGHTBLUE)
 			if(LIGHTFLOOR_WHITE)
 				icon_state = "light_on-w"
-				light.set_color(255,255,255)
-				light.enable()
+				set_light(5,null,LIGHT_COLOR_WHITE)
 			if(LIGHTFLOOR_RED)
 				icon_state = "light_on-r"
-				light.set_color(180, 0, 0)
-				light.enable()
+				set_light(5,null,LIGHT_COLOR_RED)
 			if(LIGHTFLOOR_GREEN)
 				icon_state = "light_on-g"
-				light.set_color(0,255,0)
-				light.enable()
+				set_light(5,null,LIGHT_COLOR_PURE_GREEN)
 			if(LIGHTFLOOR_YELLOW)
 				icon_state = "light_on-y"
-				light.set_color(255,255,0)
-				light.enable()
+				set_light(5,null,"#FFFF00")
 			if(LIGHTFLOOR_BLUE)
 				icon_state = "light_on-b"
-				light.set_color(49, 90, 180)
-				light.enable()
+				set_light(5,null,LIGHT_COLOR_DARKBLUE)
 			if(LIGHTFLOOR_PURPLE)
 				icon_state = "light_on-p"
-				light.set_color(205, 0, 205)
-				light.enable()
+				set_light(5,null,LIGHT_COLOR_PURPLE)
 			else
 				icon_state = "light_off"
-				light.disable()
+				set_light(0)
 	else
-		light.disable()
+		set_light(0)
 		icon_state = "light_off"
 
 /turf/simulated/floor/light/ChangeTurf(turf/T)
-	light.disable()
+	set_light(0)
 	..()
 
 /turf/simulated/floor/light/attack_hand(mob/user)

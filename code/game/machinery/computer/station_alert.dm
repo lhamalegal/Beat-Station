@@ -4,14 +4,10 @@
 	desc = "Used to access the station's automated alert system."
 	icon_keyboard = "tech_key"
 	icon_screen = "alert:0"
-	//light_color = LIGHT_COLOR_CYAN
+	light_color = LIGHT_COLOR_CYAN
 	circuit = /obj/item/weapon/circuitboard/stationalert_engineering
 	var/datum/nano_module/alarm_monitor/alarm_monitor
 	var/monitor_type = /datum/nano_module/alarm_monitor/engineering
-
-	New()
-		..()
-		light.set_color(123, 249, 255)
 
 /obj/machinery/computer/station_alert/security
 	monitor_type = /datum/nano_module/alarm_monitor/security
