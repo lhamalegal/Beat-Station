@@ -1,12 +1,17 @@
 var/global/datum/controller/gameticker/ticker
 var/round_start_time = 0
+/proc/getmodename
+    if (var/datum/game_mode/mode = null)
+     return
 
+     else
+      var/global/modename = mode.name
 /datum/controller/gameticker
 	var/const/restart_timeout = 600
 	var/current_state = GAME_STATE_PREGAME
 
 	var/hide_mode = 0 // leave here at 0 ! setup() will take care of it when needed for Secret mode -walter0o
-	var/global/datum/game_mode/mode = null
+	var/datum/game_mode/mode = null
 	var/event_time = null
 	var/event = 0
 

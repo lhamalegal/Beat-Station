@@ -13,7 +13,7 @@
 
 
 /datum/game_mode
-	var/global/name = "invalid"
+	var/name = "invalid"
 	var/config_tag = null
 	var/intercept_hacked = 0
 	var/votable = 1

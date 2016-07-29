@@ -223,8 +223,9 @@
 					E << 'sound/effects/hyperspace_end.ogg'
 				dock(shuttle_master.getDock("emergency_away"))
 				mode = SHUTTLE_ENDGAME
+				var/modename = getmodename()
 				send_to_info_discord("The round has ended.[dead_mob_list.len] people have died, [living_mob_list.len] have survived!")
-				send_to_info_discord("The game mode was [mode.name]!")
+				send_to_info_discord("The game mode was [modename]!")
 				timer = 0
 				open_dock()
 
