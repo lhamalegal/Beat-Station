@@ -13,11 +13,7 @@
 	var/activated = 1
 	var/const/fund_cap = 1000000
 
-	//light_color = LIGHT_COLOR_GREEN
-
-	New()
-		..()
-		light.set_color(0, 204, 0)
+	light_color = LIGHT_COLOR_GREEN
 
 /obj/machinery/computer/account_database/proc/get_access_level(var/mob/user)
 	if(user.can_admin_interact())

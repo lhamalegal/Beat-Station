@@ -134,10 +134,6 @@
 		spread_distance = round(spread_chance*0.3)
 	update_icon()
 
-	light = new/datum/light/point
-	light.set_brightness(0.2)
-	light.attach(src)
-
 	spawn(1) // Plants will sometimes be spawned in the turf adjacent to the one they need to end up in, for the sake of correct dir/etc being set.
 		set_dir(calc_dir())
 		update_icon()
@@ -171,12 +167,10 @@
 		var/clr
 		if(seed.get_trait(TRAIT_BIOLUM_COLOUR))
 			clr = seed.get_trait(TRAIT_BIOLUM_COLOUR)
-			clr = hrc_hex2rgb(clr,1)
-			light.set_color(clr[0], clr[1], clr[2])
-		light.enable()
+		set_light(1+round(seed.get_trait(TRAIT_POTENCY)/20), l_color = clr)
 		return
 	else
-		light.disable()
+		set_light(0)
 
 /obj/effect/plant/proc/refresh_icon()
 	var/growth = min(max_growth,round(health/growth_threshold))

@@ -7,6 +7,7 @@
 	rig_restrict_helmet = 1
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 75)
 	allowed = list(/obj/item/device/flashlight)
+	var/brightness_on = 4 //luminosity when on
 	var/on = 0
 	item_color = "engineering" //Determines used sprites: rig[on]-[color] and rig[on]-[color]2 (lying down sprite)
 	action_button_name = "Toggle Helmet Light"
@@ -29,11 +30,6 @@
 		"Vulpkanin" = 'icons/obj/clothing/species/vulpkanin/hats.dmi',
 		)
 
-	New()
-		light = new/datum/light/point
-		light.set_brightness(0.4)
-		light.attach(src)
-
 /obj/item/clothing/head/helmet/space/rig/attack_self(mob/user)
 	if(!isturf(user.loc))
 		to_chat(user, "<span class='warning'>You cannot turn the light on while in this [user.loc].</span>")//To prevent some lighting anomalities.
@@ -46,9 +42,9 @@
 	icon_state = "rig[on]-[item_color]"
 
 	if(on)
-		light.enable()
+		set_light(brightness_on)
 	else
-		light.disable()
+		set_light(0)
 
 	if(istype(user,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
@@ -321,7 +317,7 @@
 		flags = HEADCOVERSEYES | BLOCKHAIR | HEADCOVERSMOUTH | STOPSPRESSUREDMAGE | THICKMATERIAL | NODROP
 		flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 		cold_protection = HEAD
-		light.enable()
+		set_light(brightness_on)
 	else
 		to_chat(user, "<span class='notice'>You switch your helmet to combat mode. You will take damage in zero pressure environments, but you are more suited for a fight.</span>")
 		name = "blood-red hardsuit helmet (combat)"
@@ -329,7 +325,7 @@
 		flags = BLOCKHAIR | THICKMATERIAL | NODROP
 		flags_inv = HIDEEARS
 		cold_protection = null
-		light.disable()
+		set_light(0)
 
 	update_icon()
 	playsound(src.loc, 'sound/mecha/mechmove03.ogg', 50, 1)

@@ -204,9 +204,7 @@
 			if(get_trait(TRAIT_BIOLUM))
 				if(get_trait(TRAIT_BIOLUM_COLOUR))
 					clr = get_trait(TRAIT_BIOLUM_COLOUR)
-				clr = hrc_hex2rgb(clr, 1)
-				splat.light.set_brightness(get_trait(TRAIT_BIOLUM))
-				splat.light.set_color(clr[0], clr[1], clr[2])
+				splat.set_light(get_trait(TRAIT_BIOLUM), l_color = clr)
 			if(get_trait(TRAIT_PRODUCT_COLOUR))
 				splat.color = get_trait(TRAIT_PRODUCT_COLOUR)
 
@@ -329,7 +327,7 @@
 
 	// Handle light requirements.
 	if(!light_supplied)
-		var/datum/light/L = locate(/datum/light) in current_turf
+		var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in current_turf
 		if(L)
 			light_supplied = L.get_clamped_lum()*10
 		else
@@ -769,9 +767,7 @@
 				var/clr
 				if(get_trait(TRAIT_BIOLUM_COLOUR))
 					clr = get_trait(TRAIT_BIOLUM_COLOUR)
-				clr = hrc_hex2rgb(clr, 1)
-				product.light.set_brightness(get_trait(TRAIT_BIOLUM))
-				product.light.set_color(clr[0], clr[1], clr[2])
+				product.set_light(get_trait(TRAIT_BIOLUM), l_color = clr)
 
 			//Handle spawning in living, mobile products (like dionaea).
 			if(istype(product,/mob/living))

@@ -24,11 +24,6 @@
 	var/datum/powernet/PN			// Our powernet
 	var/obj/structure/cable/attached		// the attached cable
 
-	New()
-		light = new /datum/light/point
-		light.set_brightness(1)
-		light.attach(src)
-
 /obj/item/device/powersink/Destroy()
 	processing_objects.Remove(src)
 	processing_power_items.Remove(src)
@@ -60,7 +55,7 @@
 			anchored = 0
 			mode = 0
 			src.visible_message("<span class='notice'>[user] detaches [src] from the cable!</span>")
-			light.disable()
+			set_light(0)
 			icon_state = "powersink0"
 
 			return
@@ -83,7 +78,7 @@
 		if(2)  //This switch option wasn't originally included. It exists now. --NeoFite
 			src.visible_message("<span class='notice'>[user] deactivates [src]!</span>")
 			mode = 1
-			light.disable()
+			set_light(0)
 			icon_state = "powersink0"
 			processing_objects.Remove(src)
 			processing_power_items.Remove(src)
@@ -101,8 +96,7 @@
 	if(!PN)
 		return 1
 
-	light.set_brightness(2)
-	light.enable()
+	set_light(12)
 	PN.trigger_warning()
 	// found a powernet, so drain up to max power from it
 	drained = PN.draw_power(drain_rate)

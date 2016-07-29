@@ -3,18 +3,13 @@
 	icon = 'icons/obj/computer.dmi'
 	icon_keyboard = "atmos_key"
 	icon_screen = "tank"
-	//light_color = LIGHT_COLOR_GREEN
-
+	light_color = LIGHT_COLOR_GREEN
 	density = 1
 	anchored = 1.0
 	circuit = /obj/item/weapon/circuitboard/atmoscontrol
 	req_access = list(access_atmospherics)
 	var/list/monitored_alarm_ids = null
 	var/datum/nano_module/atmos_control/atmos_control
-
-	New()
-		..()
-		light.set_color(0, 204, 0)
 
 /obj/machinery/computer/atmoscontrol/laptop
 	name = "atmospherics laptop"

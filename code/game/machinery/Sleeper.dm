@@ -280,14 +280,14 @@
 	idle_power_usage = 1250
 	active_power_usage = 2500
 
-	//light_color = LIGHT_COLOR_CYAN
+	light_color = LIGHT_COLOR_CYAN
 
 /obj/machinery/sleeper/power_change()
 	..()
 	if(!(stat & (BROKEN|NOPOWER)))
-		light.enable()
+		set_light(2)
 	else
-		light.disable()
+		set_light(0)
 
 /obj/machinery/sleeper/New()
 	..()
@@ -304,11 +304,6 @@
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
-
-	light = new/datum/light/point
-	light.set_brightness(0.08)
-	light.set_color(123, 249, 255)
-	light.attach(src)
 
 /obj/machinery/sleeper/upgraded/New()
 	..()

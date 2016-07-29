@@ -71,12 +71,6 @@
 		verbs += /obj/item/weapon/gun/proc/toggle_gunlight
 	build_zooming()
 
-	light = new/datum/light/point
-	light.set_brightness(0.6)
-	light.set_color(255, 255, 255)
-	light.attach(src)
-	light.disable()
-
 /obj/item/weapon/gun/examine(mob/user)
 	..()
 	if(unique_reskin && !current_skin)
@@ -263,7 +257,7 @@ obj/item/weapon/gun/proc/newshot(params)
 					return
 				to_chat(user, "<span class='notice'>You click [S] into place on [src].</span>")
 				if(S.on)
-					light.disable()
+					set_light(0)
 				F = S
 				I.loc = src
 				update_icon()
@@ -306,13 +300,12 @@ obj/item/weapon/gun/proc/newshot(params)
 /obj/item/weapon/gun/proc/update_gunlight(mob/user = null)
 	if(F)
 		if(F.on)
-			light.set_brightness(F.brightness_on)
-			light.enable()
+			set_light(F.brightness_on)
 		else
-			light.disable()
+			set_light(0)
 		update_icon()
 	else
-		light.disable()
+		set_light(0)
 
 /obj/item/weapon/gun/pickup(mob/user)
 	..()

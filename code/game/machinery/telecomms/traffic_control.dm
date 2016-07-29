@@ -15,14 +15,10 @@
 
 	var/storedcode = ""			// code stored
 
-	//light_color = LIGHT_COLOR_DARKGREEN
+	light_color = LIGHT_COLOR_DARKGREEN
 
 	req_access = list(access_tcomsat)
 	circuit = /obj/item/weapon/circuitboard/comm_traffic
-
-	New()
-		..()
-		light.set_color(80, 171, 0)
 
 /obj/machinery/computer/telecomms/traffic/attack_hand(mob/user)
 	interact(user)

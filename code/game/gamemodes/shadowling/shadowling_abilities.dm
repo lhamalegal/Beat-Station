@@ -127,15 +127,15 @@
 		var/obj/item/clothing/head/hardhat/hhat = I
 		if(hhat.on)
 			hhat.on = 0
-			hhat.light.disable()
+			hhat.set_light(0)
 			hhat.icon_state = "hardhat0_[hhat.item_color]"
 			hhat.item_state = "hardhat0_[hhat.item_color]"
 			hhat.visible_message("<span class='danger'>[hhat]'s light fades and turns off.</span>")
-	return I.light.radius
+	return I.light_range
 
 /obj/effect/proc_holder/spell/aoe_turf/veil/proc/extinguishMob(var/mob/living/H)
 	for(var/obj/item/F in H)
-		if(F.light)
+		if(F.light_range > 0)
 			extinguishItem(F)
 
 /obj/effect/proc_holder/spell/aoe_turf/veil/cast(list/targets)
@@ -151,13 +151,13 @@
 			extinguishItem(F)
 		for(var/obj/machinery/floodlight/F in T.contents)
 			F.on = 0
-			F.light.disable()
+			F.set_light(0)
 		for(var/obj/machinery/light/L in T.contents)
 			L.on = 0
 			L.visible_message("<span class='danger'>[L] flickers and falls dark.</span>")
 			L.update(0)
 		for(var/obj/machinery/computer/C in T.contents)
-			C.light.disable()
+			C.set_light(0)
 			C.visible_message("<span class='danger'>[C] grows dim, its screen barely readable.</span>")
 		for(var/mob/living/H in T.contents)
 			extinguishMob(H)

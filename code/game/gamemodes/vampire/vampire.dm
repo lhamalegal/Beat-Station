@@ -401,7 +401,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		owner.alpha = 255
 		return
 	var/turf/simulated/T = get_turf(owner)
-	var/datum/light/L = locate(/datum/light) in T
+	var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in T
 	var/light_available
 	if(L)
 		light_available = L.get_clamped_lum(0.5) * 10

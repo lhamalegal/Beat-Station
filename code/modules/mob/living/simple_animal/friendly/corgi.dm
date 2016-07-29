@@ -119,7 +119,7 @@
 					emote_hear = list("barks", "woofs", "yaps","pants")
 					emote_see = list("shakes its head", "shivers")
 					desc = "It's a corgi."
-					inventory_head.light.disable()
+					set_light(0)
 					flags &= ~NO_BREATHE
 					atmos_requirements = default_atmos_requirements
 					minbodytemp = initial(minbodytemp)
@@ -164,7 +164,7 @@
 					if(!item_to_add)
 						usr.visible_message("[usr] pets [src].","<span class='notice'>You rest your hand on [src]'s back for a moment.</span>")
 						return
-					if(istype(item_to_add,/obj/item/weapon/c4)) // last thing he ever wears, I guess
+					if(istype(item_to_add,/obj/item/weapon/grenade/plastic/c4)) // last thing he ever wears, I guess
 						item_to_add.afterattack(src,usr,1)
 						return
 
@@ -208,7 +208,7 @@
 //Many  hats added, Some will probably be removed, just want to see which ones are popular.
 /mob/living/simple_animal/pet/corgi/proc/place_on_head(obj/item/item_to_add, var/mob/user as mob)
 
-	if(istype(item_to_add,/obj/item/weapon/c4)) // last thing he ever wears, I guess
+	if(istype(item_to_add,/obj/item/weapon/grenade/plastic/c4)) // last thing he ever wears, I guess
 		item_to_add.afterattack(src,user,1)
 		return
 
@@ -336,7 +336,7 @@
 				name = "[real_name] the red-nosed Corgi"
 				emote_hear = list("lights the way!", "illuminates.", "yaps!")
 				desc = "He has a very shiny nose."
-				item_to_add.light.enable()
+				set_light(1)
 				valid = 1
 
 			if(/obj/item/clothing/head/sombrero)

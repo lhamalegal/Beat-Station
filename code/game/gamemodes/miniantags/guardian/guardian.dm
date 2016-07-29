@@ -30,7 +30,7 @@
 	var/cooldown = 0
 	var/damage_transfer = 1 //how much damage from each attack we transfer to the owner
 	var/light_on = 0
-	var/luminosity_on = 0.3
+	var/luminosity_on = 3
 	var/mob/living/summoner
 	var/range = 10 //how far from the user the spirit can be
 	var/playstyle_string = "You are a standard Guardian. You shouldn't exist!"
@@ -59,10 +59,6 @@
 		to_chat(src, "<span class='danger'>You somehow lack a summoner! As a result, you dispel!</span>")
 		ghostize()
 		qdel()
-	light = new/datum/light/point
-	light.set_brightness(luminosity_on)
-	light.attach(src)
-	light.disable()
 
 /mob/living/simple_animal/hostile/guardian/Move() //Returns to summoner if they move out of range
 	..()
@@ -209,10 +205,10 @@
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleLight()
 	if(!light_on)
-		light.enable()
+		set_light(luminosity_on)
 		to_chat(src, "<span class='notice'>You activate your light.</span>")
 	else
-		light.disable()
+		set_light(0)
 		to_chat(src, "<span class='notice'>You deactivate your light.</span>")
 	light_on = !light_on
 

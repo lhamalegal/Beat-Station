@@ -204,16 +204,12 @@
 	icon = 'icons/obj/computer.dmi'
 	icon_keyboard = "tech_key"
 	icon_screen = "recharge_comp"
-	//light_color = LIGHT_COLOR_FADEDPURPLE
+	light_color = LIGHT_COLOR_FADEDPURPLE
 	circuit = /obj/item/weapon/circuitboard/mech_bay_power_console
 	var/autostart = 1
 	var/voltage = 50
 	var/turf/simulated/floor/mech_bay_recharge_floor/recharge_floor
 	var/obj/machinery/mech_bay_recharge_port/recharge_port
-
-	New()
-		..()
-		light.set_color(169, 127, 170)
 
 /obj/machinery/computer/mech_bay_power_console/Destroy()
 	recharge_port.recharge_console = null

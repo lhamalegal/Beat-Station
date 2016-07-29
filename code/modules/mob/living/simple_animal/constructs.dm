@@ -241,9 +241,7 @@
 		overlay_layer=TURF_LAYER+0.2
 
 	overlays += image(icon,"glow-[icon_state]",overlay_layer)
-	light.set_brightness(0.2)
-	light.set_color(255,255,255)
-	light.enable()
+	set_light(2, -2, l_color = "#FFFFFF")
 
 ////////////////Powers//////////////////
 

@@ -19,15 +19,13 @@
 
 	var/running_bob_animation = 0 // This is used to prevent threads from building up if update_icons is called multiple times
 
-	//light_color = LIGHT_COLOR_WHITE
+	light_color = LIGHT_COLOR_WHITE
 	power_change()
 		..()
 		if(!(stat & (BROKEN|NOPOWER)))
-			light.enable()
-			//set_light(2)
+			set_light(2)
 		else
-			light.disable()
-			//set_light(0)
+			set_light(0)
 
 /obj/machinery/atmospherics/unary/cryo_cell/New()
 	..()
@@ -41,10 +39,6 @@
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
-	light = new /datum/light/point
-	light.set_brightness(0.08)
-	light.set_color(255, 255, 255)
-	light.attach(src)
 
 /obj/machinery/atmospherics/unary/cryo_cell/upgraded/New()
 	..()

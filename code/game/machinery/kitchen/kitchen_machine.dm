@@ -337,7 +337,7 @@
 	src.icon_state = off_icon
 	src.updateUsrDialog()
 
-/obj/machinery/kitchen_machine/proc/ddispose()
+/obj/machinery/kitchen_machine/proc/dispose()
 	for (var/obj/O in contents)
 		O.forceMove(src.loc)
 	if (src.reagents.total_volume)
@@ -399,5 +399,5 @@
 			cook()
 
 		if ("dispose")
-			ddispose()
+			dispose()
 	return

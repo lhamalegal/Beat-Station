@@ -55,10 +55,7 @@
 		var/turf/simulated/T = get_turf(M)
 		if(!istype(T))
 			return
-		//var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in T
-
-		var/datum/light/L = locate(/datum/light) in T
-
+		var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in T
 		var/light_available
 		if(L)
 			light_available = L.get_clamped_lum()*10

@@ -3,15 +3,13 @@
 	icon = "lightbulb-o"
 
 	var/fon = 0 //Is the flashlight function on?
+	var/f_lum = 2 //Luminosity for the flashlight function
 
 /datum/data/pda/utility/flashlight/start()
 	fon = !fon
 	name = fon ? "Disable Flashlight" : "Enable Flashlight"
 	pda.update_shortcuts()
-	if(!fon)
-		pda.light.disable()
-	else
-		pda.light.enable()
+	pda.set_light(fon ? f_lum : 0)
 
 /datum/data/pda/utility/honk
 	name = "Honk Synthesizer"

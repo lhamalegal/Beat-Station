@@ -67,8 +67,6 @@ var/global/datum/global_init/init = new ()
 		master_controller.setup()
 		sleep_offline = 1
 
-		RL_Start()
-
 	#ifdef MAP_NAME
 	map_name = "[MAP_NAME]"
 	#else
@@ -259,7 +257,7 @@ var/world_topic_spam_protect_time = world.timeofday
 			if(A != C)
 				to_chat(A, amessage)
 
-		return "message successfully sents!"
+		return "message successfully sent!"
 
 	else if("notes" in input)
 		/*
@@ -287,7 +285,7 @@ var/world_topic_spam_protect_time = world.timeofday
 		var/message = replacetext(input["msg"], "\n", "<br>")
 		for(var/client/C in clients)
 			to_chat(C, "<span class='announce'>Announces via Discord: [message]</span>")
-		return "announcement successfully sents!"
+		return "announcement successfully sent!"
 
 	else if ("who" in input)
 		return list2params(players)

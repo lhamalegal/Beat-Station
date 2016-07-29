@@ -160,9 +160,7 @@
 /mob/living/proc/IgniteMob()
 	if(fire_stacks > 0 && !on_fire)
 		on_fire = 1
-		light.set_color(237, 146, 0)
-		light.set_brightness(0.3)
-		light.enable()
+		set_light(light_range + 3,l_color = "#ED9200")
 		throw_alert("fire", /obj/screen/alert/fire)
 		update_fire()
 
@@ -170,7 +168,7 @@
 	if(on_fire)
 		on_fire = 0
 		fire_stacks = 0
-		light.disable()
+		set_light(max(0,light_range - 3))
 		clear_alert("fire")
 		update_fire()
 
