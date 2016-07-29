@@ -2,6 +2,7 @@ var/global/datum/controller/gameticker/ticker
 var/round_start_time = 0
 /proc/getmodename
       var/global/modename = mode.name
+
 /datum/controller/gameticker
 	var/const/restart_timeout = 600
 	var/current_state = GAME_STATE_PREGAME
