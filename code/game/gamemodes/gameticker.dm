@@ -1,7 +1,5 @@
 var/global/datum/controller/gameticker/ticker
 var/round_start_time = 0
-/proc/getmodename()
-      var/global/modename = /datum/game_mode/name
 
 /datum/controller/gameticker
 	var/const/restart_timeout = 600
