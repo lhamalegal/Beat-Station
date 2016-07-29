@@ -44,13 +44,8 @@
 	canSmoothWith = list(/turf/unsimulated/floor/lava)
 	var/lava_damage = 250
 	var/lava_fire = 20
-
-	New()
-		light = new/datum/light/point
-		light.set_brightness(0.2)
-		light.set_color(255, 192, 64)
-		light.attach(src)
-		light.enable()
+	light_range = 2
+	light_color = "#FFC040"
 
 /turf/unsimulated/floor/lava/Entered(mob/living/M, atom/OL, ignoreRest = 0)
 	if(istype(M))

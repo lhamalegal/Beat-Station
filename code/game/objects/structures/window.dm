@@ -476,10 +476,10 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 /obj/structure/window/reinforced/polarized/proc/toggle()
 	if(opacity)
 		animate(src, color="#FFFFFF", time=5)
-		RL_SetOpacity(0)
+		set_opacity(0)
 	else
 		animate(src, color="#222222", time=5)
-		RL_SetOpacity(1)
+		set_opacity(1)
 
 
 

@@ -31,13 +31,12 @@
 
 	var/datum/announcement/priority/crew_announcement = new
 
-	//light_color = LIGHT_COLOR_LIGHTBLUE
+	light_color = LIGHT_COLOR_LIGHTBLUE
 
 /obj/machinery/computer/communications/New()
 	shuttle_caller_list += src
 	..()
 	crew_announcement.newscast = 1
-	light.set_color(0, 153, 255)
 
 /obj/machinery/computer/communications/proc/is_authenticated(var/mob/user, var/message = 1)
 	if(authenticated == 2)

@@ -261,12 +261,15 @@ Auto Patrol: []"},
 /mob/living/simple_animal/bot/secbot/Life()
 	. = ..()
 	if(flashing_lights)
-		if(light.r == 255)
-			light.set_color(0, 0, 255)
-		else if(light.b == 255)
-			light.set_color(255, 0, 0)
+		switch(light_color)
+			if(LIGHT_COLOR_PURE_RED)
+				light_color = LIGHT_COLOR_PURE_BLUE
+			if(LIGHT_COLOR_PURE_BLUE)
+				light_color = LIGHT_COLOR_PURE_RED
+		update_light()
 	else if(prev_flashing_lights)
-		light.set_color(255, 0, 0)
+		light_color = LIGHT_COLOR_PURE_RED
+		update_light()
 
 	prev_flashing_lights = flashing_lights
 

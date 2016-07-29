@@ -18,12 +18,8 @@
 	name = "Pylon"
 	desc = "A floating crystal that hums with an unearthly energy"
 	icon_state = "pylon"
-
-	New()
-		light = new/datum/light/point
-		light.set_brightness(0.5)
-		light.set_color(62, 0, 0)
-		light.attach(src)
+	light_range = 5
+	light_color = "#3e0000"
 
 
 /obj/structure/cult/tome

@@ -9,19 +9,15 @@
 	anchored = 1
 	idle_power_usage = 1250
 	active_power_usage = 2500
-	New()
-		..()
-		light = new/datum/light/point
-		light.set_brightness(0.08)
-		light.set_color(0, 255, 0)
-		light.attach(src)
+
+	light_color = "#00FF00"
 
 /obj/machinery/bodyscanner/power_change()
 	..()
 	if(!(stat & (BROKEN|NOPOWER)))
-		light.enable()
+		set_light(2)
 	else
-		light.disable()
+		set_light(0)
 
 /obj/machinery/bodyscanner/process()
 	for(var/mob/M as mob in src) // makes sure that simple mobs don't get stuck inside a sleeper when they resist out of occupant's grasp

@@ -194,17 +194,13 @@
 	name = "\improper R&D server controller"
 	icon_screen = "rdcomp"
 	icon_keyboard = "rd_key"
-	//light_color = LIGHT_COLOR_FADEDPURPLE
+	light_color = LIGHT_COLOR_FADEDPURPLE
 	circuit = /obj/item/weapon/circuitboard/rdservercontrol
 	var/screen = 0
 	var/obj/machinery/r_n_d/server/temp_server
 	var/list/servers = list()
 	var/list/consoles = list()
 	var/badmin = 0
-
-	New()
-		..()
-		light.set_color(169, 127, 170)
 
 /obj/machinery/computer/rdservercontrol/Topic(href, href_list)
 	if(..())

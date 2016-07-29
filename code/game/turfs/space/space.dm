@@ -2,6 +2,7 @@
 	icon = 'icons/turf/space.dmi'
 	name = "\proper space"
 	icon_state = "0"
+	dynamic_lighting = 0
 	luminosity = 1
 
 	temperature = TCMB
@@ -15,15 +16,9 @@
 /turf/space/New()
 	. = ..()
 
-	light = new /datum/light/point
-	light.set_brightness(config.starlight)
-	light.attach(src)
-
 	if(!istype(src, /turf/space/transit))
 		icon_state = "[((x + y) ^ ~(x * y) + z) % 25]"
 	update_starlight()
-
-
 
 /turf/space/Destroy()
 	return QDEL_HINT_LETMELIVE
@@ -32,9 +27,9 @@
 	if(!config.starlight)
 		return
 	if(locate(/turf/simulated) in orange(src,1))
-		light.enable()
+		set_light(config.starlight)
 	else
-		light.disable()
+		set_light(0)
 
 /turf/space/attackby(obj/item/C as obj, mob/user as mob, params)
 	..()
@@ -74,7 +69,7 @@
 
 /turf/space/Entered(atom/movable/A as mob|obj, atom/OL, ignoreRest = 0)
 	..()
-
+	
 	if(destination_z && A && (src in A.locs))
 		A.x = destination_x
 		A.y = destination_y

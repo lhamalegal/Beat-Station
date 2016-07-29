@@ -28,11 +28,6 @@
 
 	req_access = list(access_ai_upload)
 
-	New()
-		light = new /datum/light/point
-		light.set_brightness(0.1)
-		light.attach(src)
-
 /obj/machinery/turretid/stun
 	enabled = 1
 	icon_state = "control_stun"
@@ -203,21 +198,17 @@
 	..()
 	if(stat & NOPOWER)
 		icon_state = "control_off"
-		light.disable()
-		//set_light(0)
+		set_light(0)
 	else if (enabled)
 		if (lethal)
 			icon_state = "control_kill"
-			light.set_color(153, 0, 0)
-			//set_light(1.5, 1,"#990000")
+			set_light(1.5, 1,"#990000")
 		else
 			icon_state = "control_stun"
-			light.set_color(255, 153, 0)
-			//set_light(1.5, 1,"#FF9900")
+			set_light(1.5, 1,"#FF9900")
 	else
 		icon_state = "control_standby"
-		light.set_color(0, 51, 0)
-		//set_light(1.5, 1,"#003300")
+		set_light(1.5, 1,"#003300")
 
 /obj/machinery/turretid/emp_act(severity)
 	if(enabled)

@@ -5,11 +5,7 @@
 	name = "Light-emtter"
 	anchored = 1
 	unacidable = 1
-
-	New()
-		light = new/datum/light/point
-		light.set_brightness(0.8)
-		light.attach(src)
+	light_range = 8
 
 /**********************Miner Lockers**************************/
 

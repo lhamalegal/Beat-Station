@@ -4,6 +4,7 @@
 /mob/living/simple_animal/bot
 	icon = 'icons/obj/aibots.dmi'
 	layer = MOB_LAYER - 0.1
+	light_range = 3
 	stop_automated_movement = 1
 	wander = 0
 	healable = 0
@@ -83,12 +84,6 @@
 
 	hud_possible = list(DIAG_STAT_HUD, DIAG_BOT_HUD, DIAG_HUD) //Diagnostic HUD views
 
-	New()
-		..()
-		light = new/datum/light/point
-		light.set_brightness(0.3)
-		light.attach(src)
-
 /obj/item/device/radio/headset/bot
 	subspace_transmission = 1
 	canhear_range = 0
@@ -120,7 +115,7 @@
 	if(stat)
 		return 0
 	on = 1
-	light.enable()
+	set_light(initial(light_range))
 	update_icon()
 	update_controls()
 	diag_hud_set_botstat()
@@ -128,7 +123,7 @@
 
 /mob/living/simple_animal/bot/proc/turn_off()
 	on = 0
-	light.disable()
+	set_light(0)
 	bot_reset() //Resets an AI's call, should it exist.
 	update_icon()
 	update_controls()

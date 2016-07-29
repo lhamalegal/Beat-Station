@@ -39,7 +39,7 @@
 	var/list/proc_res = list() //stores proc owners, like proc_res["functionname"] = owner reference
 	var/datum/effect/system/spark_spread/spark_system = new
 	var/lights = 0
-	var/lights_power = 1.3
+	var/lights_power = 6
 	var/emagged = 0
 
 	//inner atmos
@@ -100,10 +100,6 @@
 	diag_hud_set_mechhealth()
 	diag_hud_set_mechcell()
 	diag_hud_set_mechstat()
-
-	light = new/datum/light/point
-	light.set_brightness(lights_power)
-	light.attach(src)
 	return
 
 ////////////////////////
@@ -1153,8 +1149,8 @@
 	set popup_menu = 0
 	if(usr!=occupant)	return
 	lights = !lights
-	if(lights)	light.enable()
-	else		light.disable()
+	if(lights)	set_light(light_range + lights_power)
+	else		set_light(light_range - lights_power)
 	src.occupant_message("Toggled lights [lights?"on":"off"].")
 	log_message("Toggled lights [lights?"on":"off"].")
 	return

@@ -24,7 +24,7 @@
 #define INVISIBILITY_MAXIMUM 100
 
 //Some mob defines below
-#define AI_CAMERA_LUMINOSITY 1
+#define AI_CAMERA_LUMINOSITY 6
 
 #define BORGMESON 1
 #define BORGTHERM 2

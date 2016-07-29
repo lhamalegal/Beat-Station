@@ -6,7 +6,7 @@
 	icon_state = "laptop"
 	icon_keyboard = "laptop_key"
 	icon_screen = "medlaptop"
-	//light_color = LIGHT_COLOR_GREEN
+	light_color = LIGHT_COLOR_GREEN
 	req_one_access = list(access_heads)
 	circuit = /obj/item/weapon/circuitboard/skills
 	var/obj/item/weapon/card/id/scan = null
@@ -23,10 +23,6 @@
 	//Sorting Variables
 	var/sortBy = "name"
 	var/order = 1 // -1 = Descending - 1 = Ascending
-
-	New()
-		..()
-		light.set_color(0, 204, 0)
 
 
 /obj/machinery/computer/skills/attackby(obj/item/O as obj, user as mob, params)
