@@ -55,12 +55,11 @@
 	result = /obj/item/weapon/reagent_containers/food/snacks/jellyburger/cherry
 	category = CAT_FOOD
 
-/*
+/* Temporarily disabled until we can find a workaround for this fruit shit.
 /datum/crafting_recipe/herbsalad
 	name = "herb salad"
 	fruit = list("ambrosia" = 3, "apple" = 1)
 	result = /obj/item/weapon/reagent_containers/food/snacks/herbsalad
-	category = CAT_FOOD
 
 /datum/crafting_recipe/herbsalad/AdjustChems(var/obj/resultobj as obj)
 	if(istype(resultobj, /obj/item/weapon/reagent_containers))
@@ -71,7 +70,6 @@
 	name = "Aesir salad"
 	fruit = list("ambrosiadeus" = 3, "goldapple" = 1)
 	result = /obj/item/weapon/reagent_containers/food/snacks/aesirsalad
-	category = CAT_FOOD
 
 /datum/crafting_recipe/validsalad
 	name = "valid salad"
@@ -80,7 +78,6 @@
 		/obj/item/weapon/reagent_containers/food/snacks/meatball = 1,
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/validsalad
-	category = CAT_FOOD
 
 /datum/crafting_recipe/validsalad/AdjustChems(var/obj/resultobj as obj)
 	if(istype(resultobj, /obj/item/weapon/reagent_containers))
@@ -95,7 +92,6 @@
 		/obj/item/weapon/reagent_containers/food/snacks/friedegg = 1,
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/wrap
-	category = CAT_FOOD
 */
 
 /datum/crafting_recipe/notasandwich
@@ -106,6 +102,7 @@
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/notasandwich
 	category = CAT_FOOD
+
 
 /datum/crafting_recipe/sushi_Ebi
 	name = "Ebi Sushi"
