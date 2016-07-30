@@ -220,7 +220,7 @@
 	icon_state = "kidosvest"
 	item_state = "kidosvest"
 	ignore_suitadjust = 1
-	action_button_name = null
+	actions_types = list()
 	adjust_flavour = null
 
 /obj/item/clothing/suit/fluff/kluys // Kluys: Cripty Pandaen
@@ -331,7 +331,7 @@
 	icon_state = "fox_jacket"
 	item_state = "fox_jacket"
 	ignore_suitadjust = 1
-	action_button_name = null
+	actions_types = list()
 	adjust_flavour = null
 
 /obj/item/clothing/under/fluff/fox
@@ -381,28 +381,27 @@
 	icon_state = "chronx_hood"
 	item_state = "chronx_hood"
 	flags = HEADCOVERSEYES | BLOCKHAIR
-	action_button_name = "Transform Hood"
+	actions_types = list(/datum/action/item_action/toggle)
 	var/adjusted = 0
 
 /obj/item/clothing/head/fluff/chronx/ui_action_click()
 	adjust()
 
-/obj/item/clothing/head/fluff/chronx/verb/adjust()
-	set name = "Transform Hood"
-	set category = "Object"
-	set src in usr
-	if(isliving(usr) && !usr.incapacitated())
-		if(adjusted)
-			icon_state = initial(icon_state)
-			item_state = initial(item_state)
-			to_chat(usr, "You untransform \the [src].")
-			adjusted = 0
-		else
-			icon_state += "_open"
-			item_state += "_open"
-			to_chat(usr, "You transform \the [src].")
-			adjusted = 1
-		usr.update_inv_head()
+/obj/item/clothing/head/fluff/chronx/proc/adjust()
+	if(adjusted)
+		icon_state = initial(icon_state)
+		item_state = initial(item_state)
+		to_chat(usr, "You untransform \the [src].")
+		adjusted = 0
+	else
+		icon_state += "_open"
+		item_state += "_open"
+		to_chat(usr, "You transform \the [src].")
+		adjusted = 1
+	usr.update_inv_head()
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
 
 /obj/item/clothing/suit/chaplain_hoodie/fluff/chronx //chronx100: Hughe O'Splash
 	name = "Cthulhu's Robes"
@@ -411,21 +410,9 @@
 	icon_state = "chronx_robe"
 	item_state = "chronx_robe"
 	flags = ONESIZEFITSALL
-	action_button_name = "Transform Robes"
+	actions_types = list(/datum/action/item_action/toggle)
 	adjust_flavour = "untransform"
 	ignore_suitadjust = 0
-
-/obj/item/clothing/suit/chaplain_hoodie/fluff/chronx/New()
-	..()
-	verbs -= /obj/item/clothing/suit/verb/openjacket
-
-/obj/item/clothing/suit/chaplain_hoodie/fluff/chronx/verb/adjust()
-	set name = "Transform Robes"
-	set category = "Object"
-	set src in usr
-	if(!istype(usr, /mob/living))
-		return
-	adjustsuit(usr)
 
 /obj/item/clothing/shoes/black/fluff/chronx //chronx100: Hughe O'Splash
 	name = "Cthulhu's Boots"

@@ -1027,7 +1027,7 @@ var/list/slot_equipment_priority = list( \
 	return 1
 
 //Updates canmove, lying and icons. Could perhaps do with a rename but I can't think of anything to describe it.
-/mob/proc/update_canmove()
+/mob/proc/update_canmove(delay_action_updates = 0)
 	var/ko = weakened || paralysis || stat || (status_flags & FAKEDEATH)
 	var/buckle_lying = !(buckled && !buckled.buckle_lying)
 	if(ko || resting || stunned)
@@ -1052,6 +1052,8 @@ var/list/slot_equipment_priority = list( \
 			layer = initial(layer)
 
 	update_transform()
+	if(!delay_action_updates)
+		update_action_buttons_icon()
 	return canmove
 
 /mob/proc/fall(var/forced)
@@ -1367,16 +1369,7 @@ mob/proc/yank_out_object()
 
 /mob/proc/AddSpell(var/obj/effect/proc_holder/spell/spell)
 	spell_list += spell
-	if(!spell.action)
-		spell.action = new/datum/action/spell_action
-		spell.action.target = spell
-		spell.action.name = spell.name
-		spell.action.button_icon = spell.action_icon
-		spell.action.button_icon_state = spell.action_icon_state
-		spell.action.background_icon_state = spell.action_background_icon_state
-	if(isliving(src))
-		spell.action.Grant(src)
-	return
+	spell.action.Grant(src)
 
 //override to avoid rotating pixel_xy on mobs
 /mob/shuttleRotate(rotation)

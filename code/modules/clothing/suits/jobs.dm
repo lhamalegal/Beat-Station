@@ -198,7 +198,7 @@
 	body_parts_covered = UPPER_TORSO|ARMS
 	ignore_suitadjust = 0
 	suit_adjusted = 1
-	action_button_name = "Button/Unbutton Jacket"
+	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
 /obj/item/clothing/suit/storage/lawyer/bluejacket
@@ -210,7 +210,7 @@
 	body_parts_covered = UPPER_TORSO|ARMS
 	ignore_suitadjust = 0
 	suit_adjusted = 1
-	action_button_name = "Button/Unbutton Jacket"
+	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
 /obj/item/clothing/suit/storage/lawyer/purpjacket
@@ -231,7 +231,7 @@
 	body_parts_covered = UPPER_TORSO|ARMS
 	ignore_suitadjust = 0
 	suit_adjusted = 1
-	action_button_name = "Button/Unbutton Jacket"
+	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
 /obj/item/clothing/suit/storage/ntrep
@@ -242,7 +242,7 @@
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|ARMS
 	ignore_suitadjust = 0
-	action_button_name = "Button/Unbutton Jacket"
+	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
 //Medical
@@ -256,7 +256,7 @@
 	/obj/item/device/healthanalyzer, /obj/item/device/flashlight, /obj/item/device/radio, /obj/item/weapon/tank/emergency_oxygen,/obj/item/device/rad_laser)
 	ignore_suitadjust = 0
 	suit_adjusted = 1
-	action_button_name = "Button/Unbutton Jacket"
+	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
 //Mime

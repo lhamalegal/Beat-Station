@@ -18,7 +18,7 @@
 	if(module_type && !istype(R.module, module_type))
 		to_chat(R, "Upgrade mounting error!  No suitable hardpoint detected!")
 		to_chat(usr, "There's no mounting point for the module!")
- 		return 1
+		return 1
 
 
 /obj/item/borg/upgrade/reset
@@ -257,7 +257,8 @@
 
 	cyborg = R
 	icon_state = "selfrepair_off"
-	action_button_name = "Toggle Self-Repair"
+	var/datum/action/A = new /datum/action/item_action/toggle(src)
+	A.Grant(R)
 	return 1
 
 /obj/item/borg/upgrade/selfrepair/Destroy()
@@ -279,6 +280,9 @@
 /obj/item/borg/upgrade/selfrepair/update_icon()
 	if(cyborg)
 		icon_state = "selfrepair_[on ? "on" : "off"]"
+		for(var/X in actions)
+			var/datum/action/A = X
+			A.UpdateButtonIcon()
 	else
 		icon_state = "cyborg_upgrade5"
 
