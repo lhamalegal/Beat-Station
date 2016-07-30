@@ -70,8 +70,8 @@
 	New()
 		..()
 		for(var/i in 1 to 5)
-			new /obj/item/weapon/reagent_containers/food/drinks/milk(src)
-			new /obj/item/weapon/reagent_containers/food/drinks/soymilk(src)
+			new /obj/item/weapon/reagent_containers/food/condiment/milk(src)
+			new /obj/item/weapon/reagent_containers/food/condiment/soymilk(src)
 		for(var/i in 1 to 2)
 			new /obj/item/weapon/storage/fancy/egg_box(src)
 
@@ -91,11 +91,3 @@
 	New()
 		..()
 		dispense_cash(6700, src)
-
-
-
-
-
-
-
-
