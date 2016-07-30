@@ -24,11 +24,12 @@
 
 //Returns the world time in english
 /proc/worldtime2text(time = world.time)
+	time = (round_start_time ? (time - round_start_time) : (time - world.time))
 	return "[round(time / 36000)+12]:[(time / 600 % 60) < 10 ? add_zero(time / 600 % 60, 1) : time / 600 % 60]"
 
 /proc/time_stamp()
 	return time2text(world.timeofday, "hh:mm:ss")
-	
+
 /proc/gameTimestamp(format = "hh:mm:ss") // Get the game time in text
 	return time2text(world.time - timezoneOffset + 432000, format)
 
@@ -60,6 +61,6 @@ proc/isDay(var/month, var/day)
  */
 /proc/stop_watch(wh)
 	return round(0.1 * (TimeOfGame - wh), 0.1)
-	
+
 /proc/month2number(month)
 	return month_names.Find(month)

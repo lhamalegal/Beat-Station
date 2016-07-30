@@ -295,12 +295,14 @@ var/global/list/default_medbay_channels = list(
 			return secure_radio_connections[message_mode]
 
 	// If we were to send to a channel we don't have, drop it.
-	return null
+	return RADIO_CONNECTION_FAIL
 
 /obj/item/device/radio/talk_into(mob/living/M as mob, message, channel, var/verb = "says", var/datum/language/speaking = null)
-	if(!on) return 0 // the device has to be on
+	if(!on)
+		return 0 // the device has to be on
 	//  Fix for permacell radios, but kinda eh about actually fixing them.
-	if(!M || !message) return 0
+	if(!M || !message)
+		return 0
 
 	if(istype(M))
 		M.trigger_aiming(TARGET_CAN_RADIO)
@@ -325,12 +327,17 @@ var/global/list/default_medbay_channels = list(
 	*/
 
 	//#### Grab the connection datum ####//
-	var/datum/radio_frequency/connection = handle_message_mode(M, message, channel)
-	if (!istype(connection))
-		return 0
-	if (!connection)
+	var/message_mode = handle_message_mode(M, message, channel)
+	switch(message_mode) //special cases
+		if(RADIO_CONNECTION_FAIL)
+			return 0
+		if(RADIO_CONNECTION_NON_SUBSPACE)
+			return 1
+
+	if(!istype(message_mode, /datum/radio_frequency)) //if not a special case, it should be returning a radio connection
 		return 0
 
+	var/datum/radio_frequency/connection = message_mode
 	var/turf/position = get_turf(src)
 
 	//#### Tagging the signal with all appropriate identity values ####//
