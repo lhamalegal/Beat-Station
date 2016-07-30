@@ -4,7 +4,7 @@
 
 #define REM REAGENTS_EFFECT_MULTIPLIER
 
-datum/reagent/silver_sulfadiazine
+/datum/reagent/silver_sulfadiazine
 	name = "Silver Sulfadiazine"
 	id = "silver_sulfadiazine"
 	description = "This antibacterial compound is used to treat burn victims."
@@ -12,7 +12,7 @@ datum/reagent/silver_sulfadiazine
 	color = "#F0C814"
 	metabolization_rate = 3
 
-datum/reagent/silver_sulfadiazine/reaction_mob(var/mob/living/M as mob, var/method=TOUCH, var/volume, var/show_message = 1)
+/datum/reagent/silver_sulfadiazine/reaction_mob(var/mob/living/M as mob, var/method=TOUCH, var/volume, var/show_message = 1)
 	if(iscarbon(M))
 		if(method == TOUCH)
 			M.adjustFireLoss(-volume)
@@ -25,13 +25,13 @@ datum/reagent/silver_sulfadiazine/reaction_mob(var/mob/living/M as mob, var/meth
 	..()
 	return
 
-datum/reagent/silver_sulfadiazine/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/silver_sulfadiazine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	M.adjustFireLoss(-2*REM)
 	..()
 	return
 
-datum/reagent/styptic_powder
+/datum/reagent/styptic_powder
 	name = "Styptic Powder"
 	id = "styptic_powder"
 	description = "Styptic (aluminium sulfate) powder helps control bleeding and heal physical wounds."
@@ -39,7 +39,7 @@ datum/reagent/styptic_powder
 	color = "#C8A5DC"
 	metabolization_rate = 3
 
-datum/reagent/styptic_powder/reaction_mob(var/mob/living/M as mob, var/method=TOUCH, var/volume, var/show_message = 1)
+/datum/reagent/styptic_powder/reaction_mob(var/mob/living/M as mob, var/method=TOUCH, var/volume, var/show_message = 1)
 	if(iscarbon(M))
 		if(method == TOUCH)
 			M.adjustBruteLoss(-volume)
@@ -53,13 +53,13 @@ datum/reagent/styptic_powder/reaction_mob(var/mob/living/M as mob, var/method=TO
 	..()
 	return
 
-datum/reagent/styptic_powder/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/styptic_powder/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	M.adjustBruteLoss(-2*REM)
 	..()
 	return
 
-datum/reagent/salglu_solution
+/datum/reagent/salglu_solution
 	name = "Saline-Glucose Solution"
 	id = "salglu_solution"
 	description = "This saline and glucose solution can help stabilize critically injured patients and cleanse wounds."
@@ -68,22 +68,26 @@ datum/reagent/salglu_solution
 	penetrates_skin = 1
 	metabolization_rate = 0.15
 
-datum/reagent/salglu_solution/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
+/datum/reagent/salglu_solution/on_mob_life(mob/living/M)
+	if(!M)
+		M = holder.my_atom
 	if(prob(33))
 		M.adjustBruteLoss(-2*REM)
 		M.adjustFireLoss(-2*REM)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(!H.species.exotic_blood && !(H.species.flags & NO_BLOOD) && prob(33))
+			H.vessel.add_reagent("blood", 1)
 	..()
-	return
 
-datum/reagent/synthflesh
+/datum/reagent/synthflesh
 	name = "Synthflesh"
 	id = "synthflesh"
 	description = "A resorbable microfibrillar collagen and protein mixture that can rapidly heal injuries when applied topically."
 	reagent_state = LIQUID
 	color = "#FFEBEB"
 
-datum/reagent/synthflesh/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume,var/show_message = 1)
+/datum/reagent/synthflesh/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume,var/show_message = 1)
 	if(!M) M = holder.my_atom
 	if(iscarbon(M))
 		if(method == TOUCH)
@@ -94,21 +98,21 @@ datum/reagent/synthflesh/reaction_mob(var/mob/living/M, var/method=TOUCH, var/vo
 	..()
 	return
 
-datum/reagent/synthflesh/reaction_turf(var/turf/T, var/volume) //let's make a mess!
+/datum/reagent/synthflesh/reaction_turf(var/turf/T, var/volume) //let's make a mess!
 	src = null
 	if(volume >= 5)
 		new /obj/effect/decal/cleanable/blood/gibs/cleangibs(T)
 		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
 		return
 
-datum/reagent/charcoal
+/datum/reagent/charcoal
 	name = "Charcoal"
 	id = "charcoal"
 	description = "Activated charcoal helps to absorb toxins."
 	reagent_state = LIQUID
 	color = "#000000"
 
-datum/reagent/charcoal/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/charcoal/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	M.adjustToxLoss(-1.5*REM)
 	if(prob(50))
@@ -216,7 +220,7 @@ datum/reagent/omnizine
 			M.Dizzy(5)
 			M.Weaken(3)
 
-datum/reagent/calomel
+/datum/reagent/calomel
 	name = "Calomel"
 	id = "calomel"
 	description = "This potent purgative rids the body of impurities. It is highly toxic however and close supervision is required."
@@ -224,7 +228,7 @@ datum/reagent/calomel
 	color = "#22AB35"
 	metabolization_rate = 0.8
 
-datum/reagent/calomel/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/calomel/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)
@@ -245,14 +249,14 @@ datum/reagent/calomel/on_mob_life(var/mob/living/M as mob)
 	min_temp = 374
 	mix_message = "Stinging vapors rise from the solution."
 
-datum/reagent/potass_iodide
+/datum/reagent/potass_iodide
 	name = "Potassium Iodide"
 	id = "potass_iodide"
 	description = "Potassium Iodide is a medicinal drug used to counter the effects of radiation poisoning."
 	reagent_state = LIQUID
 	color = "#B4DCBE"
 
-datum/reagent/potass_iodide/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/potass_iodide/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	if(prob(80))
 		M.radiation = max(0, M.radiation-1)
