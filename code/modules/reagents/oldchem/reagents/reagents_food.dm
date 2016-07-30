@@ -391,3 +391,4 @@
 	M.Weaken(4 * severity)
 	if(prob(8))
 		M.adjustToxLoss(severity)
+
