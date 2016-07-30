@@ -99,7 +99,7 @@
 		if(sdisabilities & BLIND || blinded) //blind people can't see dumbass
 			message = stars(message)
 
-		iif(!speaker || !(speaker in view(src)))
+		if(!speaker || !(speaker in view(src)))
 			message = stars(message)
 
 	if(!say_understands(speaker, language))
