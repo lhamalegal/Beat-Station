@@ -8,9 +8,7 @@
 	var/zone = "chest"
 	var/slot
 	vital = 0
-	var/organ_action_name = null
 	var/non_primary = 0
-	action_button_custom_type = /datum/action/item_action/organ_action
 
 /obj/item/organ/internal/New(var/mob/living/carbon/holder)
 	if(istype(holder))
@@ -41,8 +39,9 @@
 			parent.internal_organs |= src
 	//M.internal_organs_by_name[src] |= src(H,1)
 	loc = null
-	if(organ_action_name)
-		action_button_name = organ_action_name
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.Grant(M)
 
 
 /obj/item/organ/internal/remove(mob/living/carbon/M, special = 0)
@@ -61,13 +60,17 @@
 		else
 			parent.internal_organs -= src
 
-	if(organ_action_name)
-		action_button_name = null
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.Remove(M)
 
 
 /obj/item/organ/internal/replaced(var/mob/living/carbon/human/target,var/obj/item/organ/external/affected)
     insert(target)
     ..()
+
+/obj/item/organ/internal/item_action_slot_check(slot, mob/user)
+	return
 
 /obj/item/organ/internal/proc/on_find(mob/living/finder)
 	return

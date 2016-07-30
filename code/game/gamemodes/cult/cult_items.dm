@@ -23,10 +23,10 @@
 	return
 
 /obj/item/weapon/melee/cultblade/pickup(mob/living/user as mob)
+	..()
 	if(!iscultist(user))
 		to_chat(user, "\red An overwhelming feeling of dread comes over you as you pick up the cultist's sword. It would be wise to be rid of this blade quickly.")
 		user.Dizzy(120)
-
 
 /obj/item/clothing/head/culthood
 	name = "cult hood"

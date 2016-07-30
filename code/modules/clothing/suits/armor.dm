@@ -47,7 +47,8 @@
 			W.forceMove(src)
 			attached_badge = W
 
-			action_button_name = "Remove Holobadge"
+			var/datum/action/A = new /datum/action/item_action/remove_badge(src)
+			A.Grant(user)
 			icon_state = "armorsec"
 			user.update_inv_wear_suit()
 			desc = "An armored vest that protects against some damage. This one has [attached_badge] attached to it."
@@ -60,8 +61,10 @@
 		add_fingerprint(user)
 		user.put_in_hands(attached_badge)
 
-		action_button_name = null
-		action.Remove(user)
+		for(var/X in actions)
+			var/datum/action/A = X
+			A.Remove(user)
+
 		icon_state = "armor"
 		user.update_inv_wear_suit()
 		desc = "An armored vest that protects against some damage. This one has a clip for a holobadge."
@@ -105,7 +108,7 @@
 	flags_inv = 0
 	ignore_suitadjust = 0
 	suit_adjusted = 1
-	action_button_name = "Open/Close Trenchcoat"
+	actions_types = list(/datum/action/item_action/openclose)
 	adjust_flavour = "unbutton"
 
 /obj/item/clothing/suit/armor/hos/jensen
@@ -221,7 +224,7 @@
 	icon_state = "reactiveoff"
 	item_state = "reactiveoff"
 	blood_overlay_type = "armor"
-	action_button_name = "Toggle Reactive Armor"
+	actions_types = list(/datum/action/item_action/toggle)
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 
 /obj/item/clothing/suit/armor/reactive/IsShield()
@@ -230,22 +233,25 @@
 	return 0
 
 /obj/item/clothing/suit/armor/reactive/attack_self(mob/user as mob)
-	src.active = !( src.active )
+	active = !(active)
 	if (src.active)
 		to_chat(user, "\blue The reactive armor is now active.")
-		src.icon_state = "reactive"
-		src.item_state = "reactive"
+		icon_state = "reactive"
+		item_state = "reactive"
 	else
 		to_chat(user, "\blue The reactive armor is now inactive.")
-		src.icon_state = "reactiveoff"
-		src.item_state = "reactiveoff"
-		src.add_fingerprint(user)
+		icon_state = "reactiveoff"
+		item_state = "reactiveoff"
+		add_fingerprint(user)
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
 	return
 
 /obj/item/clothing/suit/armor/reactive/emp_act(severity)
 	active = 0
-	src.icon_state = "reactiveoff"
-	src.item_state = "reactiveoff"
+	icon_state = "reactiveoff"
+	item_state = "reactiveoff"
 	..()
 
 

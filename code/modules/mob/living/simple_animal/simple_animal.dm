@@ -616,7 +616,7 @@
 
 	return verb
 
-/mob/living/simple_animal/update_canmove()
+/mob/living/simple_animal/update_canmove(delay_action_updates = 0)
 	if(paralysis || stunned || weakened || stat || resting)
 		drop_r_hand()
 		drop_l_hand()
@@ -626,6 +626,8 @@
 	else
 		canmove = 1
 	update_transform()
+	if(!delay_action_updates)
+		update_action_buttons_icon()
 	return canmove
 
 /mob/living/simple_animal/update_transform()
