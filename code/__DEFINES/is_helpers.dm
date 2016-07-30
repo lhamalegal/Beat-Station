@@ -35,3 +35,6 @@
 #define issignaler(O) (istype(O, /obj/item/device/assembly/signaler))
 
 #define istimer(O) (istype(O, /obj/item/device/assembly/timer))
+
+
+#define isradio(A) istype(A, /obj/item/device/radio)
