@@ -338,12 +338,10 @@
 
 
 	if(internal) //check for hud updates every time this is called
-		if(internals)
-			internals.icon_state = "internal1"
+		update_internals_hud_icon(1)
 		return internal.remove_air_volume(volume_needed) //returns the valid air
 	else
-		if(internals)
-			internals.icon_state = "internal0"
+		update_internals_hud_icon(0)
 
 	return null
 

@@ -21,6 +21,7 @@ var/list/robot_verbs_default = list(
 	var/obj/screen/inv2 = null
 	var/obj/screen/inv3 = null
 	var/obj/screen/lamp_button = null
+	var/obj/screen/thruster_button = null
 
 	var/shown_robot_modules = 0	//Used to determine whether they have the module menu shown or not
 	var/obj/screen/robot_modules_background
@@ -57,8 +58,6 @@ var/list/robot_verbs_default = list(
 	var/viewalerts = 0
 	var/modtype = "Default"
 	var/lower_mod = 0
-	var/jetpack = 0
-	var/datum/effect/system/ion_trail_follow/ion_trail = null
 	var/datum/effect/system/spark_spread/spark_system//So they can initialize sparks whenever/N
 	var/jeton = 0
 	var/has_power = 1
@@ -81,11 +80,15 @@ var/list/robot_verbs_default = list(
 
 	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD,NATIONS_HUD)
 
-	var/jetpackoverlay = 0
 	var/magpulse = 0
+	var/ionpulse = 0 // Jetpack-like effect.
+	var/ionpulse_on = 0 // Jetpack-like effect.
+	var/datum/effect/system/ion_trail_follow/ion_trail // Ionpulse effect.
 
 	var/obj/item/borg/sight/hud/sec/sechud = null
 	var/obj/item/borg/sight/hud/med/healthhud = null
+
+	var/datum/action/item_action/toggle_research_scanner/scanner = null
 
 /mob/living/silicon/robot/New(loc,var/syndie = 0,var/unfinished = 0, var/alien = 0)
 	spark_system = new /datum/effect/system/spark_spread()
@@ -143,6 +146,7 @@ var/list/robot_verbs_default = list(
 		cell_component.installed = 1
 
 	diag_hud_set_borgcell()
+	scanner = new(src)
 	scanner.Grant(src)
 
 /mob/living/silicon/robot/proc/init(var/alien=0)
@@ -466,6 +470,35 @@ var/list/robot_verbs_default = list(
 	src.verbs -= robot_verbs_default
 	src.verbs -= silicon_subsystems
 
+/mob/living/silicon/robot/proc/ionpulse()
+	if(!ionpulse_on)
+		return
+
+	if(cell.charge <= 50)
+		toggle_ionpulse()
+		return
+
+	cell.charge -= 50 // 500 steps on a default cell.
+	return 1
+
+/mob/living/silicon/robot/proc/toggle_ionpulse()
+	if(!ionpulse)
+		to_chat(src, "<span class='notice'>No thrusters are installed!</span>")
+		return
+
+	if(!ion_trail)
+		ion_trail = new
+		ion_trail.set_up(src)
+
+	ionpulse_on = !ionpulse_on
+	to_chat(src, "<span class='notice'>You [ionpulse_on ? null :"de"]activate your ion thrusters.</span>")
+	if(ionpulse_on)
+		ion_trail.start()
+	else
+		ion_trail.stop()
+	if(thruster_button)
+		thruster_button.icon_state = "ionpulse[ionpulse_on]"
+
 /mob/living/silicon/robot/blob_act()
 	if (stat != 2)
 		adjustBruteLoss(60)
@@ -490,23 +523,6 @@ var/list/robot_verbs_default = list(
 				stat(null, "Time left: [max(ticker.mode:AI_win_timeleft/(ticker.mode:apcs/3), 0)]")
 	return 0
 
-
-// this function displays jetpack pressure in the stat panel
-/mob/living/silicon/robot/proc/show_jetpack_pressure()
-	// if you have a jetpack, show the internal tank pressure
-	var/obj/item/weapon/tank/jetpack/current_jetpack = installed_jetpack()
-	if (current_jetpack)
-		stat("Internal Atmosphere Info", current_jetpack.name)
-		stat("Tank Pressure", current_jetpack.air_contents.return_pressure())
-
-
-// this function returns the robots jetpack, if one is installed
-/mob/living/silicon/robot/proc/installed_jetpack()
-	if(module)
-		return (locate(/obj/item/weapon/tank/jetpack) in module.modules)
-	return 0
-
-
 // this function displays the cyborgs current cell charge in the stat panel
 /mob/living/silicon/robot/proc/show_cell_power()
 	if(cell)
@@ -521,7 +537,6 @@ var/list/robot_verbs_default = list(
 	statpanel("Status")
 	if (client.statpanel == "Status")
 		show_cell_power()
-		show_jetpack_pressure()
 
 /mob/living/silicon/robot/restrained()
 	return 0
@@ -1025,8 +1040,6 @@ var/list/robot_verbs_default = list(
 			if(activated(S))
 				overlays += "[base_icon]-shield"
 
-	if(jetpackoverlay)
-		overlays += "minerjetpack-[icon_state]"
 	update_fire()
 
 /mob/living/silicon/robot/proc/installed_modules()
@@ -1345,6 +1358,7 @@ var/list/robot_verbs_default = list(
 	faction = list("nanotrasen")
 	designation = "Nanotrasen Combat"
 	req_access = list(access_cent_specops)
+	ionpulse = 1
 	var/searching_for_ckey = 0
 
 /mob/living/silicon/robot/deathsquad/New(loc)
@@ -1392,6 +1406,7 @@ var/list/robot_verbs_default = list(
 	designation = "Syndicate Assault"
 	modtype = "Syndicate"
 	req_access = list(access_syndicate)
+	ionpulse = 1
 	lawchannel = "State"
 	var/playstyle_string = "<span class='userdanger'>You are a Syndicate assault cyborg!</span><br>\
 							<b>You are armed with powerful offensive tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \
