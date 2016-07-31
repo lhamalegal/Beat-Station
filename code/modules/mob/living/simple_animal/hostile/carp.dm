@@ -1,5 +1,3 @@
-
-
 /mob/living/simple_animal/hostile/carp
 	name = "space carp"
 	desc = "A ferocious, fang-bearing creature that resembles a fish."
@@ -29,8 +27,6 @@
 	minbodytemp = 0
 	maxbodytemp = 1500
 
-
-
 	faction = list("carp")
 	flying = 1
 	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
@@ -49,18 +45,12 @@
 		var/mob/living/carbon/human/H = target
 		H.adjustStaminaLoss(8)
 
-
 /mob/living/simple_animal/hostile/carp/holocarp
 	icon_state = "holocarp"
 	icon_living = "holocarp"
 	maxbodytemp = INFINITY
 	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
-
-/mob/living/simple_animal/hostile/carp/holocarp/death()
-	..()
-	ghostize()
-	qdel(src)
-	return
+	del_on_death = 1
 
 /mob/living/simple_animal/hostile/carp/megacarp
 	icon = 'icons/mob/alienqueen.dmi'

@@ -116,7 +116,7 @@
 			M << 'sound/effects/mousesqueek.ogg'
 	..()
 
-/mob/living/simple_animal/mouse/death()
+/mob/living/simple_animal/mouse/death(gibbed)
 	layer = MOB_LAYER
 	if(client)
 		client.time_died_as_mouse = world.time
@@ -177,7 +177,7 @@
 /mob/living/simple_animal/mouse/Charlie/Crossed(AM as mob|obj)
 	return
 
-/mob/living/simple_animal/mouse/Charlie/death()
+/mob/living/simple_animal/mouse/Charlie/death(gibbed)
 	desc = "A minute of silence please."
 	..()
 /mob/living/simple_animal/mouse/Charlie/say_verb(message as text)
