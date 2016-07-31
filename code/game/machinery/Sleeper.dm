@@ -33,7 +33,7 @@
 /obj/machinery/sleep_console/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/sleep_console(null)
+	//component_parts += new /obj/item/weapon/circuitboard/sleep_console(null)
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 2)
