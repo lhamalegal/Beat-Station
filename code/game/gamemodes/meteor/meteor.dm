@@ -1,9 +1,10 @@
 /datum/game_mode/meteor
 	name = "meteor"
-	config_tag = "meteor"
+//	config_tag = "meteor"
 	var/const/initialmeteordelay = 6000
 	var/wave = 1
 	required_players = 35
+	votable = 0
 
 
 /datum/game_mode/meteor/announce()
