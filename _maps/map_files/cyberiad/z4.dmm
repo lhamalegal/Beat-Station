@@ -307,7 +307,7 @@
 "gq" = (/obj/structure/table,/obj/item/weapon/reagent_containers/food/snacks/chips,/turf/simulated/floor/plating,/area/exploration/methlab)
 "gr" = (/obj/item/ammo_casing{pixel_y = 3},/turf/simulated/floor/plating,/area/exploration/methlab)
 "gs" = (/obj/effect/decal/cleanable/blood/oil,/obj/item/ammo_casing{pixel_x = -4; pixel_y = -6},/turf/simulated/floor/plating,/area/exploration/methlab)
-"gt" = (/obj/structure/table,/obj/item/weapon/reagent_containers/drugs/baggie/meth,/obj/item/weapon/reagent_containers/drugs/baggie/meth,/obj/item/weapon/reagent_containers/drugs/baggie/meth,/turf/simulated/floor/plating,/area/exploration/methlab)
+"gt" = (/obj/structure/table,/obj/item/weapon/reagent_containers/glass/beaker/drugs/meth,/obj/item/weapon/reagent_containers/glass/beaker/drugs/meth,/obj/item/weapon/reagent_containers/glass/beaker/drugs/meth,/turf/simulated/floor/plating,/area/exploration/methlab)
 "gu" = (/obj/machinery/power/apc/noalarm{pixel_x = 26},/obj/structure/cable{icon_state = "0-2"; pixel_y = 1; d2 = 2},/turf/simulated/floor/plating,/area/exploration/methlab)
 "gv" = (/obj/machinery/floodlight,/turf/simulated/floor/plating,/area/exploration/methlab)
 "gw" = (/obj/machinery/chem_master,/turf/simulated/floor/plating,/area/exploration/methlab)
