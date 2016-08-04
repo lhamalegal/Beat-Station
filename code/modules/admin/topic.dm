@@ -427,7 +427,7 @@
 
 		var/banreason = appearance_isbanned(M)
 		if(banreason)
-	/*		if(!config.ban_legacy_system)
+		/*	if(!config.ban_legacy_system)
 				to_chat(usr, "Unfortunately, database based unbanning cannot be done through this panel")
 				DB_ban_panel(M.ckey)
 				return	*/
@@ -464,7 +464,7 @@
 				return
 
 	else if(href_list["jobban2"])
-//		if(!check_rights(R_BAN))	return
+		//if(!check_rights(R_BAN))	return
 
 		var/mob/M = locate(href_list["jobban2"])
 		if(!ismob(M))
@@ -2247,7 +2247,7 @@
 					qdel(O)
 				for(var/obj/structure/grille/O in world)
 					qdel(O)
-/*					for(var/obj/machinery/vehicle/pod/O in world)
+					/*for(var/obj/machinery/vehicle/pod/O in world)
 					for(var/mob/M in src)
 						M.loc = src.loc
 						if (M.client)
@@ -2333,7 +2333,7 @@
 					var/security = 0
 					if(!(loc.z in config.station_levels) || prisonwarped.Find(H))
 
-//don't warp them if they aren't ready or are already there
+						//don't warp them if they aren't ready or are already there
 						continue
 					H.Paralyse(5)
 					if(H.wear_id)
@@ -2421,7 +2421,7 @@
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","FL")
 				while(!usr.stat)
-//knock yourself out to stop the ghosts
+					//knock yourself out to stop the ghosts
 					for(var/mob/M in player_list)
 						if(M.stat != 2 && prob(25))
 							var/area/AffectedArea = get_area(M)
@@ -2448,7 +2448,7 @@
 				for(var/mob/M in player_list)
 					if(M.stat != 2)
 						M.show_message(text("\blue The chilling wind suddenly stops..."), 1)
-/*				if("shockwave")
+				/*if("shockwave")
 				ok = 1
 				to_chat(world, "\red <B><big>ALERT: STATION STRESS CRITICAL</big></B>")
 				sleep(60)
@@ -2599,7 +2599,7 @@
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","OO")
 				usr.client.only_one()
-//				message_admins("[key_name_admin(usr)] has triggered HIGHLANDER")
+				//message_admins("[key_name_admin(usr)] has triggered HIGHLANDER")
 			if("onlyme")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","OM")
@@ -2608,7 +2608,7 @@
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","OOT")
 				usr.client.only_one_team()
-//				message_admins("[key_name_admin(usr)] has triggered ")
+				//message_admins("[key_name_admin(usr)] has triggered ")
 			if("rolldice")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","ROL")
