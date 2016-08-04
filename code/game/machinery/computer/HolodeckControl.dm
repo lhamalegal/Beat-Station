@@ -250,7 +250,7 @@
 		var/area/targetsource = locate(/area/holodeck/source_emptycourt)
 		holographic_items = targetsource.copy_contents_to(linkedholodeck)
 
-/*		spawn(30)
+		/*spawn(30)
 			for(var/obj/effect/landmark/L in linkedholodeck)
 				if(L.name=="Atmospheric Test Start")
 					spawn(20)
@@ -373,7 +373,7 @@
 /obj/structure/table/holotable/wood
 	name = "table"
 	desc = "A square piece of wood standing on four wooden legs. It can not move."
-	icon = 'icons/obj/structures.dmi'
+	icon = 'icons/obj/smooth_structures/wood_table.dmi'
 	icon_state = "wood_table"
 
 /obj/item/clothing/gloves/boxing/hologlove
@@ -480,6 +480,12 @@
 		H.update_inv_l_hand()
 		H.update_inv_r_hand()
 	add_fingerprint(user)
+	return
+
+/obj/structure/stool/holostool
+
+/obj/structure/stool/holostool/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+	to_chat(user, "<span class='warning'>It's a holostool! There are no bolts!</span>")
 	return
 
 //BASKETBALL OBJECTS
