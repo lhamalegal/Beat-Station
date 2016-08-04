@@ -40,6 +40,8 @@
 	speak_emote = list("beeps","clicks","chirps")
 	can_hide = 1
 	ventcrawler = 2
+	loot = list(/obj/effect/decal/cleanable/blood/gibs/robot)
+	del_on_death = 1
 
 /mob/living/simple_animal/spiderbot/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 
@@ -205,11 +207,7 @@
 
 	..()
 
-/mob/living/simple_animal/spiderbot/death()
-
-	living_mob_list -= src
-	dead_mob_list += src
-
+/mob/living/simple_animal/spiderbot/death(gibbed)
 	if(camera)
 		camera.status = 0
 
@@ -217,8 +215,7 @@
 		held_item.forceMove(src.loc)
 		held_item = null
 
-	robogibs(src.loc, viruses)
-	qdel(src)
+	..()
 
 //Cannibalized from the parrot mob. ~Zuhayr
 
