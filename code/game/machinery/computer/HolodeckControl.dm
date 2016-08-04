@@ -482,7 +482,7 @@
 	add_fingerprint(user)
 	return
 
-/obj/item/weapon/stool/holostool
+/obj/structure/stool/holostool
 
 /obj/structure/stool/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	to_chat(user, "<span class='warning'>It's a holostool! There are no bolts!</span>")
