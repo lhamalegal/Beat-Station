@@ -873,7 +873,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	set name = "Reset Telecomms Scripts"
 	set desc = "Blanks all telecomms scripts from all telecomms servers"
 
-	if(!check_rights(R_ADMIN, 1, src))
+	if(!holder || !holder.rights || !holder.rights & R_ADMIN)
+		to_chat(usr, "<span class='warning'>Admin only.</span>")
 		return
 
 	var/confirm = alert(src, "You sure you want to blank all NTSL scripts?", "Confirm", "Yes", "No")

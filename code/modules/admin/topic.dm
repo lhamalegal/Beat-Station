@@ -427,7 +427,7 @@
 
 		var/banreason = appearance_isbanned(M)
 		if(banreason)
-	/*		if(!config.ban_legacy_system)
+		/*	if(!config.ban_legacy_system)
 				to_chat(usr, "Unfortunately, database based unbanning cannot be done through this panel")
 				DB_ban_panel(M.ckey)
 				return	*/
@@ -464,7 +464,7 @@
 				return
 
 	else if(href_list["jobban2"])
-//		if(!check_rights(R_BAN))	return
+		//if(!check_rights(R_BAN))	return
 
 		var/mob/M = locate(href_list["jobban2"])
 		if(!ismob(M))
@@ -1573,7 +1573,53 @@
 
 	else if(href_list["adminmoreinfo"])
 		var/mob/M = locate(href_list["adminmoreinfo"])
-		admin_mob_info(M)
+		if(!ismob(M))
+			to_chat(usr, "This can only be used on instances of type /mob")
+			return
+
+		var/location_description = ""
+		var/special_role_description = ""
+		var/health_description = ""
+		var/gender_description = ""
+		var/turf/T = get_turf(M)
+
+		//Location
+		if(isturf(T))
+			if(isarea(T.loc))
+				location_description = "([M.loc == T ? "at coordinates " : "in [M.loc] at coordinates "] [T.x], [T.y], [T.z] in area <b>[T.loc]</b>)"
+			else
+				location_description = "([M.loc == T ? "at coordinates " : "in [M.loc] at coordinates "] [T.x], [T.y], [T.z])"
+
+		//Job + antagonist
+		if(M.mind)
+			special_role_description = "Role: <b>[M.mind.assigned_role]</b>; Antagonist: <font color='red'><b>[M.mind.special_role]</b></font>; Has been rev: [(M.mind.has_been_rev)?"Yes":"No"]"
+		else
+			special_role_description = "Role: <i>Mind datum missing</i> Antagonist: <i>Mind datum missing</i>; Has been rev: <i>Mind datum missing</i>;"
+
+		//Health
+		if(isliving(M))
+			var/mob/living/L = M
+			var/status
+			switch (M.stat)
+				if (0) status = "Alive"
+				if (1) status = "<font color='orange'><b>Unconscious</b></font>"
+				if (2) status = "<font color='red'><b>Dead</b></font>"
+			health_description = "Status = [status]"
+			health_description += "<BR>Oxy: [L.getOxyLoss()] - Tox: [L.getToxLoss()] - Fire: [L.getFireLoss()] - Brute: [L.getBruteLoss()] - Clone: [L.getCloneLoss()] - Brain: [L.getBrainLoss()]"
+		else
+			health_description = "This mob type has no health to speak of."
+
+		//Gener
+		switch(M.gender)
+			if(MALE,FEMALE)	gender_description = "[M.gender]"
+			else			gender_description = "<font color='red'><b>[M.gender]</b></font>"
+
+		to_chat(src.owner, "<b>Info about [M.name]:</b> ")
+		to_chat(src.owner, "Mob type = [M.type]; Gender = [gender_description] Damage = [health_description]")
+		to_chat(src.owner, "Name = <b>[M.name]</b>; Real_name = [M.real_name]; Mind_name = [M.mind?"[M.mind.name]":""]; Key = <b>[M.key]</b>;")
+		to_chat(src.owner, "Location = [location_description];")
+		to_chat(src.owner, "[special_role_description]")
+		to_chat(src.owner, "(<a href='?src=\ref[usr];priv_msg=\ref[M]'>PM</a>) (<A HREF='?src=\ref[src];adminplayeropts=\ref[M]'>PP</A>) (<A HREF='?_src_=vars;Vars=\ref[M]'>VV</A>) (<A HREF='?src=\ref[src];subtlemessage=\ref[M]'>SM</A>) (<A HREF='?src=\ref[src];adminplayerobservefollow=\ref[M]'>FLW</A>) (<A HREF='?src=\ref[src];secretsadmin=check_antagonist'>CA</A>)")
 
 	else if(href_list["adminspawncookie"])
 		if(!check_rights(R_ADMIN|R_EVENT))	return
@@ -1817,7 +1863,6 @@
 			var/input = input(src.owner, "Please enter a reason for denying [key_name(H)]'s ERT request.","Outgoing message from CentComm", "")
 			if(!input)	return
 
-			ert_request_answered = 1
 			to_chat(src.owner, "You sent [input] to [H] via a secure channel.")
 			log_admin("[src.owner] denied [key_name(H)]'s ERT request with the message [input].")
 			to_chat(H, "You hear something crackle in your headset for a moment before a voice speaks.  \"Your ERT request has been denied for the following reasons: [input].  Message ends.\"")
@@ -2247,7 +2292,7 @@
 					qdel(O)
 				for(var/obj/structure/grille/O in world)
 					qdel(O)
-/*					for(var/obj/machinery/vehicle/pod/O in world)
+					/*for(var/obj/machinery/vehicle/pod/O in world)
 					for(var/mob/M in src)
 						M.loc = src.loc
 						if (M.client)
@@ -2333,7 +2378,7 @@
 					var/security = 0
 					if(!(loc.z in config.station_levels) || prisonwarped.Find(H))
 
-//don't warp them if they aren't ready or are already there
+						//don't warp them if they aren't ready or are already there
 						continue
 					H.Paralyse(5)
 					if(H.wear_id)
@@ -2421,7 +2466,7 @@
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","FL")
 				while(!usr.stat)
-//knock yourself out to stop the ghosts
+					//knock yourself out to stop the ghosts
 					for(var/mob/M in player_list)
 						if(M.stat != 2 && prob(25))
 							var/area/AffectedArea = get_area(M)
@@ -2448,7 +2493,7 @@
 				for(var/mob/M in player_list)
 					if(M.stat != 2)
 						M.show_message(text("\blue The chilling wind suddenly stops..."), 1)
-/*				if("shockwave")
+				/*if("shockwave")
 				ok = 1
 				to_chat(world, "\red <B><big>ALERT: STATION STRESS CRITICAL</big></B>")
 				sleep(60)
@@ -2599,7 +2644,7 @@
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","OO")
 				usr.client.only_one()
-//				message_admins("[key_name_admin(usr)] has triggered HIGHLANDER")
+				//message_admins("[key_name_admin(usr)] has triggered HIGHLANDER")
 			if("onlyme")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","OM")
@@ -2608,7 +2653,7 @@
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","OOT")
 				usr.client.only_one_team()
-//				message_admins("[key_name_admin(usr)] has triggered ")
+				//message_admins("[key_name_admin(usr)] has triggered ")
 			if("rolldice")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","ROL")
