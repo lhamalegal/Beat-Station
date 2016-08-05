@@ -272,9 +272,10 @@
 		text += "<br><b>enthralled</b>"
 		text = "<i><b>[text]</b></i>: "
 		if(src in ticker.mode.vampire_enthralled)
-			text += "<b><font color='#FF0000'>YES</font></b>|<a href='?src=\ref[src];vampthrall=clear'>no</a>"
+			text += "<b><font color='#FF0000'>YES</font></b>|no"
 		else
 			text += "yes|<font color='#00FF00'>NO</font></b>"
+
 
 		sections["vampire"] = text
 
@@ -1012,14 +1013,6 @@
 				to_chat(usr, "\blue The objectives for vampire [key] have been generated. You can edit them and announce manually.")
 				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
-
-	else if(href_list["vampthrall"])
-		switch(href_list["vampthrall"])
-			if("clear")
-				if(src in ticker.mode.vampire_enthralled)
-					ticker.mode.remove_vampire_mind(src)
-					log_admin("[key_name(usr)] has de-vampthralled [key_name(current)]")
-					message_admins("[key_name_admin(usr)] has de-vampthralled [key_name_admin(current)]")
 
 
 	else if (href_list["nuclear"])

@@ -34,9 +34,6 @@
 			return 1
 	return 0
 
-proc/isSSD(mob/M)
-	return istype(M) && M.player_logged
-
 proc/isAntag(A)
 	if(istype(A, /mob/living/carbon))
 		var/mob/living/carbon/C = A
