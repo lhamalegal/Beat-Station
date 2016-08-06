@@ -157,10 +157,18 @@
 				return
 
 			to_chat(usr, "<span class = 'notice'>ERT request transmitted.</span>")
-			if(admins.len)
-				ERT_Announce(ert_reason , event_triggered_by)
+			var/fullmin_count = 0
+			for(var/client/C in admins)
+				if (check_rights(R_EVENT, 0, C.mob))
+					fullmin_count++
+			if(fullmin_count)
+				ert_request_answered = 0
+				ERT_Announce(ert_reason , event_triggered_by, 0)
 				ert_reason = "Reason for ERT"
 				feedback_inc("alert_keycard_auth_ert",1)
+				spawn(3000)
+					if (!ert_request_answered)
+						ERT_Announce(ert_reason , event_triggered_by, 1)
 			else
 				trigger_armed_response_team(new /datum/response_team/amber) // No admins? No problem. Automatically send a code amber ERT.
 
