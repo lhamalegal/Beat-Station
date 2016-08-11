@@ -679,17 +679,17 @@ proc/CallMaterialName(ID)
 	data["disk_type"] = d_disk ? 2 : (t_disk ? 1 : 0)
 	data["category"] = selected_category
 	
-	if(menu == 1)
-		var/list/tech_levels = list()
-		data["tech_levels"] = tech_levels
-		for(var/datum/tech/T in files.known_tech)
-			if(T.level <= 0)
-				continue
-			var/list/this_tech_list = list()
-			this_tech_list["name"] = T.name
-			this_tech_list["level"] = T.level
-			this_tech_list["desc"] = T.desc
-			tech_levels[++tech_levels.len] = this_tech_list
+	//if(menu == 1)
+	var/list/tech_levels = list()
+	data["tech_levels"] = tech_levels
+	for(var/datum/tech/T in files.known_tech)
+		if(T.level <= 0)
+			continue
+		var/list/this_tech_list = list()
+		this_tech_list["name"] = T.name
+		this_tech_list["level"] = T.level
+		this_tech_list["desc"] = T.desc
+		tech_levels[++tech_levels.len] = this_tech_list
 	
 	if(menu == 2)
 		
