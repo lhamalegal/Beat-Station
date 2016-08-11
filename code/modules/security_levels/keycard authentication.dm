@@ -14,6 +14,9 @@
 	var/mob/event_triggered_by
 	var/mob/event_confirmed_by
 	var/ert_reason = "Reason for ERT"
+	//Reminder vars
+	var/ert_reason_re
+	var/mob/event_triggered_by_re
 	//1 = select event
 	//2 = authenticate
 	anchored = 1.0
@@ -164,11 +167,13 @@
 			if(fullmin_count)
 				ert_request_answered = 0
 				ERT_Announce(ert_reason , event_triggered_by, 0)
+				ert_reason_re = ert_reason
 				ert_reason = "Reason for ERT"
+				event_triggered_by_re = event_triggered_by
 				feedback_inc("alert_keycard_auth_ert",1)
 				spawn(3000)
 					if (!ert_request_answered)
-						ERT_Announce(ert_reason , event_triggered_by, 1)
+						ERT_Announce(ert_reason_re , event_triggered_by_re, 1)
 			else
 				trigger_armed_response_team(new /datum/response_team/amber) // No admins? No problem. Automatically send a code amber ERT.
 
