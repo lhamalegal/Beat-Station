@@ -62,6 +62,7 @@ var/global/datum/global_init/init = new ()
 		processScheduler.setup()
 
 		master_controller.setup()
+		getFormsFromWiki()
 		sleep_offline = 1
 
 	#ifdef MAP_NAME

@@ -35,6 +35,6 @@ proc/getFormsFromWiki()
 			if(!isnull(formContent) && formContent != "" && !isnull(formName) && formName != "")
 				public_forms["[formName]"] = formContent
 
-/obj/item/weapon/paper/form/publicForm/New(var/content ,date , user as mob, index = 0)
+/obj/item/weapon/paper/form/publicForm/New(var/content, user as mob, index = 0)
 	info = content
 	..()
