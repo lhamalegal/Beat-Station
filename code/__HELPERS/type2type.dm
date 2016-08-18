@@ -307,3 +307,17 @@
 	var/e = matrix_list[5]
 	var/f = matrix_list[6]
 	return matrix(a, b, c, d, e, f)
+
+/proc/text2list(txt, d="\n") //ripped off apollo
+	var/pos = findtext(txt, d)
+	var/start = 1
+	var/dlen = length(d)
+
+	. = list()
+
+	while(pos > 0)
+		. += copytext(txt, start, pos)
+		start = pos + dlen
+		pos = findtext(txt, d, start)
+
+	. += copytext(txt, start)
