@@ -79,7 +79,7 @@
 
 	var/server
 	var/banappeals
-	var/wikiurl = "http://example.org"
+	var/wikiurl = "https://beatstation.miraheze.org/wiki/"
 	var/forumurl = "http://example.org"
 	var/rulesurl = "http://example.org"
 	var/donationsurl = "http://example.org"
