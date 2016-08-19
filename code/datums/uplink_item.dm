@@ -310,6 +310,14 @@ var/list/uplink_items = list()
 	cost = 6
 	job = list("Life Support Specialist")
 
+/datum/uplink_item/dangerous/energizedfireaxe
+	name = "Energized Fire Axe"
+	desc = "A fire axe with a massive electrical charge built into it. It can release this charge on its first victim and will be rather plain after that."
+	reference = "EFA"
+	item = /obj/item/weapon/twohanded/energizedfireaxe
+	cost = 10
+	job = list("Life Support Specialist")
+
 //Stimulants
 
 /datum/uplink_item/jobspecific/stims
