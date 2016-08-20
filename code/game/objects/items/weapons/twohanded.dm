@@ -703,8 +703,8 @@
 				Z.ex_act(2)
 				charged = 3
 				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
-			
-/ Energized Fire axe
+
+// Energized Fire axe
 /obj/item/weapon/twohanded/energizedfireaxe
 	name = "energized fire axe"
 	desc = "Someone with a love for fire axes decided to turn one into a single-charge energy weapon. Seems excessive."
@@ -755,4 +755,4 @@
 				qdel(A)
 				if(prob(4))
 					charged++
-					user.visible_message("<span class='notice'>The axe starts to emit an electric buzz!</span>") 
+					user.visible_message("<span class='notice'>The axe starts to emit an electric buzz!</span>")
