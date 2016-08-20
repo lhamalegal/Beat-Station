@@ -60,8 +60,8 @@
 /obj/item/weapon/reagent_containers/hypospray/autoinjector
 	name = "emergency autoinjector"
 	desc = "A rapid and safe way to stabilize patients in critical condition for personnel without advanced medical knowledge."
-	icon_state = "autoinjector"
-	item_state = "autoinjector"
+	icon_state = "autoinjector1"
+	item_state = "autoinjector1"
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(10)
 	volume = 10
@@ -92,13 +92,13 @@
 /obj/item/weapon/reagent_containers/hypospray/autoinjector/teporone //basilisks
 	name = "teporone autoinjector"
 	desc = "A rapid way to regulate your body's temperature in the event of a hardsuit malfunction."
-	icon_state = "lepopen"
+	icon_state = "lepopen1"
 	list_reagents = list("teporone" = 10)
 
 /obj/item/weapon/reagent_containers/hypospray/autoinjector/stimpack //goliath kiting
 	name = "stimpack autoinjector"
 	desc = "A rapid way to stimulate your body's adrenaline, allowing for freer movement in restrictive armor."
-	icon_state = "stimpen"
+	icon_state = "stimpen1"
 	volume = 20
 	amount_per_transfer_from_this = 20
 	list_reagents = list("methamphetamine" = 10, "coffee" = 10)
@@ -106,7 +106,7 @@
 /obj/item/weapon/reagent_containers/hypospray/autoinjector/stimulants
 	name = "Stimulants autoinjector"
 	desc = "Rapidly stimulates and regernates the body's organ system."
-	icon_state = "stimpen"
+	icon_state = "stimpen1"
 	amount_per_transfer_from_this = 50
 	possible_transfer_amounts = list(50)
 	volume = 50
