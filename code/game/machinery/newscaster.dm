@@ -12,6 +12,7 @@
 	var/is_admin_message = 0
 	var/icon/img = null
 	var/icon/backup_img
+	var/view_count = 0
 
 /datum/feed_channel
 	var/channel_name=""
@@ -22,6 +23,7 @@
 	var/backup_author=""
 	var/censored=0
 	var/is_admin_channel=0
+	var/total_view_count = 0
 	//var/page = null //For newspapers
 
 /datum/feed_message/proc/clear()
@@ -31,6 +33,7 @@
 	src.backup_author = ""
 	src.img = null
 	src.backup_img = null
+	view_count = 0
 
 /datum/feed_channel/proc/clear()
 	src.channel_name = ""
@@ -40,6 +43,7 @@
 	src.backup_author = ""
 	src.censored = 0
 	src.is_admin_channel = 0
+	total_view_count = 0
 
 /datum/feed_channel/proc/announce_news()
 	return "Breaking news from [channel_name]!"
@@ -98,6 +102,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 	var/c_locked=0;        //Will our new channel be locked to public submissions?
 	var/hitstaken = 0      //Death at 3 hits from an item with force>=15
 	var/datum/feed_channel/viewing_channel = null
+	var/silence = 0
 	light_range = 0
 	anchored = 1
 
@@ -200,6 +205,8 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 				<BR><A href='?src=\ref[src];view=1'>View Feed Channels</A>
 				<BR><A href='?src=\ref[src];create_feed_story=1'>Submit new Feed story</A>
 				<BR><A href='?src=\ref[src];menu_paper=1'>Print newspaper</A>
+				<BR><A href='?src=\ref[src];silence_unit=1'>[silence ? "Unsilence" : "Silence"] unit</A>
+				<BR><A href='?src=\ref[src];unsilence_unit=1'>Unsilence unit</A>
 				<BR><A href='?src=\ref[src];refresh=1'>Re-scan User</A>
 				<BR><BR><A href='?src=\ref[human_or_robot_user];mach_close=newscaster_main'>Exit</A>"}
 				if(src.securityCaster)
@@ -219,7 +226,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 				else
 					for(var/datum/feed_channel/CHANNEL in news_network.network_channels)
 						if(CHANNEL.is_admin_channel)
-							dat+="<B><FONT style='BACKGROUND-COLOR: LightGreen '><A href='?src=\ref[src];show_channel=\ref[CHANNEL]'>[CHANNEL.channel_name]</A></FONT></B><BR>"
+							dat+="<B><A href='?src=\ref[src];show_channel=\ref[CHANNEL]' style='background-color: #00F53D'>[CHANNEL.channel_name]</A></B><BR>"
 						else
 							dat+="<B><A href='?src=\ref[src];show_channel=\ref[CHANNEL]'>[CHANNEL.channel_name]</A> [(CHANNEL.censored) ? ("<FONT COLOR='red'>***</FONT>") : ()]<BR></B>"
 					/*for(var/datum/feed_channel/CHANNEL in src.channel_list)
@@ -300,6 +307,8 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 				dat+="<BR><A href='?src=\ref[src];setScreen=[0]'>Cancel</A>"
 			if(9)
 				dat+="<B>[src.viewing_channel.channel_name]: </B><FONT SIZE=1>\[created by: <FONT COLOR='maroon'>[src.viewing_channel.author]</FONT>\]</FONT><HR>"
+				dat+="<FONT SIZE=1><I>Feed view count: [viewing_channel.total_view_count]</I></FONT><HR>"
+				viewing_channel.total_view_count++
 				if(src.viewing_channel.censored)
 					dat+="<FONT COLOR='red'><B>ATTENTION: </B></FONT>This channel has been deemed as threatening to the welfare of the station, and marked with a Nanotrasen D-Notice.<BR>"
 					dat+="No further feed story additions are allowed while the D-Notice is in effect.</FONT><BR><BR>"
@@ -315,6 +324,8 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 								usr << browse_rsc(MESSAGE.img, "tmp_photo[i].png")
 								dat+="<img src='tmp_photo[i].png' width = '180'><BR><BR>"
 							dat+="<FONT SIZE=1>\[[MESSAGE.message_type] by <FONT COLOR='maroon'>[MESSAGE.author]</FONT>\]</FONT><BR>"
+							dat+="<FONT SIZE=1><I>Message view count: [MESSAGE.view_count]</I></FONT><BR>"
+							MESSAGE.view_count++
 				dat+="<BR><HR><A href='?src=\ref[src];refresh=1'>Refresh</A>"
 				dat+="<BR><A href='?src=\ref[src];setScreen=[1]'>Back</A>"
 			if(10)
@@ -427,7 +438,9 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 				dat+="I'm sorry to break your immersion. This shit's bugged. Report this bug to Agouri, polyxenitopalidou@gmail.com"
 
 
-		human_or_robot_user << browse(dat, "window=newscaster_main;size=400x600")
+		var/datum/browser/popup = new(user, "newscaster_main", name, 400, 600)
+		popup.set_content(dat)
+		popup.open(0)
 		onclose(human_or_robot_user, "newscaster_main")
 
 	/*if(src.isbroken) //debugging shit
@@ -545,6 +558,13 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 			src.print_paper()
 			src.screen = 20
 		src.updateUsrDialog()
+
+	else if(href_list["silence_unit"])
+		if(silence)
+			silence=0
+		else
+		silence=1
+		updateUsrDialog()
 
 	else if(href_list["menu_censor_story"])
 		src.screen=10
@@ -794,7 +814,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 		switch(screen)
 			if(0) //Cover
 				dat+="<DIV ALIGN='center'><B><FONT SIZE=6>The Griffon</FONT></B></div>"
-				dat+="<DIV ALIGN='center'><FONT SIZE=2>Nanotrasen-standard newspaper, for use on Nanotrasen© Space Facilities</FONT></div><HR>"
+				dat+="<DIV ALIGN='center'><FONT SIZE=2>Nanotrasen-standard newspaper, for use on Nanotrasen Space Facilities</FONT></div><HR>"
 				if(isemptylist(src.news_content))
 					if(src.important_message)
 						dat+="Contents:<BR><ul><B><FONT COLOR='red'>**</FONT>Important Security Announcement<FONT COLOR='red'>**</FONT></B> <FONT SIZE=2>\[page [src.pages+2]\]</FONT><BR></ul>"
@@ -965,7 +985,8 @@ obj/item/weapon/newspaper/attackby(obj/item/weapon/W as obj, mob/user as mob, pa
 		spawn(300)
 			src.alert = 0
 			src.update_icon()
-		playsound(src.loc, 'sound/machines/twobeep.ogg', 75, 1)
+		if(!silence)
+			playsound(src.loc, 'sound/machines/twobeep.ogg', 75, 1)
 	else
 		for(var/mob/O in hearers(world.view-1, T))
 			O.show_message("<span class='newscaster'><EM>[src.name]</EM> beeps, \"Attention! Wanted issue distributed!\"</span>",2)
