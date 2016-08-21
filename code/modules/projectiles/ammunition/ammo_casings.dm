@@ -133,10 +133,10 @@
 /obj/item/ammo_casing/shotgun/improvised
 	name = "improvised shell"
 	desc = "An extremely weak shotgun shell with multiple small pellets made out of metal shards."
-	icon_state = "gshell"
+	icon_state = "improvshell"
 	projectile_type = /obj/item/projectile/bullet/pellet/weak
 	materials = list(MAT_METAL=250)
-	pellets = 5
+	pellets = 10
 	variance = 25
 
 /obj/item/ammo_casing/shotgun/improvised/overload
@@ -146,12 +146,8 @@
 	icon_state = "improvshell"
 	projectile_type = /obj/item/projectile/bullet/pellet/overload
 	materials = list(MAT_METAL=250)
-	pellets = 5
+	pellets = 4
 	variance = 40
-
-/obj/item/ammo_casing/shotgun/improvised/overload/New()
-	..()
-	pellets = rand(3, 8)
 
 /obj/item/ammo_casing/shotgun/stunslug
 	name = "taser slug"
@@ -213,7 +209,7 @@
 	name = "laser slug"
 	desc = "An advanced shotgun shell that uses a micro laser to replicate the effects of a laser weapon in a ballistic package."
 	icon_state = "lshell"
-	projectile_type = /obj/item/projectile/beam
+	projectile_type = /obj/item/projectile/beam/laser
 
 /obj/item/ammo_casing/shotgun/techshell
 	name = "unloaded technological shell"
