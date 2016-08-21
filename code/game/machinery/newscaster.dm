@@ -563,8 +563,8 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 		if(silence)
 			silence=0
 		else
-		silence=1
-		updateUsrDialog()
+			silence=1
+			updateUsrDialog()
 
 	else if(href_list["menu_censor_story"])
 		src.screen=10
