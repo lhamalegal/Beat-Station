@@ -42,6 +42,8 @@
 
 /obj/machinery/power/smes/New()
 	..()
+	SMESs += src
+	SMESs = sortAtom(SMESs)
 	component_parts = list()
 	component_parts += new /obj/item/weapon/circuitboard/smes(null)
 	component_parts += new /obj/item/weapon/stock_parts/cell/high(null)
@@ -209,6 +211,7 @@
 	return 0
 
 /obj/machinery/power/smes/Destroy()
+	SMESs -= src
 	if(ticker && ticker.current_state == GAME_STATE_PLAYING)
 		var/area/area = get_area(src)
 		if(area)

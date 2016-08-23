@@ -471,7 +471,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	for(var/area/A in world)
 		areas_all |= A.type
 
-	for(var/obj/machinery/power/apc/APC in world)
+	for(var/obj/machinery/power/apc/APC in apcs)
 		var/area/A = get_area(APC)
 		if(!A)
 			continue
@@ -1462,7 +1462,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			if(!Rad.active)
 				Rad.toggle_power()
 
-	for(var/obj/machinery/power/smes/SMES in world)
+	for(var/obj/machinery/power/smes/SMES in SMESs)
 		if(SMES.anchored)
 			SMES.input_attempt = 1
 
