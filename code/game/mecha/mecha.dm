@@ -1223,7 +1223,7 @@
 		dir = dir_in
 		playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 		if(!hasInternalDamage())
-			playsound(src, 'sound/mecha/nominal.ogg', 50, 1
+			playsound(src, 'sound/mecha/nominal.ogg', 50, 1)
 			//to_chat(src.occupant, sound('sound/mecha/nominal.ogg',volume=50)) // Runtime error here
 
 			//I will fix this error on another PR.
