@@ -264,7 +264,7 @@
 	origin_tech = "combat=1;materials=1"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/cap
 
-/obj/item/weapon/gun/projectile/revolver/capgun/attack_self(mob/user)
+/obj/item/weapon/gun/projectile/revolver/capgun/attack_self(mob/user) //Fix for being unable to load cap bullets in it.
 	return
 
 
