@@ -961,7 +961,7 @@
 		return 0
 
 	else if (href_list["overload"])
-		if(istype(usr, /mob/living/silicon) && !aidisabled)
+		if(issilicon(usr) && !aidisabled)
 			src.overload_lighting()
 
 	else if (href_list["malfhack"])
@@ -975,7 +975,7 @@
 			malfai.malfhacking = 1
 			sleep(600)
 			if(src)
-				if (!src.aidisabled)
+				if (!aidisabled)
 					malfai.malfhack = null
 					malfai.malfhacking = 0
 					locked = 1
@@ -983,9 +983,9 @@
 						if ((src.z in config.station_levels)) //if (is_type_in_list(get_area(src), the_station_areas))
 							ticker.mode:apcs++
 					if(usr:parent)
-						src.malfai = usr:parent
+						malfai = usr:parent
 					else
-						src.malfai = usr
+						malfai = usr
 					to_chat(malfai, "Hack complete. The APC is now under your exclusive control.")
 					update_icon()
 
