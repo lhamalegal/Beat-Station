@@ -39,7 +39,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 		L.imp_in = H
 		L.implanted = 1
 		H.sec_hud_set_implants()
-		captain_announcement.Announce("All hands, captain [H.real_name] on deck!")
+		captain_announcement.Announce("All hands, Captain [H.real_name] on deck!")
 		callHook("captain_spawned", list("captain" = H))
 		return 1
 
