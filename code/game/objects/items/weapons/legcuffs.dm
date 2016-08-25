@@ -204,7 +204,7 @@
 	desc = "A specialized hard-light bola designed to ensnare fleeing criminals and aid in arrests."
 	icon_state = "ebola"
 	hitsound = 'sound/weapons/tase.ogg'
- 	w_class = 2
+	w_class = 2
 	breakouttime = 60
 
 /obj/item/weapon/restraints/legcuffs/bola/energy/throw_impact(atom/hit_atom)
