@@ -110,7 +110,7 @@
 		var/obj/item/stack/sheet/metal/M = I
 		if(M.amount < 6)
 			to_chat(user, "<span class='warning'>You need at least six metal sheets to make good enough weights!</span>")
- 			return
+			return
 		to_chat(user, "<span class='notice'>You begin to apply [I] to [src]...</span>")
 		if(do_after(user, 35, target = src))
 			var/obj/item/weapon/restraints/legcuffs/bola/S = new /obj/item/weapon/restraints/legcuffs/bola
