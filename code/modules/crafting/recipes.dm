@@ -54,14 +54,14 @@
 	time = 40
 	parts = list(/obj/item/weapon/stock_parts/cell = 1)
 	category = CAT_WEAPON
-/*
+
 /datum/crafting_recipe/bola
 	name = "Bola"
 	result = /obj/item/weapon/restraints/legcuffs/bola
 	reqs = list(/obj/item/weapon/restraints/handcuffs/cable = 1,
 				/obj/item/stack/sheet/metal = 6)
 	time = 20//15 faster than crafting them by hand!
-	category= CAT_WEAPON*/
+	category= CAT_WEAPON
 
 /datum/crafting_recipe/ed209
 	name = "ED209"
