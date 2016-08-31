@@ -8526,7 +8526,7 @@
 "dhX" = (/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"; tag = ""},/turf/simulated/floor/plating,/area/maintenance/starboardsolar)
 "dhY" = (/obj/machinery/power/terminal{icon_state = "term"; dir = 1},/obj/structure/cable{d2 = 8; icon_state = "0-8"},/obj/machinery/light/small{dir = 4},/turf/simulated/floor/plating,/area/maintenance/starboardsolar)
 "dhZ" = (/obj/machinery/light{dir = 8},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/obj/structure/grille,/turf/simulated/floor/plating/airless,/area/engine/engineering)
-"dia" = (/obj/machinery/the_singularitygen/tesla{step_x = 0; anchored = 1},/turf/simulated/floor/plating/airless,/area/space)
+"dia" = (/obj/machinery/the_singularitygen/tesla{anchored = 1},/turf/simulated/floor/plating/airless,/area/space)
 "dib" = (/obj/effect/decal/warning_stripes/west,/obj/item/weapon/wrench,/turf/simulated/floor/plating/airless,/area/space)
 "dic" = (/obj/effect/decal/warning_stripes/east,/turf/simulated/floor/plating/airless,/area/space)
 "did" = (/obj/machinery/light{dir = 4; icon_state = "tube1"},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/obj/structure/grille,/turf/simulated/floor/plating/airless,/area/engine/engineering)
