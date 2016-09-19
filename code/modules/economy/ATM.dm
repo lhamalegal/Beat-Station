@@ -122,96 +122,95 @@ log transactions
 	if(istype(user, /mob/living/silicon))
 		to_chat(user, "\red Artificial unit recognized. Artificial units do not currently receive monetary compensation, as per Nanotrasen regulation #1005.")
 		return
-	if(get_dist(src,user) <= 1)
-		//check to see if the user has low security enabled
-		scan_user(user)
+	//check to see if the user has low security enabled
+	scan_user(user)
+	src.add_fingerprint(user)
 
-		//js replicated from obj/machinery/computer/card
-		var/dat = {"<h1>Nanotrasen Automatic Teller Machine</h1>
-			For all your monetary needs!<br>
-			<i>This terminal is</i> [machine_id]. <i>Report this code when contacting Nanotrasen IT Support</i><br/>
-			Card: <a href='?src=\ref[src];choice=insert_card'>[held_card ? held_card.name : "------"]</a><br><br>"}
+	//js replicated from obj/machinery/computer/card
+	var/dat = {"<h1>Nanotrasen Automatic Teller Machine</h1>
+		For all your monetary needs!<br>
+		<i>This terminal is</i> [machine_id]. <i>Report this code when contacting Nanotrasen IT Support</i><br/>
+		Card: <a href='?src=\ref[src];choice=insert_card'>[held_card ? held_card.name : "------"]</a><br><br>"}
 
-		if(ticks_left_locked_down > 0)
-			dat += "<span class='alert'>Maximum number of pin attempts exceeded! Access to this ATM has been temporarily disabled.</span>"
-		else if(authenticated_account)
-			switch(view_screen)
-				if(CHANGE_SECURITY_LEVEL)
-					dat += "Select a new security level for this account:<br><hr>"
-					var/text = "Zero - Either the account number or card is required to access this account. EFTPOS transactions will require a card and ask for a pin, but not verify the pin is correct."
-					if(authenticated_account.security_level != 0)
-						text = "<A href='?src=\ref[src];choice=change_security_level;new_security_level=0'>[text]</a>"
-					dat += "[text]<hr>"
-					text = "One - An account number and pin must be manually entered to access this account and process transactions."
-					if(authenticated_account.security_level != 1)
-						text = "<A href='?src=\ref[src];choice=change_security_level;new_security_level=1'>[text]</a>"
-					dat += "[text]<hr>"
-					text = "Two - In addition to account number and pin, a card is required to access this account and process transactions."
-					if(authenticated_account.security_level != 2)
-						text = "<A href='?src=\ref[src];choice=change_security_level;new_security_level=2'>[text]</a>"
-					dat += {"[text]<hr><br>
-						<A href='?src=\ref[src];choice=view_screen;view_screen=0'>Back</a>"}
-				if(VIEW_TRANSACTION_LOGS)
-					dat += {"<b>Transaction logs</b><br>
-						<A href='?src=\ref[src];choice=view_screen;view_screen=0'>Back</a>
-						<table border=1 style='width:100%'>
-						<tr>
-						<td><b>Date</b></td>
-						<td><b>Time</b></td>
-						<td><b>Target</b></td>
-						<td><b>Purpose</b></td>
-						<td><b>Value</b></td>
-						<td><b>Source terminal ID</b></td>
+	if(ticks_left_locked_down > 0)
+		dat += "<span class='alert'>Maximum number of pin attempts exceeded! Access to this ATM has been temporarily disabled.</span>"
+	else if(authenticated_account)
+		switch(view_screen)
+			if(CHANGE_SECURITY_LEVEL)
+				dat += "Select a new security level for this account:<br><hr>"
+				var/text = "Zero - Either the account number or card is required to access this account. EFTPOS transactions will require a card and ask for a pin, but not verify the pin is correct."
+				if(authenticated_account.security_level != 0)
+					text = "<A href='?src=\ref[src];choice=change_security_level;new_security_level=0'>[text]</a>"
+				dat += "[text]<hr>"
+				text = "One - An account number and pin must be manually entered to access this account and process transactions."
+				if(authenticated_account.security_level != 1)
+					text = "<A href='?src=\ref[src];choice=change_security_level;new_security_level=1'>[text]</a>"
+				dat += "[text]<hr>"
+				text = "Two - In addition to account number and pin, a card is required to access this account and process transactions."
+				if(authenticated_account.security_level != 2)
+					text = "<A href='?src=\ref[src];choice=change_security_level;new_security_level=2'>[text]</a>"
+				dat += {"[text]<hr><br>
+					<A href='?src=\ref[src];choice=view_screen;view_screen=0'>Back</a>"}
+			if(VIEW_TRANSACTION_LOGS)
+				dat += {"<b>Transaction logs</b><br>
+					<A href='?src=\ref[src];choice=view_screen;view_screen=0'>Back</a>
+					<table border=1 style='width:100%'>
+					<tr>
+					<td><b>Date</b></td>
+					<td><b>Time</b></td>
+					<td><b>Target</b></td>
+					<td><b>Purpose</b></td>
+					<td><b>Value</b></td>
+					<td><b>Source terminal ID</b></td>
+					</tr>"}
+				for(var/datum/transaction/T in authenticated_account.transaction_log)
+					dat += {"<tr>
+						<td>[T.date]</td>
+						<td>[T.time]</td>
+						<td>[T.target_name]</td>
+						<td>[T.purpose]</td>
+						<td>$[T.amount]</td>
+						<td>[T.source_terminal]</td>
 						</tr>"}
-					for(var/datum/transaction/T in authenticated_account.transaction_log)
-						dat += {"<tr>
-							<td>[T.date]</td>
-							<td>[T.time]</td>
-							<td>[T.target_name]</td>
-							<td>[T.purpose]</td>
-							<td>$[T.amount]</td>
-							<td>[T.source_terminal]</td>
-							</tr>"}
-					dat += "</table>"
-				if(TRANSFER_FUNDS)
-					dat += {"<b>Account balance:</b> $[authenticated_account.money]<br>
-						<A href='?src=\ref[src];choice=view_screen;view_screen=0'>Back</a><br><br>
-						<form name='transfer' action='?src=\ref[src]' method='get'>
-						<input type='hidden' name='src' value='\ref[src]'>
-						<input type='hidden' name='choice' value='transfer'>
-						Target account number: <input type='text' name='target_acc_number' value='' style='width:200px; background-color:white;'><br>
-						Funds to transfer: <input type='text' name='funds_amount' value='' style='width:200px; background-color:white;'><br>
-						Transaction purpose: <input type='text' name='purpose' value='Funds transfer' style='width:200px; background-color:white;'><br>
-						<input type='submit' value='Transfer funds'><br>
-						</form>"}
-				else
-					dat += {"Welcome, <b>[authenticated_account.owner_name].</b><br/>
-						<b>Account balance:</b> $[authenticated_account.money]
-						<form name='withdrawal' action='?src=\ref[src]' method='get'>
-						<input type='hidden' name='src' value='\ref[src]'>
-						<input type='hidden' name='choice' value='withdrawal'>
-						<input type='text' name='funds_amount' value='' style='width:200px; background-color:white;'><input type='submit' value='Withdraw funds'><br>
-						</form>
-						<A href='?src=\ref[src];choice=view_screen;view_screen=1'>Change account security level</a><br>
-						<A href='?src=\ref[src];choice=view_screen;view_screen=2'>Make transfer</a><br>
-						<A href='?src=\ref[src];choice=view_screen;view_screen=3'>View transaction log</a><br>
-						<A href='?src=\ref[src];choice=balance_statement'>Print balance statement</a><br>
-						<A href='?src=\ref[src];choice=logout'>Logout</a><br>"}
-		else if(linked_db)
-			dat += {"<form name='atm_auth' action='?src=\ref[src]' method='get'>
-				<input type='hidden' name='src' value='\ref[src]'>
-				<input type='hidden' name='choice' value='attempt_auth'>
-				<b>Account:</b> <input type='text' id='account_num' name='account_num' style='width:250px; background-color:white;'><br>
-				<b>PIN:</b> <input type='text' id='account_pin' name='account_pin' style='width:250px; background-color:white;'><br>
-				<input type='submit' value='Submit'><br>
-				</form>"}
-		else
-			dat += "<span class='warning'>Unable to connect to accounts database, please retry and if the issue persists contact Nanotrasen IT support.</span>"
-			reconnect_database()
-
-		user << browse(dat,"window=atm;size=550x650")
+				dat += "</table>"
+			if(TRANSFER_FUNDS)
+				dat += {"<b>Account balance:</b> $[authenticated_account.money]<br>
+					<A href='?src=\ref[src];choice=view_screen;view_screen=0'>Back</a><br><br>
+					<form name='transfer' action='?src=\ref[src]' method='get'>
+					<input type='hidden' name='src' value='\ref[src]'>
+					<input type='hidden' name='choice' value='transfer'>
+					Target account number: <input type='text' name='target_acc_number' value='' style='width:200px; background-color:white;'><br>
+					Funds to transfer: <input type='text' name='funds_amount' value='' style='width:200px; background-color:white;'><br>
+					Transaction purpose: <input type='text' name='purpose' value='Funds transfer' style='width:200px; background-color:white;'><br>
+					<input type='submit' value='Transfer funds'><br>
+					</form>"}
+			else
+				dat += {"Welcome, <b>[authenticated_account.owner_name].</b><br/>
+					<b>Account balance:</b> $[authenticated_account.money]
+					<form name='withdrawal' action='?src=\ref[src]' method='get'>
+					<input type='hidden' name='src' value='\ref[src]'>
+					<input type='hidden' name='choice' value='withdrawal'>
+					<input type='text' name='funds_amount' value='' style='width:200px; background-color:white;'><input type='submit' value='Withdraw funds'><br>
+					</form>
+					<A href='?src=\ref[src];choice=view_screen;view_screen=1'>Change account security level</a><br>
+					<A href='?src=\ref[src];choice=view_screen;view_screen=2'>Make transfer</a><br>
+					<A href='?src=\ref[src];choice=view_screen;view_screen=3'>View transaction log</a><br>
+					<A href='?src=\ref[src];choice=balance_statement'>Print balance statement</a><br>
+					<A href='?src=\ref[src];choice=logout'>Logout</a><br>"}
+	else if(linked_db)
+		dat += {"<form name='atm_auth' action='?src=\ref[src]' method='get'>
+			<input type='hidden' name='src' value='\ref[src]'>
+			<input type='hidden' name='choice' value='attempt_auth'>
+			<b>Account:</b> <input type='text' id='account_num' name='account_num' style='width:250px; background-color:white;'><br>
+			<b>PIN:</b> <input type='text' id='account_pin' name='account_pin' style='width:250px; background-color:white;'><br>
+			<input type='submit' value='Submit'><br>
+			</form>"}
 	else
-		user << browse(null,"window=atm")
+		dat += "<span class='warning'>Unable to connect to accounts database, please retry and if the issue persists contact Nanotrasen IT support.</span>"
+		reconnect_database()
+
+	user << browse(dat,"window=atm;size=550x650")
+
 
 /obj/machinery/atm/Topic(var/href, var/href_list)
 	if(href_list["choice"])
