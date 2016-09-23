@@ -496,7 +496,26 @@
 
 		if(ticker.mode.cult.len)
 			dat += check_role_table("Cultists", ticker.mode.cult, 0)
+	
+		if(ticker.mode.red_deities.len || ticker.mode.red_deity_prophets.len || ticker.mode.blue_deity_prophets.len || ticker.mode.red_deity_followers.len || ticker.mode.blue_deity_followers.len)
+			if(ticker.mode.red_deities.len)
+				dat += check_role_table("Red Deity", ticker.mode.red_deities)
+			
+			if(ticker.mode.blue_deities.len)
+				dat += check_role_table("Blue Deity", ticker.mode.blue_deities)
+				
+			if(ticker.mode.red_deity_prophets.len)
+				dat += check_role_table("Red Deity Prophets", ticker.mode.red_deity_prophets)
 
+			if(ticker.mode.blue_deity_prophets.len)
+				dat += check_role_table("Blue Deity Prophets", ticker.mode.blue_deity_prophets)
+
+			if(ticker.mode.red_deity_followers.len)
+				dat += check_role_table("Red Deity Followers", ticker.mode.red_deity_followers)
+
+			if(ticker.mode.blue_deity_followers.len)
+				dat += check_role_table("Blue Deity Followers", ticker.mode.blue_deity_followers)
+			
 		if(ticker.mode.traitors.len)
 			dat += check_role_table("Traitors", ticker.mode.traitors)
 

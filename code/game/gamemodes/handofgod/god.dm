@@ -8,8 +8,8 @@
 	see_in_dark = 0
 	see_invisible = 55
 	sight = SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF
-	var/languages_spoken = ALL
-	var/languages_understood = ALL
+	var/languages_spoken = LANGUAGE_UNIVERSAL
+	var/languages_understood = LANGUAGE_UNIVERSAL
 	hud_possible = list(SPECIALROLE_HUD)
 	mouse_opacity = 0 //can't be clicked
 

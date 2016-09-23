@@ -101,14 +101,12 @@ var/global/list/global_handofgod_structuretypes = list()
 		remove_hog_follower(blue_god,0)
 		add_god(blue_god,"blue")
 
-
 	//Forge objectives
 	//This is done here so that both gods exist
 	if(red_god)
 		ticker.mode.forge_deity_objectives(red_god)
 	if(blue_god)
 		ticker.mode.forge_deity_objectives(blue_god)
-
 
 	..()
 
