@@ -1,0 +1,35 @@
+<!--
+Title: Forbidden Fruits
+-->
+
+<div class='item'>
+	 <h2>{{:data.src_name}}</h2>
+</div>
+
+<!-- Penis -->
+{{if data.usr_gender == 1}}
+	<div class='itemLabel'>
+		Penis: 
+	</div>
+
+	<div class='itemContent'>
+		{{:helper.link('Fuck her/his mouth', '', {'fuck' : 'mouth'})}}
+		{{:helper.link('Fuck her/his anus', '', {'fuck' : 'anus'})}}
+		{{if data.src_gender == 0}}
+			{{:helper.link('Fuck her vagina', '', {'fuck' : 'vagina'})}}
+		{{/if}}
+	</div>
+{{/if}}
+
+<!-- Mouth -->
+<div class='itemLabel'>
+	Mouth: 
+</div>
+
+<div class='itemContent'>
+	{{if data.src_gender == 0}}
+		{{:helper.link('Lick her vagina', '', {'oral' : 'vagina'})}}
+	{{else}}
+		{{:helper.link('Suck his penis', '', {'oral' : 'penis'})}}
+	{{/if}}
+</div>

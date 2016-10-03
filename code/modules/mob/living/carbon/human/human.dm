@@ -11,10 +11,16 @@
 	var/embedded_flag	  //To check if we've need to roll for damage on movement while an item is imbedded in us.
 	var/obj/item/weapon/rig/wearing_rig // This is very not good, but it's much much better than calling get_rig() every update_canmove() call.
 
+	// ERP Controller
+	var/datum/forbidden_controller/erp_controller
+
 /mob/living/carbon/human/New(var/new_loc, var/new_species = null, var/delay_ready_dna = 0)
 	if(!dna)
 		dna = new /datum/dna(null)
 		// Species name is handled by set_species()
+
+	if(!erp_controller)
+		erp_controller = new /datum/forbidden_controller(src)
 
 	if(!species)
 		if(new_species)
@@ -1098,6 +1104,65 @@
 	if (href_list["lookmob"])
 		var/mob/M = locate(href_list["lookmob"])
 		src.examinate(M)
+
+	/*              ERP                 */
+	var/mob/living/carbon/human/owner = usr
+
+	if(!istype(owner))
+		return
+
+	if(get_dist(owner, src) > 1 || owner.stat || owner.weakened || owner.stunned || owner.paralysis)
+		return
+
+	if(get_dist(owner, src) <= 1 && owner != src)
+		if(href_list["oral"])
+			switch(href_list["oral"])
+
+				if("penis")
+					if(gender == MALE && !erp_controller.fucking)
+						owner.visible_message("<span class='erp'><b>[owner]</b> sucks [src]'s cock.</span>")
+						owner.erp_controller.fucking(src, "oral=penis")
+						erp_controller.fucked(owner, "oral=penis")
+
+						erp_controller.give_pleasure(10)
+						owner.erp_controller.give_pleasure(1)
+
+				else if("vagina")
+					if(gender == FEMALE)
+						owner.erp_controller.fucking(src, "oral=vagina")
+						erp_controller.fucked(owner, "oral=vagina")
+
+						erp_controller.give_pleasure(10)
+						owner.erp_controller.give_pleasure(1)
+
+	if(get_dist(owner, src) == 0 && owner != src)
+		if(href_list["fuck"])
+			if(owner.gender == MALE)
+				switch(href_list["fuck"])
+
+					if("anus")
+						owner.erp_controller.fucking(src, "fuck=anus")
+						erp_controller.fucked(owner, "fuck=anus")
+
+						erp_controller.give_pleasure(10)
+						owner.erp_controller.give_pleasure(10)
+
+					else if("vagina")
+						if(gender == FEMALE)
+							owner.erp_controller.fucking(src, "fuck=vagina")
+							erp_controller.fucked(owner, "fuck=vagina")
+
+							erp_controller.give_pleasure(10)
+							owner.erp_controller.give_pleasure(10)
+
+					else if("mouth")
+						owner.erp_controller.fucking(src, "fuck=mouth")
+						erp_controller.fucked(owner, "fuck=mouth")
+
+						erp_controller.give_pleasure(1)
+						owner.erp_controller.give_pleasure(10)
+
+	nanomanager.update_uis(src)
 	. = ..()
 
 
@@ -2034,3 +2099,29 @@
 		return 0
 
 	return .
+
+
+//ERP!
+// NanoUI
+/mob/living/carbon/human/ui_interact(mob/living/carbon/human/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	if(get_dist(user, src) > 1)
+		to_chat(world, "get_dist(owner, src) > 1")
+		return
+
+	var/data[0]
+	data["src_gender"] = (gender == MALE ? 1 : 0)
+	data["usr_gender"] = (user.gender == MALE ? 1 : 0)
+	data["src_name"] = "[src]"
+
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
+	if (!ui)
+		ui = new(user, src, ui_key, "erp.tmpl", "Forbidden Fruits", 450, 550)
+		ui.set_initial_data(data)
+		ui.open()
+
+/mob/living/carbon/human/MouseDrop_T(mob/living/carbon/human/target, mob/living/carbon/human/user)
+	// User drag himself to [src]
+	if(istype(target))
+		if(user == target && get_dist(user, src) <= 1)
+			ui_interact(user)
+	return ..()

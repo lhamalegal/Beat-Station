@@ -58,6 +58,9 @@ h1.alert, h2.alert		{color: #000000;}
 .disarm					{color: #990000;}
 .passive				{color: #660000;}
 
+.erp					{color: #AA00AA;	font-size: 5;}
+.cum					{font-size: 5;}
+
 .biggerdanger			{color: #ff0000;	font-weight: bold; font-size: 5;}
 .userdanger				{color: #ff0000;	font-weight: bold; font-size: 3;}
 .danger					{color: #ff0000;	font-weight: bold;}
