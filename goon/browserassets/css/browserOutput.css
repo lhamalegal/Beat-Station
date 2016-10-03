@@ -272,8 +272,8 @@ h1.alert, h2.alert		{color: #000000;}
 .disarm					{color: #990000;}
 .passive				{color: #660000;}
 
-.erp					{color: #AA00AA;	font-size: 5;}
-.cum					{font-size: 5;}
+.erp					{color: #AA00AA;}
+.cum					{font-size: 120%;	color: #AA00AA;}
 
 .warning				{color: #ff0000;	font-style: italic;}
 .danger					{color: #ff0000;	font-weight: bold;}

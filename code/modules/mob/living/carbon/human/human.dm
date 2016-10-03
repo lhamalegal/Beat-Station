@@ -2106,6 +2106,9 @@
 	data["src_gender"] = (gender == MALE ? 1 : 0)
 	data["usr_gender"] = (user.gender == MALE ? 1 : 0)
 	data["src_name"] = "[src]"
+	data["dist"] = get_dist(user, src)
+	data["src_jumpsuit"] = istype(w_uniform, /obj/item/clothing/under)
+	data["usr_jumpsuit"] = istype(user.w_uniform, /obj/item/clothing/under)
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
