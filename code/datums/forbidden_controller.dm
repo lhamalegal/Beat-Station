@@ -52,34 +52,35 @@
 	if(anal_virgin && action == FUCK_ANUS)
 		anal_virgin = 0
 
-	if(pleasure >= 50 && prob(15) && owner.gender == FEMALE)
+	if(pleasure >= 50 && prob(10) && owner.gender == FEMALE)
 		owner.visible_message("<span class='erp'><b>[owner]</b> twists in orgasm!</span>")
 
 	if(pleasure >= 10 && prob(20))
+		var/vr
 		if(owner.gender == FEMALE)
-			var/vr = pick("moans in pleasure", "moans")
+			vr = pick("moans in pleasure", "moans")
 		else
-			var/vr = "moans"
+			vr = "moans"
 		owner.visible_message("<span class='erp'><b>[owner]</b> [vr].</span>")
 
 /datum/forbidden_controller/proc/fucking(mob/living/carbon/human/who, action)
 	if(!istype(who))
 		return
 
-	if(!click_check)
+	if(!click_check())
 		return
 
 	who.erp_controller.time_check()
 
 	if(!who.erp_controller.fucking_list || !who.erp_controller.fucking_list[owner])
 		begins_text(action, who)
-		if(do_after(owner, 30, target = who))
+		if(do_after(owner, 50, target = who))
 			who.erp_controller.fucking_list.Add(owner)
 		else
 			return
 
 	who.erp_controller.timevar = world.time + 100
-	click_check = world.time + 1
+	click_time = world.time + 5
 
 	fucking_action = action
 	fucking = who
