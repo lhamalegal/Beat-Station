@@ -25,6 +25,7 @@
 	var/fucked_action = "none"
 
 	var/timevar
+	var/click_time
 
 	var/mob/living/carbon/human/source
 
@@ -65,9 +66,12 @@
 	if(!istype(who))
 		return
 
+	if(!click_check)
+		return
+
 	who.erp_controller.time_check()
 
-	if(!(owner in who.erp_controller.fucking_list))
+	if(!who.erp_controller.fucking_list || !who.erp_controller.fucking_list[owner])
 		begins_text(action, who)
 		if(do_after(owner, 30, target = who))
 			who.erp_controller.fucking_list.Add(owner)
@@ -75,6 +79,7 @@
 			return
 
 	who.erp_controller.timevar = world.time + 100
+	click_check = world.time + 1
 
 	fucking_action = action
 	fucking = who
@@ -94,6 +99,11 @@
 /datum/forbidden_controller/proc/time_check()
 	if(world.time >= timevar)
 		fucking_list = new /list()
+
+/datum/forbidden_controller/proc/click_check()
+	if(world.time >= click_time)
+		return 1
+	return 0
 
 /* Message Procs */
 

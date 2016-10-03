@@ -9,40 +9,50 @@ Used In File(s): /code/modules/mob/living/carbon/human/human.dm
 
 <!-- Penis -->
 {{if data.usr_gender == 1}}
-	{{if data.usr_jumpsuit}}
+	{{if data.usr_nude}}
 		<div class='itemLabel'>
 			Penis: 
 		</div>
 
 		<div class='itemContent'>
-
-			{{if data.src_gender == 1}}
-				{{:helper.link('Fuck his mouth', null, {'fuck' : 'mouth'})}}
-			{{else}}
-				{{:helper.link('Fuck her mouth', null, {'fuck' : 'mouth'})}}
+			{{if data.src_face}}
+				{{if data.src_gender == 1}}
+					{{:helper.link('Fuck his mouth', null, {'fuck' : 'mouth'})}}
+				{{else}}
+					{{:helper.link('Fuck her mouth', null, {'fuck' : 'mouth'})}}
+				{{/if}}
 			{{/if}}
+			
+			{{if data.src_nude}}
+				{{if data.src_gender == 1}}
+					{{:helper.link('Fuck his anus', null, {'fuck' : 'anus'})}}
+				{{else}}
+					{{:helper.link('Fuck her anus', null, {'fuck' : 'anus'})}}
+				{{/if}}
 
-			{{if data.src_gender == 1}}
-				{{:helper.link('Fuck his anus', null, {'fuck' : 'anus'})}}
-			{{else}}
-				{{:helper.link('Fuck her anus', null, {'fuck' : 'anus'})}}
-			{{/if}}
-
-			{{if data.src_gender == 0}}
-				{{:helper.link('Fuck her vagina', null, {'fuck' : 'vagina'})}}
+				{{if data.src_gender == 0}}
+					{{:helper.link('Fuck her vagina', null, {'fuck' : 'vagina'})}}
+				{{/if}}
 			{{/if}}
 		</div>
+	{{/if}}
 {{/if}}
 
-<!-- Mouth -->
-<div class='itemLabel'>
-	Mouth: 
-</div>
+{{if data.usr_face}}
+	<!-- Mouth -->
+	<div class='itemLabel'>
+		Mouth: 
+	</div>
 
-<div class='itemContent'>
-	{{if data.src_gender == 0}}
-		{{:helper.link('Lick her vagina', null, {'oral' : 'vagina'})}}
-	{{else}}
-		{{:helper.link('Give him a blowjob', null, {'oral' : 'penis'})}}
-	{{/if}}
-</div>
+	<div class='itemContent'>
+		{{if data.src_nude}}
+			{{if data.src_gender == 0}}
+				{{:helper.link('Lick her vagina', null, {'oral' : 'vagina'})}}
+			{{else}}
+				{{:helper.link('Give him a blowjob', null, {'oral' : 'penis'})}}
+			{{/if}}
+		{{else}}
+			<span>There is nothing to do!</span>
+		{{/if}}
+	</div>
+{{/if}}

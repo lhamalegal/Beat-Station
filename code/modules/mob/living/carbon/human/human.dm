@@ -2107,8 +2107,12 @@
 	data["usr_gender"] = (user.gender == MALE ? 1 : 0)
 	data["src_name"] = "[src]"
 	data["dist"] = get_dist(user, src)
-	data["src_jumpsuit"] = istype(w_uniform, /obj/item/clothing/under)
-	data["usr_jumpsuit"] = istype(user.w_uniform, /obj/item/clothing/under)
+
+	data["src_nude"] = !istype(w_uniform, /obj/item/clothing/under)
+	data["usr_nude"] = !istype(user.w_uniform, /obj/item/clothing/under)
+
+	data["src_face"] = !istype(wear_mask, /obj/item/clothing/mask)
+	data["usr_face"] = !istype(user.wear_mask, /obj/item/clothing/mask)
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
