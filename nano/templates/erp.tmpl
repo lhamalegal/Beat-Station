@@ -1,9 +1,10 @@
 <!--
 Title: Forbidden Fruits
+Used In File(s): /code/modules/mob/living/carbon/human/human.dm
 -->
 
 <div class='item'>
-	 <h2>{{:data.src_name}}</h2>
+	 <h3>{{:data.src_name}}</h3>
 </div>
 
 <!-- Penis -->
@@ -13,10 +14,21 @@ Title: Forbidden Fruits
 	</div>
 
 	<div class='itemContent'>
-		{{:helper.link('Fuck her/his mouth', '', {'fuck' : 'mouth'})}}
-		{{:helper.link('Fuck her/his anus', '', {'fuck' : 'anus'})}}
+
+		{{if data.src_gender == 1}}
+			{{:helper.link('Fuck his mouth', null, {'fuck' : 'mouth'})}}
+		{{else}}
+			{{:helper.link('Fuck her mouth', null, {'fuck' : 'mouth'})}}
+		{{/if}}
+
+		{{if data.src_gender == 1}}
+			{{:helper.link('Fuck his anus', null, {'fuck' : 'anus'})}}
+		{{else}}
+			{{:helper.link('Fuck her anus', null, {'fuck' : 'anus'})}}
+		{{/if}}
+
 		{{if data.src_gender == 0}}
-			{{:helper.link('Fuck her vagina', '', {'fuck' : 'vagina'})}}
+			{{:helper.link('Fuck her vagina', null, {'fuck' : 'vagina'})}}
 		{{/if}}
 	</div>
 {{/if}}
@@ -28,8 +40,8 @@ Title: Forbidden Fruits
 
 <div class='itemContent'>
 	{{if data.src_gender == 0}}
-		{{:helper.link('Lick her vagina', '', {'oral' : 'vagina'})}}
+		{{:helper.link('Lick her vagina', null, {'oral' : 'vagina'})}}
 	{{else}}
-		{{:helper.link('Suck his penis', '', {'oral' : 'penis'})}}
+		{{:helper.link('Give him a blowjob', null, {'oral' : 'penis'})}}
 	{{/if}}
 </div>

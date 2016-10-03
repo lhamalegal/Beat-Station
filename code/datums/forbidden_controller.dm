@@ -1,4 +1,11 @@
-#define CUM_LEVEL	100
+#define CUM_LEVEL		100
+
+#define ORAL_FEMALE		"oral=vagina"
+#define ORAL_MALE		"oral=penis"
+
+#define FUCK_ANUS		"fuck=anus"
+#define FUCK_VAGINA		"fuck=vagina"
+#define FUCK_MOUTH		"fuck=mouth"
 
 /datum/forbidden_controller
 	var/mob/living/carbon/human/owner
@@ -32,42 +39,53 @@
 	fucked = by
 
 	// Lose virginity
-	if(virgin && action == "vagina" && owner.gender == FEMALE)
+	if(virgin && action == FUCK_VAGINA && owner.gender == FEMALE)
 		owner.emote("scream")
 		new /obj/effect/decal/cleanable/blood(owner.loc)
 		virgin = 0
 
-	if(anal_virgin && action == "anus")
+	if(anal_virgin && action == FUCK_ANUS)
 		owner.emote("scream")
 		anal_virgin = 0
 
+	if(pleasure >= 50 && prob(30) && owner.gender == FEMALE)
+		owner.visible_message("<span class='erp'><b>[owner]</b> twists in orgasm!</span>")
+
+	if(pleasure >= 10 && prob(40))
+		var/vr = pick("moans in pleasure", "moans")
+		owner.visible_message("<span class='erp'><b>[owner]</b> [vr].</span>")
+
 /datum/forbidden_controller/proc/fucking(mob/living/carbon/human/who, action)
+	if(!istype(who))
+		return
 	fucking_action = action
 	fucking = who
 
+	who.erp_controller.fucked(owner, action)
+
 	// ORAL
-	if(action == "oral=penis")
+	if(action == ORAL_MALE)
 		if(fucking.gender == MALE)
 			owner.visible_message("<span class='erp'><b>[owner]</b> sucks [fucking]'s cock.</span>")
-	else if(action == "oral=vagina")
+	else if(action == ORAL_FEMALE)
 		if(fucking.gender == FEMALE)
 			owner.visible_message("<span class='erp'><b>[owner]</b> licks [fucking].</span>")
 
 	// FUCK
-	else if(action == "fuck=anus")
+	else if(action == FUCK_ANUS)
 		if(owner.gender == MALE)
 			if(fucking.erp_controller.anal_virgin)
 				owner.visible_message("<span class='erp'><b>[owner]</b> tears [fucking]'s anus to pieces.</span>")
 			else
 				owner.visible_message("<span class='erp'><b>[owner]</b> fucks [fucking]'s anus.</span>")
-	else if(action == "fuck=vagina")
+	else if(action == FUCK_VAGINA)
 		if(owner.gender == MALE)
 			if(fucking.erp_controller.virgin)
-				owner.visible_message("<span class='erp'><b>[owner]</b> breaks [fucking]'s hymen!</span>")
+				owner.visible_message("<span class='erp'><b>[owner]</b> mercilessly tears [fucking]'s hymen!</span>")
 			else
 				var/vb = pick("fucks", "penetrates")
-				owner.visible_message("<span class='erp'><b>[owner]</b> [vb] [fucking].</span>")
-	else if(action == "fuck=mouth")
+				owner.visible_message("<span class='erp'><b>[owner]</b> [vb] <b>[fucking]</b>.</span>")
+	else if(action == FUCK_MOUTH)
 		if(owner.gender == MALE)
 			owner.visible_message("<span class='erp'><b>[owner]</b> fucks [fucking]'s mouth.</span>")
 
@@ -77,21 +95,23 @@
 	if(fucking || fucked)
 
 		if(owner.gender == MALE)
-			if(fucking_action == "fuck=anus")
+			if(fucking_action == FUCK_ANUS)
 				owner.visible_message("<span class='cum'>[owner] cums into [fucking]'s ass!</span>")
-			else if(fucking_action == "fuck=vagina")
+			else if(fucking_action == FUCK_VAGINA)
 				owner.visible_message("<span class='cum'>[owner] cums into [fucking]!</span>")
-			else if(fucking_action == "fuck=mouth" || fucked_action == "oral=penis")
+			else if(fucking_action == FUCK_MOUTH)
 				owner.visible_message("<span class='cum'>[owner] cums into [fucking]'s mouth!</span>")
+			else if(fucked_action == ORAL_MALE)
+				owner.visible_message("<span class='cum'>[owner] cums into [fucked]'s mouth!</span>")
 			else
 				owner.visible_message("<span class='cum'>[owner] cums on the floor!</span>")
 
 		else if(owner.gender == FEMALE)
-			if(fucked_action == "fuck=anus")
+			if(fucked_action == FUCK_ANUS)
 				owner.visible_message("<span class='cum'>[owner] cums on the floor!</span>")
-			else if(fucked_action == "fuck=vagina")
+			else if(fucked_action == FUCK_VAGINA)
 				owner.visible_message("<span class='cum'>[owner] cums into [fucked]'s dick!</span>")
-			else if(fucked_action == "oral=vagina")
+			else if(fucked_action == ORAL_FEMALE)
 				owner.visible_message("<span class='cum'>[owner] cums into [fucked]'s mouth!</span>")
 
 	to_chat(owner, pleasure_message)
@@ -100,7 +120,7 @@
 /*
 - virgin
 Yama tears Robertinho's anus to pieces!
-Yama breaks Robertinho's hymen!
+Yama mercilessly tears Robertinho's hymen
 
 - examine
 She is a virgin!

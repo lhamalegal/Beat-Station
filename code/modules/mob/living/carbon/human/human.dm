@@ -1122,7 +1122,6 @@
 					if(gender == MALE && !erp_controller.fucking)
 						owner.visible_message("<span class='erp'><b>[owner]</b> sucks [src]'s cock.</span>")
 						owner.erp_controller.fucking(src, "oral=penis")
-						erp_controller.fucked(owner, "oral=penis")
 
 						erp_controller.give_pleasure(10)
 						owner.erp_controller.give_pleasure(1)
@@ -1130,7 +1129,6 @@
 				else if("vagina")
 					if(gender == FEMALE)
 						owner.erp_controller.fucking(src, "oral=vagina")
-						erp_controller.fucked(owner, "oral=vagina")
 
 						erp_controller.give_pleasure(10)
 						owner.erp_controller.give_pleasure(1)
@@ -1142,7 +1140,6 @@
 
 					if("anus")
 						owner.erp_controller.fucking(src, "fuck=anus")
-						erp_controller.fucked(owner, "fuck=anus")
 
 						erp_controller.give_pleasure(10)
 						owner.erp_controller.give_pleasure(10)
@@ -1150,14 +1147,12 @@
 					else if("vagina")
 						if(gender == FEMALE)
 							owner.erp_controller.fucking(src, "fuck=vagina")
-							erp_controller.fucked(owner, "fuck=vagina")
 
 							erp_controller.give_pleasure(10)
 							owner.erp_controller.give_pleasure(10)
 
 					else if("mouth")
 						owner.erp_controller.fucking(src, "fuck=mouth")
-						erp_controller.fucked(owner, "fuck=mouth")
 
 						erp_controller.give_pleasure(1)
 						owner.erp_controller.give_pleasure(10)
@@ -2101,8 +2096,7 @@
 	return .
 
 
-//ERP!
-// NanoUI
+// ERP NanoUI
 /mob/living/carbon/human/ui_interact(mob/living/carbon/human/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	if(get_dist(user, src) > 1)
 		to_chat(world, "get_dist(owner, src) > 1")
