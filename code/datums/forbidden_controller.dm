@@ -43,9 +43,6 @@
 	fucked_action = action
 	fucked = by
 
-	if(action == FUCK_ANUS && fucking && fucking == by)
-		fucking = null
-
 	// Lose virginity
 	if(virgin && action == FUCK_VAGINA && owner.gender == FEMALE)
 		owner.emote("scream")
@@ -71,6 +68,9 @@
 		return
 
 	if(!click_check())
+		return
+
+	if(fucked == who)
 		return
 
 	who.erp_controller.time_check()
