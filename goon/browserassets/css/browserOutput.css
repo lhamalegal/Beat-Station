@@ -273,7 +273,7 @@ h1.alert, h2.alert		{color: #000000;}
 .passive				{color: #660000;}
 
 .erp					{color: #AA00AA;}
-.cum					{font-size: 120%;	color: #AA00AA;}
+.cum					{font-size: 120%;	color: #AA00AA; font-weight: bold;}
 
 .warning				{color: #ff0000;	font-style: italic;}
 .danger					{color: #ff0000;	font-weight: bold;}
@@ -299,7 +299,7 @@ h1.alert, h2.alert		{color: #000000;}
 .confirm				{color: #00af3b;}
 .rose					{color: #ff5050;}
 .sans					{font-family: 'Comic Sans MS', cursive, sans-serif;}
-.ancient				{color: #008B8B;	font-stye: italic;}
+.ancient				{color: #008B8B;	font-style: italic;}
 .newscaster				{color: #800000;}
 .mod					{color: #735638;	font-weight: bold;}
 .modooc					{color: #184880;	font-weight: bold;}

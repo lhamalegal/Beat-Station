@@ -507,7 +507,7 @@
 		if(gender == MALE)
 			msg += "<span class='erp'>Penis size: [erp_controller.penis_size] cm.</span>"
 		else if(gender == FEMALE && erp_controller.virgin)
-			msg += "<span class='erp'>She is a virgin!</span>"
+			msg += "<span class='erp'>[t_He] is a virgin!</span>"
 		msg += "\n*---------*</span>"
 
 	to_chat(user, msg)
