@@ -1125,7 +1125,6 @@
 				switch(href_list["oral"])
 					if("penis")
 						if(gender == MALE && !erp_controller.fucking)
-							owner.visible_message("<span class='erp'><b>[owner]</b> sucks [src]'s cock.</span>")
 							owner.erp_controller.fucking(src, "oral=penis")
 
 							erp_controller.give_pleasure(5)

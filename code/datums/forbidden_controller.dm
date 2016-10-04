@@ -43,7 +43,7 @@
 	fucked_action = action
 	fucked = by
 
-	if(action == FUCK_ANUS && owner.gender == MALE && fucking && fucking == by)
+	if(action == FUCK_ANUS && fucking && fucking == by)
 		fucking = null
 
 	// Lose virginity
@@ -121,7 +121,7 @@
 			owner.visible_message("<span class='erp'><b>[owner]</b> begins to suck [who]'s cock.</span>")
 	else if(action == ORAL_FEMALE)
 		if(who.gender == FEMALE)
-			owner.visible_message("<span class='erp'><b>[owner]</b> begins to lick [who].</span>")
+			owner.visible_message("<span class='erp'><b>[owner]</b> begins to lick <b>[who]</b>.</span>")
 
 	// FUCK
 	else if(action == FUCK_ANUS)
@@ -143,7 +143,7 @@
 			owner.visible_message("<span class='erp'><b>[owner]</b> sucks [fucking]'s cock.</span>")
 	else if(action == ORAL_FEMALE)
 		if(fucking.gender == FEMALE)
-			owner.visible_message("<span class='erp'><b>[owner]</b> licks [fucking].</span>")
+			owner.visible_message("<span class='erp'><b>[owner]</b> licks <b>[fucking]</b>.</span>")
 
 	// FUCK
 	else if(action == FUCK_ANUS)
@@ -168,7 +168,7 @@
 		if(fucking_action == FUCK_ANUS)
 			owner.visible_message("<span class='cum'>[owner] cums into [fucking]'s ass!</span>")
 		else if(fucking_action == FUCK_VAGINA)
-			owner.visible_message("<span class='cum'>[owner] cums into [fucking]!</span>")
+			owner.visible_message("<span class='cum'>[owner] cums into <b>[fucking]</b>!</span>")
 		else if(fucking_action == FUCK_MOUTH)
 			owner.visible_message("<span class='cum'>[owner] cums into [fucking]'s mouth!</span>")
 		else if(fucked_action == ORAL_MALE)
