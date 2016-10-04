@@ -1117,7 +1117,6 @@
 	var/src_is_nude = !istype(w_uniform, /obj/item/clothing/under)
 	var/owner_is_nude = !istype(owner.w_uniform, /obj/item/clothing/under)
 
-	var/src_clean_face = !istype(wear_mask, /obj/item/clothing/mask)
 	var/owner_clean_face = !istype(owner.wear_mask, /obj/item/clothing/mask)
 
 	if(get_dist(owner, src) <= 1 && owner != src)
@@ -1129,16 +1128,15 @@
 							owner.visible_message("<span class='erp'><b>[owner]</b> sucks [src]'s cock.</span>")
 							owner.erp_controller.fucking(src, "oral=penis")
 
-							erp_controller.give_pleasure(10)
-							owner.erp_controller.give_pleasure(1)
+							erp_controller.give_pleasure(5)
+							owner.erp_controller.give_pleasure(2)
 
 					else if("vagina")
 						if(gender == FEMALE)
 							owner.erp_controller.fucking(src, "oral=vagina")
 
-							erp_controller.give_pleasure(10)
-							owner.erp_controller.give_pleasure(1)
-
+							erp_controller.give_pleasure(4)
+							owner.erp_controller.give_pleasure(3)
 	if(get_dist(owner, src) == 0 && owner != src)
 		if(href_list["fuck"])
 			if(owner.gender == MALE && owner_is_nude)
@@ -1147,22 +1145,23 @@
 					if("anus")
 						owner.erp_controller.fucking(src, "fuck=anus")
 
-						erp_controller.give_pleasure(10)
-						owner.erp_controller.give_pleasure(10)
+						erp_controller.give_pleasure(6)
+						owner.erp_controller.give_pleasure(6)
 
 					else if("vagina")
 						if(gender == FEMALE)
 							owner.erp_controller.fucking(src, "fuck=vagina")
 
-							erp_controller.give_pleasure(10)
-							owner.erp_controller.give_pleasure(10)
+							erp_controller.give_pleasure(5)
+							owner.erp_controller.give_pleasure(5)
 
 					else if("mouth")
+						var/src_clean_face = !istype(wear_mask, /obj/item/clothing/mask)
 						if(src_clean_face)
 							owner.erp_controller.fucking(src, "fuck=mouth")
 
-							erp_controller.give_pleasure(1)
-							owner.erp_controller.give_pleasure(10)
+							erp_controller.give_pleasure(2)
+							owner.erp_controller.give_pleasure(5)
 
 	nanomanager.update_uis(src)
 	. = ..()
