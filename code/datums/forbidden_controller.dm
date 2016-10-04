@@ -55,10 +55,10 @@
 	if(anal_virgin && action == FUCK_ANUS)
 		anal_virgin = 0
 
-	if(pleasure >= 50 && prob(10) && owner.gender == FEMALE)
+	if(pleasure >= 70 && prob(15) && owner.gender == FEMALE)
 		owner.visible_message("<span class='erp'><b>[owner]</b> twists in orgasm!</span>")
 
-	if(pleasure >= 10 && prob(20))
+	if(pleasure >= 10 && prob(12))
 		var/vr
 		if(owner.gender == FEMALE)
 			vr = pick("moans in pleasure", "moans")

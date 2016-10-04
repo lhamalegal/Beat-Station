@@ -1118,47 +1118,46 @@
 	var/owner_is_nude = !istype(owner.w_uniform, /obj/item/clothing/under)
 
 	var/owner_clean_face = !istype(owner.wear_mask, /obj/item/clothing/mask)
+	var/src_clean_face = !istype(wear_mask, /obj/item/clothing/mask)
 
-	if(get_dist(owner, src) <= 1 && owner != src)
-		if(href_list["oral"])
-			if(src_is_nude && owner_clean_face)
+	if(owner != src && get_dist(owner, src) <= 1)
+
+		if(owner_clean_face && src_is_nude)
+			if(href_list["oral"])
 				switch(href_list["oral"])
 					if("penis")
 						if(gender == MALE && !erp_controller.fucking)
 							owner.erp_controller.fucking(src, "oral=penis")
-
+							// Pleasure values
 							erp_controller.give_pleasure(5)
 							owner.erp_controller.give_pleasure(2)
 
 					else if("vagina")
 						if(gender == FEMALE)
 							owner.erp_controller.fucking(src, "oral=vagina")
-
+							// Pleasure values
 							erp_controller.give_pleasure(4)
 							owner.erp_controller.give_pleasure(3)
-	if(get_dist(owner, src) == 0 && owner != src)
-		if(href_list["fuck"])
-			if(owner.gender == MALE && owner_is_nude)
+
+		if(owner_is_nude)
+			if(href_list["fuck"])
 				switch(href_list["fuck"])
-
 					if("anus")
-						owner.erp_controller.fucking(src, "fuck=anus")
-
-						erp_controller.give_pleasure(6)
-						owner.erp_controller.give_pleasure(6)
-
-					else if("vagina")
-						if(gender == FEMALE)
+						if(get_dist(owner, src) == 0 && src_is_nude)
+							owner.erp_controller.fucking(src, "fuck=anus")
+							// Pleasure values
+							erp_controller.give_pleasure(6)
+							owner.erp_controller.give_pleasure(6)
+					if("vagina")
+						if(get_dist(owner, src) == 0 && gender == FEMALE && src_is_nude)
 							owner.erp_controller.fucking(src, "fuck=vagina")
-
+							// Pleasure values
 							erp_controller.give_pleasure(5)
 							owner.erp_controller.give_pleasure(5)
-
-					else if("mouth")
-						var/src_clean_face = !istype(wear_mask, /obj/item/clothing/mask)
+					if("mouth")
 						if(src_clean_face)
 							owner.erp_controller.fucking(src, "fuck=mouth")
-
+							// Pleasure values
 							erp_controller.give_pleasure(2)
 							owner.erp_controller.give_pleasure(5)
 
@@ -2101,9 +2100,9 @@
 	return .
 
 
-// ERP NanoUI
+// ERP
 /mob/living/carbon/human/ui_interact(mob/living/carbon/human/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	if(get_dist(user, src) > 1)
+	if(get_dist(user, src) > 1 || src == usr)
 		return
 
 	var/data[0]
