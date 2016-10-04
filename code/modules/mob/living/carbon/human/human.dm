@@ -1114,28 +1114,34 @@
 	if(get_dist(owner, src) > 1 || owner.stat || owner.weakened || owner.stunned || owner.paralysis)
 		return
 
+	src_is_nude = !istype(w_uniform, /obj/item/clothing/under)
+	owner_is_nude = !istype(owner.w_uniform, /obj/item/clothing/under)
+
+	src_clean_face = !istype(wear_mask, /obj/item/clothing/mask)
+	owner_clean_face = !istype(owner.wear_mask, /obj/item/clothing/mask)
+
 	if(get_dist(owner, src) <= 1 && owner != src)
 		if(href_list["oral"])
-			switch(href_list["oral"])
+			if(src_is_nude && owner_clean_face)
+				switch(href_list["oral"])
+					if("penis")
+						if(gender == MALE && !erp_controller.fucking)
+							owner.visible_message("<span class='erp'><b>[owner]</b> sucks [src]'s cock.</span>")
+							owner.erp_controller.fucking(src, "oral=penis")
 
-				if("penis")
-					if(gender == MALE && !erp_controller.fucking)
-						owner.visible_message("<span class='erp'><b>[owner]</b> sucks [src]'s cock.</span>")
-						owner.erp_controller.fucking(src, "oral=penis")
+							erp_controller.give_pleasure(10)
+							owner.erp_controller.give_pleasure(1)
 
-						erp_controller.give_pleasure(10)
-						owner.erp_controller.give_pleasure(1)
+					else if("vagina")
+						if(gender == FEMALE)
+							owner.erp_controller.fucking(src, "oral=vagina")
 
-				else if("vagina")
-					if(gender == FEMALE)
-						owner.erp_controller.fucking(src, "oral=vagina")
-
-						erp_controller.give_pleasure(10)
-						owner.erp_controller.give_pleasure(1)
+							erp_controller.give_pleasure(10)
+							owner.erp_controller.give_pleasure(1)
 
 	if(get_dist(owner, src) == 0 && owner != src)
 		if(href_list["fuck"])
-			if(owner.gender == MALE)
+			if(owner.gender == MALE && owner_is_nude)
 				switch(href_list["fuck"])
 
 					if("anus")
@@ -1152,10 +1158,11 @@
 							owner.erp_controller.give_pleasure(10)
 
 					else if("mouth")
-						owner.erp_controller.fucking(src, "fuck=mouth")
+						if(src_clean_face)
+							owner.erp_controller.fucking(src, "fuck=mouth")
 
-						erp_controller.give_pleasure(1)
-						owner.erp_controller.give_pleasure(10)
+							erp_controller.give_pleasure(1)
+							owner.erp_controller.give_pleasure(10)
 
 	nanomanager.update_uis(src)
 	. = ..()
@@ -2099,7 +2106,6 @@
 // ERP NanoUI
 /mob/living/carbon/human/ui_interact(mob/living/carbon/human/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	if(get_dist(user, src) > 1)
-		to_chat(world, "get_dist(owner, src) > 1")
 		return
 
 	var/data[0]

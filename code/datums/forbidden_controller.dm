@@ -72,7 +72,7 @@
 
 	who.erp_controller.time_check()
 
-	if(!who.erp_controller.fucking_list || !who.erp_controller.fucking_list[owner])
+	if(!(owner in who.erp_controller.fucking_list))
 		begins_text(action, who)
 		if(do_after(owner, 50, target = who))
 			who.erp_controller.fucking_list.Add(owner)
@@ -100,6 +100,7 @@
 /datum/forbidden_controller/proc/time_check()
 	if(world.time >= timevar)
 		fucking_list = new /list()
+		fucked = "none"
 
 /datum/forbidden_controller/proc/click_check()
 	if(world.time >= click_time)
@@ -123,7 +124,7 @@
 		if(owner.gender == MALE)
 			owner.visible_message("<span class='erp'><b>[owner]</b> begins to fuck [who]'s anus.</span>")
 	else if(action == FUCK_VAGINA)
-		if(owner.gender == MALE)
+		if(owner.gender == MALE && who.gender == FEMALE)
 			var/vb = pick("fuck", "penetrate")
 			owner.visible_message("<span class='erp'><b>[owner]</b> begins to [vb] <b>[who]</b>.</span>")
 	else if(action == FUCK_MOUTH)
@@ -148,7 +149,7 @@
 			else
 				owner.visible_message("<span class='erp'><b>[owner]</b> fucks [fucking]'s anus.</span>")
 	else if(action == FUCK_VAGINA)
-		if(owner.gender == MALE)
+		if(owner.gender == MALE && fucking.gender == FEMALE)
 			if(fucking.erp_controller.virgin)
 				owner.visible_message("<span class='erp'><b>[owner]</b> mercilessly tears [fucking]'s hymen!</span>")
 			else
@@ -172,14 +173,7 @@
 			owner.visible_message("<span class='cum'>[owner] cums on the floor!</span>")
 
 	else if(owner.gender == FEMALE)
-		if(fucked_action == FUCK_ANUS)
-			owner.visible_message("<span class='cum'>[owner] cums on the floor!</span>")
-		else if(fucked_action == FUCK_VAGINA)
-			owner.visible_message("<span class='cum'>[owner] cums into [fucked]'s dick!</span>")
-		else if(fucked_action == ORAL_FEMALE)
-			owner.visible_message("<span class='cum'>[owner] cums into [fucked]'s mouth!</span>")
-		else
-			owner.visible_message("<span class='cum'>[owner] cums on the floor!</span>")
+		owner.visible_message("<span class='cum'>[owner] cums!</span>")
 
 /* NOTES
 - virgin
