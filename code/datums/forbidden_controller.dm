@@ -34,14 +34,17 @@
 	if(owner.gender == MALE)
 		penis_size = round(rand(5, 25))
 
-/datum/forbidden_controller/proc/give_pleasure(to_add)
-	pleasure += to_add
+/datum/forbidden_controller/proc/give_pleasure(base)
+	pleasure += (base + rand(-1, 3))
 	if(pleasure >= CUM_LEVEL)
 		cum()
 
 /datum/forbidden_controller/proc/fucked(mob/living/carbon/human/by, action)
 	fucked_action = action
 	fucked = by
+
+	if(action == FUCK_ANUS && owner.gender == MALE && fucking && fucking == by)
+		fucking = null
 
 	// Lose virginity
 	if(virgin && action == FUCK_VAGINA && owner.gender == FEMALE)
@@ -80,7 +83,7 @@
 			return
 
 	who.erp_controller.timevar = world.time + 100
-	click_time = world.time + 5
+	click_time = world.time + 10
 
 	fucking_action = action
 	fucking = who
@@ -101,6 +104,7 @@
 	if(world.time >= timevar)
 		fucking_list = new /list()
 		fucked = "none"
+		fucked_action = "none"
 
 /datum/forbidden_controller/proc/click_check()
 	if(world.time >= click_time)
