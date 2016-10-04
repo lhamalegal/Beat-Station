@@ -1114,11 +1114,11 @@
 	if(get_dist(owner, src) > 1 || owner.stat || owner.weakened || owner.stunned || owner.paralysis)
 		return
 
-	src_is_nude = !istype(w_uniform, /obj/item/clothing/under)
-	owner_is_nude = !istype(owner.w_uniform, /obj/item/clothing/under)
+	var/src_is_nude = !istype(w_uniform, /obj/item/clothing/under)
+	var/owner_is_nude = !istype(owner.w_uniform, /obj/item/clothing/under)
 
-	src_clean_face = !istype(wear_mask, /obj/item/clothing/mask)
-	owner_clean_face = !istype(owner.wear_mask, /obj/item/clothing/mask)
+	var/src_clean_face = !istype(wear_mask, /obj/item/clothing/mask)
+	var/owner_clean_face = !istype(owner.wear_mask, /obj/item/clothing/mask)
 
 	if(get_dist(owner, src) <= 1 && owner != src)
 		if(href_list["oral"])
