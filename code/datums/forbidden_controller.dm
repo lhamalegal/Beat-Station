@@ -177,13 +177,13 @@
 			owner.visible_message("<span class='cum'>[owner] cums into [fucked]'s mouth!</span>")
 		else
 			owner.visible_message("<span class='cum'>[owner] cums on the floor!</span>")
-			var/cum = new /obj/effect/decal/cleanable/blood/sex/semen(owner.loc)
-			cum.add_blood(owner)
+			var/obj/effect/decal/cleanable/sex/cum = new /obj/effect/decal/cleanable/sex/semen(owner.loc)
+			cum.add_blood_list(owner)
 
 	else if(owner.gender == FEMALE)
 		owner.visible_message("<span class='cum'>[owner] cums!</span>")
-		var/cum = new /obj/effect/decal/cleanable/blood/sex/femjuice(owner.loc)
-		cum.add_blood(owner)
+		var/obj/effect/decal/cleanable/sex/cum = new /obj/effect/decal/cleanable/sex/femjuice(owner.loc)
+		cum.add_blood_list(owner)
 
 /* NOTES
 - virgin
