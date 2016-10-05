@@ -74,13 +74,14 @@
 
 	if(!(owner in who.erp_controller.fucking_list))
 		begins_text(action, who)
-		if(do_after(owner, 50, target = who))
+		log_admin("[key_name(owner)] is starting to ERP [key_name(who)]")
+		if(do_after(owner, 50, target = who)) // If you aren't fucking someone, you will begin to fuck him (anti-rape).
 			who.erp_controller.fucking_list.Add(owner)
 		else
 			return 0
 
 	who.erp_controller.timevar = world.time + 100
-	click_time = world.time + 10
+	click_time = world.time + 20 // 2 seconds delay between the actions
 
 	fucking_action = action
 	fucking = who
@@ -92,7 +93,7 @@
 
 /datum/forbidden_controller/proc/cum()
 	var/pleasure_message = pick("... I'M FEELING SO GOOD! ...",  "... It's just INCREDIBLE! ...", "... MORE AND MORE AND MORE! ...")
-	to_chat(owner, "<span class='cum'>" + pleasure_message + "</span>")
+	to_chat(owner, "<span class='cum'>[pleasure_message]</span>")
 	cum_text()
 	pleasure = 0
 
@@ -138,8 +139,7 @@
 			owner.visible_message("<span class='erp'><b>[owner]</b> begins to fuck [who]'s anus.</span>")
 	else if(action == FUCK_VAGINA)
 		if(owner.gender == MALE && who.gender == FEMALE)
-			var/vb = pick("fuck", "penetrate")
-			owner.visible_message("<span class='erp'><b>[owner]</b> begins to [vb] <b>[who]</b>.</span>")
+			owner.visible_message("<span class='erp'><b>[owner]</b> begins to [pick("fuck","penetrate")] <b>[who]</b>.</span>")
 	else if(action == FUCK_MOUTH)
 		if(owner.gender == MALE)
 			owner.visible_message("<span class='erp'><b>[owner]</b> begins to fuck [who]'s mouth.</span>")
@@ -166,8 +166,7 @@
 			if(fucking.erp_controller.virgin)
 				owner.visible_message("<span class='erp'><b>[owner]</b> mercilessly tears [fucking]'s hymen!</span>")
 			else
-				var/vb = pick("fucks", "penetrates")
-				owner.visible_message("<span class='erp'><b>[owner]</b> [vb] <b>[fucking]</b>.</span>")
+				owner.visible_message("<span class='erp'><b>[owner]</b> [pick("fucks","penetrates")] <b>[fucking]</b>.</span>")
 	else if(action == FUCK_MOUTH)
 		if(owner.gender == MALE)
 			owner.visible_message("<span class='erp'><b>[owner]</b> fucks [fucking]'s mouth.</span>")
