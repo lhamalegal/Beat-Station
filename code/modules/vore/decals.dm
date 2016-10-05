@@ -1,7 +1,4 @@
-/obj/effect/decal/cleanable/sex/New()
-	icon_state = "[initial(icon_state)][pick(0,1,2)]"
-
-/obj/effect/decal/cleanable/sex/semen
+/obj/effect/decal/cleanable/blood/sex/semen
 	name = "semen"
 	desc = "A puddle of hot, sticky spooge."
 	gender = PLURAL
@@ -10,8 +7,9 @@
 	layer = 2
 	icon = 'icons/effects/vore.dmi'
 	icon_state = "semen"
+	random_icon_states = list("semen0", "semen1", "semen2")
 
-/obj/effect/decal/cleanable/sex/femjuice
+/obj/effect/decal/cleanable/blood/sex/femjuice
 	name = "femjuice"
 	desc = "A puddle of warm fem-cum. Someone got excited."
 	gender = PLURAL
@@ -20,8 +18,9 @@
 	layer = 2
 	icon = 'icons/effects/vore.dmi'
 	icon_state = "femjuice"
+	random_icon_states = list("femjuice0", "femjuice1", "femjuice2")
 
-/obj/effect/decal/cleanable/sex/milk
+/obj/effect/decal/cleanable/blood/sex/milk
 	name = "breast milk"
 	desc = "A puddle of warm breast-milk."
 	gender = PLURAL
@@ -30,3 +29,4 @@
 	layer = 2
 	icon = 'icons/effects/vore.dmi'
 	icon_state = "milk"
+	random_icon_states = list("milk0", "milk1", "milk2")
