@@ -30,6 +30,8 @@
 	var/mob/living/carbon/human/source
 
 /datum/forbidden_controller/New(mob/living/carbon/human/own)
+	if(!istype(own))
+		return
 	owner = own
 	if(owner.gender == MALE)
 		penis_size = round(rand(5, 25))
@@ -175,9 +177,13 @@
 			owner.visible_message("<span class='cum'>[owner] cums into [fucked]'s mouth!</span>")
 		else
 			owner.visible_message("<span class='cum'>[owner] cums on the floor!</span>")
+			var/cum = new /obj/effect/decal/cleanable/sex/semen(owner.loc)
+			cum.add_blood(owner)
 
 	else if(owner.gender == FEMALE)
 		owner.visible_message("<span class='cum'>[owner] cums!</span>")
+		var/cum = new /obj/effect/decal/cleanable/sex/femjuice(owner.loc)
+		cum.add_blood(owner)
 
 /* NOTES
 - virgin
