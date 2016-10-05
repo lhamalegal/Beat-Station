@@ -66,14 +66,9 @@
 		owner.visible_message("<span class='erp'><b>[owner]</b> [vr].</span>")
 
 /datum/forbidden_controller/proc/fucking(mob/living/carbon/human/who, action)
-	if(!istype(who))
-		return
 
-	if(!click_check())
-		return
-
-	if(fucked == who)
-		return
+	if(!istype(who) || !click_check() || !fucked_check(who, action))
+		return 0
 
 	who.erp_controller.time_check()
 
@@ -82,7 +77,7 @@
 		if(do_after(owner, 50, target = who))
 			who.erp_controller.fucking_list.Add(owner)
 		else
-			return
+			return 0
 
 	who.erp_controller.timevar = world.time + 100
 	click_time = world.time + 10
@@ -101,17 +96,29 @@
 	cum_text()
 	pleasure = 0
 
-
+// Checks
 /datum/forbidden_controller/proc/time_check()
 	if(world.time >= timevar)
 		fucking_list = new /list()
-		fucked = "none"
+		fucked = null
 		fucked_action = "none"
 
 /datum/forbidden_controller/proc/click_check()
 	if(world.time >= click_time)
 		return 1
 	return 0
+
+/datum/forbidden_controller/proc/fucked_check(mob/living/carbon/human/who, action)
+	// 69
+	if(!fucked || !fucked_action)
+		return 1
+	if((action == ORAL_MALE || action == ORAL_FEMALE) && (fucked_action == ORAL_MALE || fucked_action == ORAL_FEMALE))
+		return 1
+	if(findtext(fucked_action, "fuck="))
+		return 0
+	if(findtext(fucked_action, "oral=") && findtext(action, "fuck="))
+		return 0
+	return 1
 
 /* Message Procs */
 
@@ -139,7 +146,7 @@
 
 // Yama fucks Robertinho's anus...
 /datum/forbidden_controller/proc/fucking_text(action)
-	// ORAL
+	// Oral actions
 	if(action == ORAL_MALE)
 		if(fucking.gender == MALE)
 			owner.visible_message("<span class='erp'><b>[owner]</b> sucks [fucking]'s cock.</span>")
@@ -147,7 +154,7 @@
 		if(fucking.gender == FEMALE)
 			owner.visible_message("<span class='erp'><b>[owner]</b> licks <b>[fucking]</b>.</span>")
 
-	// FUCK
+	// Fuck actions
 	else if(action == FUCK_ANUS)
 		if(owner.gender == MALE)
 			if(fucking.erp_controller.anal_virgin)
@@ -165,6 +172,7 @@
 		if(owner.gender == MALE)
 			owner.visible_message("<span class='erp'><b>[owner]</b> fucks [fucking]'s mouth.</span>")
 
+// Yama cums into Robertinho!
 /datum/forbidden_controller/proc/cum_text()
 	if(owner.gender == MALE)
 		if(fucking_action == FUCK_ANUS)
@@ -185,51 +193,6 @@
 		var/obj/effect/decal/cleanable/sex/cum = new /obj/effect/decal/cleanable/sex/femjuice(owner.loc)
 		cum.add_blood_list(owner)
 
-/* NOTES
-- virgin
-Yama tears Robertinho's anus to pieces!
-Yama mercilessly tears Robertinho's hymen
-
-- examine
-She is a virgin!
-Penis size: 15 cm
-
-- first time
-Hymen blood
-
-- start
-Yama begins to suck Robertinhos's cock.
-
-- dildo
-Yama sucks a dildo!
-Yama pleases his/her anus with a dildo!
-
-- fuck
-Yama fucks Robertinho's anus...
-Yama fucks Robertinho's mouth...
-Yama fucks Robertinho...
-Yama penetrates Robertinho.
-
-- cum
-Yama cums into Robertinho's mouth!
-Yama cums into Robertinho's ass!
-Yama cums into Robertinho!
-Yama cums on the floor!
-
-- oral
-Yama licks Robertinho.
-Yama sucks Robertinho's cock.
-
-- moans
-Yama moans in pleasure.
-Yama moans.
-
-- orgasm
-Yama twists in orgasm!
-
-- etc
-Semen
-*/
 #undef CUM_LEVEL
 
 #undef ORAL_FEMALE
