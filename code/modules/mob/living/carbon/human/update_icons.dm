@@ -304,7 +304,7 @@ var/global/list/damage_icon_parts = list()
 	else
 		overlays_standing[LIMBS_LAYER] = null // So we don't get the old species' sprite splatted on top of the new one's
 
-	//Underwear
+	/* Underwear
 	overlays_standing[UNDERWEAR_LAYER]	= null
 	var/icon/underwear_standing = new/icon('icons/mob/underwear.dmi',"nude")
 
@@ -326,7 +326,7 @@ var/global/list/damage_icon_parts = list()
 
 	if(underwear_standing)
 		overlays_standing[UNDERWEAR_LAYER]	= image(underwear_standing)
-
+	*/
 
 	if(update_icons)
 		update_icons()
@@ -574,6 +574,8 @@ var/global/list/damage_icon_parts = list()
 	update_inv_legcuffed(0)
 	update_inv_pockets(0)
 	update_inv_wear_pda(0)
+	update_inv_underpants(0)
+	update_inv_undershirt(0)
 	UpdateDamageIcon()
 	update_icons()
 	update_fire()
@@ -1079,6 +1081,51 @@ var/global/list/damage_icon_parts = list()
 		overlays_standing[L_HAND_LAYER] = null
 	if(update_icons)
 		update_icons()
+
+
+/mob/living/carbon/human/update_inv_underpants(var/update_icons=1)
+	if(client && hud_used)
+		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_underpants]
+		if(inv)
+			inv.update_icon()
+
+
+	overlays_standing[UNDERWEAR_LAYER] = null
+	var/icon/underwear_standing = new/icon('icons/mob/underwear.dmi', "nude")
+
+	if(underpants && species.clothing_flags)
+		var/datum/sprite_accessory/underwear/U = underwear_list[underpants.standing_icon]
+		if(U)
+			underwear_standing.Blend(new /icon(U.icon, "uw_[U.icon_state]_s"), ICON_OVERLAY)
+
+	if(underwear_standing)
+		overlays_standing[UNDERWEAR_LAYER] = image(underwear_standing)
+
+	if(update_icons)
+		update_icons()
+
+/mob/living/carbon/human/update_inv_undershirt(var/update_icons=1)
+	if(client && hud_used)
+		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_undershirt]
+		if(inv)
+			inv.update_icon()
+
+
+	overlays_standing[UNDERWEAR_LAYER] = null
+	var/icon/underwear_standing = new/icon('icons/mob/underwear.dmi', "nude")
+
+	if(undershirt && species.clothing_flags)
+		var/datum/sprite_accessory/undershirt/U = undershirt_list[undershirt.standing_icon]
+		if(U)
+			underwear_standing.Blend(new /icon(U.icon, "us_[U.icon_state]_s"), ICON_OVERLAY)
+
+	if(underwear_standing)
+		overlays_standing[UNDERWEAR_LAYER] = image(underwear_standing)
+
+	if(update_icons)
+		update_icons()
+
+
 
 //human HUD updates for items in our inventory
 
