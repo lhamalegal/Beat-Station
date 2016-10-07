@@ -72,23 +72,20 @@
 
 	who.erp_controller.time_check()
 
-	if(!(owner in who.erp_controller.fucking_list))
-		begins_text(action, who)
-		log_admin("[key_name(owner)] is starting to ERP [key_name(who)]")
-		if(do_after(owner, 50, target = who)) // If you aren't fucking someone, you will begin to fuck him (anti-rape).
-			who.erp_controller.fucking_list.Add(owner)
-		else
-			return 0
-
 	who.erp_controller.timevar = world.time + 100
 	click_time = world.time + 20 // 2 seconds delay between the actions
 
 	fucking_action = action
 	fucking = who
 
-	fucking_text(action)
-
 	who.erp_controller.fucked(owner, action)
+
+	if(owner in who.erp_controller.fucking_list)
+		fucking_text(action, who)
+	else
+		begins_text(action, who)
+		who.erp_controller.fucking_list.Add(owner)
+	return 1
 
 
 /datum/forbidden_controller/proc/cum()
@@ -99,7 +96,7 @@
 
 // Checks
 /datum/forbidden_controller/proc/time_check()
-	if(world.time >= timevar)
+	if(world.time > timevar)
 		fucking_list = new /list()
 		fucked = null
 		fucked_action = "none"
@@ -125,7 +122,7 @@
 
 // Yama begins to suck Robertinhos's cock.
 /datum/forbidden_controller/proc/begins_text(action, mob/living/carbon/human/who)
-	// ORAL
+	// Oral messages
 	if(action == ORAL_MALE)
 		if(who.gender == MALE)
 			owner.visible_message("<span class='erp'><b>[owner]</b> begins to suck [who]'s cock.</span>")
@@ -133,7 +130,7 @@
 		if(who.gender == FEMALE)
 			owner.visible_message("<span class='erp'><b>[owner]</b> begins to lick <b>[who]</b>.</span>")
 
-	// FUCK
+	// Fuck messages
 	else if(action == FUCK_ANUS)
 		if(owner.gender == MALE)
 			owner.visible_message("<span class='erp'><b>[owner]</b> begins to fuck [who]'s anus.</span>")
@@ -145,31 +142,31 @@
 			owner.visible_message("<span class='erp'><b>[owner]</b> begins to fuck [who]'s mouth.</span>")
 
 // Yama fucks Robertinho's anus...
-/datum/forbidden_controller/proc/fucking_text(action)
+/datum/forbidden_controller/proc/fucking_text(action, mob/living/carbon/human/who)
 	// Oral actions
 	if(action == ORAL_MALE)
-		if(fucking.gender == MALE)
-			owner.visible_message("<span class='erp'><b>[owner]</b> sucks [fucking]'s cock.</span>")
+		if(who.gender == MALE)
+			owner.visible_message("<span class='erp'><b>[owner]</b> sucks [who]'s cock.</span>")
 	else if(action == ORAL_FEMALE)
-		if(fucking.gender == FEMALE)
-			owner.visible_message("<span class='erp'><b>[owner]</b> licks <b>[fucking]</b>.</span>")
+		if(who.gender == FEMALE)
+			owner.visible_message("<span class='erp'><b>[owner]</b> licks <b>[who]</b>.</span>")
 
 	// Fuck actions
 	else if(action == FUCK_ANUS)
 		if(owner.gender == MALE)
-			if(fucking.erp_controller.anal_virgin)
-				owner.visible_message("<span class='erp'><b>[owner]</b> tears [fucking]'s anus to pieces.</span>")
+			if(who.erp_controller.anal_virgin)
+				owner.visible_message("<span class='erp'><b>[owner]</b> tears [who]'s anus to pieces.</span>")
 			else
-				owner.visible_message("<span class='erp'><b>[owner]</b> fucks [fucking]'s anus.</span>")
+				owner.visible_message("<span class='erp'><b>[owner]</b> fucks [who]'s anus.</span>")
 	else if(action == FUCK_VAGINA)
-		if(owner.gender == MALE && fucking.gender == FEMALE)
-			if(fucking.erp_controller.virgin)
-				owner.visible_message("<span class='erp'><b>[owner]</b> mercilessly tears [fucking]'s hymen!</span>")
+		if(owner.gender == MALE && who.gender == FEMALE)
+			if(who.erp_controller.virgin)
+				owner.visible_message("<span class='erp'><b>[owner]</b> mercilessly tears [who]'s hymen!</span>")
 			else
-				owner.visible_message("<span class='erp'><b>[owner]</b> [pick("fucks","penetrates")] <b>[fucking]</b>.</span>")
+				owner.visible_message("<span class='erp'><b>[owner]</b> [pick("fucks","penetrates")] <b>[who]</b>.</span>")
 	else if(action == FUCK_MOUTH)
 		if(owner.gender == MALE)
-			owner.visible_message("<span class='erp'><b>[owner]</b> fucks [fucking]'s mouth.</span>")
+			owner.visible_message("<span class='erp'><b>[owner]</b> fucks [who]'s mouth.</span>")
 
 // Yama cums into Robertinho!
 /datum/forbidden_controller/proc/cum_text()

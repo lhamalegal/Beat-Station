@@ -1127,39 +1127,39 @@
 				switch(href_list["oral"])
 					if("penis")
 						if(gender == MALE && !erp_controller.fucking)
-							owner.erp_controller.fucking(src, "oral=penis")
-							// Pleasure values
-							erp_controller.give_pleasure(5)
-							owner.erp_controller.give_pleasure(2)
+							if(owner.erp_controller.fucking(src, "oral=penis"))
+								// Pleasure values
+								erp_controller.give_pleasure(5)
+								owner.erp_controller.give_pleasure(2)
 
 					else if("vagina")
 						if(gender == FEMALE)
-							owner.erp_controller.fucking(src, "oral=vagina")
-							// Pleasure values
-							erp_controller.give_pleasure(4)
-							owner.erp_controller.give_pleasure(3)
+							if(owner.erp_controller.fucking(src, "oral=vagina"))
+								// Pleasure values
+								erp_controller.give_pleasure(4)
+								owner.erp_controller.give_pleasure(3)
 
-		if(owner_is_nude)
+		if(owner_is_nude && get_dist(owner, src) == 0)
 			if(href_list["fuck"])
 				switch(href_list["fuck"])
 					if("anus")
-						if(get_dist(owner, src) == 0 && src_is_nude)
-							owner.erp_controller.fucking(src, "fuck=anus")
-							// Pleasure values
-							erp_controller.give_pleasure(6)
-							owner.erp_controller.give_pleasure(6)
+						if(src_is_nude)
+							if(owner.erp_controller.fucking(src, "fuck=anus"))
+								// Pleasure values
+								erp_controller.give_pleasure(6)
+								owner.erp_controller.give_pleasure(6)
 					if("vagina")
-						if(get_dist(owner, src) == 0 && gender == FEMALE && src_is_nude)
-							owner.erp_controller.fucking(src, "fuck=vagina")
-							// Pleasure values
-							erp_controller.give_pleasure(5)
-							owner.erp_controller.give_pleasure(5)
+						if(gender == FEMALE && src_is_nude)
+							if(owner.erp_controller.fucking(src, "fuck=vagina"))
+								// Pleasure values
+								erp_controller.give_pleasure(5)
+								owner.erp_controller.give_pleasure(5)
 					if("mouth")
 						if(src_clean_face)
-							owner.erp_controller.fucking(src, "fuck=mouth")
-							// Pleasure values
-							erp_controller.give_pleasure(2)
-							owner.erp_controller.give_pleasure(5)
+							if(owner.erp_controller.fucking(src, "fuck=mouth"))
+								// Pleasure values
+								erp_controller.give_pleasure(2)
+								owner.erp_controller.give_pleasure(5)
 
 	nanomanager.update_uis(src)
 	. = ..()

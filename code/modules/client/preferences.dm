@@ -128,6 +128,11 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/species = "Human"
 	var/language = "None"				//Secondary language
 
+	// Forbidden fruits preferences
+	var/virgin = 1
+	var/anal_virgin = 1
+
+
 	var/body_accessory = null
 
 	var/speciesprefs = 0//I hate having to do this, I really do (Using this for oldvox code, making names universal I guess
@@ -363,6 +368,11 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			dat += "<b>Undershirt:</b> <a href ='?_src_=prefs;preference=undershirt;task=input'>[undershirt]</a><BR>"
 			dat += "<b>Socks:</b> <a href ='?_src_=prefs;preference=socks;task=input'>[socks]</a><BR>"
 			dat += "<b>Backpack Type:</b> <a href ='?_src_=prefs;preference=bag;task=input'>[backbaglist[backbag]]</a><br>"
+
+			dat += "<h2>Forbidden fruits</h2>"
+			if(gender == FEMALE)
+				dat += "<b>Virgin:</b> <a href ='?_src_=prefs;preference=virgin;task=normal'>[virgin ? "Yes" : "No"]</a><BR>"
+			dat += "<b>Anal Virgin:</b> <a href ='?_src_=prefs;preference=virgin;task=anal'>[anal_virgin ? "Yes" : "No"]</a><BR>"
 
 			dat += "</td></tr></table>"
 
@@ -977,6 +987,11 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 				gen_record = genmsg
 				SetRecords(user)
+	else if(href_list["preference"] == "virgin")
+		if(href_list["task"] == "normal")
+			virgin = !virgin
+		else if(href_list["task"] == "anal")
+			anal_virgin = !anal_virgin
 
 	switch(href_list["task"])
 		if("random")
@@ -1855,6 +1870,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		if(isliving(src)) //Ghosts get neuter by default
 			message_admins("[key_name_admin(character)] has spawned with their gender as plural or neuter. Please notify coders.")
 			character.change_gender(MALE)
+
+	// Forbidden Fruits
+	character.erp_controller.virgin = virgin
+	character.erp_controller.anal_virgin = anal_virgin
 
 	character.dna.ready_dna(character, flatten_SE = 0)
 	character.sync_organ_dna(assimilate=1)
