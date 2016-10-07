@@ -51,7 +51,7 @@ var/global/default_martial_art = new/datum/martial_art
 
 	// Under clothes
 	var/obj/item/underpants = null
-	var/obj/item/undershirts = null
+	var/obj/item/undershirt = null
 
 	var/icon/stand_icon = null
 	var/icon/lying_icon = null

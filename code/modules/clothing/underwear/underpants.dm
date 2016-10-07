@@ -1,3 +1,8 @@
+/obj/item/clothing/underwear/underpants/nude
+	name = "Nude"
+	standing_icon = null
+	use_gender = NEUTER
+
 // Male
 /obj/item/clothing/underwear/underpants/male_white
 	name = "Mens White"
