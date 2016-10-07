@@ -1843,8 +1843,14 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		W.buckled_mob = character
 		W.add_fingerprint(character)
 
-	character.underwear = underwear
-	character.undershirt = undershirt
+	var/obj/item/clothing/underwear/uw
+	uw = underwear_list[underwear]
+	if(uw)
+		character.underpants = uw
+	uw = underwear_list[undershirt]
+	if(uw)
+		character.undershirt = uw
+
 	character.socks = socks
 
 	if(character.species.bodyflags & HAS_HEAD_ACCESSORY)

@@ -1,141 +1,137 @@
-/obj/item/clothing/underwear/underpants
-	name = "underpants"
-
-
 // Male
 /obj/item/clothing/underwear/underpants/male_white
 	name = "Mens White"
-	standing_icon = "Mens White"
+	standing_icon = "male_white"
 	use_gender = MALE
 
 /obj/item/clothing/underwear/underpants/male_grey
 	name = "Mens Grey"
-	standing_icon = "Mens Grey"
+	standing_icon = "male_grey"
 	use_gender = MALE
 
 /obj/item/clothing/underwear/underpants/male_grey
 	name = "Mens Grey Alt"
-	standing_icon = "Mens Grey Alt"
+	standing_icon = "male_greyalt"
 	use_gender = MALE
 
 /obj/item/clothing/underwear/underpants/male_green
 	name = "Mens Green"
-	standing_icon = "Mens Green"
+	standing_icon = "male_green"
 	use_gender = MALE
 
 /obj/item/clothing/underwear/underpants/male_blue
 	name = "Mens Blue"
-	standing_icon = "Mens Blue"
+	standing_icon = "male_blue"
 	use_gender = MALE
 
 /obj/item/clothing/underwear/underpants/male_red
 	name = "Mens Red"
-	standing_icon = "Mens Red"
+	standing_icon = "male_red"
 	use_gender = MALE
 
 /obj/item/clothing/underwear/underpants/male_black
 	name = "Mens Black"
-	standing_icon = "Mens Black"
+	standing_icon = "male_black"
 	use_gender = MALE
 
 /obj/item/clothing/underwear/underpants/male_black_alt
 	name = "Mens Black Alt"
-	standing_icon = "Mens Black Alt"
+	standing_icon = "male_blackalt"
 	use_gender = MALE
 
 /obj/item/clothing/underwear/underpants/male_striped
 	name = "Mens Striped"
-	standing_icon = "Mens Striped"
+	standing_icon = "male_stripe"
 	use_gender = MALE
 
 /obj/item/clothing/underwear/underpants/male_heart
-	mame = "Mens Hearts"
-	standing_icon = "Mens Hearts"
+	name = "Mens Hearts"
+	standing_icon = "male_hearts"
 	use_gender = MALE
 
 /obj/item/clothing/underwear/underpants/male_kinky
 	name = "Mens Kinky"
-	standing_icon = "Mens Kinky"
+	standing_icon = "male_kinky"
 	use_gender = MALE
 
 /obj/item/clothing/underwear/underpants/male_mankini
 	name = "Mankini"
-	standing_icon = "Mankini"
+	standing_icon = "male_mankini"
 	use_gender = MALE
 
 
 // Female
 /obj/item/clothing/underwear/underpants/female_red
 	name = "Ladies Red"
-	standing_icon = "Ladies Red"
+	standing_icon = "female_red"
 	use_gender = FEMALE
 
 /obj/item/clothing/underwear/underpants/female_green
 	name = "Ladies Green"
-	standing_icon = "Ladies Green"
+	standing_icon = "female_green"
 	use_gender = FEMALE
 
 /obj/item/clothing/underwear/underpants/female_white
 	name = "Ladies White"
-	standing_icon = "Ladies White"
+	standing_icon = "female_white"
 	use_gender = FEMALE
 
 /obj/item/clothing/underwear/underpants/female_whiter
 	name = "Ladies Whiter"
-	standing_icon = "Ladies Whiter"
+	standing_icon = "female_whiter"
 	use_gender = FEMALE
 
 /obj/item/clothing/underwear/underpants/female_whitealt
 	name = "Ladies White Alt"
-	standing_icon = "Ladies White Alt"
+	standing_icon = "female_whitealt"
 	use_gender = FEMALE
 
 /obj/item/clothing/underwear/underpants/female_yellow
 	name = "Ladies Yellow"
-	standing_icon = "Ladies Yellow"
+	standing_icon = "female_yellow"
 	use_gender = FEMALE
 
 /obj/item/clothing/underwear/underpants/female_blue
 	name = "Ladies Blue"
-	standing_icon = "Ladies Blue"
+	standing_icon = "female_blue"
 	use_gender = FEMALE
 
 /obj/item/clothing/underwear/underpants/female_babyblue
 	name = "Ladies Baby Blue"
-	standing_icon = "Ladies Baby Blue"
+	standing_icon = "female_babyblue"
 	use_gender = FEMALE
 
 /obj/item/clothing/underwear/underpants/female_black
 	name = "Ladies Black"
-	standing_icon = "Ladies Black"
+	standing_icon = "female_black"
 	use_gender = FEMALE
 
 /obj/item/clothing/underwear/underpants/female_blacker
 	name = "Ladies Blacker"
-	standing_icon = "Ladies Blacker"
+	standing_icon = "female_blacker"
 	use_gender = FEMALE
 
 /obj/item/clothing/underwear/underpants/female_blackalt
 	name = "Ladies Black Alt"
-	standing_icon = "Ladies Black Alt"
+	standing_icon = "female_blackalt"
 	use_gender = FEMALE
 
 /obj/item/clothing/underwear/underpants/female_kinky
 	name = "Ladies Kinky"
-	standing_icon = "Ladies Kinky"
+	standing_icon = "female_kinky"
 	use_gender = FEMALE
 
 /obj/item/clothing/underwear/underpants/female_babydoll
 	name = "Ladies Full Grey"
-	standing_icon = "Ladies Full Grey"
+	standing_icon = "female_babydoll"
 	use_gender = FEMALE
 
 /obj/item/clothing/underwear/underpants/female_pink
 	name = "Ladies Pink"
-	standing_icon = "Ladies Pink"
+	standing_icon = "female_pink"
 	use_gender = FEMALE
 
 /obj/item/clothing/underwear/underpants/female_thong
 	name = "Ladies Thong"
-	standing_icon = "Ladies Thong"
+	standing_icon = "female_thong"
 	use_gender = FEMALE
