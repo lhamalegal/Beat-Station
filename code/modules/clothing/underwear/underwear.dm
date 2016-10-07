@@ -3,4 +3,4 @@
 	item_state = "b_suit"
 
 	var/standing_icon
-	var/gender
+	var/use_gender

@@ -27,8 +27,11 @@ var/global/default_martial_art = new/datum/martial_art
 	var/age = 30		//Player's age (pure fluff)
 	var/b_type = "A+"	//Player's bloodtype
 
-	//var/underwear = "Nude"	//Which underwear the player wants
-	//var/undershirt = "Nude"	//Which undershirt the player wants
+	/*
+	var/underwear = "Nude"	//Which underwear the player wants
+	var/undershirt = "Nude"	//Which undershirt the player wants
+	*/
+
 	var/socks = "Nude" //Which socks the player wants
 	var/backbag = 2		//Which backpack type the player has chosen. Nothing, Satchel or Backpack.
 

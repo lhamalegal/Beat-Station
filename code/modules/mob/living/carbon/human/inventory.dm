@@ -635,7 +635,7 @@
 				return 0
 			if(underpants)
 				return 0
-			if(uw.gender != gender && uw.gender != NEUTER)
+			if(uw.use_gender != gender && uw.use_gender != NEUTER)
 				return 0
 			return 1
 		if(slot_undershirt)
@@ -644,7 +644,7 @@
 				return 0
 			if(undershirt)
 				return 0
-			if(uw.gender != gender && uw.gender != NEUTER)
+			if(uw.use_gender != gender && uw.use_gender != NEUTER)
 				return 0
 			return 1
 

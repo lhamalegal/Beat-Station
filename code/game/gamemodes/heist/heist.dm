@@ -112,8 +112,8 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 	head_organ.f_style = "Shaved"
 	vox.change_hair_color(97, 79, 25) //Same as the species default colour.
 	vox.change_eye_color(rand(1, 255), rand(1, 255), rand(1, 255))
-	vox.underwear = "Nude"
-	vox.undershirt = "Nude"
+	vox.underpants = null
+	vox.undershirt = null
 	vox.socks = "Nude"
 
 	// Do the initial caching of the player's body icons.
@@ -237,7 +237,7 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 
 	to_chat(world, "\red <FONT size = 3><B>[win_type] [win_group] victory!</B></FONT>")
 	to_chat(world, text)
-	
+
 	feedback_set_details("round_end_result","heist - [win_type] [win_group]")
 
 	var/count = 1

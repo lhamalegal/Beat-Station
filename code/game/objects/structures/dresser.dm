@@ -12,11 +12,13 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 
-		var/choice = input(user, "Underwear, Undershirt, or Socks?", "Changing") as null|anything in list("Underwear","Undershirt","Socks")
+		//var/choice = input(user, "Underwear, Undershirt, or Socks?", "Changing") as null|anything in list("Underwear","Undershirt","Socks")
+		var/choice = input(user, "Only socks? Why?", "Changing") as null|anything in list("Socks")
 
 		if(!Adjacent(user))
 			return
 		switch(choice)
+			/*
 			if("Underwear")
 				var/new_undies = input(user, "Select your underwear", "Changing")  as null|anything in underwear_list
 				if(new_undies)
@@ -26,6 +28,7 @@
 				var/new_undershirt = input(user, "Select your undershirt", "Changing") as null|anything in undershirt_list
 				if(new_undershirt)
 					H.undershirt = new_undershirt
+			*/
 
 			if("Socks")
 				var/new_socks = input(user, "Select your socks", "Changing") as null|anything in socks_list

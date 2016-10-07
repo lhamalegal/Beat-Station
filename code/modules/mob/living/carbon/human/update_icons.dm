@@ -1094,7 +1094,8 @@ var/global/list/damage_icon_parts = list()
 	var/icon/underwear_standing = new/icon('icons/mob/underwear.dmi', "nude")
 
 	if(underpants && species.clothing_flags)
-		var/datum/sprite_accessory/underwear/U = underwear_list[underpants.standing_icon]
+		var/obj/item/clothing/underwear/uw = underpants
+		var/datum/sprite_accessory/underwear/U = underwear_list[uw.standing_icon]
 		if(U)
 			underwear_standing.Blend(new /icon(U.icon, "uw_[U.icon_state]_s"), ICON_OVERLAY)
 
@@ -1115,7 +1116,8 @@ var/global/list/damage_icon_parts = list()
 	var/icon/underwear_standing = new/icon('icons/mob/underwear.dmi', "nude")
 
 	if(undershirt && species.clothing_flags)
-		var/datum/sprite_accessory/undershirt/U = undershirt_list[undershirt.standing_icon]
+		var/obj/item/clothing/underwear/uw = undershirt
+		var/datum/sprite_accessory/undershirt/U = underwear_list[uw.standing_icon]
 		if(U)
 			underwear_standing.Blend(new /icon(U.icon, "us_[U.icon_state]_s"), ICON_OVERLAY)
 
