@@ -311,13 +311,13 @@
 	if(underwear && (current_species.clothing_flags))
 		var/obj/item/clothing/underwear/uw = underwear_list[underwear]
 		if(uw)
-			underwear_s = new/icon(U.icon, "uw_[uw.standing_icon]_s", ICON_OVERLAY)
+			underwear_s = new/icon('icons/mob/underwear.dmi', "uw_[uw.standing_icon]_s", ICON_OVERLAY)
 
 	var/icon/undershirt_s = null
 	if(undershirt && (current_species.clothing_flags))
 		var/obj/item/clothing/underwear/uw2 = undershirt_list[undershirt]
 		if(uw2)
-			undershirt_s = new/icon(U2.icon, "us_[uw2.standing_icon]_s", ICON_OVERLAY)
+			undershirt_s = new/icon('icons/mob/underwear.dmi', "us_[uw2.standing_icon]_s", ICON_OVERLAY)
 
 	var/icon/socks_s = null
 	if(socks && (current_species.clothing_flags & HAS_SOCKS))
