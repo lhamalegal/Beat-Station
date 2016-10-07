@@ -630,11 +630,21 @@
 				return 0
 			return 1
 		if(slot_underpants)
+			var/obj/item/clothing/underwear/uw = I
+			if(!istype(uw))
+				return 0
 			if(underpants)
+				return 0
+			if(uw.gender != gender && uw.gender != NEUTER)
 				return 0
 			return 1
 		if(slot_undershirt)
+			var/obj/item/clothing/underwear/uw = I
+			if(!istype(uw))
+				return 0
 			if(undershirt)
+				return 0
+			if(uw.gender != gender && uw.gender != NEUTER)
 				return 0
 			return 1
 
