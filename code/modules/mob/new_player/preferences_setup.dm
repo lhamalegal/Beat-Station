@@ -308,14 +308,14 @@
 		face_s.Blend(facial_s, ICON_OVERLAY)
 
 	var/icon/underwear_s = null
-	if(underpants && (current_species.clothing_flags))
-		var/obj/item/clothing/underwear/uw = underpants
+	if(underwear && (current_species.clothing_flags))
+		var/obj/item/clothing/underwear/uw = underwear_list[underwear]
 		if(uw)
 			underwear_s = new/icon(U.icon, "uw_[uw.standing_icon]_s", ICON_OVERLAY)
 
 	var/icon/undershirt_s = null
 	if(undershirt && (current_species.clothing_flags))
-		var/obj/item/clothing/underwear/uw2 = undershirt
+		var/obj/item/clothing/underwear/uw2 = undershirt_list[undershirt]
 		if(uw2)
 			undershirt_s = new/icon(U2.icon, "us_[uw2.standing_icon]_s", ICON_OVERLAY)
 
