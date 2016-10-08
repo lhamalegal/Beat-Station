@@ -1115,8 +1115,9 @@ var/global/list/damage_icon_parts = list()
 			underwear_standing.Blend(new /icon('icons/mob/underwear.dmi', "uw_[uw.standing_icon]_s"), ICON_OVERLAY)
 
 	if(undershirt && species.clothing_flags)
-		var/obj/item/clothing/underwear/uw = undershirt
-		underwear_standing.Blend(new /icon('icons/mob/underwear.dmi', "us_[uw.standing_icon]_s"), ICON_OVERLAY)
+		var/obj/item/clothing/underwear/uw2 = undershirt
+		if(uw2)
+			underwear_standing.Blend(new /icon('icons/mob/underwear.dmi', "us_[uw2.standing_icon]_s"), ICON_OVERLAY)
 
 	if(underwear_standing)
 		overlays_standing[UNDERWEAR_LAYER] = image(underwear_standing)
