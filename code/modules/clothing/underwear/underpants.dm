@@ -1,4 +1,4 @@
-/obj/item/clothing/underwear/underpants
+/obj/item/clothing/underwear/underpants/New()
 	icon_state = "uw_[standing_icon]_s"
 
 /obj/item/clothing/underwear/underpants/nude
