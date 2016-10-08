@@ -1,3 +1,6 @@
+/obj/item/clothing/underwear/underpants
+	icon_state = "uw_[standing_icon]_s"
+
 /obj/item/clothing/underwear/underpants/nude
 	name = "Nude"
 	standing_icon = null

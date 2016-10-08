@@ -1347,10 +1347,14 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 				if("underwear")
 					var/list/underwear_options
-					if(gender == MALE)
-						underwear_options = underwear_m
-					else
-						underwear_options = underwear_f
+					for(var/key in underwear_list)
+						var/obj/item/clothing/underwear/uw = underwear_list[key]
+						if(gender == MALE && uw.use_gender == MALE)
+							underwear_options.Add(uw.name)
+						else if(gender == FEMALE && uw_gender == MALE)
+							underwear_options.Add(uw.name)
+						else if(uw_gender == NEUTER)
+							underwear_options.Add(uw.name)
 
 					var/new_underwear = input(user, "Choose your character's underwear:", "Character Preference")  as null|anything in underwear_options
 					if(new_underwear)
@@ -1359,10 +1363,21 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 				if("undershirt")
 					var/new_undershirt
+
+					var/list/undershirts
+					for(var/key in undershirt_list)
+						var/obj/item/clothing/underwear/uw = underwear_list[key]
+						if(gender == MALE && uw.use_gender == MALE)
+							undershirts.Add(uw.name)
+						else if(gender == FEMALE && uw_gender == MALE)
+							undershirts.Add(uw.name)
+						else if(uw_gender == NEUTER)
+							undershirts.Add(uw.name)
+
 					if(gender == MALE)
-						new_undershirt = input(user, "Choose your character's undershirt:", "Character Preference") as null|anything in undershirt_m
+						new_undershirt = input(user, "Choose your character's undershirt:", "Character Preference") as null|anything in undershirts
 					else
-						new_undershirt = input(user, "Choose your character's undershirt:", "Character Preference") as null|anything in undershirt_f
+						new_undershirt = input(user, "Choose your character's undershirt:", "Character Preference") as null|anything in undershirts
 					if(new_undershirt)
 						undershirt = new_undershirt
 					ShowChoices(user)
