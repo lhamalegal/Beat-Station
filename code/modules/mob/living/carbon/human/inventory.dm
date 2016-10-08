@@ -97,7 +97,7 @@
 		if(slot_w_uniform)
 			return has_organ("chest")
 		if(slot_underpants)
-			return has_organ("chest")
+			return has_organ("chest") && has_organ("l_leg") && has_organ("r_leg")
 		if(slot_undershirt)
 			return has_organ("chest")
 		if(slot_l_store)
@@ -201,10 +201,10 @@
 		update_inv_l_hand()
 	else if(I == underpants)
 		underpants = null
-		update_inv_underpants()
+		update_inv_underwear()
 	else if(I == undershirt)
 		undershirt = null
-		update_inv_undershirt()
+		update_inv_underwear()
 
 
 
@@ -320,10 +320,10 @@
 			uniform.attackby(W,src)
 		if(slot_underpants)
 			underpants = W
-			update_inv_underpants(redraw_mob)
+			update_inv_underwear(redraw_mob)
 		if(slot_undershirt)
 			undershirt = W
-			update_inv_undershirt(redraw_mob)
+			update_inv_underwear(redraw_mob)
 		else
 			to_chat(src, "<span class='warning'>You are trying to equip this item to an unsupported inventory slot. Report this to a coder!</span>")
 			return
@@ -630,7 +630,7 @@
 				return 0
 			return 1
 		if(slot_underpants)
-			var/obj/item/clothing/underwear/uw = I
+			var/obj/item/clothing/underwear/underpants/uw = I
 			if(!istype(uw))
 				return 0
 			if(underpants)
@@ -639,7 +639,7 @@
 				return 0
 			return 1
 		if(slot_undershirt)
-			var/obj/item/clothing/underwear/uw = I
+			var/obj/item/clothing/underwear/undershirt/uw = I
 			if(!istype(uw))
 				return 0
 			if(undershirt)

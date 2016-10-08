@@ -59,6 +59,7 @@ There are several things that need to be remembered:
 		update_inv_back()
 		update_inv_handcuffed()
 		update_inv_wear_mask()
+		update_inv_underwear()
 
 	All of these are named after the variable they update from. They are defined at the mob/ level like
 	update_clothing was, so you won't cause undefined proc runtimes with usr.update_inv_wear_id() if the usr is a
@@ -574,8 +575,7 @@ var/global/list/damage_icon_parts = list()
 	update_inv_legcuffed(0)
 	update_inv_pockets(0)
 	update_inv_wear_pda(0)
-	update_inv_underpants(0)
-	update_inv_undershirt(0)
+	update_inv_underwear(0)
 	UpdateDamageIcon()
 	update_icons()
 	update_fire()
@@ -602,7 +602,7 @@ var/global/list/damage_icon_parts = list()
 		var/image/standing	= image("icon_state" = "[t_color]_s")
 
 		if(FAT in mutations)
-			if(w_uniform.flags&ONESIZEFITSALL)
+			if(w_uniform.flags && ONESIZEFITSALL)
 				standing.icon	= 'icons/mob/uniform_fat.dmi'
 			else
 				to_chat(src, "\red You burst out of \the [w_uniform]!")
@@ -1083,9 +1083,14 @@ var/global/list/damage_icon_parts = list()
 		update_icons()
 
 
-/mob/living/carbon/human/update_inv_underpants(var/update_icons=1)
+/mob/living/carbon/human/update_inv_underwear(var/update_icons=1)
 	if(client && hud_used)
 		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_underpants]
+		inv = hud_used.inv_slots[slot_underpants]
+		if(inv)
+			inv.update_icon()
+
+		inv = hud_used.inv_slots[slot_undershirt]
 		if(inv)
 			inv.update_icon()
 
@@ -1097,22 +1102,6 @@ var/global/list/damage_icon_parts = list()
 		var/obj/item/clothing/underwear/uw = underpants
 		if(uw)
 			underwear_standing.Blend(new /icon('icons/mob/underwear.dmi', "uw_[uw.standing_icon]_s"), ICON_OVERLAY)
-
-	if(underwear_standing)
-		overlays_standing[UNDERWEAR_LAYER] = image(underwear_standing)
-
-	if(update_icons)
-		update_icons()
-
-/mob/living/carbon/human/update_inv_undershirt(var/update_icons=1)
-	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_undershirt]
-		if(inv)
-			inv.update_icon()
-
-
-	overlays_standing[UNDERWEAR_LAYER] = null
-	var/icon/underwear_standing = new/icon('icons/mob/underwear.dmi', "nude")
 
 	if(undershirt && species.clothing_flags)
 		var/obj/item/clothing/underwear/uw = undershirt

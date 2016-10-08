@@ -1346,7 +1346,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						f_style = new_f_style
 
 				if("underwear")
-					var/list/underwear_options
+					var/list/underwear_options = new /list()
 					for(var/key in underwear_list)
 						var/obj/item/clothing/underwear/uw = underwear_list[key]
 						if(gender == MALE && uw.use_gender == MALE)
@@ -1364,7 +1364,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				if("undershirt")
 					var/new_undershirt
 
-					var/list/undershirts
+					var/list/undershirts = new /list()
 					for(var/key in undershirt_list)
 						var/obj/item/clothing/underwear/uw = underwear_list[key]
 						if(gender == MALE && uw.use_gender == MALE)
