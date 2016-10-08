@@ -1,3 +1,6 @@
+/obj/item/clothing/underwear/underpants
+	icon = ''
+
 /obj/item/clothing/underwear/underpants/New()
 	icon_state = "uw_[standing_icon]_s"
 
