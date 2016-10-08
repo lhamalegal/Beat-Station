@@ -7,7 +7,6 @@
 	use_gender = NEUTER
 
 //
-
 /obj/item/clothing/underwear/undershirt/shirt_white
 	name = "White Shirt"
 	standing_icon = "shirt_white"

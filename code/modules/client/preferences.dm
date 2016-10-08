@@ -1351,9 +1351,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						var/obj/item/clothing/underwear/uw = underwear_list[key]
 						if(gender == MALE && uw.use_gender == MALE)
 							underwear_options.Add(uw.name)
-						else if(gender == FEMALE && uw_gender == MALE)
+						else if(gender == FEMALE && uw.use_gender == MALE)
 							underwear_options.Add(uw.name)
-						else if(uw_gender == NEUTER)
+						else if(uw.use_gender == NEUTER)
 							underwear_options.Add(uw.name)
 
 					var/new_underwear = input(user, "Choose your character's underwear:", "Character Preference")  as null|anything in underwear_options
@@ -1369,9 +1369,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						var/obj/item/clothing/underwear/uw = underwear_list[key]
 						if(gender == MALE && uw.use_gender == MALE)
 							undershirts.Add(uw.name)
-						else if(gender == FEMALE && uw_gender == MALE)
+						else if(gender == FEMALE && uw.use_gender == MALE)
 							undershirts.Add(uw.name)
-						else if(uw_gender == NEUTER)
+						else if(uw.use_gender == NEUTER)
 							undershirts.Add(uw.name)
 
 					if(gender == MALE)
@@ -1858,13 +1858,15 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		W.buckled_mob = character
 		W.add_fingerprint(character)
 
-	var/obj/item/clothing/underwear/uw
-	uw = underwear_list[underwear]
-	if(uw)
-		character.underpants = uw
-	uw = underwear_list[undershirt]
-	if(uw)
-		character.undershirt = uw
+	if(underwear != "Nude")
+		var/obj/item/clothing/underwear/uw = underwear_list[underwear]
+		if(uw)
+			character.underpants = uw
+
+	if(undershirt != "Nude")
+		var/obj/item/clothing/underwear/uw = underwear_list[undershirt]
+		if(uw)
+			character.undershirt = uw
 
 	character.socks = socks
 
