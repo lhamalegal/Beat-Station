@@ -305,10 +305,16 @@ var/global/list/damage_icon_parts = list()
 	else
 		overlays_standing[LIMBS_LAYER] = null // So we don't get the old species' sprite splatted on top of the new one's
 
-	/* Underwear
+	// Underwear
 	overlays_standing[UNDERWEAR_LAYER]	= null
 	var/icon/underwear_standing = new/icon('icons/mob/underwear.dmi',"nude")
 
+	if(socks && species.clothing_flags & HAS_SOCKS)
+		var/datum/sprite_accessory/socks/U = socks_list[socks]
+		if(U)
+			underwear_standing.Blend(new /icon(U.icon, "sk_[U.icon_state]_s"), ICON_OVERLAY)
+
+	/*
 	if(underwear && species.clothing_flags & HAS_UNDERWEAR)
 		var/datum/sprite_accessory/underwear/U = underwear_list[underwear]
 		if(U)
@@ -318,16 +324,11 @@ var/global/list/damage_icon_parts = list()
 		var/datum/sprite_accessory/undershirt/U2 = undershirt_list[undershirt]
 		if(U2)
 			underwear_standing.Blend(new /icon(U2.icon, "us_[U2.icon_state]_s"), ICON_OVERLAY)
-
-
-	if(socks && species.clothing_flags & HAS_SOCKS)
-		var/datum/sprite_accessory/socks/U3 = socks_list[socks]
-		if(U3)
-			underwear_standing.Blend(new /icon(U3.icon, "sk_[U3.icon_state]_s"), ICON_OVERLAY)
+	*/
 
 	if(underwear_standing)
 		overlays_standing[UNDERWEAR_LAYER]	= image(underwear_standing)
-	*/
+
 
 	if(update_icons)
 		update_icons()
@@ -1085,7 +1086,7 @@ var/global/list/damage_icon_parts = list()
 
 /mob/living/carbon/human/update_inv_underwear(var/update_icons=1)
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_underpants]
+		var/obj/screen/inventory/inv
 		inv = hud_used.inv_slots[slot_underpants]
 		if(inv)
 			inv.update_icon()
@@ -1094,7 +1095,17 @@ var/global/list/damage_icon_parts = list()
 		if(inv)
 			inv.update_icon()
 
+		if(hud_used.hud_shown)
+			if(underpants)
+				if(hud_used.inventory_shown)
+					underpants.screen_loc = ui_underpants
+				client.screen += underpants
+			if(undershirt)
+				if(hud_used.inventory_shown)
+					undershirt.screen_loc = ui_undershirt
+				client.screen += undershirt
 
+	// Overlay
 	overlays_standing[UNDERWEAR_LAYER] = null
 	var/icon/underwear_standing = new/icon('icons/mob/underwear.dmi', "nude")
 

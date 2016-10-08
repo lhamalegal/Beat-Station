@@ -168,10 +168,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/list/rlimb_data = list()
 
 	var/list/player_alt_titles = new()		// the default name of a job like "Medical Doctor"
-//	var/accent = "en-us"
-//	var/voice = "m1"
-//	var/pitch = 50
-//	var/talkspeed = 175
 	var/flavor_text = ""
 	var/med_record = ""
 	var/sec_record = ""
@@ -1349,9 +1345,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					var/list/underwear_options = new /list()
 					for(var/key in underwear_list)
 						var/obj/item/clothing/underwear/uw = underwear_list[key]
-						if(gender == MALE && uw.use_gender == MALE)
-							underwear_options.Add(uw.name)
-						else if(gender == FEMALE && uw.use_gender == MALE)
+						if(gender == uw.use_gender && uw.use_gender != NEUTER)
 							underwear_options.Add(uw.name)
 						else if(uw.use_gender == NEUTER)
 							underwear_options.Add(uw.name)
@@ -1362,22 +1356,15 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					ShowChoices(user)
 
 				if("undershirt")
-					var/new_undershirt
-
-					var/list/undershirts = new /list()
+					var/list/undershirts_options = new /list()
 					for(var/key in undershirt_list)
-						var/obj/item/clothing/underwear/uw = underwear_list[key]
-						if(gender == MALE && uw.use_gender == MALE)
-							undershirts.Add(uw.name)
-						else if(gender == FEMALE && uw.use_gender == MALE)
-							undershirts.Add(uw.name)
+						var/obj/item/clothing/underwear/uw = undershirt_list[key]
+						if(gender == uw.use_gender && uw.use_gender != NEUTER)
+							undershirts_options.Add(uw.name)
 						else if(uw.use_gender == NEUTER)
-							undershirts.Add(uw.name)
+							undershirts_options.Add(uw.name)
 
-					if(gender == MALE)
-						new_undershirt = input(user, "Choose your character's undershirt:", "Character Preference") as null|anything in undershirts
-					else
-						new_undershirt = input(user, "Choose your character's undershirt:", "Character Preference") as null|anything in undershirts
+					var/new_undershirt = input(user, "Choose your character's undershirt:", "Character Preference") as null|anything in undershirts_options
 					if(new_undershirt)
 						undershirt = new_undershirt
 					ShowChoices(user)

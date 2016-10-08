@@ -255,6 +255,8 @@ var/list/slot_equipment_priority = list( \
 		slot_wear_id,\
 		slot_wear_pda,\
 		slot_w_uniform,\
+		slot_underpants,\
+		slot_undershirt,\
 		slot_wear_suit,\
 		slot_wear_mask,\
 		slot_head,\
@@ -267,9 +269,7 @@ var/list/slot_equipment_priority = list( \
 		slot_s_store,\
 		slot_tie,\
 		slot_l_store,\
-		slot_r_store,\
-		slot_underpants,\
-		slot_undershirt\
+		slot_r_store\
 	)
 
 //puts the item "W" into an appropriate slot in a human's inventory

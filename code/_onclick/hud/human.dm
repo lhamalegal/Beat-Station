@@ -303,9 +303,9 @@
 	inv_box = new /obj/screen/inventory()
 	inv_box.name = "underpants"
 	inv_box.icon = ui_style
-	inv_box.slot_id = slot_underpants
 	inv_box.icon_state = "uniform"
 	inv_box.screen_loc = ui_underpants
+	inv_box.slot_id = slot_underpants
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	toggleable_inventory += inv_box
@@ -313,9 +313,9 @@
 	inv_box = new /obj/screen/inventory()
 	inv_box.name = "undershirt"
 	inv_box.icon = ui_style
-	inv_box.slot_id = slot_undershirt
 	inv_box.icon_state = "uniform"
 	inv_box.screen_loc = ui_undershirt
+	inv_box.slot_id = slot_undershirt
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	toggleable_inventory += inv_box
@@ -365,6 +365,7 @@
 	mymob.zone_sel.update_icon(mymob)
 	static_inventory += mymob.zone_sel
 
+
 	//Gun Move
 	mymob.gun_move = new /obj/screen/gun/move()
 	mymob.gun_move.icon = ui_style
@@ -388,6 +389,7 @@
 	mymob.gun_radio.icon = ui_style
 	mymob.gun_radio.update_icon(mymob)
 	static_inventory += mymob.gun_radio
+
 
 	inventory_shown = 0
 
