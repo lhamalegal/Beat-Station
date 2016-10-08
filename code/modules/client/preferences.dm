@@ -1360,9 +1360,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					for(var/key in undershirt_list)
 						var/obj/item/clothing/underwear/uw = undershirt_list[key]
 						if(gender == uw.use_gender && uw.use_gender != NEUTER)
-							undershirts_options.Add(uw.name)
+							undershirts_options.Add(key)
 						else if(uw.use_gender == NEUTER)
-							undershirts_options.Add(uw.name)
+							undershirts_options.Add(key)
 
 					var/new_undershirt = input(user, "Choose your character's undershirt:", "Character Preference") as null|anything in undershirts_options
 					if(new_undershirt)
@@ -1888,6 +1888,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	character.dna.ready_dna(character, flatten_SE = 0)
 	character.sync_organ_dna(assimilate=1)
 	character.UpdateAppearance()
+
+	// Underwear
+	character.update_inv_underwear()
 
 	// Do the initial caching of the player's body icons.
 	character.force_update_limbs()

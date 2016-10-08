@@ -620,6 +620,9 @@
 				if(U.accessories.len)
 					dat += "<tr><td>&nbsp;&#8627;<A href='?src=\ref[src];strip_accessory=1'>Remove Accessory</a></td></tr>"
 
+		dat += "<tr><td><B>Underpants:</B></td><td><A href='?src=\ref[src];item=[slot_underpants]'>[underpants ? underpants : "<font color=grey>Empty</font>"]</A></td></tr>"
+		dat += "<tr><td><B>Undershirt:</B></td><td><A href='?src=\ref[src];item=[slot_undershirt]'>[undershirt ? undershirt : "<font color=grey>Empty</font>"]</A></td></tr>"
+
 
 	if(handcuffed)
 		dat += "<tr><td><B>Handcuffed:</B> <A href='?src=\ref[src];item=[slot_handcuffed]'>Remove</A></td></tr>"
@@ -1114,15 +1117,12 @@
 	if(get_dist(owner, src) > 1 || owner.stat || owner.weakened || owner.stunned || owner.paralysis)
 		return
 
-	var/src_is_nude = !istype(w_uniform, /obj/item/clothing/under)
-	var/owner_is_nude = !istype(owner.w_uniform, /obj/item/clothing/under)
-
 	var/owner_clean_face = !istype(owner.wear_mask, /obj/item/clothing/mask)
 	var/src_clean_face = !istype(wear_mask, /obj/item/clothing/mask)
 
 	if(owner != src && get_dist(owner, src) <= 1)
 
-		if(owner_clean_face && src_is_nude)
+		if(owner_clean_face && is_nude())
 			if(href_list["oral"])
 				switch(href_list["oral"])
 					if("penis")
@@ -1139,17 +1139,17 @@
 								erp_controller.give_pleasure(4)
 								owner.erp_controller.give_pleasure(3)
 
-		if(owner_is_nude && get_dist(owner, src) == 0)
+		if(owner.is_nude() && get_dist(owner, src) == 0)
 			if(href_list["fuck"])
 				switch(href_list["fuck"])
 					if("anus")
-						if(src_is_nude)
+						if(is_nude())
 							if(owner.erp_controller.fucking(src, "fuck=anus"))
 								// Pleasure values
 								erp_controller.give_pleasure(6)
 								owner.erp_controller.give_pleasure(6)
 					if("vagina")
-						if(gender == FEMALE && src_is_nude)
+						if(gender == FEMALE && is_nude())
 							if(owner.erp_controller.fucking(src, "fuck=vagina"))
 								// Pleasure values
 								erp_controller.give_pleasure(5)
@@ -2111,8 +2111,8 @@
 	data["src_name"] = "[src]"
 	data["dist"] = get_dist(user, src)
 
-	data["src_nude"] = !istype(w_uniform, /obj/item/clothing/under)
-	data["usr_nude"] = !istype(user.w_uniform, /obj/item/clothing/under)
+	data["src_nude"] = is_nude()
+	data["usr_nude"] = user.is_nude()
 
 	data["src_face"] = !istype(wear_mask, /obj/item/clothing/mask)
 	data["usr_face"] = !istype(user.wear_mask, /obj/item/clothing/mask)
@@ -2129,3 +2129,6 @@
 		if(user == target && get_dist(user, src) <= 1)
 			ui_interact(user)
 	return ..()
+
+/mob/living/carbon/human/proc/is_nude()
+	return (!istype(w_uniform, /obj/item/clothing/under) && !istype(underpants, /obj/item/clothing/underwear/underpants))

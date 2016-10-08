@@ -1,5 +1,5 @@
 /obj/item/clothing/underwear
-	icon = 'icons/mob/underwear.dmi'
+	icon = 'icons/obj/underwear.dmi'
 
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
