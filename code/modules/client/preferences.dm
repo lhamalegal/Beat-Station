@@ -1342,13 +1342,11 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						f_style = new_f_style
 
 				if("underwear")
-					var/list/underwear_options = new /list()
-					for(var/key in underwear_list)
-						var/obj/item/clothing/underwear/uw = underwear_list[key]
-						if(gender == uw.use_gender && uw.use_gender != NEUTER)
-							underwear_options.Add(uw.name)
-						else if(uw.use_gender == NEUTER)
-							underwear_options.Add(uw.name)
+					var/list/underwear_options
+					if(gender == MALE)
+						underwear_options = underwear_m
+					else
+						underwear_options = underwear_f
 
 					var/new_underwear = input(user, "Choose your character's underwear:", "Character Preference")  as null|anything in underwear_options
 					if(new_underwear)
@@ -1356,15 +1354,13 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					ShowChoices(user)
 
 				if("undershirt")
-					var/list/undershirts_options = new /list()
-					for(var/key in undershirt_list)
-						var/obj/item/clothing/underwear/uw = undershirt_list[key]
-						if(gender == uw.use_gender && uw.use_gender != NEUTER)
-							undershirts_options.Add(key)
-						else if(uw.use_gender == NEUTER)
-							undershirts_options.Add(key)
+					var/list/undershirt_options
+					if(gender == MALE)
+						undershirt_options = undershirt_m
+					else
+						undershirt_options = undershirt_f
 
-					var/new_undershirt = input(user, "Choose your character's undershirt:", "Character Preference") as null|anything in undershirts_options
+					var/new_undershirt = input(user, "Choose your character's undershirt:", "Character Preference") as null|anything in undershirt_options
 					if(new_undershirt)
 						undershirt = new_undershirt
 					ShowChoices(user)
@@ -1845,15 +1841,19 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		W.buckled_mob = character
 		W.add_fingerprint(character)
 
-	if(underwear != "Nude")
-		var/obj/item/clothing/underwear/uw = underwear_list[underwear]
+	if(underwear == "Nude")
+		character.underpants = null
+	else
+		var/obj/item/clothing/underwear/underpants/uw = underwear_list[underwear]
 		if(uw)
-			character.underpants = uw
+			character.underpants = new uw()
 
-	if(undershirt != "Nude")
-		var/obj/item/clothing/underwear/uw = underwear_list[undershirt]
-		if(uw)
-			character.undershirt = uw
+	if(undershirt == "Nude")
+		character.undershirt = null
+	else
+		var/obj/item/clothing/underwear/undershirt/uw1 = undershirt_list[undershirt]
+		if(uw1)
+			character.undershirt = new uw1()
 
 	character.socks = socks
 
@@ -1888,9 +1888,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	character.dna.ready_dna(character, flatten_SE = 0)
 	character.sync_organ_dna(assimilate=1)
 	character.UpdateAppearance()
-
-	// Underwear
-	character.update_inv_underwear()
 
 	// Do the initial caching of the player's body icons.
 	character.force_update_limbs()

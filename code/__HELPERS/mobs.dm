@@ -1,21 +1,17 @@
 proc/random_underwear(gender, species = "Human")
 	var/list/pick_list = list()
-	for(var/key in underwear_list)
-		var/obj/item/clothing/underwear/uw = underwear_list[key]
-		if(gender == uw.use_gender && uw.use_gender != NEUTER)
-			pick_list.Add(key)
-		else if(uw.use_gender == NEUTER)
-			pick_list.Add(key)
+	switch(gender)
+		if(MALE)	pick_list = underwear_m
+		if(FEMALE)	pick_list = underwear_f
+		else		pick_list = underweari_list
 	return pick_species_allowed_underwear(pick_list, species)
 
 proc/random_undershirt(gender, species = "Human")
 	var/list/pick_list = list()
-	for(var/key in undershirt_list)
-		var/obj/item/clothing/underwear/uw = undershirt_list[key]
-		if(gender == uw.use_gender && uw.use_gender != NEUTER)
-			pick_list.Add(key)
-		else if(uw.use_gender == NEUTER)
-			pick_list.Add(key)
+	switch(gender)
+		if(MALE)	pick_list = undershirt_m
+		if(FEMALE)	pick_list = undershirt_f
+		else		pick_list = undershirti_list
 	return pick_species_allowed_underwear(pick_list, species)
 
 proc/random_socks(gender, species = "Human")

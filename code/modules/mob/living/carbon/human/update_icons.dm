@@ -1095,6 +1095,7 @@ var/global/list/damage_icon_parts = list()
 		if(inv)
 			inv.update_icon()
 
+
 		if(hud_used.hud_shown)
 			if(underpants)
 				if(hud_used.inventory_shown)
@@ -1104,6 +1105,7 @@ var/global/list/damage_icon_parts = list()
 				if(hud_used.inventory_shown)
 					undershirt.screen_loc = ui_undershirt
 				client.screen += undershirt
+
 
 	// Overlay
 	overlays_standing[UNDERWEAR_LAYER] = null
