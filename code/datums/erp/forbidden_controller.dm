@@ -87,6 +87,8 @@
 	if(!click_check())
 		return 0
 
+	face_atom(who)
+
 	who.erp_controller.time_check()
 
 	click_time = world.time + 15
