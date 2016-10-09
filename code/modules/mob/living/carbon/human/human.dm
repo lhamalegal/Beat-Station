@@ -2113,36 +2113,44 @@
 			ui_interact(user)
 	return ..()
 
+/mob/living/carbon/human/attackby(obj/item/I, mob/user, params)
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H.a_intent == I_GRAB && M.zone_sel && M.zone_sel.selecting == "groin")
+			if(src.ass_storage(M, I))
+				return 1
+	..()
+
 /mob/living/carbon/human/proc/is_nude()
 	return (!istype(w_uniform, /obj/item/clothing/under) && !istype(underpants, /obj/item/clothing/underwear/underpants))
 
-/mob/living/carbon/human/proc/ass_storage(mob/living/carbon/human/H)
+/mob/living/carbon/human/proc/ass_storage(mob/living/carbon/human/H, obj/item/I = null)
 	if(!is_nude())
 		to_chat(H, "<span class='notice'>You can't access [src == H ? "your" : src + "'s"] anus.")
 		return 0
 
-	var/obj/item/I
-	if(H.hand && H.l_hand)
-		I = H.l_hand
-	else if(H.r_hand)
-		I = H.r_hand
+	var/his = (src == H ? H.gender == FEMALE ? "her" : "his" : "[src]'s")
+	var/your = (src == H ? "your" : "[src]'s")
 
 	if(I)
-		H.visible_message("<span class='notice'>[H] begins to put \the [I] inside [src == H ? "\his" : src + "'s"] anus!", "<span class='notice'>You begin to put \the [I] inside [src == H ? "your" : src + "'s"] anus!")
+		H.visible_message("<span class='notice'>[H] begins to put \the [I] inside [his] anus!", "<span class='notice'>You begin to put \the [I] inside [your] anus!")
 		if(do_after(H, 30, target = src))
-			if(ass_storage.can_be_inserted(I, 1))
-				ass_storage.handle_item_insertion(I, 1)
-				to_chat(H, "<span class='notice'>You put \the [I] inside [src == H ? "your" : src + "'s"] anus.")
+			if(ass_storage.attackby(I, H, null))
+				if(!isrobot(H))
+					to_chat(H, "<span class='notice'>You put \the [I] inside [your] anus.")
+				else
+					return 0
 			else
-				to_chat(H, "<span class='notice'>\The [I] doesn't fit in [src == H ? "your" : src + "'s"] anus.")
+				to_chat(H, "<span class='notice'>\The [I] doesn't fit in [your] anus.")
 	else
-		H.visible_message("<span class='notice'>[H] begins to search inside [src == H ? "\his" : src + "'s"] anus!", "<span class='notice'>You begin to search inside [src == H ? "your" : src + "'s"] anus!")
+		H.visible_message("<span class='notice'>[H] begins to search inside [his] anus!", "<span class='notice'>You begin to search inside [your] anus!")
 		if(do_after(H, 30, target = src))
 			var/i = 0
 			for(var/obj/item in ass_storage)
 				i += 1
 				ass_storage.remove_from_storage(item, src.loc)
 			if(i == 0)
-				to_chat(H, "<span class='notice'>[src == H ? "Your" : src + "'s"] anus is empty.")
+				to_chat(H, "<span class='notice'>[capitalize(your)] anus is empty.")
 			else
-				to_chat(H, "<span class='notice'>You remove everything from [src == H ? "your" : src + "'s"] anus.")
+				to_chat(H, "<span class='notice'>You remove everything from [your] anus.")
+	return 1

@@ -102,7 +102,7 @@
 				to_chat(M, "<span class='danger'>You need to stay still while performing CPR!</span>")
 
 		if(I_GRAB)
-			if(M.zone_sel && M.zone_sel.selection == "groin" && is_nude())
+			if(M.zone_sel && M.zone_sel.selecting == "groin" && is_nude())
 				src.ass_storage(M)
 				return 1
 			if(attacker_style && attacker_style.grab_act(H, src))
