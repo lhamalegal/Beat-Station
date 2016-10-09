@@ -1115,59 +1115,40 @@
 		src.examinate(M)
 
 	/*              ERP                 */
-	var/mob/living/carbon/human/owner = usr
+	if(ishuman(usr))
+		var/mob/living/carbon/human/owner = usr
 
-	if(!istype(owner))
-		return
+		if(get_dist(owner, src) <= 1 || !owner.stat || !owner.weakened || !owner.stunned || !owner.paralysis)
+			var/owner_clean_face = !istype(owner.wear_mask, /obj/item/clothing/mask)
+			var/src_clean_face = !istype(wear_mask, /obj/item/clothing/mask)
 
-	if(get_dist(owner, src) > 1 || owner.stat || owner.weakened || owner.stunned || owner.paralysis)
-		return
+			if(owner != src)
 
-	var/owner_clean_face = !istype(owner.wear_mask, /obj/item/clothing/mask)
-	var/src_clean_face = !istype(wear_mask, /obj/item/clothing/mask)
+				if(owner_clean_face && is_nude())
+					if(href_list["oral"])
+						switch(href_list["oral"])
+							if("penis")
+								if(gender == MALE && !erp_controller.fucking)
+									owner.erp_controller.fucking(src, BLOWJOB)
 
-	if(owner != src && get_dist(owner, src) <= 1)
+							else if("vagina")
+								if(gender == FEMALE)
+									owner.erp_controller.fucking(src, CUNNILINGUS)
 
-		if(owner_clean_face && is_nude())
-			if(href_list["oral"])
-				switch(href_list["oral"])
-					if("penis")
-						if(gender == MALE && !erp_controller.fucking)
-							if(owner.erp_controller.fucking(src, "oral=penis"))
-								// Pleasure values
-								erp_controller.give_pleasure(5)
-								owner.erp_controller.give_pleasure(2)
+				if(owner.is_nude() && get_dist(owner, src) == 0)
+					if(href_list["fuck"])
+						switch(href_list["fuck"])
+							if("anus")
+								if(is_nude())
+									owner.erp_controller.fucking(src, ANAL)
+							if("vagina")
+								if(gender == FEMALE && is_nude())
+									owner.erp_controller.fucking(src, VAGINAL)
+							if("mouth")
+								if(src_clean_face)
+									owner.erp_controller.fucking(src, MOUTHFUCK)
 
-					else if("vagina")
-						if(gender == FEMALE)
-							if(owner.erp_controller.fucking(src, "oral=vagina"))
-								// Pleasure values
-								erp_controller.give_pleasure(4)
-								owner.erp_controller.give_pleasure(3)
-
-		if(owner.is_nude() && get_dist(owner, src) == 0)
-			if(href_list["fuck"])
-				switch(href_list["fuck"])
-					if("anus")
-						if(is_nude())
-							if(owner.erp_controller.fucking(src, "fuck=anus"))
-								// Pleasure values
-								erp_controller.give_pleasure(6)
-								owner.erp_controller.give_pleasure(6)
-					if("vagina")
-						if(gender == FEMALE && is_nude())
-							if(owner.erp_controller.fucking(src, "fuck=vagina"))
-								// Pleasure values
-								erp_controller.give_pleasure(5)
-								owner.erp_controller.give_pleasure(5)
-					if("mouth")
-						if(src_clean_face)
-							if(owner.erp_controller.fucking(src, "fuck=mouth"))
-								// Pleasure values
-								erp_controller.give_pleasure(2)
-								owner.erp_controller.give_pleasure(5)
-
-	nanomanager.update_uis(src)
+		nanomanager.update_uis(src)
 	. = ..()
 
 
