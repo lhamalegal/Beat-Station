@@ -32,7 +32,7 @@
 					if(new_undies == "Nude")
 						H.underpants = null
 					else
-						H.underpants = new underwear_list[new_undies].type
+						H.underpants = new underwear_list[new_undies].type()
 					H.update_inv_underwear()
 
 			if("Undershirt")
@@ -50,7 +50,7 @@
 					if(new_undershirt == "Nude")
 						H.undershirt = null
 					else
-						H.undershirt = new undershirt_list[new_undershirt].type
+						H.undershirt = new undershirt_list[new_undershirt].type()
 					H.update_inv_underwear()
 
 			if("Socks")
