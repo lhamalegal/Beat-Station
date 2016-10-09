@@ -11,9 +11,6 @@
 	var/embedded_flag	  //To check if we've need to roll for damage on movement while an item is imbedded in us.
 	var/obj/item/weapon/rig/wearing_rig // This is very not good, but it's much much better than calling get_rig() every update_canmove() call.
 
-	// ERP Controller
-	var/datum/forbidden_controller/erp_controller
-
 /mob/living/carbon/human/New(var/new_loc, var/new_species = null, var/delay_ready_dna = 0)
 	if(!dna)
 		dna = new /datum/dna(null)
@@ -2118,3 +2115,32 @@
 
 /mob/living/carbon/human/proc/is_nude()
 	return (!istype(w_uniform, /obj/item/clothing/under) && !istype(underpants, /obj/item/clothing/underwear/underpants))
+
+/mob/living/carbon/human/proc/ass_storage(mob/living/carbon/human/H)
+	if(!is_nude())
+		to_chat(H, "<span class='notice'>You can't access [src == H ? "your" : src + "'s"] anus.)
+		return 0
+
+	var/obj/item/I
+	if(H.hand && H.l_hand)
+		I = H.l_hand
+	else if(H.r_hand)
+		I = H.r_hand
+
+	if(I)
+		H.visible_message("<span class='notice'>[H] begins to put \the [I] inside [src == H ? "\his" : src + "'s"] anus!", "<span class='notice'>You begin to put \the [I] inside [src == H ? "your" : src + "'s"] anus!")
+		if(do_after(H, 30, target = src))
+			if(ass_storage.can_be_inserted(I, 1))
+				ass_storage.handle_item_insertion(I, 1)
+				to_chat(H, "<span class='notice'>You put \the [I] inside [src == H ? "your" : src + "'s"] anus."
+			else
+				to_chat(H, "<span class='notice'>\The [I] doesn't fit in [src == H ? "your" : src + "'s"] anus."
+	else
+		H.visible_message("<span class='notice'>[H] begins to search inside [src == H ? "\his" : src + "'s"] anus!", "<span class='notice'>You begin to search inside [src == H ? "your" : src + "'s"] anus!")
+		if(do_after(H, 30, target = src))
+			if(ass_storage.)
+				for(var/obj/item in ass_storage)
+					ass_storage.remove_from_storage(item, src.loc)
+				to_chat(H, "<span class='notice'>You remove everything from [src == H ? "your" : src + "'s"] anus."
+			else
+				to_chat(H, "<span class='notice'>[src == H ? "Your" : src + "'s"] anus is empty."
