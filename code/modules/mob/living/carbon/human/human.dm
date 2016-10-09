@@ -2137,7 +2137,7 @@
 
 	if(I)
 		if(istype(I, /obj/item/weapon/disk/nuclear))
-			to_chat(user, "<span class='warning'>Central command would kill you if you put it in there.</span>")
+			to_chat(H, "<span class='warning'>Central command would kill you if you put it in there.</span>")
 			return 1
 
 		H.visible_message("<span class='notice'>[H] begins to put \the [I] inside [his] anus!", "<span class='notice'>You begin to put \the [I] inside [your] anus!")
