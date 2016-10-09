@@ -12,13 +12,12 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 
-		//var/choice = input(user, "Underwear, Undershirt, or Socks?", "Changing") as null|anything in list("Underwear","Undershirt","Socks")
-		var/choice = input(user, "Only socks?", "Changing") as null|anything in list("Socks")
+		var/choice = input(user, "Underwear, Undershirt, or Socks?", "Changing") as null|anything in list("Underwear","Undershirt","Socks")
+		//var/choice = input(user, "Only socks?", "Changing") as null|anything in list("Socks")
 
 		if(!Adjacent(user))
 			return
 		switch(choice)
-			/*
 			if("Underwear")
 				var/list/choices
 				switch(H.gender)
@@ -32,10 +31,15 @@
 				var/new_undies = input(user, "Select your underwear", "Changing")  as null|anything in choices
 				if(new_undies)
 					if(new_undies == "Nude")
-						H.underpants = null
+						if(H.underpants)
+							H.unEquip(H.underpants)
+							qdel(H.underpants)
 					else
 						var/obj/item/clothing/underwear/underpants/up = underwear_list[new_undies]
-						H.underpants = new up.type()
+						if(H.underpants)
+							H.unEquip(H.underpants)
+							qdel(H.underpants)
+						H.equip_or_collect(new up.type(), slot_underpants)
 					H.update_inv_underwear()
 
 			if("Undershirt")
@@ -51,12 +55,16 @@
 				var/new_undershirt = input(user, "Select your undershirt", "Changing") as null|anything in choices
 				if(new_undershirt)
 					if(new_undershirt == "Nude")
-						H.undershirt = null
+						if(H.undershirt)
+							H.unEquip(H.undershirt)
+							qdel(H.undeshirt)
 					else
 						var/obj/item/clothing/underwear/undershirt/us = undershirt_list[new_undershirt]
-						H.undershirt = new us.type()
+						if(H.undershirt)
+							H.unEquip(H.undershirt)
+							qdel(H.undershirt)
+						H.equip_or_collect(new us.type(), slot_undershirt)
 					H.update_inv_underwear()
-			*/
 
 			if("Socks")
 				var/new_socks = input(user, "Select your socks", "Changing") as null|anything in socks_list

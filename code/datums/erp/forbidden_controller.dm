@@ -130,10 +130,6 @@
 		fucking_list = new /list()
 		fucked = null
 		fucked_action = null
-	if(get_dist(owner, fucked) > 1)
-		fucking_list = new /list()
-		fucked = null
-		fucked_action = null
 
 /datum/forbidden_controller/proc/click_check()
 	if(world.time >= click_time)
