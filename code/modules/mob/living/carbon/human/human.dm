@@ -592,19 +592,18 @@
 		else
 			dat += "<tr><td><B>Gloves:</B></td><td><A href='?src=\ref[src];item=[slot_gloves]'>[(gloves && !(gloves.flags&ABSTRACT))		? gloves	: "<font color=grey>Empty</font>"]</A></td></tr>"
 
-		if(slot_w_uniform in obscured)
-			dat += "<tr><td><font color=grey><B>Uniform:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
-		else
-			dat += "<tr><td><B>Uniform:</B></td><td><A href='?src=\ref[src];item=[slot_w_uniform]'>[(w_uniform && !(w_uniform.flags&ABSTRACT)) ? w_uniform : "<font color=grey>Empty</font>"]</A></td></tr>"
-
 		// Underwear
-		if(w_uniform != null || !(slot_w_uniform in obscured))
-			dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>Underpants:</B></font></td></tr>"
-			dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>Undershirt:</B></font></td></tr>"
+		if(w_uniform || slot_w_uniform in obscured)
+			dat += "<tr><td><font color=grey><B>Underpants:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
+			dat += "<tr><td><font color=grey><B>Undershirt:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
 		else
 			dat += "<tr><td><B>Underpants:</B></td><td><A href='?src=\ref[src];item=[slot_underpants]'>[underpants ? underpants : "<font color=grey>Empty</font>"]</A></td></tr>"
 			dat += "<tr><td><B>Undershirt:</B></td><td><A href='?src=\ref[src];item=[slot_undershirt]'>[undershirt ? undershirt : "<font color=grey>Empty</font>"]</A></td></tr>"
 
+		if(slot_w_uniform in obscured)
+			dat += "<tr><td><font color=grey><B>Uniform:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
+		else
+			dat += "<tr><td><B>Uniform:</B></td><td><A href='?src=\ref[src];item=[slot_w_uniform]'>[(w_uniform && !(w_uniform.flags&ABSTRACT)) ? w_uniform : "<font color=grey>Empty</font>"]</A></td></tr>"
 
 		if(w_uniform == null || (slot_w_uniform in obscured))
 			dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>Pockets:</B></font></td></tr>"

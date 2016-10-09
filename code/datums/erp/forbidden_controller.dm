@@ -77,12 +77,7 @@
 		owner.visible_message("<span class='erp'><b>[owner]</b> twists in orgasm!</span>")
 
 	if(pleasure >= 30 && prob(12))
-		var/vr
-		if(owner.gender == FEMALE)
-			vr = pick("moans in pleasure", "moans")
-		else
-			vr = "moans"
-		owner.visible_message("<span class='erp'><b>[owner]</b> [vr].</span>")
+		owner.visible_message("<span class='erp'><b>[owner]</b> [owner.gender == FEMALE ? pick("moans in pleasure", "moans") : "moans].</span>")
 
 /datum/forbidden_controller/proc/fucking(mob/living/carbon/human/who, action, auto_pleasure = 1)
 
@@ -94,12 +89,11 @@
 
 	who.erp_controller.time_check()
 
-	timevar = world.time + 100
+	click_time = world.time + 15
+	who.erp_controller.timevar = world.time + 100
 
 	fucking_action = action
 	fucking = who
-
-	who.erp_controller.fucked(owner, action)
 
 	if(owner in who.erp_controller.fucking_list)
 		fucking_text(action, who)
@@ -107,13 +101,15 @@
 		begins_text(action, who)
 		who.erp_controller.fucking_list.Add(owner)
 
+	who.erp_controller.fucked(owner, action)
+
 	if(auto_pleasure)
 		give_pleasure(f_action = action, give_to = who)
 
 	if(is_fuck(action))
 		fucked = null
 		fucked_action = null
-		fucking_list = new /list()
+		fucking_list = new()
 
 	return 1
 
@@ -127,12 +123,11 @@
 // Checks
 /datum/forbidden_controller/proc/time_check()
 	if(world.time > timevar)
-		fucking_list = new /list()
+		fucking_list = new()
 		fucked = null
 		fucked_action = null
 
 /datum/forbidden_controller/proc/click_check()
 	if(world.time >= click_time)
-		click_time = world.time + 15
 		return 1
 	return 0
