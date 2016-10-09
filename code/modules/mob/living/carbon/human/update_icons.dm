@@ -1086,48 +1086,42 @@ var/global/list/damage_icon_parts = list()
 
 /mob/living/carbon/human/update_inv_underwear(var/update_icons=1)
 	if(client && hud_used)
-		var/obj/screen/inventory/inv
-		inv = hud_used.inv_slots[slot_underpants]
+		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_underpants]
 		if(inv)
 			inv.update_icon()
 
-		inv = hud_used.inv_slots[slot_undershirt]
+	if(client && hud_used)
+		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_undershirt]
 		if(inv)
 			inv.update_icon()
 
-
-		if(hud_used.hud_shown)
-			if(underpants)
+	if(underpants || undershirt)
+		var/icon/underwear_standing = new/icon('icons/mob/underwear.dmi', "nude")
+		if(underpants)
+			if(client && hud_used && hud_used.hud_shown)
 				if(hud_used.inventory_shown)
 					underpants.screen_loc = ui_underpants
 				client.screen += underpants
-			if(undershirt)
+
+			var/obj/item/clothing/underwear/uw = underpants
+			if(istype(uw))
+				underwear_standing.Blend(new /icon('icons/mob/underwear.dmi', "uw_[uw.standing_icon]_s"), ICON_OVERLAY)
+		if(undershirt)
+			if(client && hud_used && hud_used.hud_shown)
 				if(hud_used.inventory_shown)
 					undershirt.screen_loc = ui_undershirt
 				client.screen += undershirt
 
-
-	// Overlay
-	overlays_standing[UNDERWEAR_LAYER] = null
-	var/icon/underwear_standing = new/icon('icons/mob/underwear.dmi', "nude")
-
-	if(underpants && species.clothing_flags)
-		var/obj/item/clothing/underwear/uw = underpants
-		if(uw)
-			underwear_standing.Blend(new /icon('icons/mob/underwear.dmi', "uw_[uw.standing_icon]_s"), ICON_OVERLAY)
-
-	if(undershirt && species.clothing_flags)
-		var/obj/item/clothing/underwear/uw2 = undershirt
-		if(uw2)
-			underwear_standing.Blend(new /icon('icons/mob/underwear.dmi', "us_[uw2.standing_icon]_s"), ICON_OVERLAY)
-
-	if(underwear_standing)
+			var/obj/item/clothing/underwear/uw2 = undershirt
+			if(istype(uw2))
+				underwear_standing.Blend(new /icon('icons/mob/underwear.dmi', "us_[uw2.standing_icon]_s"), ICON_OVERLAY)
 		overlays_standing[UNDERWEAR_LAYER] = image(underwear_standing)
-
+	else
+		overlays_standing[UNDERWEAR_LAYER] = null
 	if(update_icons)
 		update_icons()
 
-
+// UPDATE INV END
 
 //human HUD updates for items in our inventory
 

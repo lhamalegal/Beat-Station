@@ -29,9 +29,9 @@
 
 /datum/forbidden_controller/proc/give_pleasure(base = null, f_action = null, give_to = null)
 
-	if(!base && action && give_to)
-		var/datum/forbidden_controller/erp_c = who.erp_controller
-		switch(action)
+	if(!base && f_action && give_to)
+		var/datum/forbidden_controller/erp_c = give_to.erp_controller
+		switch(f_action)
 			if(CUNNILINGUS)
 				erp_c.give_pleasure(4)
 				give_pleasure(3)
@@ -56,6 +56,10 @@
 /datum/forbidden_controller/proc/fucked(mob/living/carbon/human/by, action)
 	fucked_action = action
 	fucked = by
+
+	if(is_fuck(action) && fucking == by)
+		fucking = null
+		fucking_action = null
 
 	// Lose virginity
 	if(virgin && action == VAGINAL && owner.gender == FEMALE)
