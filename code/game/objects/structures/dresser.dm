@@ -6,11 +6,12 @@
 	density = 1
 	anchored = 1
 
-/obj/structure/dresser/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/clothing/underwear))
-		user.unEquip(W)
-		qdel(W)
-		to_chat(user, "<span class='notice'>You put [W] in the dresser.</span>")
+/obj/structure/dresser/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/clothing/underwear))
+		user.drop_item()
+		qdel(I)
+		to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
+		return
 
 /obj/structure/dresser/attack_hand(mob/user)
 	if(!Adjacent(user))//no tele-grooming
