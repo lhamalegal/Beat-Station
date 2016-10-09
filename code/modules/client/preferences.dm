@@ -1845,12 +1845,12 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	if(underwear != "Nude")
 		var/obj/item/clothing/underwear/underpants/uw = underwear_list[underwear]
 		if(uw)
-			H.equip_or_collect(new uw.type(), slot_underpants)
+			character.equip_or_collect(new uw.type(), slot_underpants)
 
 	if(undershirt != "Nude")
 		var/obj/item/clothing/underwear/undershirt/uw1 = undershirt_list[undershirt]
 		if(uw1)
-			H.equip_or_collect(new uw1.type(), slot_undershirt)
+			character.equip_or_collect(new uw1.type(), slot_undershirt)
 	//
 
 	character.socks = socks
