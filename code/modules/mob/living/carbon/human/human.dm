@@ -2132,15 +2132,15 @@
 		if(do_after(H, 30, target = src))
 			if(ass_storage.can_be_inserted(I, 1))
 				ass_storage.handle_item_insertion(I, 1)
-				to_chat(H, "<span class='notice'>You put \the [I] inside [src == H ? "your" : src + "'s"] anus."
+				to_chat(H, "<span class='notice'>You put \the [I] inside [src == H ? "your" : src + "'s"] anus.")
 			else
-				to_chat(H, "<span class='notice'>\The [I] doesn't fit in [src == H ? "your" : src + "'s"] anus."
+				to_chat(H, "<span class='notice'>\The [I] doesn't fit in [src == H ? "your" : src + "'s"] anus.")
 	else
 		H.visible_message("<span class='notice'>[H] begins to search inside [src == H ? "\his" : src + "'s"] anus!", "<span class='notice'>You begin to search inside [src == H ? "your" : src + "'s"] anus!")
 		if(do_after(H, 30, target = src))
 			if(ass_storage.)
 				for(var/obj/item in ass_storage)
 					ass_storage.remove_from_storage(item, src.loc)
-				to_chat(H, "<span class='notice'>You remove everything from [src == H ? "your" : src + "'s"] anus."
+				to_chat(H, "<span class='notice'>You remove everything from [src == H ? "your" : src + "'s"] anus.")
 			else
-				to_chat(H, "<span class='notice'>[src == H ? "Your" : src + "'s"] anus is empty."
+				to_chat(H, "<span class='notice'>[src == H ? "Your" : src + "'s"] anus is empty.")
