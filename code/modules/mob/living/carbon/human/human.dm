@@ -2083,7 +2083,7 @@
 	return .
 
 
-// ERP
+// Forbidden Fruits
 /mob/living/carbon/human/ui_interact(mob/living/carbon/human/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	if(get_dist(user, src) > 1 || src == usr)
 		return
@@ -2113,16 +2113,17 @@
 			ui_interact(user)
 	return ..()
 
+/mob/living/carbon/human/proc/is_nude()
+	return (!istype(w_uniform, /obj/item/clothing/under) && !istype(underpants, /obj/item/clothing/underwear/underpants))
+
+// Anus insertion
 /mob/living/carbon/human/attackby(obj/item/I, mob/user, params)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if(H.a_intent == I_GRAB && M.zone_sel && M.zone_sel.selecting == "groin")
-			if(src.ass_storage(M, I))
+		if(H.a_intent == I_GRAB && H.zone_sel && H.zone_sel.selecting == "groin")
+			if(src.ass_storage(H, I))
 				return 1
 	..()
-
-/mob/living/carbon/human/proc/is_nude()
-	return (!istype(w_uniform, /obj/item/clothing/under) && !istype(underpants, /obj/item/clothing/underwear/underpants))
 
 /mob/living/carbon/human/proc/ass_storage(mob/living/carbon/human/H, obj/item/I = null)
 	if(!is_nude())
