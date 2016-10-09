@@ -2143,6 +2143,6 @@
 				i += 1
 				ass_storage.remove_from_storage(item, src.loc)
 			if(i == 0)
-			to_chat(H, "<span class='notice'>[src == H ? "Your" : src + "'s"] anus is empty.")
+				to_chat(H, "<span class='notice'>[src == H ? "Your" : src + "'s"] anus is empty.")
 			else
 				to_chat(H, "<span class='notice'>You remove everything from [src == H ? "your" : src + "'s"] anus.")
