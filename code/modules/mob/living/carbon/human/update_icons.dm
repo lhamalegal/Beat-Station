@@ -324,7 +324,7 @@ var/global/list/damage_icon_parts = list()
 	update_hair(0)
 	update_fhair(0)
 	// Underwear
-	update_inv_underwear()
+	update_inv_underwear(0)
 
 
 //MARKINGS OVERLAY
