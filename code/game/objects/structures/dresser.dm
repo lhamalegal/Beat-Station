@@ -34,12 +34,14 @@
 						if(H.underpants)
 							H.unEquip(H.underpants)
 							qdel(H.underpants)
+							//to_chat(H, "<span class='notice'>You put your underwear in the dresser.</span>")
 					else
 						var/obj/item/clothing/underwear/underpants/up = underwear_list[new_undies]
 						if(H.underpants)
 							H.unEquip(H.underpants)
 							qdel(H.underpants)
 						H.equip_or_collect(new up.type(), slot_underpants)
+						//to_chat(H, "<span class='notice'>You take an underwear in the dresser and puts it.</span>")
 					H.update_inv_underwear()
 
 			if("Undershirt")
@@ -57,13 +59,15 @@
 					if(new_undershirt == "Nude")
 						if(H.undershirt)
 							H.unEquip(H.undershirt)
-							qdel(H.undeshirt)
+							qdel(H.undershirt)
+							//to_chat(H, "<span class='notice'>You put your undershirt in the dresser.</span>")
 					else
 						var/obj/item/clothing/underwear/undershirt/us = undershirt_list[new_undershirt]
 						if(H.undershirt)
 							H.unEquip(H.undershirt)
 							qdel(H.undershirt)
 						H.equip_or_collect(new us.type(), slot_undershirt)
+						//to_chat(H, "<span class='notice'>You take an undershirt in the dresser and puts it.</span>")
 					H.update_inv_underwear()
 
 			if("Socks")
