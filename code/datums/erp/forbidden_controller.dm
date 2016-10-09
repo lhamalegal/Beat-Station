@@ -20,12 +20,14 @@
 
 	var/mob/living/carbon/human/source
 
+
 /datum/forbidden_controller/New(mob/living/carbon/human/own)
 	if(!istype(own))
 		return 0
 	owner = own
 	if(owner.gender == MALE)
 		penis_size = round(rand(5, 25))
+
 
 /datum/forbidden_controller/proc/give_pleasure(base = null, f_action = null, mob/living/carbon/human/give_to = null)
 
@@ -92,6 +94,8 @@
 
 	who.erp_controller.time_check()
 
+	timevar = world.time + 100
+
 	fucking_action = action
 	fucking = who
 
@@ -126,7 +130,6 @@
 		fucking_list = new /list()
 		fucked = null
 		fucked_action = null
-		timevar = world.time + 100
 	if(get_dist(owner, fucked) > 1)
 		fucking_list = new /list()
 		fucked = null
@@ -134,6 +137,6 @@
 
 /datum/forbidden_controller/proc/click_check()
 	if(world.time >= click_time)
-		click_time = world.time + 20
+		click_time = world.time + 15
 		return 1
 	return 0

@@ -1841,19 +1841,19 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		W.buckled_mob = character
 		W.add_fingerprint(character)
 
-	if(underwear == "Nude")
+	// Underwear
+	if(underwear != "Nude")
 		character.underpants = null
 	else
 		var/obj/item/clothing/underwear/underpants/uw = underwear_list[underwear]
 		if(uw)
-			character.underpants = new uw.type()
+			H.equip_or_collect(new uw.type(), slot_underpants)
 
-	if(undershirt == "Nude")
-		character.undershirt = null
-	else
+	if(undershirt != "Nude")
 		var/obj/item/clothing/underwear/undershirt/uw1 = undershirt_list[undershirt]
 		if(uw1)
-			character.undershirt = new uw1.type()
+			H.equip_or_collect(new uw1.type(), slot_undershirt)
+	//
 
 	character.socks = socks
 

@@ -17,30 +17,30 @@
 
 	switch(action)
 		if(CUNNILINGUS)
-			if(action == erp_c.fucked_action)
+			if(action == erp_c.fucked_action && erp_c.fucked !=  owner)
 				return 0
 			if(erp_c.fucked_action == VAGINAL && erp_c.fucked != owner)
 				return 0
 		if(BLOWJOB)
-			if(action == erp_c.fucked_action)
+			if(action == erp_c.fucked_action && erp_c.fucked !=  owner)
 				return 0
 			if(is_fuck(erp_c.fucking_action) && erp_c.fucked != owner)
 				return 0
 
 		if(ANAL)
-			if(action == erp_c.fucked_action)
+			if(action == erp_c.fucked_action && erp_c.fucked !=  owner)
 				return 0
 			if(erp_c.fucking == owner)
 				return 0
 		if(VAGINAL)
-			if(action == erp_c.fucked_action)
+			if(action == erp_c.fucked_action && erp_c.fucked !=  owner)
 				return 0
 			if(erp_c.fucked_action == CUNNILINGUS)
 				return 0
 			if(erp_c.fucking == owner)
 				return 0
 		if(MOUTHFUCK)
-			if(action == erp_c.fucked_action)
+			if(action == erp_c.fucked_action && erp_c.fucked !=  owner)
 				return 0
 			if(is_oral(erp_c.fucking_action))
 				return 0
@@ -52,14 +52,14 @@
 mob/living/carbon/human/Move()
 	. = ..()
 	if(erp_controller.fucking && get_dist(erp_controller.fucking, src) > 1)
-		erp_controller.fucking = null
-		erp_controller.fucking_action = null
-
 		erp_controller.fucking.erp_controller.fucked = null
 		erp_controller.fucking.erp_controller.fucked_action = null
-	if(erp_controller.fucked && get_dist(erp_controller.fucked, src) > 1)
-		erp_controller.fucked = null
-		erp_controller.fucked_action = null
 
+		erp_controller.fucking = null
+		erp_controller.fucking_action = null
+	if(erp_controller.fucked && get_dist(erp_controller.fucked, src) > 1)
 		erp_controller.fucked.erp_controller.fucking = null
 		erp_controller.fucked.erp_controller.fucking_action = null
+
+		erp_controller.fucked = null
+		erp_controller.fucked_action = null
