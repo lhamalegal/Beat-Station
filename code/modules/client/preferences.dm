@@ -1110,11 +1110,11 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							f_style = facial_hair_styles_list["Shaved"]
 
 						// Don't wear another species' underwear!
-						var/datum/sprite_accessory/S = underwear_list[underwear]
+						var/datum/sprite_accessory/S = underweari_list[underwear]
 						if(!(species in S.species_allowed))
 							underwear = random_underwear(gender, species)
 
-						S = undershirt_list[undershirt]
+						S = undershirti_list[undershirt]
 						if(!(species in S.species_allowed))
 							undershirt = random_undershirt(gender, species)
 
@@ -1843,8 +1843,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 	// Underwear
 	if(underwear != "Nude")
-		character.underpants = null
-	else
 		var/obj/item/clothing/underwear/underpants/uw = underwear_list[underwear]
 		if(uw)
 			H.equip_or_collect(new uw.type(), slot_underpants)
