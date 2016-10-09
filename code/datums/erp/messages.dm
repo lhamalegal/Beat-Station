@@ -5,10 +5,10 @@
 		// Oral messages
 		if(BLOWJOB)
 			if(who.gender == MALE)
-			owner.visible_message("<span class='erp'><b>[owner]</b> begins to suck [who]'s cock.</span>")
+				owner.visible_message("<span class='erp'><b>[owner]</b> begins to suck [who]'s cock.</span>")
 		if(CUNNILINGUS)
 			if(who.gender == FEMALE)
-			owner.visible_message("<span class='erp'><b>[owner]</b> begins to lick <b>[who]</b>.</span>")
+				owner.visible_message("<span class='erp'><b>[owner]</b> begins to lick <b>[who]</b>.</span>")
 
 		// Fuck messages
 		if(ANAL)
