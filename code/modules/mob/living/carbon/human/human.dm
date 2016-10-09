@@ -2100,6 +2100,8 @@
 	data["src_face"] = !istype(wear_mask, /obj/item/clothing/mask)
 	data["usr_face"] = !istype(user.wear_mask, /obj/item/clothing/mask)
 
+	data["icon"] = (gender == user.gender ? gender == MALE ? "mars-double" : "venus-double" : "venus-mars")
+
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
 		ui = new(user, src, ui_key, "erp.tmpl", "Forbidden Fruits", 450, 550)

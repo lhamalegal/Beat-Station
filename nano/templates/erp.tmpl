@@ -16,16 +16,16 @@ Used In File(s): /code/modules/mob/living/carbon/human/human.dm
 
 		<div class='itemContent'>
 			{{if data.src_face}}
-				{{:helper.link((data.src_gender==1?'Fuck his mouth':'Fuck her mouth'), null, {'fuck' : 'mouth'})}}
+				{{:helper.link((data.src_gender==1?'Fuck his mouth':'Fuck her mouth'), data.icon, {'fuck' : 'mouth'})}}
 			{{/if}}
 
 			{{if data.dist == 0}}
 				{{if data.src_nude}}
 					{{if data.src_gender == 1}}
-						{{:helper.link('Fuck his anus', null, {'fuck' : 'anus'})}}
+						{{:helper.link('Fuck his anus', data.icon, {'fuck' : 'anus'})}}
 					{{else}}
-						{{:helper.link('Fuck her anus', null, {'fuck' : 'anus'})}}
-						{{:helper.link('Fuck her vagina', null, {'fuck' : 'vagina'})}}
+						{{:helper.link('Fuck her anus', data.icon, {'fuck' : 'anus'})}}
+						{{:helper.link('Fuck her vagina', data.icon, {'fuck' : 'vagina'})}}
 					{{/if}}
 				{{/if}}
 			{{/if}}
@@ -42,9 +42,9 @@ Used In File(s): /code/modules/mob/living/carbon/human/human.dm
 	<div class='itemContent'>
 		{{if data.src_nude}}
 			{{if data.src_gender == 0}}
-				{{:helper.link('Lick her vagina', null, {'oral' : 'vagina'})}}
+				{{:helper.link('Lick her vagina', data.icon, {'oral' : 'vagina'})}}
 			{{else}}
-				{{:helper.link('Give him a blowjob', null, {'oral' : 'penis'})}}
+				{{:helper.link('Give him a blowjob', data.icon, {'oral' : 'penis'})}}
 			{{/if}}
 		{{/if}}
 	</div>
