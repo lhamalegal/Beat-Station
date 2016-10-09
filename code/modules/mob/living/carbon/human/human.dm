@@ -2138,9 +2138,11 @@
 	else
 		H.visible_message("<span class='notice'>[H] begins to search inside [src == H ? "\his" : src + "'s"] anus!", "<span class='notice'>You begin to search inside [src == H ? "your" : src + "'s"] anus!")
 		if(do_after(H, 30, target = src))
-			if(ass_storage.)
-				for(var/obj/item in ass_storage)
-					ass_storage.remove_from_storage(item, src.loc)
-				to_chat(H, "<span class='notice'>You remove everything from [src == H ? "your" : src + "'s"] anus.")
+			var/i = 0
+			for(var/obj/item in ass_storage)
+				i += 1
+				ass_storage.remove_from_storage(item, src.loc)
+			if(i == 0)
+			to_chat(H, "<span class='notice'>[src == H ? "Your" : src + "'s"] anus is empty.")
 			else
-				to_chat(H, "<span class='notice'>[src == H ? "Your" : src + "'s"] anus is empty.")
+				to_chat(H, "<span class='notice'>You remove everything from [src == H ? "your" : src + "'s"] anus.")
