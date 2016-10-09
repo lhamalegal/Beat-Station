@@ -6,14 +6,19 @@
 	density = 1
 	anchored = 1
 
-/obj/structure/dresser/attack_hand(mob/user as mob)
+/obj/structure/dresser/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/clothing/underwear))
+		user.unEquip(W)
+		qdel(W)
+		to_chat(user, "<span class='notice'>You put [W] in the dresser.</span>")
+
+/obj/structure/dresser/attack_hand(mob/user)
 	if(!Adjacent(user))//no tele-grooming
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 
 		var/choice = input(user, "Underwear, Undershirt, or Socks?", "Changing") as null|anything in list("Underwear","Undershirt","Socks")
-		//var/choice = input(user, "Only socks?", "Changing") as null|anything in list("Socks")
 
 		if(!Adjacent(user))
 			return
@@ -33,13 +38,11 @@
 					if(new_undies == "Nude")
 						if(H.underpants)
 							H.unEquip(H.underpants)
-							qdel(H.underpants)
 							//to_chat(H, "<span class='notice'>You put your underwear in the dresser.</span>")
 					else
 						var/obj/item/clothing/underwear/underpants/up = underwear_list[new_undies]
 						if(H.underpants)
 							H.unEquip(H.underpants)
-							qdel(H.underpants)
 						H.equip_or_collect(new up.type(), slot_underpants)
 						//to_chat(H, "<span class='notice'>You take an underwear in the dresser and puts it.</span>")
 					H.update_inv_underwear()
@@ -59,13 +62,11 @@
 					if(new_undershirt == "Nude")
 						if(H.undershirt)
 							H.unEquip(H.undershirt)
-							qdel(H.undershirt)
 							//to_chat(H, "<span class='notice'>You put your undershirt in the dresser.</span>")
 					else
 						var/obj/item/clothing/underwear/undershirt/us = undershirt_list[new_undershirt]
 						if(H.undershirt)
 							H.unEquip(H.undershirt)
-							qdel(H.undershirt)
 						H.equip_or_collect(new us.type(), slot_undershirt)
 						//to_chat(H, "<span class='notice'>You take an undershirt in the dresser and puts it.</span>")
 					H.update_inv_underwear()

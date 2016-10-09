@@ -305,31 +305,6 @@ var/global/list/damage_icon_parts = list()
 	else
 		overlays_standing[LIMBS_LAYER] = null // So we don't get the old species' sprite splatted on top of the new one's
 
-	// Underwear
-	overlays_standing[UNDERWEAR_LAYER]	= null
-	var/icon/underwear_standing = new/icon('icons/mob/underwear.dmi',"nude")
-
-	if(socks && species.clothing_flags & HAS_SOCKS)
-		var/datum/sprite_accessory/socks/U = socks_list[socks]
-		if(U)
-			underwear_standing.Blend(new /icon(U.icon, "sk_[U.icon_state]_s"), ICON_OVERLAY)
-
-	/*
-	if(underwear && species.clothing_flags & HAS_UNDERWEAR)
-		var/datum/sprite_accessory/underwear/U = underweari_list[underwear]
-		if(U)
-			underwear_standing.Blend(new /icon(U.icon, "uw_[U.icon_state]_s"), ICON_OVERLAY)
-
-	if(undershirt && species.clothing_flags & HAS_UNDERSHIRT)
-		var/datum/sprite_accessory/undershirt/U2 = undershirti_list[undershirt]
-		if(U2)
-			underwear_standing.Blend(new /icon(U2.icon, "us_[U2.icon_state]_s"), ICON_OVERLAY)
-	*/
-
-	if(underwear_standing)
-		overlays_standing[UNDERWEAR_LAYER]	= image(underwear_standing)
-
-
 	if(update_icons)
 		update_icons()
 
@@ -348,6 +323,8 @@ var/global/list/damage_icon_parts = list()
 	//hair
 	update_hair(0)
 	update_fhair(0)
+	// Underwear
+	update_inv_underwear()
 
 
 //MARKINGS OVERLAY
@@ -1095,8 +1072,14 @@ var/global/list/damage_icon_parts = list()
 		if(inv)
 			inv.update_icon()
 
+	var/icon/underwear_standing = new/icon('icons/mob/underwear.dmi', "nude")
+
+	if(socks && species.clothing_flags & HAS_SOCKS)
+		var/datum/sprite_accessory/socks/U = socks_list[socks]
+		if(U)
+			underwear_standing.Blend(new /icon(U.icon, "sk_[U.icon_state]_s"), ICON_OVERLAY)
+
 	if(underpants || undershirt)
-		var/icon/underwear_standing = new/icon('icons/mob/underwear.dmi', "nude")
 		if(underpants)
 			if(client && hud_used && hud_used.hud_shown)
 				if(hud_used.inventory_shown)
