@@ -77,7 +77,7 @@
 		owner.visible_message("<span class='erp'><b>[owner]</b> twists in orgasm!</span>")
 
 	if(pleasure >= 30 && prob(12))
-		owner.visible_message("<span class='erp'><b>[owner]</b> [owner.gender == FEMALE ? pick("moans in pleasure", "moans") : "moans].</span>")
+		owner.visible_message("<span class='erp'><b>[owner]</b> [owner.gender == FEMALE ? pick("moans in pleasure", "moans") : "moans"].</span>")
 
 /datum/forbidden_controller/proc/fucking(mob/living/carbon/human/who, action, auto_pleasure = 1)
 
