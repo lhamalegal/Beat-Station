@@ -316,12 +316,12 @@ var/global/list/damage_icon_parts = list()
 
 	/*
 	if(underwear && species.clothing_flags & HAS_UNDERWEAR)
-		var/datum/sprite_accessory/underwear/U = underwear_list[underwear]
+		var/datum/sprite_accessory/underwear/U = underweari_list[underwear]
 		if(U)
 			underwear_standing.Blend(new /icon(U.icon, "uw_[U.icon_state]_s"), ICON_OVERLAY)
 
 	if(undershirt && species.clothing_flags & HAS_UNDERSHIRT)
-		var/datum/sprite_accessory/undershirt/U2 = undershirt_list[undershirt]
+		var/datum/sprite_accessory/undershirt/U2 = undershirti_list[undershirt]
 		if(U2)
 			underwear_standing.Blend(new /icon(U2.icon, "us_[U2.icon_state]_s"), ICON_OVERLAY)
 	*/
