@@ -2118,7 +2118,7 @@
 
 /mob/living/carbon/human/proc/ass_storage(mob/living/carbon/human/H)
 	if(!is_nude())
-		to_chat(H, "<span class='notice'>You can't access [src == H ? "your" : src + "'s"] anus.)
+		to_chat(H, "<span class='notice'>You can't access [src == H ? "your" : src + "'s"] anus.")
 		return 0
 
 	var/obj/item/I
