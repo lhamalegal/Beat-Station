@@ -27,7 +27,7 @@
 	if(owner.gender == MALE)
 		penis_size = round(rand(5, 25))
 
-/datum/forbidden_controller/proc/give_pleasure(base = null, f_action = null, give_to = null)
+/datum/forbidden_controller/proc/give_pleasure(base = null, f_action = null, mob/living/carbon/human/give_to = null)
 
 	if(!base && f_action && give_to)
 		var/datum/forbidden_controller/erp_c = give_to.erp_controller

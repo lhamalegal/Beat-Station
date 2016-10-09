@@ -1123,6 +1123,7 @@ var/global/list/damage_icon_parts = list()
 
 // UPDATE INV END
 
+
 //human HUD updates for items in our inventory
 
 //update whether our head item appears on our hud.
