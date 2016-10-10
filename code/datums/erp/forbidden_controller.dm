@@ -120,7 +120,7 @@
 	if(action == ANAL)
 		if(fucked_action == ANAL)
 			return 0
-		message = "plays with \his anus."
+		message = "plays with [owner.gender == MALE ? "his" : "her"] anus."
 	else
 		if(is_fuck(fucking_action))
 			return 0
