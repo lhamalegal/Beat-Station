@@ -13,6 +13,9 @@
 	if(!who.erp_controller)
 		return 0
 
+	if(!check_species(owner) || !check_species(who))
+		return 0
+
 	var/datum/forbidden_controller/erp_c = who.erp_controller
 
 	switch(action)
@@ -48,6 +51,11 @@
 				return 0
 	return 1
 // can fuck end
+
+/datum/forbidden_controller/proc/check_species(mob/living/carbon/human/who)
+	if(who.species in blacklist_species)
+		return 0
+	return 1
 
 mob/living/carbon/human/Move()
 	. = ..()

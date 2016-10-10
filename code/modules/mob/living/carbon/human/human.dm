@@ -2055,7 +2055,7 @@
 
 // Forbidden Fruits
 /mob/living/carbon/human/ui_interact(mob/living/carbon/human/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	if(get_dist(user, src) > 1 || src == usr)
+	if(get_dist(user, src) > 1 || src == usr || !erp_controller.check_species(src) || !istype(user))
 		return
 
 	var/data[0]
@@ -2089,7 +2089,7 @@
 	return ..()
 
 /mob/living/carbon/human/proc/process_erp_href(href_list, mob/living/carbon/human/user)
-	if(get_dist(user, src) <= 1 || !user.stat || !user.weakened || !user.stunned || !user.paralysis)
+	if(get_dist(user, src) <= 1 && user.stat != DEAD && user.stat != UNCONSCIOUS && !user.weakened && !user.stunned && !user.paralysis && erp_controller.check_species(src) && erp_controller.check_species(user) && istype(user))
 		var/user_clean_face = !istype(user.wear_mask, /obj/item/clothing/mask)
 		var/src_clean_face = !istype(wear_mask, /obj/item/clothing/mask)
 		if(user != src)

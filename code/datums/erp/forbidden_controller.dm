@@ -20,6 +20,8 @@
 
 	var/mob/living/carbon/human/source
 
+	var/list/blacklist_species = list("Vox", "Vox Armalis", "Kidan", "Slime People", "Diona", "Machine", "Drask", "Wryn", "Plasmaman")
+
 
 /datum/forbidden_controller/New(mob/living/carbon/human/own)
 	if(!istype(own))
@@ -133,9 +135,10 @@
 	give_pleasure(3)
 
 /datum/forbidden_controller/proc/cum()
-	var/pleasure_message = pick("... I'M FEELING SO GOOD! ...",  "... It's just INCREDIBLE! ...", "... MORE AND MORE AND MORE! ...")
-	to_chat(owner, "<span class='cum'>[pleasure_message]</span>")
-	cum_text()
+	if(owner.stat != DEAD)
+		var/pleasure_message = pick("... I'M FEELING SO GOOD! ...",  "... It's just INCREDIBLE! ...", "... MORE AND MORE AND MORE! ...")
+		to_chat(owner, "<span class='cum'>[pleasure_message]</span>")
+		cum_text()
 	pleasure = 0
 
 // Checks

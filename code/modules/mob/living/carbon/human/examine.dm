@@ -502,7 +502,7 @@
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
 		msg += "\n[t_He] is [pose]"
 
-	if(is_nude())
+	if(is_nude() && erp_controller.check_species(src))
 		msg += "<span class='info'>\n"
 		if(gender == MALE)
 			msg += "<span class='erp'>Penis size: [erp_controller.penis_size] cm.</span>"
