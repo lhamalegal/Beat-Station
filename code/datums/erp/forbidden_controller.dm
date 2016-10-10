@@ -87,7 +87,7 @@
 	if(!click_check())
 		return 0
 
-	face_atom(who)
+	owner.face_atom(who)
 
 	who.erp_controller.time_check()
 
