@@ -2055,7 +2055,7 @@
 
 // Forbidden Fruits
 /mob/living/carbon/human/ui_interact(mob/living/carbon/human/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	if(get_dist(user, src) > 1 || src == usr || !erp_controller.check_species(src) || !istype(user))
+	if(!istype(user) || get_dist(user, src) > 1 || !erp_controller.check_species(src) || !erp_controller.check_species(user))
 		return
 
 	var/data[0]
