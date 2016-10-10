@@ -1112,38 +1112,8 @@
 
 	/*              ERP                 */
 	if(ishuman(usr))
-		var/mob/living/carbon/human/owner = usr
-
-		if(get_dist(owner, src) <= 1 || !owner.stat || !owner.weakened || !owner.stunned || !owner.paralysis)
-			var/owner_clean_face = !istype(owner.wear_mask, /obj/item/clothing/mask)
-			var/src_clean_face = !istype(wear_mask, /obj/item/clothing/mask)
-
-			if(owner != src)
-
-				if(owner_clean_face && is_nude())
-					if(href_list["oral"])
-						switch(href_list["oral"])
-							if("penis")
-								if(gender == MALE && !erp_controller.fucking)
-									owner.erp_controller.fucking(src, BLOWJOB)
-
-							else if("vagina")
-								if(gender == FEMALE)
-									owner.erp_controller.fucking(src, CUNNILINGUS)
-
-				if(owner.is_nude() && get_dist(owner, src) == 0)
-					if(href_list["fuck"])
-						switch(href_list["fuck"])
-							if("anus")
-								if(is_nude())
-									owner.erp_controller.fucking(src, ANAL)
-							if("vagina")
-								if(gender == FEMALE && is_nude())
-									owner.erp_controller.fucking(src, VAGINAL)
-							if("mouth")
-								if(src_clean_face)
-									owner.erp_controller.fucking(src, MOUTHFUCK)
-
+		var/mob/living/carbon/human/H = usr
+		process_erp_href(href_list, H)
 		nanomanager.update_uis(src)
 	. = ..()
 
@@ -2091,6 +2061,9 @@
 	var/data[0]
 	data["src_gender"] = (gender == MALE ? 1 : 0)
 	data["usr_gender"] = (user.gender == MALE ? 1 : 0)
+
+	data["yourself"] = (src == user)
+
 	data["src_name"] = "[src]"
 	data["dist"] = get_dist(user, src)
 
@@ -2114,6 +2087,42 @@
 		if(user == target && get_dist(user, src) <= 1)
 			ui_interact(user)
 	return ..()
+
+/mob/living/carbon/human/proc/process_erp_href(href_list, mob/living/carbon/human/user)
+	if(get_dist(user, src) <= 1 || !user.stat || !user.weakened || !user.stunned || !user.paralysis)
+		var/user_clean_face = !istype(user.wear_mask, /obj/item/clothing/mask)
+		var/src_clean_face = !istype(wear_mask, /obj/item/clothing/mask)
+		if(user != src)
+			if(user_clean_face && is_nude())
+				if(href_list["oral"])
+					switch(href_list["oral"])
+						if("penis")
+							if(gender == MALE && !erp_controller.fucking)
+								user.erp_controller.fucking(src, BLOWJOB)
+
+						else if("vagina")
+							if(gender == FEMALE)
+								user.erp_controller.fucking(src, CUNNILINGUS)
+
+			if(user.is_nude() && get_dist(user, src) == 0)
+				if(href_list["fuck"])
+					switch(href_list["fuck"])
+						if("anus")
+							if(is_nude())
+								user.erp_controller.fucking(src, ANAL)
+						if("vagina")
+							if(gender == FEMALE && is_nude())
+								user.erp_controller.fucking(src, VAGINAL)
+						if("mouth")
+							if(src_clean_face)
+								user.erp_controller.fucking(src, MOUTHFUCK)
+		else
+			if(user.is_nude() && href_list["masturbate"])
+				switch(href_list["masturbate"])
+					if("normal")
+						user.erp_controller.masturbate(null)
+					if("anus")
+						user.erp_controller.masturbate(ANAL)
 
 /mob/living/carbon/human/proc/is_nude()
 	return (!istype(w_uniform, /obj/item/clothing/under) && !istype(underpants, /obj/item/clothing/underwear/underpants))

@@ -49,7 +49,7 @@
 			if(MOUTHFUCK)
 				erp_c.give_pleasure(2)
 				give_pleasure(5)
-	else
+	else if(base)
 		pleasure += (base + rand(-1, 3))
 
 	if(pleasure >= MAX_PLEASURE)
@@ -115,6 +115,22 @@
 
 	return 1
 
+/datum/forbidden_controller/proc/masturbate(action)
+	var/message = ""
+	if(action == ANAL)
+		if(fucked_action == ANAL)
+			return 0
+		message = "plays with \his anus."
+	else
+		if(is_fuck(fucking_action))
+			return 0
+		if(is_oral(fucked_action))
+			return 0
+		if(fucking_action == VAGINAL)
+			return 0
+		message = "masturbates."
+	owner.visible_message("<span class ='erp'><b>[owner]</b> [message]</span>")
+	give_pleasure(3)
 
 /datum/forbidden_controller/proc/cum()
 	var/pleasure_message = pick("... I'M FEELING SO GOOD! ...",  "... It's just INCREDIBLE! ...", "... MORE AND MORE AND MORE! ...")
