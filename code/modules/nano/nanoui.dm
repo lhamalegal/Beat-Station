@@ -57,6 +57,8 @@ nanoui is used to open and update nano browser uis
 	var/list/datum/nanoui/children = list()
 	var/datum/topic_state/state = null
 
+	var/ignore_stat = 0
+
  /**
   * Create a new nanoui instance.
   *
@@ -71,7 +73,7 @@ nanoui is used to open and update nano browser uis
   *
   * @return /nanoui new nanoui object
   */
-/datum/nanoui/New(nuser, nsrc_object, nui_key, ntemplate_filename, ntitle = 0, nwidth = 0, nheight = 0, var/atom/nref = null, var/datum/nanoui/master_ui = null, var/datum/topic_state/state = default_state)
+/datum/nanoui/New(nuser, nsrc_object, nui_key, ntemplate_filename, ntitle = 0, nwidth = 0, nheight = 0, var/atom/nref = null, var/datum/nanoui/master_ui = null, var/datum/topic_state/state = default_state, var/ignore_status = 0)
 	user = nuser
 	src_object = nsrc_object
 	ui_key = nui_key
@@ -93,6 +95,8 @@ nanoui is used to open and update nano browser uis
 		height = nheight
 	if (nref)
 		ref = nref
+
+	ignore_stat = ignore_status
 
 	add_common_assets()
 
@@ -141,13 +145,16 @@ nanoui is used to open and update nano browser uis
   * @return nothing
   */
 /datum/nanoui/proc/update_status(var/push_update = 0)
-	var/new_status = src_object.CanUseTopic(user, state)
-	if(master_ui)
-		new_status = min(new_status, master_ui.status)
+	if(!ignore_stat)
+		var/new_status = src_object.CanUseTopic(user, state)
+		if(master_ui)
+			new_status = min(new_status, master_ui.status)
+		set_status(new_status, push_update)
 
-	set_status(new_status, push_update)
-	if(new_status == STATUS_CLOSE)
-		close()
+		if(new_status == STATUS_CLOSE)
+			close()
+	else
+		set_status(STATUS_INTERACTIVE, push_update)
 
  /**
   * Set the ui to auto update (every master_controller tick)
