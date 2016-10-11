@@ -2070,8 +2070,8 @@
 	data["src_nude"] = is_nude()
 	data["usr_nude"] = user.is_nude()
 
-	data["src_face"] = !istype(wear_mask, /obj/item/clothing/mask)
-	data["usr_face"] = !istype(user.wear_mask, /obj/item/clothing/mask)
+	data["src_face"] = is_face_clean()
+	data["usr_face"] = user.is_face_clean()
 
 	data["icon"] = (gender == user.gender ? gender == MALE ? "mars-double" : "venus-double" : "venus-mars")
 
@@ -2090,10 +2090,8 @@
 
 /mob/living/carbon/human/proc/process_erp_href(href_list, mob/living/carbon/human/user)
 	if(get_dist(user, src) <= 1 && user.stat != DEAD && user.stat != UNCONSCIOUS && !user.weakened && !user.stunned && !user.paralysis && erp_controller.check_species(src) && erp_controller.check_species(user) && istype(user))
-		var/user_clean_face = !istype(user.wear_mask, /obj/item/clothing/mask)
-		var/src_clean_face = !istype(wear_mask, /obj/item/clothing/mask)
 		if(user != src)
-			if(user_clean_face && is_nude())
+			if(user.is_face_clean() && is_nude())
 				if(href_list["oral"])
 					switch(href_list["oral"])
 						if("penis")
@@ -2114,7 +2112,7 @@
 							if(gender == FEMALE && is_nude())
 								user.erp_controller.fucking(src, VAGINAL)
 						if("mouth")
-							if(src_clean_face)
+							if(is_face_clean())
 								user.erp_controller.fucking(src, MOUTHFUCK)
 		else
 			if(user.is_nude() && href_list["masturbate"])
@@ -2127,7 +2125,12 @@
 /mob/living/carbon/human/proc/is_nude()
 	return (!istype(w_uniform, /obj/item/clothing/under) && !istype(underpants, /obj/item/clothing/underwear/underpants))
 
-
+/mob/living/carbon/human/proc/is_face_clean()
+	if(!wear_mask && !head)
+		return 1
+	if((head && (head.flags & HEADCOVERSMOUTH)) || ((flags & MASKCOVERSMOUTH) && !wear_mask.mask_adjusted))
+		return 0
+	return 1
 
 // Anus insertion
 /mob/living/carbon/human/attackby(obj/item/I, mob/user, params)
