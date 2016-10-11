@@ -21,10 +21,10 @@
 	if(!erp_c)
 		return 0
 
-	if(action == erp_c.fucked_action && erp_c.fucked !=  owner)
+	if(action == erp_c.fucked_action && erp_c.fucked != owner)
 		return 0
 
-	if(is_fuck(action) && erp_c.fucking == owner && is_fuck(erp_c.fucking))
+	if(is_fuck(action) && is_fuck(erp_c.fucking_action) && erp_c.fucking == owner)
 		return 0
 
 	switch(action)
