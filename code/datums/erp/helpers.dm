@@ -10,16 +10,10 @@
 /datum/forbidden_controller/proc/can_fuck(mob/living/carbon/human/who, action)
 	if(!istype(who))
 		return 0
-	if(!who.erp_controller)
-		return 0
-
-	if(!check_species(owner) || !check_species(who))
+	if(!who.erp_controller || !check_species(owner) || !check_species(who))
 		return 0
 
 	var/datum/forbidden_controller/erp_c = who.erp_controller
-
-	if(!erp_c)
-		return 0
 
 	if(action == erp_c.fucked_action && erp_c.fucked != owner)
 		return 0
