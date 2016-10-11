@@ -20,8 +20,6 @@
 
 	var/mob/living/carbon/human/source
 
-	var/list/blacklist_species = list("Vox", "Vox Armalis", "Kidan", "Slime People", "Diona", "Machine", "Drask", "Wryn", "Plasmaman")
-
 
 /datum/forbidden_controller/New(mob/living/carbon/human/own)
 	if(!istype(own))

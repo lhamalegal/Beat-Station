@@ -2127,6 +2127,8 @@
 /mob/living/carbon/human/proc/is_nude()
 	return (!istype(w_uniform, /obj/item/clothing/under) && !istype(underpants, /obj/item/clothing/underwear/underpants))
 
+
+
 // Anus insertion
 /mob/living/carbon/human/attackby(obj/item/I, mob/user, params)
 	if(ishuman(user))
@@ -2137,8 +2139,11 @@
 	..()
 
 /mob/living/carbon/human/proc/ass_storage(mob/living/carbon/human/H, obj/item/I = null)
+	if(species.name in erp_blacklist_species)
+		return 0
+
 	if(!is_nude())
-		to_chat(H, "<span class='notice'>You can't access [src == H ? "your" : src + "'s"] anus.")
+		to_chat(H, "<span class='notice'>You can't access [src == H ? "your" : "[src]'s"] anus.")
 		return 0
 
 	var/his = (src == H ? H.gender == FEMALE ? "her" : "his" : "[src]'s")

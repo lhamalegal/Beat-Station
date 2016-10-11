@@ -18,42 +18,33 @@
 
 	var/datum/forbidden_controller/erp_c = who.erp_controller
 
+	if(!erp_c)
+		return 0
+
+	if(action == erp_c.fucked_action && erp_c.fucked !=  owner)
+		return 0
+
+	if(is_fuck(action) && erp_c.fucking == owner && is_fuck(erp_c.fucking))
+		return 0
+
 	switch(action)
 		if(CUNNILINGUS)
-			if(action == erp_c.fucked_action && erp_c.fucked !=  owner)
-				return 0
 			if(erp_c.fucked_action == VAGINAL && erp_c.fucked != owner)
 				return 0
 		if(BLOWJOB)
-			if(action == erp_c.fucked_action && erp_c.fucked !=  owner)
-				return 0
 			if(is_fuck(erp_c.fucking_action) && erp_c.fucked != owner)
 				return 0
-
-		if(ANAL)
-			if(action == erp_c.fucked_action && erp_c.fucked !=  owner)
-				return 0
-			if(erp_c.fucking == owner)
-				return 0
 		if(VAGINAL)
-			if(action == erp_c.fucked_action && erp_c.fucked !=  owner)
-				return 0
-			if(erp_c.fucked_action == CUNNILINGUS)
-				return 0
-			if(erp_c.fucking == owner)
+			if(erp_c.fucked_action == CUNNILINGUS && erp_c.fucked != owner)
 				return 0
 		if(MOUTHFUCK)
-			if(action == erp_c.fucked_action && erp_c.fucked !=  owner)
-				return 0
-			if(is_oral(erp_c.fucking_action))
-				return 0
-			if(erp_c.fucking == owner)
+			if(is_oral(erp_c.fucking_action) && erp_c.fucking != owner)
 				return 0
 	return 1
 // can fuck end
 
 /datum/forbidden_controller/proc/check_species(mob/living/carbon/human/who)
-	if(who.species.name in blacklist_species)
+	if(who.species.name in erp_blacklist_species)
 		return 0
 	return 1
 
