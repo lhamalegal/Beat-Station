@@ -82,6 +82,8 @@ CREATE TABLE `characters` (
   `speciesprefs` int(1) NOT NULL,
   `socks` mediumtext NOT NULL,
   `body_accessory` mediumtext NOT NULL,
+  `virgin` tinyint NOT NULL,
+  `anal_virgin` tinyint NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=18747 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
