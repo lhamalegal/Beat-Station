@@ -255,6 +255,8 @@ var/list/slot_equipment_priority = list( \
 		slot_wear_id,\
 		slot_wear_pda,\
 		slot_w_uniform,\
+		slot_underpants,\
+		slot_undershirt,\
 		slot_wear_suit,\
 		slot_wear_mask,\
 		slot_head,\
@@ -276,7 +278,7 @@ var/list/slot_equipment_priority = list( \
 	if(!istype(W)) return 0
 
 	for(var/slot in slot_equipment_priority)
-		if(istype(W,/obj/item/weapon/storage/) && slot == slot_head) // Storage items should be put on the belt before the head
+		if(istype(W, /obj/item/weapon/storage/) && slot == slot_head) // Storage items should be put on the belt before the head
 			continue
 		if(equip_to_slot_if_possible(W, slot, 0, 1, 1)) //del_on_fail = 0; disable_warning = 0; redraw_mob = 1
 			return 1
@@ -486,6 +488,18 @@ var/list/slot_equipment_priority = list( \
 					if(B.contents.len < B.storage_slots && w_class <= B.max_w_class)
 						return 1
 				return 0
+			if(slot_underpants)
+				if(H.underpants)
+					return 0
+				if(!istype(src, /obj/item/clothing/underwear/underpants))
+					return 0
+				return 1
+			if(slot_undershirt)
+				if(H.undershirt)
+					return 0
+				if(!istype(src, /obj/item/clothing/underwear/undershirt))
+					return 0
+				return 1
 		return 0 //Unsupported slot
 		//END HUMAN
 

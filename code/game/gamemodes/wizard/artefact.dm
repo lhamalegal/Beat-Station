@@ -429,6 +429,14 @@ var/global/list/multiverse = list()
 		if(right_pocket)
 			M.equip_to_slot_or_del(new right_pocket.type(M), slot_r_store)
 
+		var/obj/underpants = H.get_item_by_slot(slot_underpants)
+		if(underpants)
+			M.equip_to_slot_or_del(new underpants.type(M), slot_underpants)
+
+		var/obj/undershirt = H.get_item_by_slot(slot_undershirt)
+		if(underpants)
+			M.equip_to_slot_or_del(new undershirt.type(M), slot_undershirt)
+
 		M.equip_to_slot_or_del(sword, slot_r_hand) //Don't duplicate what's equipped to hands, or else duplicate swords could be generated...or weird cases of factionless swords.
 	else
 		if(M.get_species() == "Tajaran" || M.get_species() == "Unathi")

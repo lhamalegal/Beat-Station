@@ -13,9 +13,9 @@
 	//facial hair
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/facial_hair, facial_hair_styles_list, facial_hair_styles_male_list, facial_hair_styles_female_list)
 	//underwear
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/underwear, underwear_list, underwear_m, underwear_f)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/underwear, underweari_list, underwear_m, underwear_f)
 	//undershirt
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/undershirt, undershirt_list, undershirt_m, undershirt_f)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/undershirt, undershirti_list, undershirt_m, undershirt_f)
 	//socks
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/socks, socks_list, socks_m, socks_f)
 
@@ -46,6 +46,11 @@
 		if(S.flags & IS_WHITELISTED)
 			whitelisted_species += S.name
 
+	//underwear
+	init_item_subtypes(/obj/item/clothing/underwear/underpants, underwear_list)
+	//undershirt
+	init_item_subtypes(/obj/item/clothing/underwear/undershirt, undershirt_list)
+
 	init_subtypes(/datum/crafting_recipe, crafting_recipes)
 	return 1
 
@@ -68,6 +73,13 @@
 	if(!istype(L))	L = list()
 	for(var/path in subtypesof(prototype))
 		L += new path()
+	return L
+
+/proc/init_item_subtypes(prototype, list/L)
+	if(!istype(L))	L = list()
+	for(var/path in subtypesof(prototype))
+		var/obj/item/D = new path()
+		L[D.name] = D
 	return L
 
 /proc/init_datum_subtypes(prototype, list/L, list/pexempt, assocvar)

@@ -502,6 +502,14 @@
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
 		msg += "\n[t_He] is [pose]"
 
+	if(is_nude() && erp_controller.check_species(src))
+		msg += "<span class='info'>\n"
+		if(gender == MALE)
+			msg += "<span class='erp'>Penis size: [erp_controller.penis_size] cm.</span>"
+		else if(gender == FEMALE && erp_controller.virgin)
+			msg += "<span class='erp'>[t_He] is a virgin!</span>"
+		msg += "\n*---------*</span>"
+
 	to_chat(user, msg)
 
 //Helper procedure. Called by /mob/living/carbon/human/examine() and /mob/living/carbon/human/Topic() to determine HUD access to security and medical records.

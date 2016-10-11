@@ -96,6 +96,10 @@
 			return has_organ("chest")
 		if(slot_w_uniform)
 			return has_organ("chest")
+		if(slot_underpants)
+			return has_organ("chest") && has_organ("l_leg") && has_organ("r_leg")
+		if(slot_undershirt)
+			return has_organ("chest")
 		if(slot_l_store)
 			return has_organ("chest")
 		if(slot_r_store)
@@ -195,7 +199,12 @@
 	else if(I == l_hand)
 		l_hand = null
 		update_inv_l_hand()
-
+	else if(I == underpants)
+		underpants = null
+		update_inv_underwear()
+	else if(I == undershirt)
+		undershirt = null
+		update_inv_underwear()
 
 
 
@@ -309,6 +318,12 @@
 		if(slot_tie)
 			var/obj/item/clothing/under/uniform = src.w_uniform
 			uniform.attackby(W,src)
+		if(slot_underpants)
+			underpants = W
+			update_inv_underwear(redraw_mob)
+		if(slot_undershirt)
+			undershirt = W
+			update_inv_underwear(redraw_mob)
 		else
 			to_chat(src, "<span class='warning'>You are trying to equip this item to an unsupported inventory slot. Report this to a coder!</span>")
 			return
@@ -363,6 +378,10 @@
 			return r_store
 		if(slot_s_store)
 			return s_store
+		if(slot_underpants)
+			return underpants
+		if(slot_undershirt)
+			return undershirt
 	return null
 
 /mob/living/carbon/human/get_all_slots()
@@ -384,7 +403,9 @@
 		wear_pda,
 		l_store,
 		r_store,
-		w_uniform
+		w_uniform,
+		underpants,
+		undershirt
 		)
 
 /mob/living/carbon/human/proc/get_head_slots()
@@ -606,6 +627,24 @@
 					to_chat(src, "<span class='warning'>You already have an accessory of this type attached to your [uniform].</span>")
 				return 0
 			if(!(I.slot_flags & SLOT_TIE))
+				return 0
+			return 1
+		if(slot_underpants)
+			var/obj/item/clothing/underwear/underpants/uw = I
+			if(!istype(uw))
+				return 0
+			if(underpants)
+				return 0
+			if(uw.use_gender != gender && uw.use_gender != NEUTER)
+				return 0
+			return 1
+		if(slot_undershirt)
+			var/obj/item/clothing/underwear/undershirt/uw = I
+			if(!istype(uw))
+				return 0
+			if(undershirt)
+				return 0
+			if(uw.use_gender != gender && uw.use_gender != NEUTER)
 				return 0
 			return 1
 

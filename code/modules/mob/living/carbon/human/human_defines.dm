@@ -27,8 +27,11 @@ var/global/default_martial_art = new/datum/martial_art
 	var/age = 30		//Player's age (pure fluff)
 	var/b_type = "A+"	//Player's bloodtype
 
+	/*
 	var/underwear = "Nude"	//Which underwear the player wants
 	var/undershirt = "Nude"	//Which undershirt the player wants
+	*/
+
 	var/socks = "Nude" //Which socks the player wants
 	var/backbag = 2		//Which backpack type the player has chosen. Nothing, Satchel or Backpack.
 
@@ -45,6 +48,15 @@ var/global/default_martial_art = new/datum/martial_art
 	var/obj/item/r_store = null
 	var/obj/item/l_store = null
 	var/obj/item/s_store = null
+
+	// Under clothes
+	var/obj/item/underpants = null
+	var/obj/item/undershirt = null
+
+	// ERP Controller
+	var/datum/forbidden_controller/erp_controller
+
+	var/obj/item/weapon/storage/ass/ass_storage = new()
 
 	var/icon/stand_icon = null
 	var/icon/lying_icon = null

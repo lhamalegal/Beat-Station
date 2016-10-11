@@ -1,0 +1,70 @@
+<!--
+Title: Forbidden Fruits
+Used In File(s): /code/modules/mob/living/carbon/human/human.dm
+-->
+
+<div class='item'>
+	 <h3>{{:data.src_name}}</h3>
+</div>
+
+<!-- Penis -->
+{{if data.usr_gender == 1 && !data.yourself}}
+	{{if data.usr_nude}}
+		<div class='itemLabel'>
+			Penis: 
+		</div>
+
+		<div class='itemContent'>
+			{{if data.src_face}}
+				{{:helper.link((data.src_gender==1?'Fuck his mouth':'Fuck her mouth'), data.icon, {'fuck' : 'mouth'})}}
+			{{/if}}
+
+			{{if data.dist == 0 && data.src_nude}}
+				{{if data.src_gender == 1}}
+						{{:helper.link('Fuck his anus', data.icon, {'fuck' : 'anus'})}}
+				{{else}}
+					{{:helper.link('Fuck her anus', data.icon, {'fuck' : 'anus'})}}
+					{{:helper.link('Fuck her vagina', data.icon, {'fuck' : 'vagina'})}}
+				{{/if}}
+			{{/if}}
+		</div>
+	{{/if}}
+{{/if}}
+
+<!-- Mouth -->
+{{if data.usr_face && data.src_nude && !data.yourself}}
+	<div class='itemLabel'>
+		Mouth: 
+	</div>
+
+	<div class='itemContent'>
+		{{if data.src_gender == 0}}
+				{{:helper.link('Lick her vagina', data.icon, {'oral' : 'vagina'})}}
+		{{else}}
+			{{:helper.link('Give him a blowjob', data.icon, {'oral' : 'penis'})}}
+		{{/if}}
+	</div>
+{{/if}}
+
+<!-- Misc -->
+{{if data.yourself && data.usr_nude}}
+	<div class='itemLabel'>
+		Misc: 
+	</div>
+
+	<div class='itemContent'>
+		{{if data.usr_gender == 1}}
+			{{:helper.link('Masturbate your penis', null, {'masturbate' : 'normal'})}}
+		{{else}}
+			{{:helper.link('Masturbate your vagina', null, {'masturbate' : 'normal'})}}
+		{{/if}}
+		{{:helper.link('Play with your anus', null, {'masturbate' : 'anus'})}}
+	</div>
+{{/if}}
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<a align="right">Criado por <b>Davipatuly</b>.</a>
+<br>
+<a align="right">Testes e efeitos sonoros por <b>VitorThauma</b>.</a>
+<br>
+<a align="right">Suporte financeiro por <b>Nopm</b>.</a>

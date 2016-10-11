@@ -154,7 +154,9 @@
 					nanotrasen_relation,
 					speciesprefs,
 					socks,
-					body_accessory
+					body_accessory,
+					virgin,
+					anal_virgin
 				 	FROM [format_table_name("characters")] WHERE ckey='[C.ckey]' AND slot='[slot]'"})
 	if(!query.Execute())
 		var/err = query.ErrorMsg()
@@ -233,6 +235,9 @@
 		socks = query.item[58]
 		body_accessory = query.item[59]
 
+		virgin = query.item[60]
+		anal_virgin = query.item[61]
+
 	//Sanitize
 	metadata		= sanitize_text(metadata, initial(metadata))
 	real_name		= reject_bad_name(real_name)
@@ -289,6 +294,9 @@
 
 	socks			= sanitize_text(socks, initial(socks))
 	body_accessory	= sanitize_text(body_accessory, initial(body_accessory))
+
+	virgin = sanitize_integer(virgin, 0, 1, initial(virgin))
+	anal_virgin = sanitize_integer(anal_virgin, 0, 1, initial(anal_virgin))
 
 //	if(isnull(disabilities)) disabilities = 0
 	if(!player_alt_titles) player_alt_titles = new()
@@ -370,7 +378,9 @@
 												nanotrasen_relation='[nanotrasen_relation]',
 												speciesprefs='[speciesprefs]',
 												socks='[socks]',
-												body_accessory='[body_accessory]'
+												body_accessory='[body_accessory]',
+												virgin='[virgin]',
+												anal_virgin='[anal_virgin]'
 												WHERE ckey='[C.ckey]'
 												AND slot='[default_slot]'"}
 												)
@@ -422,7 +432,7 @@
 											'[sql_sanitize_text(html_encode(flavor_text))]', '[sql_sanitize_text(html_encode(med_record))]', '[sql_sanitize_text(html_encode(sec_record))]', '[sql_sanitize_text(html_encode(gen_record))]',
 											'[playertitlelist]',
 											'[disabilities]', '[organlist]', '[rlimblist]', '[nanotrasen_relation]', '[speciesprefs]',
-											'[socks]', '[body_accessory]')
+											'[socks]', '[body_accessory]', '[virgin]', '[anal_virgin]')
 
 "}
 )

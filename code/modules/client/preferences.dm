@@ -128,6 +128,11 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/species = "Human"
 	var/language = "None"				//Secondary language
 
+	// Forbidden fruits preferences
+	var/virgin = 1
+	var/anal_virgin = 1
+
+
 	var/body_accessory = null
 
 	var/speciesprefs = 0//I hate having to do this, I really do (Using this for oldvox code, making names universal I guess
@@ -163,10 +168,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/list/rlimb_data = list()
 
 	var/list/player_alt_titles = new()		// the default name of a job like "Medical Doctor"
-//	var/accent = "en-us"
-//	var/voice = "m1"
-//	var/pitch = 50
-//	var/talkspeed = 175
 	var/flavor_text = ""
 	var/med_record = ""
 	var/sec_record = ""
@@ -363,6 +364,11 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			dat += "<b>Undershirt:</b> <a href ='?_src_=prefs;preference=undershirt;task=input'>[undershirt]</a><BR>"
 			dat += "<b>Socks:</b> <a href ='?_src_=prefs;preference=socks;task=input'>[socks]</a><BR>"
 			dat += "<b>Backpack Type:</b> <a href ='?_src_=prefs;preference=bag;task=input'>[backbaglist[backbag]]</a><br>"
+
+			dat += "<h2>Forbidden fruits</h2>"
+			if(gender == FEMALE)
+				dat += "<b>Virgin:</b> <a href ='?_src_=prefs;preference=virgin;task=normal'>[virgin ? "Yes" : "No"]</a><BR>"
+			dat += "<b>Anal Virgin:</b> <a href ='?_src_=prefs;preference=virgin;task=anal'>[anal_virgin ? "Yes" : "No"]</a><BR>"
 
 			dat += "</td></tr></table>"
 
@@ -977,6 +983,11 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 				gen_record = genmsg
 				SetRecords(user)
+	else if(href_list["preference"] == "virgin")
+		if(href_list["task"] == "normal")
+			virgin = !virgin
+		else if(href_list["task"] == "anal")
+			anal_virgin = !anal_virgin
 
 	switch(href_list["task"])
 		if("random")
@@ -1099,11 +1110,11 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							f_style = facial_hair_styles_list["Shaved"]
 
 						// Don't wear another species' underwear!
-						var/datum/sprite_accessory/S = underwear_list[underwear]
+						var/datum/sprite_accessory/S = underweari_list[underwear]
 						if(!(species in S.species_allowed))
 							underwear = random_underwear(gender, species)
 
-						S = undershirt_list[undershirt]
+						S = undershirti_list[undershirt]
 						if(!(species in S.species_allowed))
 							undershirt = random_undershirt(gender, species)
 
@@ -1343,11 +1354,13 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					ShowChoices(user)
 
 				if("undershirt")
-					var/new_undershirt
+					var/list/undershirt_options
 					if(gender == MALE)
-						new_undershirt = input(user, "Choose your character's undershirt:", "Character Preference") as null|anything in undershirt_m
+						undershirt_options = undershirt_m
 					else
-						new_undershirt = input(user, "Choose your character's undershirt:", "Character Preference") as null|anything in undershirt_f
+						undershirt_options = undershirt_f
+
+					var/new_undershirt = input(user, "Choose your character's undershirt:", "Character Preference") as null|anything in undershirt_options
 					if(new_undershirt)
 						undershirt = new_undershirt
 					ShowChoices(user)
@@ -1828,8 +1841,18 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		W.buckled_mob = character
 		W.add_fingerprint(character)
 
-	character.underwear = underwear
-	character.undershirt = undershirt
+	// Underwear
+	if(underwear != "Nude")
+		var/obj/item/clothing/underwear/underpants/uw = underwear_list[underwear]
+		if(uw)
+			character.equip_or_collect(new uw.type(), slot_underpants)
+
+	if(undershirt != "Nude")
+		var/obj/item/clothing/underwear/undershirt/uw1 = undershirt_list[undershirt]
+		if(uw1)
+			character.equip_or_collect(new uw1.type(), slot_undershirt)
+	//
+
 	character.socks = socks
 
 	if(character.species.bodyflags & HAS_HEAD_ACCESSORY)
@@ -1855,6 +1878,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		if(isliving(src)) //Ghosts get neuter by default
 			message_admins("[key_name_admin(character)] has spawned with their gender as plural or neuter. Please notify coders.")
 			character.change_gender(MALE)
+
+	// Forbidden Fruits
+	character.erp_controller.virgin = virgin
+	character.erp_controller.anal_virgin = anal_virgin
 
 	character.dna.ready_dna(character, flatten_SE = 0)
 	character.sync_organ_dna(assimilate=1)

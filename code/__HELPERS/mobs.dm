@@ -3,7 +3,7 @@ proc/random_underwear(gender, species = "Human")
 	switch(gender)
 		if(MALE)	pick_list = underwear_m
 		if(FEMALE)	pick_list = underwear_f
-		else		pick_list = underwear_list
+		else		pick_list = underweari_list
 	return pick_species_allowed_underwear(pick_list, species)
 
 proc/random_undershirt(gender, species = "Human")
@@ -11,7 +11,7 @@ proc/random_undershirt(gender, species = "Human")
 	switch(gender)
 		if(MALE)	pick_list = undershirt_m
 		if(FEMALE)	pick_list = undershirt_f
-		else		pick_list = undershirt_list
+		else		pick_list = undershirti_list
 	return pick_species_allowed_underwear(pick_list, species)
 
 proc/random_socks(gender, species = "Human")

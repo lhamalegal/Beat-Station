@@ -59,6 +59,7 @@
 
 /obj/screen/grab/attackby()
 	return
+
 /obj/screen/act_intent
 	name = "intent"
 	icon_state = "help"
