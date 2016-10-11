@@ -53,7 +53,7 @@
 // can fuck end
 
 /datum/forbidden_controller/proc/check_species(mob/living/carbon/human/who)
-	if(who.species in blacklist_species)
+	if(who.species.name in blacklist_species)
 		return 0
 	return 1
 

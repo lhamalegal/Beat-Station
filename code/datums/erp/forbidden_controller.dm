@@ -118,6 +118,8 @@
 	return 1
 
 /datum/forbidden_controller/proc/masturbate(action)
+	if(!click_check())
+		return 0
 	var/message = ""
 	if(action == ANAL)
 		if(fucked_action == ANAL)
@@ -133,6 +135,7 @@
 		message = "masturbates."
 	owner.visible_message("<span class ='erp'><b>[owner]</b> [message]</span>")
 	give_pleasure(3)
+	click_time = world.time + 15
 
 /datum/forbidden_controller/proc/cum()
 	if(owner.stat != DEAD)

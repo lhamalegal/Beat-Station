@@ -8,7 +8,7 @@ Used In File(s): /code/modules/mob/living/carbon/human/human.dm
 </div>
 
 <!-- Penis -->
-{{if data.usr_gender == 1}}
+{{if data.usr_gender == 1 && !data.yourself}}
 	{{if data.usr_nude}}
 		<div class='itemLabel'>
 			Penis: 
@@ -32,7 +32,7 @@ Used In File(s): /code/modules/mob/living/carbon/human/human.dm
 {{/if}}
 
 <!-- Mouth -->
-{{if data.usr_face && data.src_nude}}
+{{if data.usr_face && data.src_nude && !data.yourself}}
 	<div class='itemLabel'>
 		Mouth: 
 	</div>
@@ -58,7 +58,7 @@ Used In File(s): /code/modules/mob/living/carbon/human/human.dm
 		{{else}}
 			{{:helper.link('Masturbate your vagina', data.icon, {'masturbate' : 'normal'})}}
 		{{/if}}
-		{{:helper.link('Masturbate your anus', data.icon, {'masturbate' : 'anus'})}}
+		{{:helper.link('Play with your anus', data.icon, {'masturbate' : 'anus'})}}
 	</div>
 {{/if}}
 
