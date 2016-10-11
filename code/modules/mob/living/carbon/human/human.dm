@@ -2128,7 +2128,7 @@
 /mob/living/carbon/human/proc/is_face_clean()
 	if(!wear_mask && !head)
 		return 1
-	if((head && (head.flags & HEADCOVERSMOUTH)) || ((flags & MASKCOVERSMOUTH) && !wear_mask.mask_adjusted))
+	if((head && (head.flags & HEADCOVERSMOUTH)) || ((wear_mask.flags & MASKCOVERSMOUTH) && !wear_mask.mask_adjusted))
 		return 0
 	return 1
 
