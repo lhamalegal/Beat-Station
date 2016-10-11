@@ -91,7 +91,7 @@
 
 	who.erp_controller.time_check()
 
-	click_time = world.time + 15
+	click_time = world.time + 10
 	who.erp_controller.timevar = world.time + 100
 
 	fucking_action = action
@@ -133,7 +133,7 @@
 		message = "masturbates."
 	owner.visible_message("<span class ='erp'><b>[owner]</b> [message]</span>")
 	give_pleasure(3)
-	click_time = world.time + 15
+	click_time = world.time + 10
 
 /datum/forbidden_controller/proc/cum()
 	if(owner.stat != DEAD)
