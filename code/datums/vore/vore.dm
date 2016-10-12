@@ -12,3 +12,5 @@
 	digest(prey)
 
 /datum/vore_controller/digest()
+	bruteloss = 5
+	src.adjustBruteLoss(bruteloss)
