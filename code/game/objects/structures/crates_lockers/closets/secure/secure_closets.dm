@@ -104,7 +104,7 @@
 				if(istype(W,/obj/item/device/multitool))
 					to_chat(user, "<span class='notice'>You try to reset the lock.</span>")
 					var/roll = roll(1,10)
-					if(roll > 10)
+					if(roll > 5)
 						to_chat(user, "<span class='notice'>You reset the lock.</span>")
 						locked = 0
 						broken = 0
