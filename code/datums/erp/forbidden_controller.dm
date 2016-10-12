@@ -12,6 +12,8 @@
 
 	var/mob/living/carbon/human/fucking_list[]
 
+	var/list/transa_log = list()
+
 	var/fucking_action = "none"
 	var/fucked_action = "none"
 
@@ -102,6 +104,10 @@
 	else
 		begins_text(action, who)
 		who.erp_controller.fucking_list.Add(owner)
+
+		var/log_text = "<span class='warning'>[owner] begins to fuck [who] - Type = [action_string(action)]</span>"
+		transa_log.Add(log_text)
+		who.erp_controller.transa_log.Add(log_text)
 
 	who.erp_controller.fucked(owner, action)
 
