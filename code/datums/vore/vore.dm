@@ -1,7 +1,7 @@
 /datum/vore_controller/
 	var/mob/living/carbon/human/prey
 	var/mob/living/carbon/human/pred
-	var/belly_contents = list()
+	var/list/belly_contents = list()
 
 /datum/vore_controller/New(mob/living/owner)
 	pred = owner
@@ -12,5 +12,5 @@
 	digest(prey)
 
 /datum/vore_controller/digest()
-	bruteloss = 5
+	var/bruteloss = 5
 	src.adjustBruteLoss(bruteloss)
