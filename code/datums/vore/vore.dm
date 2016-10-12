@@ -2,6 +2,7 @@
 	var/mob/living/carbon/human/prey
 	var/mob/living/carbon/human/pred
 	var/list/belly_contents = list()
+	prey.forceMove(pred)
 
 /datum/vore_controller/New(mob/living/owner)
 	pred = owner
