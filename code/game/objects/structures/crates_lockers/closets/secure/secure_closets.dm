@@ -15,6 +15,7 @@
 	var/icon_off = "secureoff"
 	wall_mounted = 0 //never solid (You can always pass over it)
 	health = 200
+	var/hack_state = 0
 
 /obj/structure/closet/secure_closet/can_open()
 	if(!..())
@@ -85,6 +86,32 @@
 		emag_act(user)
 	else if(istype(W,/obj/item/stack/packageWrap) || istype(W,/obj/item/weapon/weldingtool))
 		return ..(W,user)
+	else if(locked == 1)
+		switch(hack_state)
+			if(0)
+				if(istype(W,/obj/item/weapon/screwdriver))
+					to_chat(user, "<span class='notice'>You unscrew the panel.</span>")
+					broken = 1
+					locked = 1
+					hack_state = 1
+			if(1)
+				if(istype(W,/obj/item/weapon/wirecutters))
+					to_chat(user, "<span class='notice'>You cut the wires.</span>")
+					locked = 1
+					broken = 1
+					hack_state = 2
+			if(2)
+				if(istype(W,/obj/item/device/multitool))
+					to_chat(user, "<span class='notice'>You try to reset the lock.</span>")
+					var/roll = roll(1,10)
+					if(roll > 10)
+						to_chat(user, "<span class='notice'>You reset the lock.</span>")
+						locked = 0
+						broken = 0
+						return
+					else
+						to_chat(user,"<span class='notice'>You fail to reset the lock!.</span>")
+						return
 	else
 		togglelock(user)
 
