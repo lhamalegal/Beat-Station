@@ -20,7 +20,7 @@
 		erp_controller = new /datum/forbidden_controller(src)
 
 	if(!vore_controller)
-		vore_controller = new /datum/vore_controller(src)
+		vore_controller = new /datum/vore_controller/swallow_controller(src)
 
 	if(!species)
 		if(new_species)
