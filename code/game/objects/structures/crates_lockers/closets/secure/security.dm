@@ -352,8 +352,8 @@
 
 	New()
 		..()
-		new /obj/item/weapon/reagent_containers/ld50_syringe/lethal(src)
-		new /obj/item/weapon/reagent_containers/ld50_syringe/lethal(src)
+		new /obj/item/weapon/reagent_containers/syringe/ld50_syringe/lethal(src)
+		new /obj/item/weapon/reagent_containers/syringe/ld50_syringe/lethal(src)
 
 
 
