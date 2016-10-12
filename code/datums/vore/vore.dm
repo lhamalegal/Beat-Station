@@ -13,4 +13,4 @@
 
 /datum/vore_controller/digest()
 	var/bruteloss = 5
-	src.adjustBruteLoss(bruteloss)
+	prey.adjustBruteLoss(bruteloss)
