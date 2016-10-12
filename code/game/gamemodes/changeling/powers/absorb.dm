@@ -95,10 +95,11 @@
 			absorbed_languages += language
 		user.changeling_update_languages(absorbed_languages)
 
-	if(ishuman(T))
+	if(ishuman(T) && ishuman(user))
 		var/mob/living/carbon/human/H = T
-		if(!(H in user.mind.changeling.absorved_forbidden) && H.erp_controller)
-			user.mind.changeling.absorved_forbidden[new_dna] = H.erp_controller
+		var/mob/living/carbon/human/HU = user
+		if(!(H in HU.mind.changeling.absorved_forbidden) && H.erp_controller)
+			HU.mind.changeling.absorved_forbidden[new_dna] = H.erp_controller
 	absorbedcount++
 	store_dna(new_dna, user)
 
