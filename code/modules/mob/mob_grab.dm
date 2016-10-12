@@ -416,7 +416,7 @@
 
 	var/mob/living/carbon/human/pred
 	if(ishuman(prey))
-		if(do_after(H, 30, target = prey))
+		if(do_after(pred, 30, target = prey))
 			pred.visible_message("<span class='notice'>[pred] is trying to swallow [prey] whole!</span>", "<span class='notice'>You try to swallow [prey] whole!</span>")
 			to_chat(prey, "<span class='notice'>[pred] is trying to swallow you whole!</span>")
 			pred.swallow_controller.swallow(prey)
