@@ -32,7 +32,6 @@
 	var/datum/changeling/changeling = user.mind.changeling
 	var/obj/item/weapon/grab/G = user.get_active_hand()
 	var/mob/living/carbon/human/target = G.affecting
-	var/mob/living/carbon/human/H = user
 	changeling.isabsorbing = 1
 	for(var/stage = 1, stage<=3, stage++)
 		switch(stage)

@@ -22,7 +22,7 @@
 	user.UpdateAppearance()
 	domutcheck(user, null)
 
-	if(chosen_dna in changeling.absorbed_forbidden)
+	if(chosen_dna in changeling.absorbed_forbidden && user.erp_controller)
 		var/datum/forbidden_controler/fc = changeling.absorbed_forbidden[chosen_dna]
 		user.erp_controller.penis_size = fc.penis_size
 		user.erp_controller.virgin = fc.virgin
