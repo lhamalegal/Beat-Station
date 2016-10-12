@@ -259,7 +259,8 @@
 		filling.icon += mix_color_from_reagents(reagents.reagent_list)
 		overlays += filling
 
-/obj/item/weapon/reagent_containers/ld50_syringe
+/obj/item/weapon/reagent_containers/syringe/ld50_syringe
+	..()
 	name = "Lethal Injection Syringe"
 	desc = "A syringe used for lethal injections."
 	icon = 'icons/goonstation/objects/syringe.dmi'
@@ -268,31 +269,31 @@
 	amount_per_transfer_from_this = 50
 	possible_transfer_amounts = null //list(5,10,15)
 	volume = 50
-	var/mode = SYRINGE_DRAW
+	mode = SYRINGE_DRAW
 
-/obj/item/weapon/reagent_containers/ld50_syringe/on_reagent_change()
+/obj/item/weapon/reagent_containers/syringe/ld50_syringe/on_reagent_change()
 	update_icon()
 
-/obj/item/weapon/reagent_containers/ld50_syringe/pickup(mob/user)
+/obj/item/weapon/reagent_containers/syringe/ld50_syringe/pickup(mob/user)
 	..()
 	update_icon()
 
-/obj/item/weapon/reagent_containers/ld50_syringe/dropped(mob/user)
+/obj/item/weapon/reagent_containers/syringe/ld50_syringe/dropped(mob/user)
 	..()
 	update_icon()
 
-/obj/item/weapon/reagent_containers/ld50_syringe/attack_self(mob/user)
+/obj/item/weapon/reagent_containers/syringe/ld50_syringe/attack_self(mob/user)
 	mode = !mode
 	update_icon()
 
-/obj/item/weapon/reagent_containers/ld50_syringe/attack_hand()
+/obj/item/weapon/reagent_containers/syringe/ld50_syringe/attack_hand()
 	..()
 	update_icon()
 
-/obj/item/weapon/reagent_containers/ld50_syringe/attackby(obj/item/I, mob/user)
+/obj/item/weapon/reagent_containers/syringe/ld50_syringe/attackby(obj/item/I, mob/user)
 	return
 
-/obj/item/weapon/reagent_containers/ld50_syringe/afterattack(obj/target, mob/user , flag)
+/obj/item/weapon/reagent_containers/syringe/ld50_syringe/afterattack(obj/target, mob/user , flag)
 	if(!target.reagents)
 		return
 
@@ -352,7 +353,7 @@
 					mode = SYRINGE_DRAW
 					update_icon()
 
-/obj/item/weapon/reagent_containers/ld50_syringe/update_icon()
+/obj/item/weapon/reagent_containers/syringe/ld50_syringe/update_icon()
 	var/rounded_vol = round(reagents.total_volume,50)
 	if(ismob(loc))
 		var/mode_t
@@ -377,7 +378,7 @@
 	desc = "Contains antiviral agents."
 	list_reagents = list("spaceacillin" = 15)
 
-/obj/item/weapon/reagent_containers/ld50_syringe/lethal
+/obj/item/weapon/reagent_containers/syringe/ld50_syringe/lethal
 	list_reagents = list("cyanide" = 10, "neurotoxin2" = 40)
 
 /obj/item/weapon/reagent_containers/syringe/charcoal

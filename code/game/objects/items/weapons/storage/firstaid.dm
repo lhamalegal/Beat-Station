@@ -170,7 +170,7 @@
 	new /obj/item/weapon/reagent_containers/hypospray/combat(src)
 	new /obj/item/weapon/reagent_containers/food/pill/patch/styptic(src)
 	new /obj/item/weapon/reagent_containers/food/pill/patch/silver_sulf(src)
-	new /obj/item/weapon/reagent_containers/ld50_syringe/lethal(src)
+	new /obj/item/weapon/reagent_containers/syringe/ld50_syringe/lethal(src)
 	new /obj/item/clothing/glasses/hud/health/night(src)
 	return
 

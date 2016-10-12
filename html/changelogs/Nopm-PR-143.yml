@@ -1,0 +1,5 @@
+author: nopm
+delete-after: True
+changes:
+  - rscadd: "Sistema de hacking de armários"
+  - tweak: "Seringas letais podem ser inseridas na syringe gun agora."
