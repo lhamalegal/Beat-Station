@@ -416,7 +416,8 @@
 
 	var/mob/living/carbon/human/H = attacker
 	if(ishuman(prey))
-		swallow()
+	swallow_controller.pred = attacker
+	swallow_controller.swallow(prey)
 	else
 		return
 

@@ -19,6 +19,9 @@
 	if(!erp_controller)
 		erp_controller = new /datum/forbidden_controller(src)
 
+	if(!vore_controller)
+		vore_controller = new /datum/vore_controller(src)
+
 	if(!species)
 		if(new_species)
 			set_species(new_species, 1, delay_icon_update = 1)
