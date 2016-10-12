@@ -45,7 +45,7 @@ class commandAdminmsg(BeatCommand):
 
 	@classmethod
 	def getAuths(cls):
-		return ['admins', 'host', 'headmin']
+		return ['admins', 'host', 'server head of staff']
 
 	@classmethod
 	def verifyParams(cls, params):
