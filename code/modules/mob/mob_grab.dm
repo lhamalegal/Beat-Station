@@ -414,15 +414,15 @@
 	if(isalien(attacker) && iscarbon(prey)) //Xenomorphs eating carbon mobs
 		return 1
 
-	var/mob/living/carbon/human/H = attacker
+	var/mob/living/carbon/human/pred
 	if(ishuman(prey))
-		H.swallow_controller.pred = attacker
+		swallow_controller.pred = pred
 		if(do_after(H, 30, target = prey))
-			H.visible_message("<span class='notice'>[H] is trying to swallow [prey] whole!</span>", "<span class='notice'>You try to swallow [prey] whole!</span>")
-			to_chat(prey, "<span class='notice'>[H] is trying to swallow you whole!</span>")
-			H.swallow_controller.swallow(prey)
+			pred.visible_message("<span class='notice'>[pred] is trying to swallow [prey] whole!</span>", "<span class='notice'>You try to swallow [prey] whole!</span>")
+			to_chat(prey, "<span class='notice'>[pred] is trying to swallow you whole!</span>")
+			pred.swallow_controller.swallow(prey)
 		else
-			H.visible_message("<span class='notice'>[prey] escapes from [H]'s grip!</span>", "<span class='notice'>[prey] escapes from your grip!</span>")
+			H.visible_message("<span class='notice'>[prey] escapes from [pred]'s grip!</span>", "<span class='notice'>[prey] escapes from your grip!</span>")
 	else
 		return
 
