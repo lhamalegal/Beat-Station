@@ -267,6 +267,9 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	var/datum/dna/chosen_dna
 	var/obj/effect/proc_holder/changeling/sting/chosen_sting
 
+	// Forbidden purposes
+	var/list/datum/forbidden_controller/absorbed_forbidden = list()
+
 /datum/changeling/New(var/gender=FEMALE)
 	..()
 	var/honorific
