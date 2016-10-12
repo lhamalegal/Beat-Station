@@ -114,6 +114,7 @@ var/round_start_time = 0
 		modes = sortList(modes)
 		to_chat(world, "<B>The current game mode is - Secret!</B>")
 		send_to_info_discord("**The current game mode is - Secret!**")
+		send_to_info_discord("<B>Possibilites:</B> [english_list(modes)]")
 		to_chat(world, "<B>Possibilities:</B> [english_list(modes)]")
 	else
 		src.mode.announce()
