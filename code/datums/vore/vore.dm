@@ -9,7 +9,7 @@
 /datum/vore_controller/swallow()
 	prey.loc = pred
 	belly_contents.Add(prey)
-	digest(prey)
+	vore_controller.digest(prey)
 
 /datum/vore_controller/digest()
 	var/bruteloss = 5
