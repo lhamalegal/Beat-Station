@@ -36,7 +36,7 @@ class commandWho(BeatCommand):
 
 	@classmethod
 	def getAuths(cls):
-		return ['admins', 'host', 'headmin']
+		return []
 
 	@classmethod
 	def verifyParams(cls, params):
