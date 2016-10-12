@@ -97,9 +97,8 @@
 
 	if(ishuman(T) && ishuman(user))
 		var/mob/living/carbon/human/H = T
-		var/mob/living/carbon/human/HU = user
-		if(!(H in HU.mind.changeling.absorved_forbidden) && H.erp_controller)
-			HU.mind.changeling.absorved_forbidden[new_dna] = H.erp_controller
+		if(!(H in user.mind.changeling.absorbed_forbidden) && H.erp_controller)
+			user.mind.changeling.absorbed_forbidden[new_dna] = H.erp_controller
 	absorbedcount++
 	store_dna(new_dna, user)
 
