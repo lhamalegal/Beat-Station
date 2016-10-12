@@ -6,11 +6,11 @@
 /datum/vore_controller/New(mob/living/owner)
 	pred = owner
 
-/datum/vore_controller/swallow()
+/datum/vore_controller/proc/swallow()
 	prey.loc = pred
 	belly_contents.Add(prey)
-	vore_controller.digest(prey)
+	digest(prey)
 
-/datum/vore_controller/digest()
+/datum/vore_controller/proc/digest()
 	var/bruteloss = 5
 	prey.adjustBruteLoss(bruteloss)
