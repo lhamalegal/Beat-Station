@@ -422,7 +422,7 @@
 			to_chat(prey, "<span class='notice'>[H] is trying to swallow you whole!</span>")
 			H.swallow_controller.swallow(prey)
 		else
-		 	H.visible_message("<span class='notice'>[prey] escapes from [H]'s grip!</span>", "<span class='notice'>[prey] escapes from your grip!</span>")
+			H.visible_message("<span class='notice'>[prey] escapes from [H]'s grip!</span>", "<span class='notice'>[prey] escapes from your grip!</span>")
 	else
 		return
 
