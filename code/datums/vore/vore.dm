@@ -1,6 +1,6 @@
 /datum/vore_controller/
-	var/pred
-	var/prey
+	var/mob/living/carbon/human/prey
+	var/mob/living/carbon/human/pred
 	var/belly_contents = list()
 
 /datum/vore_controller/New(mob/living/owner)
