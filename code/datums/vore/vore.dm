@@ -8,7 +8,7 @@
 	owner = own
 
 /datum/vore_controller/proc/swallow(mob/living/carbon/human/prey)
-	prey.forceMove(pred)
+	prey.forceMove(owner)
 	belly_contents.Add(prey)
 	digest(prey)
 

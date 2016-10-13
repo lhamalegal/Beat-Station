@@ -414,7 +414,7 @@
 						attacker.visible_message("<span class='notice'>[attacker] swallows [affecting] whole!</span>", "<span class='notice'>You swallow [affecting] whole!</span>")
 						to_chat(affecting, "<span class='notice'>[attacker] swallows you whole!</span>")
 
-						attacker.swallow_controller.swallow(prey)
+						attacker.swallow_controller.swallow(affecting)
 
 						qdel(src)
 					else
