@@ -366,8 +366,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			dat += "<b>Backpack Type:</b> <a href ='?_src_=prefs;preference=bag;task=input'>[backbaglist[backbag]]</a><br>"
 
 			dat += "<h2>Forbidden fruits</h2>"
-			if(gender == FEMALE)
-				dat += "<b>Virgin:</b> <a href ='?_src_=prefs;preference=virgin;task=normal'>[virgin ? "Yes" : "No"]</a><BR>"
+			dat += "<b>Virgin:</b> <a href ='?_src_=prefs;preference=virgin;task=normal'>[virgin ? "Yes" : "No"]</a><BR>"
 			dat += "<b>Anal Virgin:</b> <a href ='?_src_=prefs;preference=virgin;task=anal'>[anal_virgin ? "Yes" : "No"]</a><BR>"
 
 			dat += "</td></tr></table>"

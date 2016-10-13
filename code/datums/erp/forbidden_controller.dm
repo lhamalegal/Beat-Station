@@ -12,6 +12,8 @@
 
 	var/mob/living/carbon/human/fucking_list[]
 
+	var/list/transa_log = list()
+
 	var/fucking_action = "none"
 	var/fucked_action = "none"
 
@@ -19,8 +21,6 @@
 	var/click_time
 
 	var/mob/living/carbon/human/source
-
-	var/list/blacklist_species = list("Vox", "Vox Armalis", "Kidan", "Slime People", "Diona", "Machine", "Drask", "Wryn", "Plasmaman")
 
 
 /datum/forbidden_controller/New(mob/living/carbon/human/own)
@@ -93,7 +93,7 @@
 
 	who.erp_controller.time_check()
 
-	click_time = world.time + 15
+	click_time = world.time + 10
 	who.erp_controller.timevar = world.time + 100
 
 	fucking_action = action
@@ -104,6 +104,10 @@
 	else
 		begins_text(action, who)
 		who.erp_controller.fucking_list.Add(owner)
+
+		var/log_text = "<span class='warning'>[owner] begins to fuck [who] - Type = [action_string(action)]</span>"
+		transa_log.Add(log_text)
+		who.erp_controller.transa_log.Add(log_text)
 
 	who.erp_controller.fucked(owner, action)
 
@@ -135,7 +139,7 @@
 		message = "masturbates."
 	owner.visible_message("<span class ='erp'><b>[owner]</b> [message]</span>")
 	give_pleasure(3)
-	click_time = world.time + 15
+	click_time = world.time + 10
 
 /datum/forbidden_controller/proc/cum()
 	if(owner.stat != DEAD)

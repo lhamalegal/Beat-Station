@@ -72,7 +72,6 @@
 			target.mind.changeling.absorbed_dna.len = 1
 			target.mind.changeling.absorbedcount = 0
 
-
 	changeling.chem_charges=min(changeling.chem_charges+10, changeling.chem_storage)
 
 	changeling.isabsorbing = 0
@@ -96,6 +95,10 @@
 			absorbed_languages += language
 		user.changeling_update_languages(absorbed_languages)
 
+	if(ishuman(T) && ishuman(user))
+		var/mob/living/carbon/human/H = T
+		if(!(H in user.mind.changeling.absorbed_forbidden) && H.erp_controller)
+			user.mind.changeling.absorbed_forbidden[new_dna] = H.erp_controller
 	absorbedcount++
 	store_dna(new_dna, user)
 

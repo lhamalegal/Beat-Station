@@ -21,7 +21,13 @@
 		user.set_species()
 	user.UpdateAppearance()
 	domutcheck(user, null)
-	
+
+	if(chosen_dna in changeling.absorbed_forbidden && user.erp_controller)
+		var/datum/forbidden_controller/fc = changeling.absorbed_forbidden[chosen_dna]
+		user.erp_controller.penis_size = fc.penis_size
+		user.erp_controller.virgin = fc.virgin
+		user.erp_controller.anal_virgin = fc.anal_virgin
+
 	user.changeling_update_languages(changeling.absorbed_languages)
 
 	feedback_add_details("changeling_powers","TR")
