@@ -387,43 +387,51 @@
 					return
 
 
-	if(M == assailant && state >= GRAB_AGGRESSIVE) //no eatin unless you have an agressive grab
-		if(checkvalid(user, affecting)) //wut
+	if(M == assailant && state >= GRAB_AGGRESSIVE)
+		if(checkvalid(user, affecting))
 			var/mob/living/carbon/attacker = user
-			user.visible_message("<span class='danger'>[user] is attempting to devour \the [affecting]!</span>")
+			switch(checkvalid(user, affecting))
+				if(1)
+					user.visible_message("<span class='danger'>[user] is attempting to devour \the [affecting]!</span>")
 
-			if(!do_after(user, checktime(user, affecting), target = affecting)) return
+					if(!do_after(user, checktime(user, affecting), target = affecting))
+						return
 
-			user.visible_message("<span class='danger'>[user] devours \the [affecting]!</span>")
-			if(affecting.mind)
-				affecting.attack_log += "\[[time_stamp()]\] <font color='orange'>Has been devoured by [attacker.name] ([attacker.ckey])</font>"
-				attacker.attack_log += "\[[time_stamp()]\] <font color='red'>Devoured [affecting.name] ([affecting.ckey])</font>"
-				msg_admin_attack("[key_name(attacker)] devoured [key_name(affecting)]")
+					user.visible_message("<span class='danger'>[user] devours \the [affecting]!</span>")
+					if(affecting.mind)
+						affecting.attack_log += "\[[time_stamp()]\] <font color='orange'>Has been devoured by [attacker.name] ([attacker.ckey])</font>"
+						attacker.attack_log += "\[[time_stamp()]\] <font color='red'>Devoured [affecting.name] ([affecting.ckey])</font>"
+						msg_admin_attack("[key_name(attacker)] devoured [key_name(affecting)]")
 
-			affecting.loc = user
-			attacker.stomach_contents.Add(affecting)
-			qdel(src)
+					affecting.loc = user
+					attacker.stomach_contents.Add(affecting)
+					qdel(src)
+				if(2)
+					attacker.visible_message("<span class='notice'>[attacker] is trying to swallow [affecting] whole!</span>", "<span class='notice'>You try to swallow [affecting] whole!</span>")
+					to_chat(affecting, "<span class='notice'>[attacker] is trying to swallow you whole!</span>")
+
+					if(do_after(attacker, checktime(user, affecting), target = affecting))
+						attacker.visible_message("<span class='notice'>[attacker] swallows [affecting] whole!</span>", "<span class='notice'>You swallow [affecting] whole!</span>")
+						to_chat(affecting, "<span class='notice'>[attacker] swallows you whole!</span>")
+
+						attacker.swallow_controller.swallow(affecting)
+
+						qdel(src)
+					else
+						attacker.visible_message("<span class='notice'>[affecting] escapes from [attacker]'s grip!</span>", "<span class='notice'>[affecting] escapes from your grip!</span>")
 
 /obj/item/weapon/grab/proc/checkvalid(var/mob/attacker, var/mob/prey) //does all the checking for the attack proc to see if a mob can eat another with the grab
 	if(ishuman(attacker) && (/datum/dna/gene/basic/grant_spell/mattereater in attacker.active_genes)) // MATTER EATER CARES NOT OF YOUR FORM
-		return 1
+		return 2
 
 	if(ishuman(attacker) && (FAT in attacker.mutations) && iscarbon(prey) && !isalien(prey)) //Fat people eating carbon mobs but not xenos
-		return 1
+		return 2
+
+	if(ishuman(attacker))
+		return 2
 
 	if(isalien(attacker) && iscarbon(prey)) //Xenomorphs eating carbon mobs
 		return 1
-
-	var/mob/living/carbon/human/pred
-	if(ishuman(prey))
-		if(do_after(pred, 30, target = prey))
-			pred.visible_message("<span class='notice'>[pred] is trying to swallow [prey] whole!</span>", "<span class='notice'>You try to swallow [prey] whole!</span>")
-			to_chat(prey, "<span class='notice'>[pred] is trying to swallow you whole!</span>")
-			pred.swallow_controller.swallow(prey)
-		else
-			pred.visible_message("<span class='notice'>[prey] escapes from [pred]'s grip!</span>", "<span class='notice'>[prey] escapes from your grip!</span>")
-	else
-		return
 
 	return 0
 

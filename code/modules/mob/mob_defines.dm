@@ -7,7 +7,9 @@
 	var/datum/mind/mind
 
 	var/stat = 0 //Whether a mob is alive or dead. TODO: Move this to living - Nodrak
-	var/datum/vore_controller
+
+	// Vore controller
+	var/datum/vore_controller/swallow_controller
 
 	//Not in use yet
 	var/obj/effect/organstructure/organStructure = null
