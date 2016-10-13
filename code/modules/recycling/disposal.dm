@@ -63,22 +63,22 @@
 
 // attack by item places it in to disposal
 /obj/machinery/disposal/attackby(var/obj/item/I, var/mob/user, params)
-	if(stat & BROKEN || !I || !user || ((I.flags & NODROP) && !istype(I, /obj/item/weapon/storage/bag/trash/cyborg)))
+	if(stat & BROKEN || !I || !user)
 		return
 
-	src.add_fingerprint(user)
-	if(mode<=0) // It's off
+	add_fingerprint(user)
+	if(mode <= 0) // It's off
 		if(istype(I, /obj/item/weapon/screwdriver))
 			if(contents.len > 0)
 				to_chat(user, "Eject the items first!")
 				return
-			if(mode==0) // It's off but still not unscrewed
-				mode=-1 // Set it to doubleoff l0l
+			if(mode == 0) // It's off but still not unscrewed
+				mode =- 1 // Set it to doubleoff l0l
 				playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 				to_chat(user, "You remove the screws around the power connection.")
 				return
-			else if(mode==-1)
-				mode=0
+			else if(mode ==- 1)
+				mode = 0
 				playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 				to_chat(user, "You attach the screws around the power connection.")
 				return
@@ -143,7 +143,8 @@
 
 	if(!I)	return
 
-	user.drop_item()
+	if(!user.drop_item())
+		return
 	if(I)
 		I.forceMove(src)
 
