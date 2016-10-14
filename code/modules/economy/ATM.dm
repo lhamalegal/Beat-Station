@@ -140,6 +140,7 @@ log transactions
 	data["held_card_name"] = held_card ? held_card.name : "------"
 	data["ticks_left_locked_down"] = ticks_left_locked_down
 	data["linked_db"] = linked_db
+	data["transaction_log"] = null
 
 	data["authenticated_account"] = authenticated_account
 	if(authenticated_account)
@@ -158,8 +159,6 @@ log transactions
 				"source_terminal" = T.source_terminal)))
 		if(trx.len > 0)
 			data["transaction_log"] = trx
-
-	data["transaction_log"] = null
 
 	data["zero_text"] = "Zero - Either the account number or card is required to access this account. EFTPOS transactions will require a card and ask for a pin, but not verify the pin is correct."
 	data["one_text"] = "One - An account number and pin must be manually entered to access this account and process transactions."
