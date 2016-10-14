@@ -15,7 +15,7 @@ For all your monetary needs!
 <i>This terminal is</i> {{:data.machine_id}}. <i>Report this code when contacting Nanotrasen IT Support</i>
 <br>
 Card: {{:helper.link(data.held_card ? held_card_name : '------', 'eject', {'choice' : 'insert_card'})}}<br><br>
-
+<hr>
 {{if data.ticks_left_locked_down > 0}}
 	<span class='exclamation-triangle'>Maximum number of pin attempts exceeded! Access to this ATM has been temporarily disabled.</span>
 {{else data.authenticated_account}}
@@ -69,7 +69,7 @@ Card: {{:helper.link(data.held_card ? held_card_name : '------', 'eject', {'choi
 			{{/if}}
 		</div>
 	{{else}} <!-- NO_SCREEN -->
-		Welcome, <b>{{:data.owner_name}}.</b><br>
+		Welcome, <b>{{:data.owner_name}}</b>.<br>
 		<b>Account balance:</b> ${{:data.money}}
 		<form name='withdrawal' action='?src={{:data.src}}' method='get'>
 			<input type='hidden' name='src' value='{{:data.src}}'>

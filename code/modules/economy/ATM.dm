@@ -151,7 +151,7 @@ log transactions
 	data["two_text"] = "Two - In addition to account number and pin, a card is required to access this account and process transactions."
 
 	var/list/trx[0]
-	for (var/datum/transaction/T in detailed_account_view.transaction_log)
+	for (var/datum/transaction/T in authenticated_account.transaction_log)
 		trx.Add(list(list(\
 			"date" = T.date, \
 			"time" = T.time, \
