@@ -49,7 +49,7 @@ log transactions
 	if(linked_db && ( (linked_db.stat & NOPOWER) || !linked_db.activated ) )
 		linked_db = null
 		authenticated_account = null
-		src.visible_message("\red [bicon(src)] [src] buzzes rudely, \"Connection to remote database lost.\"")
+		src.visible_message("[bicon(src)]<span class='warning'>[src] buzzes rudely, \"Connection to remote database lost.\"</span>")
 		updateDialog()
 
 	if(ticks_left_timeout > 0)
@@ -230,11 +230,11 @@ log transactions
 									T.time = worldtime2text()
 									failed_account.transaction_log.Add(T)
 							else
-								to_chat(usr, "\red [bicon(src)] Incorrect pin/account combination entered, [max_pin_attempts - number_incorrect_tries] attempts remaining.")
+								to_chat(usr, "[bicon(src)]<span class='warning'>Incorrect pin/account combination entered, [max_pin_attempts - number_incorrect_tries] attempts remaining.</span>")
 								previous_account_number = tried_account_num
 								playsound(src, 'sound/machines/buzz-sigh.ogg', 50, 1)
 						else
-							to_chat(usr, "\red [bicon(src)] incorrect pin/account combination entered.")
+							to_chat(usr, "[bicon(src)]<span class='warning'>Incorrect pin/account combination entered.</span>")
 							number_incorrect_tries = 0
 					else
 						playsound(src, 'sound/machines/twobeep.ogg', 50, 1)
@@ -250,7 +250,7 @@ log transactions
 						T.time = worldtime2text()
 						authenticated_account.transaction_log.Add(T)
 
-						to_chat(usr, "\blue [bicon(src)] Access granted. Welcome user '[authenticated_account.owner_name].'")
+						to_chat(usr, "[bicon(src)]<span class='notice'>Access granted. Welcome user '[authenticated_account.owner_name].'</span>")
 
 					previous_account_number = tried_account_num
 			if("withdrawal")
@@ -263,7 +263,7 @@ log transactions
 
 						//remove the money
 						if(amount > 10000) // prevent crashes
-							to_chat(usr, "\blue The ATM's screen flashes, 'Maximum single withdrawl limit reached, defaulting to 10,000.'")
+							to_chat(usr, "<span class='notice'>The ATM's screen flashes, 'Maximum single withdrawl limit reached, defaulting to 10,000.'</span>")
 							amount = 10000
 						authenticated_account.money -= amount
 						withdraw_arbitrary_sum(amount)
@@ -278,11 +278,11 @@ log transactions
 						T.time = worldtime2text()
 						authenticated_account.transaction_log.Add(T)
 					else
-						to_chat(usr, "[bicon(src)]<span class='warning'>You don't have enough funds to do that!</span>")
+						to_chat(usr, "[bicon(src)] <span class='warning'>You don't have enough funds to do that!</span>")
 			if("balance_statement")
 				if(authenticated_account)
 					if(world.timeofday < lastprint + PRINT_DELAY)
-						to_chat(usr, "<span class='notice'>The [src.name] flashes an error on its display.</span>")
+						to_chat(usr, "<span class='notice'>The [name] flashes an error on its display.</span>")
 						return
 					lastprint = world.timeofday
 					playsound(loc, "sound/goonstation/machines/printer_thermal.ogg", 50, 1)
@@ -310,7 +310,7 @@ log transactions
 					playsound(loc, 'sound/items/polaroid2.ogg', 50, 1)
 			if("insert_card")
 				if(held_card)
-					held_card.loc = src.loc
+					held_card.forceMove(loc)
 					authenticated_account = null
 
 					if(ishuman(usr) && !usr.get_active_hand())
@@ -320,14 +320,13 @@ log transactions
 				else
 					var/obj/item/I = usr.get_active_hand()
 					if (istype(I, /obj/item/weapon/card/id))
+						var/obj/item/weapon/card/id/C = I
 						usr.drop_item()
-						I.loc = src
-						held_card = I
+						C.forceMove(src)
+						held_card = C
 			if("logout")
 				authenticated_account = null
-				//usr << browse(null,"window=atm")
-
-	src.attack_hand(usr)
+	nanomanager.update_uis(src)
 
 //create the most effective combination of notes to make up the requested amount
 /obj/machinery/atm/proc/withdraw_arbitrary_sum(var/arbitrary_sum)
@@ -346,7 +345,7 @@ log transactions
 			if(I)
 				authenticated_account = attempt_account_access(I.associated_account_number)
 				if(authenticated_account)
-					to_chat(human_user, "\blue [bicon(src)] Access granted. Welcome user '[authenticated_account.owner_name].'")
+					to_chat(human_user, "[bicon(src)]<span class='notice'>Access granted. Welcome user '[authenticated_account.owner_name].'</span>")
 
 					//create a transaction log entry
 					var/datum/transaction/T = new()
