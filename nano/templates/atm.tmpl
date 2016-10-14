@@ -15,13 +15,20 @@ For all your monetary needs!
 <br>
 <i>This terminal is</i> {{:data.machine_id}}. <i>Report this code when contacting Nanotrasen IT Support</i>
 <br>
-Card: {{:helper.link(data.held_card_name, 'eject', {'choice' : 'insert_card'})}}<br>
+
+<div class='itemLabel'>
+	Card:
+</div>
+<div class='itemContent'>
+	{{:helper.link(data.held_card_name, 'eject', {'choice' : 'insert_card'})}}
+</div>
+<br>
 <hr>
 {{if data.ticks_left_locked_down > 0}}
 	<span class='exclamation-triangle'>Maximum number of pin attempts exceeded! Access to this ATM has been temporarily disabled.</span>
 {{else data.authenticated_account}}
 	{{if data.view_screen == 1}} <!-- CHANGE_SECURITY_LEVEL -->
-		<h4>Select a new security level for this account:</h4><br><hr>
+		<h4>Select a new security level for this account:</h4><hr>
 		<div class="item">
 			<div class="line">
 				{{:helper.link(data.zero_text, 'unlock', {'choice' : 'change_security_level', 'new_security_level' : 0}, data.security_level == 0 ? 'selected' : null)}}
@@ -37,7 +44,7 @@ Card: {{:helper.link(data.held_card_name, 'eject', {'choice' : 'insert_card'})}}
 		{{:helper.link('Back', 'arrow-left', {'choice' : 'view_screen', 'view_screen' : 0})}}
 	{{else data.view_screen == 2}} <!-- TRANSFER_FUNDS -->
 		<b>Account balance:</b> ${{:data.money}}<br>
-		{{:helper.link('Back', 'arrow-left', {'choice' : 'view_screen', 'view_screen' : 0})}}<br><br>
+		{{:helper.link('Back', 'arrow-left', {'choice' : 'view_screen', 'view_screen' : 0})}}<br><hr>
 		<form name='transfer' action='?src={{:data.src}}' method='get'>
 		<input type='hidden' name='src' value='{{:data.src}}'>
 		<input type='hidden' name='choice' value='transfer'>
@@ -48,7 +55,7 @@ Card: {{:helper.link(data.held_card_name, 'eject', {'choice' : 'insert_card'})}}
 		</form>
 	{{else data.view_screen == 3}} <!-- VIEW_TRANSACTION_LOGS -->
 		<b>Transaction logs</b><br>
-		{{:helper.link('Back', 'arrow-left', {'choice' : 'view_screen', 'view_screen' : 0})}}
+		{{:helper.link('Back', 'arrow-left', {'choice' : 'view_screen', 'view_screen' : 0})}}<br><br>
 
 		<div class="statusDisplay" style="overflow: auto;">
 			{{if data.transaction_log}}
