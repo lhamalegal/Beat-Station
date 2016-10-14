@@ -153,7 +153,7 @@
 			dat += "<HEAD><TITLE>Suit storage unit</TITLE></HEAD>"
 			dat += "<font color='blue'><font size = 4><B>U-Stor-It Suit Storage Unit, model DS1900</B></FONT><BR>"
 			dat += "<B>Welcome to the Unit control panel.</B><HR>"
-			dat += text("Helmet storage compartment: <B>[HELMET ? HELMET.name : "</font><font color ='grey'>No helmet detected."]</B><BR>"
+			dat += "Helmet storage compartment: <B>[HELMET ? HELMET.name : "</font><font color ='grey'>No helmet detected."]</B><BR>"
 			if(HELMET && isopen)
 				dat += "<A href='?src=\ref[src];dispense_helmet=1'>Dispense helmet</A><BR>"
 			dat += "Suit storage compartment: <B>[SUIT ? SUIT.name : "<font color ='grey'>No exosuit detected.</font>"]</B><BR>"
@@ -165,7 +165,7 @@
 			if(OCCUPANT)
 				dat += "<HR><B><font color ='red'>WARNING: Biological entity detected inside the Unit's storage. Please remove.</B></font><BR>"
 				dat += "<A href='?src=\ref[src];eject_guy=1'>Eject extra load</A>"
-			dat += "<HR>Unit is: [isopen ? "Open" : "Closed"] - <A href='?src=\ref[src];toggle_open=1'>[isopen ? "Close" : "Open")] Unit</A> "
+			dat += "<HR>Unit is: [isopen ? "Open" : "Closed"] - <A href='?src=\ref[src];toggle_open=1'>[isopen ? "Close" : "Open"] Unit</A> "
 			if(isopen)
 				dat+="<HR>"
 			else
