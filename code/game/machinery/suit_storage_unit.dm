@@ -132,13 +132,13 @@
 		return
 	if(!user.IsAdvancedToolUser())
 		return 0
-	if(src.panelopen) //The maintenance panel is open. Time for some shady stuff
-		dat+= "<HEAD><TITLE>Suit storage unit: Maintenance panel</TITLE></HEAD>"
-		dat+= "<B>Maintenance panel controls</B><HR>"
-		dat+= "<font color ='grey'>The panel is ridden with controls, button and meters, labeled in strange signs and symbols that <BR>you cannot understand. Probably the manufactoring world's language.<BR> Among other things, a few controls catch your eye.<BR><BR>"
-		dat+= "A small dial with a \"ë\" symbol embroidded on it. It's pointing towards a gauge that reads [issuperUV ? "15nm" : "185nm"].<BR> <font color='blue'><A href='?src=\ref[src];toggleUV=1'> Turn towards [issuperUV ? "185nm" : "15nm"]</A><BR>"
-		dat+= "A thick old-style button, with 2 grimy LED lights next to it. The [safetieson? "<font color='green'><B>GREEN</B></font>" : "<font color='red'><B>RED</B></font>"] LED is on.<BR><font color ='blue'><A href='?src=\ref[src];togglesafeties=1'>Press button</a></font>"
-		dat+= "<HR><BR><A href='?src=\ref[src];mach_close=suit_storage_unit'>Close panel</A>", user)
+	if(panelopen) //The maintenance panel is open. Time for some shady stuff
+		dat += "<HEAD><TITLE>Suit storage unit: Maintenance panel</TITLE></HEAD>"
+		dat += "<B>Maintenance panel controls</B><HR>"
+		dat += "<font color ='grey'>The panel is ridden with controls, button and meters, labeled in strange signs and symbols that <BR>you cannot understand. Probably the manufactoring world's language.<BR> Among other things, a few controls catch your eye.<BR><BR>"
+		dat += "A small dial with a \"ë\" symbol embroidded on it. It's pointing towards a gauge that reads [issuperUV ? "15nm" : "185nm"].<BR> <font color='blue'><A href='?src=\ref[src];toggleUV=1'> Turn towards [issuperUV ? "185nm" : "15nm"]</A><BR>"
+		dat += "A thick old-style button, with 2 grimy LED lights next to it. The [safetieson? "<font color='green'><B>GREEN</B></font>" : "<font color='red'><B>RED</B></font>"] LED is on.<BR><font color ='blue'><A href='?src=\ref[src];togglesafeties=1'>Press button</a></font>"
+		dat += "<HR><BR><A href='?src=\ref[user];mach_close=suit_storage_unit'>Close panel</A>"
 		//user << browse(dat, "window=ssu_m_panel;size=400x500")
 		//onclose(user, "ssu_m_panel")
 	else if(isUV) //The thing is running its cauterisation cycle. You have to wait.
@@ -165,20 +165,20 @@
 			if(OCCUPANT)
 				dat += "<HR><B><font color ='red'>WARNING: Biological entity detected inside the Unit's storage. Please remove.</B></font><BR>"
 				dat += "<A href='?src=\ref[src];eject_guy=1'>Eject extra load</A>"
-			da t+= "<HR>Unit is: [isopen ? "Open" : "Closed"] - <A href='?src=\ref[src];toggle_open=1'>[isopen ? "Close" : "Open")] Unit</A> "
+			dat += "<HR>Unit is: [isopen ? "Open" : "Closed"] - <A href='?src=\ref[src];toggle_open=1'>[isopen ? "Close" : "Open")] Unit</A> "
 			if(isopen)
 				dat+="<HR>"
 			else
 				dat += " - <A href='?src=\ref[src];toggle_lock=1'>*[islocked ? "Unlock" : "Lock"] Unit*</A><HR>"
 			dat += "Unit status: [islocked? "<font color ='red'><B>**LOCKED**</B></font><BR>" : "<font color ='green'><B>**UNLOCKED**</B></font><BR>"]"
 			dat += "<A href='?src=\ref[src];start_UV=1'>Start Disinfection cycle</A><BR>"
-			dat += "<BR><BR><A href='?src=\ref[src];mach_close=suit_storage_unit'>Close control panel</A>"
+			dat += "<BR><BR><A href='?src=\ref[user];mach_close=suit_storage_unit'>Close control panel</A>"
 			//user << browse(dat, "window=Suit Storage Unit;size=400x500")
 			//onclose(user, "Suit Storage Unit")
 		else //Ohhhh shit it's dirty or broken! Let's inform the guy.
 			dat+= "<HEAD><TITLE>Suit storage unit</TITLE></HEAD>"
 			dat+= "<font color='maroon'><B>Unit chamber is too contaminated to continue usage. Please call for a qualified individual to perform maintenance.</font></B><BR><BR>"
-			dat+= text("<HR><A href='?src=\ref[];mach_close=suit_storage_unit'>Close control panel</A>", user)
+			dat+= "<HR><A href='?src=\ref[user];mach_close=suit_storage_unit'>Close control panel</A>"
 			//user << browse(dat, "window=suit_storage_unit;size=400x500")
 			//onclose(user, "suit_storage_unit")
 
