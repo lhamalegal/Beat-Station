@@ -113,7 +113,7 @@ log transactions
 			authenticated_account.transaction_log.Add(T)
 
 			to_chat(user, "<span class='info'>You insert [C] into [src].</span>")
-			src.attack_hand(user)
+			attack_hand(user)
 			qdel(I)
 	else
 		..()
@@ -143,12 +143,24 @@ log transactions
 	data["authenticated_account"] = authenticated_account
 	data["owner_name"] = authenticated_account.owner_name
 	data["money"] = authenticated_account.money
-	data["transaction_log"] = authenticated_account.transaction_log
 	data["security_level"] = authenticated_account.security_level
+	data["transaction_log"] = null
 
 	data["zero_text"] = "Zero - Either the account number or card is required to access this account. EFTPOS transactions will require a card and ask for a pin, but not verify the pin is correct."
 	data["one_text"] = "One - An account number and pin must be manually entered to access this account and process transactions."
 	data["two_text"] = "Two - In addition to account number and pin, a card is required to access this account and process transactions."
+
+	var/list/trx[0]
+	for (var/datum/transaction/T in detailed_account_view.transaction_log)
+		trx.Add(list(list(\
+			"date" = T.date, \
+			"time" = T.time, \
+			"target_name" = T.target_name, \
+			"purpose" = T.purpose, \
+			"amount" = T.amount, \
+			"source_terminal" = T.source_terminal)))
+	if (trx.len > 0)
+		data["transaction_log"] = trx
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)

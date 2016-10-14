@@ -1,5 +1,15 @@
-<h1>Nanotrasen Automatic Teller Machine</h1>
+<!-- 
+Title: ATM
+Used In File(s): /code/modules/economy/ATM.dm
+-->
 
+<!--
+#define NO_SCREEN					0
+#define CHANGE_SECURITY_LEVEL		1
+#define TRANSFER_FUNDS				2
+#define VIEW_TRANSACTION_LOGS		3
+-->
+<h1>Nanotrasen Automatic Teller Machine</h1>
 For all your monetary needs!
 <br>
 <i>This terminal is</i> {{:data.machine_id}}. <i>Report this code when contacting Nanotrasen IT Support</i>
@@ -7,38 +17,15 @@ For all your monetary needs!
 Card: {{:helper.link(data.held_card ? held_card_name : '------', 'eject', {'choice' : 'insert_card'})}}<br><br>
 
 {{if data.ticks_left_locked_down > 0}}
-	<span class='alert'>Maximum number of pin attempts exceeded! Access to this ATM has been temporarily disabled.</span>
+	<span class='exclamation-triangle'>Maximum number of pin attempts exceeded! Access to this ATM has been temporarily disabled.</span>
 {{else data.authenticated_account}}
-	{{if data.view_screen == 1}}
+	{{if data.view_screen == 1}} <!-- CHANGE_SECURITY_LEVEL -->
 		Select a new security level for this account:<br><hr>
 		{{:helper.link(data.zero_text, 'unlock', {'choice' : 'change_security_level', 'new_security_level' : 0}, data.security_level == 0 ? 'selected' : null)}}<hr>
 		{{:helper.link(data.one_text, 'unlock-alt', {'choice' : 'change_security_level', 'new_security_level' : 1}, data.security_level == 1 ? 'selected' : null)}}<hr>
 		{{:helper.link(data.two_text, 'lock', {'choice' : 'change_security_level', 'new_security_level' : 2}, data.security_level == 2 ? 'selected' : null)}}<hr><br>
 		{{:helper.link('Back', 'arrow-left', {'choice' : 'view_screen', 'view_screen' : 0})}}
-	{{else data.view_screen == 2}}
-		<b>Transaction logs</b><br>
-		{{:helper.link('Back', 'arrow-left', {'choice' : 'view_screen', 'view_screen' : 0})}}
-		<table border=1 style='width:100%'>
-		<tr>
-		<td><b>Date</b></td>
-		<td><b>Time</b></td>
-		<td><b>Target</b></td>
-		<td><b>Purpose</b></td>
-		<td><b>Value</b></td>
-		<td><b>Source terminal ID</b></td>
-		</tr>
-		{{for data.transaction_log}}
-			<tr>
-			<td>{{:value.date}}</td>
-			<td>{{:value.time}}</td>
-			<td>{{:value.target_name}}</td>
-			<td>{{:value.purpose}}</td>
-			<td>${{:value.amount}}</td>
-			<td>{{:value.source_terminal}}</td>
-			</tr>
-		{{/for}}
-		</table>
-	{{else data.view_screen == 3}}
+	{{else data.view_screen == 2}} <!-- TRANSFER_FUNDS -->
 		<b>Account balance:</b> ${{:data.money}}<br>
 		{{:helper.link('Back', 'arrow-left', {'choice' : 'view_screen', 'view_screen' : 0})}}<br><br>
 		<form name='transfer' action='?src={{:data.src}}' method='get'>
@@ -49,7 +36,39 @@ Card: {{:helper.link(data.held_card ? held_card_name : '------', 'eject', {'choi
 		Transaction purpose: <input type='text' name='purpose' value='Funds transfer' style='width:200px; background-color:white;'><br>
 		<input type='submit' value='Transfer funds'><br>
 		</form>
-	{{else}}
+	{{else data.view_screen == 3}} <!-- VIEW_TRANSACTION_LOGS -->
+		<b>Transaction logs</b><br>
+		{{:helper.link('Back', 'arrow-left', {'choice' : 'view_screen', 'view_screen' : 0})}}
+
+		<div class="statusDisplay" style="overflow: auto;">
+			{{if data.transaction_log}}
+				<table style='width: 100%'>
+					<thead>
+						<tr>
+							<th><b>Timestamp</b></th>
+							<th><b>Target</b></th>
+							<th><b>Reason</b></th>
+							<th><b>Value</b></th>
+							<th><b>Terminal</b></th>
+						</th>
+					</thead>
+					<tbody>
+						{{for data.transaction_log}}
+							<tr>
+								<td>{{:value.date}} {{:value.time}}</td>
+								<td>{{:value.target_name}}</td>
+								<td>{{:value.purpose}}</td>
+								<td>${{:value.amount}}</td>
+								<td>{{:value.source_terminal}}</td>
+							</tr>
+						{{/for}}
+					</tbody>
+				</table>
+			{{else}}
+				<span class='exclamation-triangle'>Your account has no financial transactions on record for today.</span>
+			{{/if}}
+		</div>
+	{{else}} <!-- NO_SCREEN -->
 		Welcome, <b>{{:data.owner_name}}.</b><br>
 		<b>Account balance:</b> ${{:data.money}}
 		<form name='withdrawal' action='?src={{:data.src}}' method='get'>
@@ -72,7 +91,7 @@ Card: {{:helper.link(data.held_card ? held_card_name : '------', 'eject', {'choi
 		<input type='submit' value='Submit'><br>
 	</form>
 {{else}}
-	<span class='warning'>Unable to connect to accounts database, please retry and if the issue persists contact Nanotrasen IT support.</span>
+	<span class='exclamation-triangle'>Unable to connect to accounts database, please retry and if the issue persists contact Nanotrasen IT support.</span>
 {{/if}}
 
 
