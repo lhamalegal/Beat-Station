@@ -1,0 +1,218 @@
+<!-- 
+Title: ATM
+Used In File(s): /code/modules/economy/ATM.dm
+-->
+
+<!--
+#define NO_SCREEN					0
+#define CHANGE_SECURITY_LEVEL		1
+#define TRANSFER_FUNDS				2
+#define VIEW_TRANSACTION_LOGS		3
+-->
+
+<h1>Nanotrasen Automatic Teller Machine</h1>
+For all your monetary needs!
+<br>
+<i>This terminal is</i> {{:data.machine_id}}. <i>Report this code when contacting Nanotrasen IT Support</i>
+<br>
+
+<div class='itemLabel'>
+	Card:
+</div>
+<div class='itemContent'>
+	{{:helper.link(data.held_card_name, 'eject', {'choice' : 'insert_card'})}}
+</div>
+<br>
+<hr>
+{{if data.ticks_left_locked_down > 0}}
+	<span class='exclamation-triangle'>Maximum number of pin attempts exceeded! Access to this ATM has been temporarily disabled.</span>
+{{else data.authenticated_account}}
+	{{if data.view_screen == 1}} <!-- CHANGE_SECURITY_LEVEL -->
+		<h4>Select a new security level for this account:</h4><hr>
+		<div class="item">
+			<div class="line">
+				{{:helper.link(data.zero_text, 'unlock', {'choice' : 'change_security_level', 'new_security_level' : 0}, data.security_level == 0 ? 'selected' : null)}}
+			</div>
+			<div class="line">
+				{{:helper.link(data.one_text, 'unlock-alt', {'choice' : 'change_security_level', 'new_security_level' : 1}, data.security_level == 1 ? 'selected' : null)}}
+			</div>
+			<div class="line">
+				{{:helper.link(data.two_text, 'lock', {'choice' : 'change_security_level', 'new_security_level' : 2}, data.security_level == 2 ? 'selected' : null)}}
+			</div>
+		</div>
+		<br><hr><br>
+		{{:helper.link('Back', 'arrow-left', {'choice' : 'view_screen', 'view_screen' : 0})}}
+	{{else data.view_screen == 2}} <!-- TRANSFER_FUNDS -->
+		<b>Account balance:</b> ${{:data.money}}<br>
+		{{:helper.link('Back', 'arrow-left', {'choice' : 'view_screen', 'view_screen' : 0})}}<br><hr>
+		<form name='transfer' action='?src={{:data.src}}' method='get'>
+		<input type='hidden' name='src' value='{{:data.src}}'>
+		<input type='hidden' name='choice' value='transfer'>
+		Target account number: <input type='text' name='target_acc_number' value='' style='width:200px; background-color:white;'><br>
+		Funds to transfer: <input type='text' name='funds_amount' value='' style='width:200px; background-color:white;'><br>
+		Transaction purpose: <input type='text' name='purpose' value='Funds transfer' style='width:200px; background-color:white;'><br>
+		<input type='submit' value='Transfer funds'><br>
+		</form>
+	{{else data.view_screen == 3}} <!-- VIEW_TRANSACTION_LOGS -->
+		<b>Transaction logs</b><br>
+		{{:helper.link('Back', 'arrow-left', {'choice' : 'view_screen', 'view_screen' : 0})}}<br><br>
+
+		<div class="statusDisplay" style="overflow: auto;">
+			{{if data.transaction_log}}
+				<table style='width: 100%'>
+					<thead>
+						<tr>
+							<th><b>Timestamp</b></th>
+							<th><b>Target</b></th>
+							<th><b>Reason</b></th>
+							<th><b>Value</b></th>
+							<th><b>Terminal</b></th>
+						</th>
+					</thead>
+					<tbody>
+						{{for data.transaction_log}}
+							<tr>
+								<td>{{:value.date}} {{:value.time}}</td>
+								<td>{{:value.target_name}}</td>
+								<td>{{:value.purpose}}</td>
+								<td>${{:value.amount}}</td>
+								<td>{{:value.source_terminal}}</td>
+							</tr>
+						{{/for}}
+					</tbody>
+				</table>
+			{{else}}
+				<span class='exclamation-triangle'>Your account has no financial transactions on record for today.</span>
+			{{/if}}
+		</div>
+	{{else}} <!-- NO_SCREEN -->
+		Welcome, <b>{{:data.owner_name}}</b>.<br>
+		<b>Account balance:</b> ${{:data.money}}
+		<form name='withdrawal' action='?src={{:data.src}}' method='get'>
+			<input type='hidden' name='src' value='{{:data.src}}'>
+			<input type='hidden' name='choice' value='withdrawal'>
+			<input type='text' name='funds_amount' value='' style='width:200px; background-color:white;'><input type='submit' value='Withdraw funds'><br>
+		</form>
+		<hr>
+		
+		<h3>Menu</h3>
+		<div class="item">
+			<div class="line">
+				{{:helper.link('Change account security level', 'lock', {'choice' : 'view_screen', 'view_screen' : 1})}}
+			</div>
+			<div class="line">
+				{{:helper.link('Make transfer', 'exchange', {'choice' : 'view_screen', 'view_screen' : 2})}}
+			</div>
+			<div class="line">
+				{{:helper.link('View transaction log', 'list', {'choice' : 'view_screen', 'view_screen' : 3})}}
+			</div>
+			<div class="line">
+				{{:helper.link('Print balance statement', 'print', {'choice' : 'balance_statement'})}}
+			</div>
+			<div class="line">
+				{{:helper.link('Logout', 'sign-out', {'choice' : 'logout'})}}
+			</div>
+		</div>
+	{{/if}}
+{{else data.linked_db}}
+	<form name='atm_auth' action='?src={{:data.src}}' method='get'>
+		<input type='hidden' name='src' value='{{:data.src}}'>
+		<input type='hidden' name='choice' value='attempt_auth'>
+		<b>Account:</b> <input type='text' id='account_num' name='account_num' style='width:250px; background-color:white;'><br>
+		<b>PIN:</b> <input type='text' id='account_pin' name='account_pin' style='width:250px; background-color:white;'><br>
+		<input type='submit' value='Submit'><br>
+	</form>
+{{else}}
+	<span class='exclamation-triangle'>Unable to connect to accounts database, please retry and if the issue persists contact Nanotrasen IT support.</span>
+{{/if}}
+
+
+<!-- Old code, just for reference. Will be removed soon -->
+
+<!--
+	var/dat = {"<h1>Nanotrasen Automatic Teller Machine</h1>
+		For all your monetary needs!<br>
+		<i>This terminal is</i> [machine_id]. <i>Report this code when contacting Nanotrasen IT Support</i><br/>
+		Card: <a href='?src=\ref[src];choice=insert_card'>[held_card ? held_card.name : "------"]</a><br><br>"}
+
+	if(ticks_left_locked_down > 0)
+		dat += "<span class='alert'>Maximum number of pin attempts exceeded! Access to this ATM has been temporarily disabled.</span>"
+	else if(authenticated_account)
+		switch(view_screen)
+			if(CHANGE_SECURITY_LEVEL)
+				dat += "Select a new security level for this account:<br><hr>"
+				var/text = "Zero - Either the account number or card is required to access this account. EFTPOS transactions will require a card and ask for a pin, but not verify the pin is correct."
+				if(authenticated_account.security_level != 0)
+					text = "<A href='?src=\ref[src];choice=change_security_level;new_security_level=0'>[text]</a>"
+				dat += "[text]<hr>"
+				text = "One - An account number and pin must be manually entered to access this account and process transactions."
+				if(authenticated_account.security_level != 1)
+					text = "<A href='?src=\ref[src];choice=change_security_level;new_security_level=1'>[text]</a>"
+				dat += "[text]<hr>"
+				text = "Two - In addition to account number and pin, a card is required to access this account and process transactions."
+				if(authenticated_account.security_level != 2)
+					text = "<A href='?src=\ref[src];choice=change_security_level;new_security_level=2'>[text]</a>"
+				dat += {"[text]<hr><br>
+					<A href='?src=\ref[src];choice=view_screen;view_screen=0'>Back</a>"}
+			if(VIEW_TRANSACTION_LOGS)
+				dat += {"<b>Transaction logs</b><br>
+					<A href='?src=\ref[src];choice=view_screen;view_screen=0'>Back</a>
+					<table border=1 style='width:100%'>
+					<tr>
+					<td><b>Date</b></td>
+					<td><b>Time</b></td>
+					<td><b>Target</b></td>
+					<td><b>Purpose</b></td>
+					<td><b>Value</b></td>
+					<td><b>Source terminal ID</b></td>
+					</tr>"}
+				for(var/datum/transaction/T in authenticated_account.transaction_log)
+					dat += {"<tr>
+						<td>[T.date]</td>
+						<td>[T.time]</td>
+						<td>[T.target_name]</td>
+						<td>[T.purpose]</td>
+						<td>$[T.amount]</td>
+						<td>[T.source_terminal]</td>
+						</tr>"}
+				dat += "</table>"
+			if(TRANSFER_FUNDS)
+				dat += {"<b>Account balance:</b> $[authenticated_account.money]<br>
+					<A href='?src=\ref[src];choice=view_screen;view_screen=0'>Back</a><br><br>
+					<form name='transfer' action='?src=\ref[src]' method='get'>
+					<input type='hidden' name='src' value='\ref[src]'>
+					<input type='hidden' name='choice' value='transfer'>
+					Target account number: <input type='text' name='target_acc_number' value='' style='width:200px; background-color:white;'><br>
+					Funds to transfer: <input type='text' name='funds_amount' value='' style='width:200px; background-color:white;'><br>
+					Transaction purpose: <input type='text' name='purpose' value='Funds transfer' style='width:200px; background-color:white;'><br>
+					<input type='submit' value='Transfer funds'><br>
+					</form>"}
+			else
+				dat += {"Welcome, <b>[authenticated_account.owner_name].</b><br/>
+					<b>Account balance:</b> $[authenticated_account.money]
+					<form name='withdrawal' action='?src=\ref[src]' method='get'>
+					<input type='hidden' name='src' value='\ref[src]'>
+					<input type='hidden' name='choice' value='withdrawal'>
+					<input type='text' name='funds_amount' value='' style='width:200px; background-color:white;'><input type='submit' value='Withdraw funds'><br>
+					</form>
+					<A href='?src=\ref[src];choice=view_screen;view_screen=1'>Change account security level</a><br>
+					<A href='?src=\ref[src];choice=view_screen;view_screen=2'>Make transfer</a><br>
+					<A href='?src=\ref[src];choice=view_screen;view_screen=3'>View transaction log</a><br>
+					<A href='?src=\ref[src];choice=balance_statement'>Print balance statement</a><br>
+					<A href='?src=\ref[src];choice=logout'>Logout</a><br>"}
+	else if(linked_db)
+		dat += {"<form name='atm_auth' action='?src=\ref[src]' method='get'>
+			<input type='hidden' name='src' value='\ref[src]'>
+			<input type='hidden' name='choice' value='attempt_auth'>
+			<b>Account:</b> <input type='text' id='account_num' name='account_num' style='width:250px; background-color:white;'><br>
+			<b>PIN:</b> <input type='text' id='account_pin' name='account_pin' style='width:250px; background-color:white;'><br>
+			<input type='submit' value='Submit'><br>
+			</form>"}
+	else
+		dat += "<span class='warning'>Unable to connect to accounts database, please retry and if the issue persists contact Nanotrasen IT support.</span>"
+		reconnect_database()
+	
+	var/datum/browser/popup = new(user, "atm", name, 550, 650)
+	popup.set_content(dat)
+	popup.open(0)
+-->
