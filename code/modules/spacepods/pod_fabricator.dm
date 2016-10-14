@@ -334,8 +334,6 @@
 				<script language='javascript' type='text/javascript'>
 				[js_byjax]
 				</script>
-				</head><body>
-				<body>
 				<table style='width: 100%;'>
 				<tr>
 				<td style='width: 65%; padding-right: 10px;'>
