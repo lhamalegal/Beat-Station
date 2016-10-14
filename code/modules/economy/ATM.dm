@@ -135,15 +135,17 @@ log transactions
 
 	var/data[0]
 	data["src"] = "\ref[src]"
+	data["view_screen"] = view_screen
 	data["machine_id"] = machine_id
-	data["held_card"] = held_card
-	data["held_card_name"] = held_card.name
+	data["held_card_name"] = held_card ? held_card.name : "------"
 	data["ticks_left_locked_down"] = ticks_left_locked_down
 
 	data["authenticated_account"] = authenticated_account
-	data["owner_name"] = authenticated_account.owner_name
-	data["money"] = authenticated_account.money
-	data["security_level"] = authenticated_account.security_level
+	if(authenticated_account)
+		data["owner_name"] = authenticated_account.owner_name
+		data["money"] = authenticated_account.money
+		data["security_level"] = authenticated_account.security_level
+
 	data["transaction_log"] = null
 
 	data["zero_text"] = "Zero - Either the account number or card is required to access this account. EFTPOS transactions will require a card and ask for a pin, but not verify the pin is correct."
@@ -151,7 +153,7 @@ log transactions
 	data["two_text"] = "Two - In addition to account number and pin, a card is required to access this account and process transactions."
 
 	var/list/trx[0]
-	for (var/datum/transaction/T in authenticated_account.transaction_log)
+	for(var/datum/transaction/T in authenticated_account.transaction_log)
 		trx.Add(list(list(\
 			"date" = T.date, \
 			"time" = T.time, \
@@ -159,7 +161,7 @@ log transactions
 			"purpose" = T.purpose, \
 			"amount" = T.amount, \
 			"source_terminal" = T.source_terminal)))
-	if (trx.len > 0)
+	if(trx.len > 0)
 		data["transaction_log"] = trx
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)

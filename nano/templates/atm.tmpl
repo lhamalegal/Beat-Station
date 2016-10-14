@@ -9,21 +9,31 @@ Used In File(s): /code/modules/economy/ATM.dm
 #define TRANSFER_FUNDS				2
 #define VIEW_TRANSACTION_LOGS		3
 -->
+
 <h1>Nanotrasen Automatic Teller Machine</h1>
 For all your monetary needs!
 <br>
 <i>This terminal is</i> {{:data.machine_id}}. <i>Report this code when contacting Nanotrasen IT Support</i>
 <br>
-Card: {{:helper.link(data.held_card ? held_card_name : '------', 'eject', {'choice' : 'insert_card'})}}<br><br>
+Card: {{:helper.link(data.held_card_name, 'eject', {'choice' : 'insert_card'})}}<br>
 <hr>
 {{if data.ticks_left_locked_down > 0}}
 	<span class='exclamation-triangle'>Maximum number of pin attempts exceeded! Access to this ATM has been temporarily disabled.</span>
 {{else data.authenticated_account}}
 	{{if data.view_screen == 1}} <!-- CHANGE_SECURITY_LEVEL -->
-		Select a new security level for this account:<br><hr>
-		{{:helper.link(data.zero_text, 'unlock', {'choice' : 'change_security_level', 'new_security_level' : 0}, data.security_level == 0 ? 'selected' : null)}}<hr>
-		{{:helper.link(data.one_text, 'unlock-alt', {'choice' : 'change_security_level', 'new_security_level' : 1}, data.security_level == 1 ? 'selected' : null)}}<hr>
-		{{:helper.link(data.two_text, 'lock', {'choice' : 'change_security_level', 'new_security_level' : 2}, data.security_level == 2 ? 'selected' : null)}}<hr><br>
+		<h4>Select a new security level for this account:</h4><br><hr>
+		<div class="item">
+			<div class="line">
+				{{:helper.link(data.zero_text, 'unlock', {'choice' : 'change_security_level', 'new_security_level' : 0}, data.security_level == 0 ? 'selected' : null)}}
+			</div>
+			<div class="line">
+				{{:helper.link(data.one_text, 'unlock-alt', {'choice' : 'change_security_level', 'new_security_level' : 1}, data.security_level == 1 ? 'selected' : null)}}
+			</div>
+			<div class="line">
+				{{:helper.link(data.two_text, 'lock', {'choice' : 'change_security_level', 'new_security_level' : 2}, data.security_level == 2 ? 'selected' : null)}}
+			</div>
+		</div>
+		<br><hr><br>
 		{{:helper.link('Back', 'arrow-left', {'choice' : 'view_screen', 'view_screen' : 0})}}
 	{{else data.view_screen == 2}} <!-- TRANSFER_FUNDS -->
 		<b>Account balance:</b> ${{:data.money}}<br>
@@ -76,11 +86,26 @@ Card: {{:helper.link(data.held_card ? held_card_name : '------', 'eject', {'choi
 			<input type='hidden' name='choice' value='withdrawal'>
 			<input type='text' name='funds_amount' value='' style='width:200px; background-color:white;'><input type='submit' value='Withdraw funds'><br>
 		</form>
-		{{:helper.link('Change account security level', 'lock', {'choice' : 'view_screen', 'view_screen' : 1})}}<br>
-		{{:helper.link('Make transfer', 'exchange', {'choice' : 'view_screen', 'view_screen' : 2})}}<br>
-		{{:helper.link('View transaction log', 'list', {'choice' : 'view_screen', 'view_screen' : 3})}}<br>
-		{{:helper.link('Print balance statement', 'print', {'choice' : 'balance_statement'})}}<br>
-		{{:helper.link('Logout', 'sign-out', {'choice' : 'logout'})}}<br>
+		<hr>
+		
+		<h3>Menu</h3>
+		<div class="item">
+			<div class="line">
+				{{:helper.link('Change account security level', 'lock', {'choice' : 'view_screen', 'view_screen' : 1})}}
+			</div>
+			<div class="line">
+				{{:helper.link('Make transfer', 'exchange', {'choice' : 'view_screen', 'view_screen' : 2})}}
+			</div>
+			<div class="line">
+				{{:helper.link('View transaction log', 'list', {'choice' : 'view_screen', 'view_screen' : 3})}}
+			</div>
+			<div class="line">
+				{{:helper.link('Print balance statement', 'print', {'choice' : 'balance_statement'})}}
+			</div>
+			<div class="line">
+				{{:helper.link('Logout', 'sign-out', {'choice' : 'logout'})}}
+			</div>
+		</div>
 	{{/if}}
 {{else data.linked_db}}
 	<form name='atm_auth' action='?src={{:data.src}}' method='get'>
