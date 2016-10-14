@@ -210,8 +210,8 @@ log transactions
 		reconnect_database()
 
 	var/datum/browser/popup = new(user, "atm", name, 550, 650)
-		popup.set_content(dat)
-		popup.open(0)
+	popup.set_content(dat)
+	popup.open(0)
 
 
 /obj/machinery/atm/Topic(var/href, var/href_list)
