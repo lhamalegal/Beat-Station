@@ -239,15 +239,15 @@ var/global/loopModeNames=list(
 			stat &= BROKEN
 			update_icon()
 			return
-	if(playing)
+	if(playing && playlist.len > 0)
 		var/datum/song_info/song
-		if(current_song)
+		if(current_song && )
 			song = playlist[current_song]
 		if(!current_song || (song && world.time >= media_start_time + song.length))
 			current_song=1
 			switch(loop_mode)
 				if(JUKEMODE_SHUFFLE)
-					current_song=rand(1,playlist.len)
+					current_song = rand(1, playlist.len)
 				if(JUKEMODE_REPEAT_SONG)
 					current_song=current_song
 				if(JUKEMODE_PLAY_ONCE)
@@ -257,7 +257,7 @@ var/global/loopModeNames=list(
 			update_music()
 
 /obj/machinery/media/jukebox/update_music()
-	if(current_song && playing)
+	if(current_song && playing && playlist.len > 0)
 		var/datum/song_info/song = playlist[current_song]
 		media_url = song.url
 		media_start_time = world.time
@@ -270,7 +270,7 @@ var/global/loopModeNames=list(
 
 /obj/machinery/media/jukebox/proc/stop_playing()
 	//current_song=0
-	playing=0
+	playing = 0
 	update_music()
 	return
 
