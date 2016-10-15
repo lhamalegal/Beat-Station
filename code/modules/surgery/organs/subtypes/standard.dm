@@ -109,12 +109,13 @@
 	can_grasp = 1
 
 /obj/item/organ/external/hand/remove()
-	if(owner.gloves)
-		owner.unEquip(owner.gloves)
-	if(owner.l_hand)
-		owner.unEquip(owner.l_hand,1)
-	if(owner.r_hand)
-		owner.unEquip(owner.r_hand,1)
+	if(owner)
+		if(owner.gloves)
+			owner.unEquip(owner.gloves)
+		if(owner.l_hand)
+			owner.unEquip(owner.l_hand,1)
+		if(owner.r_hand)
+			owner.unEquip(owner.r_hand,1)
 
 	..()
 
