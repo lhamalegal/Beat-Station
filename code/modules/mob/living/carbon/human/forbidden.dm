@@ -76,11 +76,11 @@
 /mob/living/carbon/human/proc/is_face_clean()
 	if(!wear_mask)
 		return 1
-	if((wear_mask.flags & MASKCOVERSMOUTH) && !wear_mask.mask_adjusted))
+	if((wear_mask.flags & MASKCOVERSMOUTH) && !wear_mask.mask_adjusted)
 		return 0
 	if(!head)
 		return 1
-	if((head.flags & HEADCOVERSMOUTH)))
+	if((head.flags & HEADCOVERSMOUTH))
 		return 0
 	return 1
 // Helper procs end
