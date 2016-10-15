@@ -63,8 +63,11 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 #define MAX_SAVE_SLOTS 20 // Save slots for regular players
 #define MAX_SAVE_SLOTS_MEMBER 20 // Save slots for BYOND members
 
+#define MAX_GEAR_COST 5
+
 #define TAB_CHAR 0
 #define TAB_GAME 1
+#define TAB_GEAR 2
 
 /datum/preferences
 	//doohickeys for savefiles
@@ -80,6 +83,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/last_id
 
 	//game-preferences
+	var/lastchangelog = ""				//Saved changlog filesize to detect if there was a change
 	var/ooccolor = "#b82e00"
 	var/be_special = list()				//Special role selection
 	var/UI_style = "Midnight"
@@ -131,7 +135,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	// Forbidden fruits preferences
 	var/virgin = 1
 	var/anal_virgin = 1
-
 
 	var/body_accessory = null
 
@@ -192,6 +195,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	// BYOND membership
 	var/unlock_content = 0
 
+	//Gear stuff
+	var/list/gear = list()
+	var/gear_tab = "General"
+
 /datum/preferences/New(client/C)
 	b_type = pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+")
 	if(istype(C))
@@ -225,6 +232,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	dat += "<center>"
 	dat += "<a href='?_src_=prefs;preference=tab;tab=[TAB_CHAR]' [current_tab == TAB_CHAR ? "class='linkOn'" : ""]>Character Settings</a>"
 	dat += "<a href='?_src_=prefs;preference=tab;tab=[TAB_GAME]' [current_tab == TAB_GAME ? "class='linkOn'" : ""]>Game Preferences</a>"
+	dat += "<a href='?_src_=prefs;preference=tab;tab=[TAB_GEAR]' [current_tab == TAB_GEAR ? "class='linkOn'" : ""]>Loadout</a>"
 	dat += "</center>"
 	dat += "<HR>"
 
@@ -415,6 +423,60 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						dat += "<b>Be [capitalize(i)]:</b> <a href='?_src_=prefs;preference=be_special;role=[i]'><b>[(i in src.be_special) ? "Yes" : "No"]</b></a><br>"
 			dat += "</td></tr></table>"
 
+		if(TAB_GEAR)
+			var/total_cost = 0
+			var/list/type_blacklist = list()
+			if(gear && gear.len)
+				for(var/i = 1, i <= gear.len, i++)
+					var/datum/gear/G = gear_datums[gear[i]]
+					if(G)
+						if(!G.subtype_cost_overlap)
+							if(G.subtype_path in type_blacklist)
+								continue
+							type_blacklist += G.subtype_path
+						total_cost += G.cost
+
+			var/fcolor =  "#3366CC"
+			if(total_cost < MAX_GEAR_COST)
+				fcolor = "#E67300"
+			dat += "<table align='center' width='820px'>"
+			dat += "<tr><td colspan=3><center><b><font color='[fcolor]'>[total_cost]/[MAX_GEAR_COST]</font> loadout points spent.</b> \[<a href='?_src_=prefs;preference=gear;clear_loadout=1'>Clear Loadout</a>\]</center></td></tr>"
+			dat += "<tr><td colspan=3><center><b>"
+
+			var/firstcat = 1
+			for(var/category in loadout_categories)
+				if(firstcat)
+					firstcat = 0
+				else
+					dat += " |"
+				if(category == gear_tab)
+					dat += " <span class='linkOff'>[category]</span> "
+				else
+					dat += " <a href='?_src_=prefs;preference=gear;select_category=[category]'>[category]</a> "
+			dat += "</b></center></td></tr>"
+
+			var/datum/loadout_category/LC = loadout_categories[gear_tab]
+			dat += "<tr><td colspan=3><hr></td></tr>"
+			dat += "<tr><td colspan=3><b><center>[LC.category]</center></b></td></tr>"
+			dat += "<tr><td colspan=3><hr></td></tr>"
+			for(var/gear_name in LC.gear)
+				var/datum/gear/G = LC.gear[gear_name]
+				var/ticked = (G.display_name in gear)
+				dat += "<tr style='vertical-align:top;'><td width=15%><a style='white-space:normal;' [ticked ? "class='linkOn' " : ""]href='?_src_=prefs;preference=gear;toggle_gear=[G.display_name]'>[G.display_name]</a></td>"
+				dat += "<td width = 5% style='vertical-align:top'>[G.cost]</td>"
+				if(G.allowed_roles)
+					dat += "<td><font size=2>Restrictions: "
+					for(var/role in G.allowed_roles)
+						dat += role + " "
+					dat += "</font></td>"
+				dat += "<td><font size=2><i>[G.description]</i></font></td></tr>"
+				if(ticked)
+					. += "<tr><td colspan=3>"
+					for(var/datum/gear_tweak/tweak in G.gear_tweaks)
+						. += " <a href='?_src_=prefs;preference=gear;gear=[G.display_name];tweak=\ref[tweak]'>[tweak.get_contents(get_tweak_metadata(G, tweak))]</a>"
+					. += "</td></tr>"
+			dat += "</table>"
+
 	dat += "<hr><center>"
 	if(!IsGuestKey(user.key))
 		dat += "<a href='?_src_=prefs;preference=load'>Undo</a> - "
@@ -426,6 +488,25 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/datum/browser/popup = new(user, "preferences", "<div align='center'>Character Setup</div>", 820, 640)
 	popup.set_content(dat)
 	popup.open(0)
+
+
+/datum/preferences/proc/get_gear_metadata(var/datum/gear/G)
+	. = gear[G.display_name]
+	if(!.)
+		. = list()
+		gear[G.display_name] = .
+
+/datum/preferences/proc/get_tweak_metadata(var/datum/gear/G, var/datum/gear_tweak/tweak)
+	var/list/metadata = get_gear_metadata(G)
+	. = metadata["[tweak]"]
+	if(!.)
+		. = tweak.get_default()
+		metadata["[tweak]"] = .
+
+/datum/preferences/proc/set_tweak_metadata(var/datum/gear/G, var/datum/gear_tweak/tweak, var/new_metadata)
+	var/list/metadata = get_gear_metadata(G)
+	metadata["[tweak]"] = new_metadata
+
 
 /datum/preferences/proc/SetChoices(mob/user, limit = 12, list/splitJobs = list("Civilian","Research Director","AI","Bartender"), width = 760, height = 790)
 	if(!job_master)
@@ -452,7 +533,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	if (!job_master)		return
 	for(var/datum/job/job in job_master.occupations)
 
-		if (job.admin_only)
+		if(job.admin_only)
 			continue
 
 		index += 1
@@ -982,11 +1063,49 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 				gen_record = genmsg
 				SetRecords(user)
+
 	else if(href_list["preference"] == "virgin")
 		if(href_list["task"] == "normal")
 			virgin = !virgin
 		else if(href_list["task"] == "anal")
 			anal_virgin = !anal_virgin
+
+	if(href_list["preference"] == "gear")
+		if(href_list["toggle_gear"])
+			var/datum/gear/TG = gear_datums[href_list["toggle_gear"]]
+			if(TG.display_name in gear)
+				gear -= TG.display_name
+			else
+				var/total_cost = 0
+				var/list/type_blacklist = list()
+				for(var/gear_name in gear)
+					var/datum/gear/G = gear_datums[gear_name]
+					if(istype(G))
+						if(!G.subtype_cost_overlap)
+							if(G.subtype_path in type_blacklist)
+								continue
+							type_blacklist += G.subtype_path
+						total_cost += G.cost
+
+				if((total_cost + TG.cost) <= MAX_GEAR_COST)
+					gear += TG.display_name
+
+		else if(href_list["gear"] && href_list["tweak"])
+			var/datum/gear/gear = gear_datums[href_list["gear"]]
+			var/datum/gear_tweak/tweak = locate(href_list["tweak"])
+			if(!tweak || !istype(gear) || !(tweak in gear.gear_tweaks))
+				return
+			var/metadata = tweak.get_metadata(user, get_tweak_metadata(gear, tweak))
+			if(!metadata || !CanUseTopic(user))
+				return
+			set_tweak_metadata(gear, tweak, metadata)
+		else if(href_list["select_category"])
+			gear_tab = href_list["select_category"]
+		else if(href_list["clear_loadout"])
+			gear.Cut()
+
+		ShowChoices(user)
+		return
 
 	switch(href_list["task"])
 		if("random")
@@ -1024,7 +1143,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					b_eyes = rand(0,255)
 				if("s_tone")
 					if(species in list("Human", "Drask", "Vox"))
-						s_tone = random_skin_tone(species)
+						s_tone = random_skin_tone()
 				if("s_color")
 					if(species in list("Unathi", "Tajaran", "Skrell", "Slime People", "Wryn", "Vulpkanin", "Machine"))
 						r_skin = rand(0,255)
@@ -1050,7 +1169,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				if("age")
 					var/new_age = input(user, "Choose your character's age:\n([AGE_MIN]-[AGE_MAX])", "Character Preference") as num|null
 					if(new_age)
-						age = max(min(round(text2num(new_age)), AGE_MAX),AGE_MIN)
+						age = max(min( round(text2num(new_age)), AGE_MAX),AGE_MIN)
 				if("species")
 
 					var/list/new_species = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin")
@@ -1404,6 +1523,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							r_skin = hex2num(copytext(new_skin, 2, 4))
 							g_skin = hex2num(copytext(new_skin, 4, 6))
 							b_skin = hex2num(copytext(new_skin, 6, 8))
+
 
 				if("ooccolor")
 					var/new_ooccolor = input(user, "Choose your OOC colour:", "Game Preference", ooccolor) as color|null
