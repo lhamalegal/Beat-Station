@@ -199,7 +199,7 @@
 /obj/item/weapon/melee/baton/cattleprod
 	name = "stunprod"
 	desc = "An improvised stun baton."
-	icon_state = "stunprod"
+	icon_state = "stunprod_nocell"
 	item_state = "prod"
 	force = 3
 	throwforce = 5
