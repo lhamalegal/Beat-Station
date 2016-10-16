@@ -235,6 +235,7 @@
 		//socks
 		socks = query.item[58]
 		body_accessory = query.item[59]
+		gear = params2list(query.item[60])
 
 		virgin = text2num(query.item[61])
 		anal_virgin = text2num(query.item[62])
@@ -295,8 +296,6 @@
 
 	socks			= sanitize_text(socks, initial(socks))
 	body_accessory	= sanitize_text(body_accessory, initial(body_accessory))
-
-	gear = params2list(query.item[60])
 
 	virgin = sanitize_integer(virgin, 0, 1, initial(virgin))
 	anal_virgin = sanitize_integer(anal_virgin, 0, 1, initial(anal_virgin))
