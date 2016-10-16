@@ -468,7 +468,7 @@
 					dat += "<tr><td><i>Head not found!</i></td></tr>"
 			dat += "</table>"
 
-		if(istype(ticker.mode, /datum/game_mode/blob))
+		if(GAMEMODE_IS_BLOB)
 			var/datum/game_mode/blob/mode = ticker.mode
 			dat += "<br><table cellspacing=5><tr><td><B>Blob</B></td><td></td><td></td></tr>"
 			dat += "<tr><td><i>Progress: [blobs.len]/[mode.blobwincount]</i></td></tr>"
@@ -496,14 +496,14 @@
 
 		if(ticker.mode.cult.len)
 			dat += check_role_table("Cultists", ticker.mode.cult, 0)
-	
+
 		if(ticker.mode.red_deities.len || ticker.mode.red_deity_prophets.len || ticker.mode.blue_deity_prophets.len || ticker.mode.red_deity_followers.len || ticker.mode.blue_deity_followers.len)
 			if(ticker.mode.red_deities.len)
 				dat += check_role_table("Red Deity", ticker.mode.red_deities)
-			
+
 			if(ticker.mode.blue_deities.len)
 				dat += check_role_table("Blue Deity", ticker.mode.blue_deities)
-				
+
 			if(ticker.mode.red_deity_prophets.len)
 				dat += check_role_table("Red Deity Prophets", ticker.mode.red_deity_prophets)
 
@@ -515,7 +515,7 @@
 
 			if(ticker.mode.blue_deity_followers.len)
 				dat += check_role_table("Blue Deity Followers", ticker.mode.blue_deity_followers)
-			
+
 		if(ticker.mode.traitors.len)
 			dat += check_role_table("Traitors", ticker.mode.traitors)
 

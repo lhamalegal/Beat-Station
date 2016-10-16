@@ -43,7 +43,7 @@
 
 	for(var/datum/mind/xeno in xenos)
 		xeno.assigned_role = "MODE"
-		xeno.special_role = "Alien"
+		xeno.special_role = SPECIAL_ROLE_XENOMORPH
 		set_antag_hud(xeno, "hudalien")//like this is needed...
 	return 1
 
@@ -166,7 +166,7 @@
 		feedback_set_details("round_end_result","win - crew escaped")
 		text += "<FONT size = 3><B>Draw</B></FONT>"
 		text += "<B>The crew has escaped from the aliens but did not exterminate them, allowing them to overrun the station.</B>"
-	
+
 	text += "<br><br><FONT size=3><b>There were [xenos.len] aliens.</b></FONT>"
 	text += "<br><FONT size=3><b>The aliens were:</b></FONT>"
 	for(var/datum/mind/xeno in xenos)
