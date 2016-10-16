@@ -88,6 +88,20 @@
 	icon_state = "bloody_armor"
 	item_state = "bloody_armor"
 
+/obj/item/clothing/suit/armor/secjacket
+	name = "security jacket"
+	desc = "A sturdy black jacket with reinforced fabric. Bears insignia of NT corporate security."
+	icon_state = "secjacket_open"
+	item_state = "hos"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	armor = list(melee = 15, bullet = 10, laser = 15, energy = 5, bomb = 15, bio = 0, rad = 0)
+	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
+	heat_protection = UPPER_TORSO|LOWER_TORSO|ARMS
+	ignore_suitadjust = 0
+	suit_adjusted = 1
+	action_button_name = "Open/Close Jacket"
+	adjust_flavour = "unzip"
+
 /obj/item/clothing/suit/armor/hos
 	name = "armored coat"
 	desc = "A trench coat enhanced with a special alloy for some protection and style."

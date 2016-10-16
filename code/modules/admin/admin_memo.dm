@@ -102,7 +102,8 @@
 			if(!output && !silent)
 				to_chat(src, "No memos found in database.")
 				return
-			to_chat(src, output)
+			if(output)
+				to_chat(src, output)
 		if("Remove")
 			var/DBQuery/query_memodellist = dbcon.NewQuery("SELECT ckey FROM [format_table_name("memo")]")
 			if(!query_memodellist.Execute())
