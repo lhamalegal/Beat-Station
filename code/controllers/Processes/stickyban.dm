@@ -3,8 +3,6 @@
 
 /datum/stickyban/New()
 	..()
-	name = "Sticky Ban"
-
 	var/list/bannedkeys = world.GetConfig("ban")
 	//sanitize the sticky ban list
 	for (var/bannedkey in bannedkeys)
