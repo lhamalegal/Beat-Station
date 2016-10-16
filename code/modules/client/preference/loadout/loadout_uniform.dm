@@ -2,6 +2,7 @@
 /datum/gear/uniform
 	subtype_path = /datum/gear/uniform
 	slot = slot_w_uniform
+	cost = 2
 	sort_category = "Uniforms and Casual Dress"
 
 /datum/gear/uniform/skirt
@@ -24,7 +25,6 @@
 	path = /obj/item/clothing/under/blackskirt
 
 /datum/gear/uniform/skirt/job
-	cost = 2
 	subtype_path = /datum/gear/uniform/skirt/job
 	subtype_cost_overlap = FALSE
 
@@ -66,7 +66,7 @@
 /datum/gear/uniform/skirt/job/med
 	display_name = "skirt, medical"
 	path = /obj/item/clothing/under/rank/medical/skirt
-	allowed_roles = list("Chief Medical Officer","Medical Doctor","Chemist","Psychiatrist","Paramedic")
+	allowed_roles = list("Chief Medical Officer","Medical Doctor","Chemist","Psychiatrist","Paramedic","Brig Physician")
 
 /datum/gear/uniform/skirt/job/sci
 	display_name = "skirt, scientist"
@@ -100,7 +100,6 @@
 
 /datum/gear/uniform/sec
 	subtype_path = /datum/gear/uniform/sec
-	cost = 2
 
 /datum/gear/uniform/sec/formal
 	display_name = "security uniform, formal"
@@ -122,6 +121,9 @@ datum/gear/uniform/secorporate
 	path = /obj/item/clothing/under/rank/security2
 	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Detective", "Security Pod Pilot")
 
+/datum/gear/uniform/shorts
+	subtype_path = /datum/gear/uniform/shorts
+
 /datum/gear/uniform/shorts/red
 	display_name = "shorts, red"
 	path = /obj/item/clothing/under/shorts/red
@@ -141,6 +143,9 @@ datum/gear/uniform/secorporate
 /datum/gear/uniform/shorts/grey
 	display_name = "shorts, grey"
 	path = /obj/item/clothing/under/shorts/grey
+
+/datum/gear/uniform/pants
+	subtype_path = /datum/gear/uniform/pants
 
 /datum/gear/uniform/pants/jeans
 	display_name = "jeans, classic"

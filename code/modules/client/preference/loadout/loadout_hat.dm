@@ -97,18 +97,23 @@
 	display_name = "cowboy hat"
 	path = /obj/item/clothing/head/cowboyhat
 
-/datum/gear/hat/beret/purple
+/datum/gear/hat/pr_beret
 	display_name = "beret, purple"
 	path = /obj/item/clothing/head/beret/purple_normal
 
-/datum/gear/hat/beret/black
+/datum/gear/hat/bl_beret
 	display_name = "beret, black"
 	path = /obj/item/clothing/head/beret/black
 
-/datum/gear/hat/beret/blue
+/datum/gear/hat/blu_beret
 	display_name = "beret, blue"
 	path = /obj/item/clothing/head/beret/blue
 
-/datum/gear/hat/beret/red
+/datum/gear/hat/red_beret
 	display_name = "beret, red"
 	path = /obj/item/clothing/head/beret
+
+/datum/gear/hat/sci_beret
+	display_name = "science beret"
+	path = /obj/item/clothing/head/beret/sci
+	allowed_roles = list("Research Director", "Scientist")
