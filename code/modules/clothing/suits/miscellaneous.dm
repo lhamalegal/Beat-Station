@@ -491,7 +491,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	ignore_suitadjust = 0
 	suit_adjusted = 1
-	action_button_name = "Open/Close Jacket"
+	actions_types = list(/datum/action/item_action/openclose)
 	adjust_flavour = "unzip"
 	species_fit = list("Vox")
 	sprite_sheets = list(

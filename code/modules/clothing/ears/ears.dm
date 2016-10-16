@@ -6,7 +6,6 @@
 	flags = EARBANGPROTECT
 	strip_delay = 15
 	put_on_delay = 25
-	burn_state = FLAMMABLE
 
 /obj/item/clothing/ears/headphones
 	name = "headphones"
@@ -15,7 +14,6 @@
 	icon_state = "headphones0"
 	item_state = "earmuffs"
 	actions_types = list(/datum/action/item_action/toggle_headphones)
-	burn_state = FLAMMABLE
 
 /obj/item/clothing/ears/headphones/attack_self(mob/user)
 	on = !on
