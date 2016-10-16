@@ -1,7 +1,6 @@
-var/global/datum/stickyban/SSstickyban
+var/global/datum/stickyban/SSstickyban = new()
 
 /datum/stickyban
-	init_order = -10
 	var/list/cache = list()
 
 /datum/stickyban/New()
