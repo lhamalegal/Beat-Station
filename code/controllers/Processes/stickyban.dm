@@ -1,11 +1,11 @@
-var/global/datum/stickyban/SSstickyban = new()
+var/datum/stickyban/SSstickyban
 
 /datum/stickyban
 	var/list/cache = list()
 
 /datum/stickyban/New()
+	..()
 	name = "Sticky Ban"
-	start_delay = 1
 
 	var/list/bannedkeys = world.GetConfig("ban")
 	//sanitize the sticky ban list

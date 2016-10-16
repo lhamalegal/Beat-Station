@@ -7,6 +7,7 @@ var/global/datum/global_init/init = new ()
 
 	makeDatumRefLists()
 	load_configuration()
+	SSstickyban = new /datum/stickyban()
 
 	del(src)
 
