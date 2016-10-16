@@ -236,8 +236,8 @@
 		socks = query.item[58]
 		body_accessory = query.item[59]
 
-		virgin = query.item[61]
-		anal_virgin = query.item[62]
+		virgin = text2num(query.item[61])
+		anal_virgin = text2num(query.item[62])
 
 	//Sanitize
 	metadata		= sanitize_text(metadata, initial(metadata))
