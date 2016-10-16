@@ -49,6 +49,8 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 	if(possible_targets.len > 0)
 		target = pick(possible_targets)
 
+/datum/objective/proc/update_explanation_text()	//Default does nothing, override where needed
+	return
 
 /datum/objective/assassinate
 	martyr_compatible = 1
@@ -88,7 +90,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 		if(target.current.stat == DEAD || !ishuman(target.current) || !target.current.ckey || !target.current.client)
 			return 1
 		var/turf/T = get_turf(target.current)
-		if(T && !is_station_level(T.z))			//If they leave the station they count as dead for this
+		if(T && T.z != 1)			//If they leave the station they count as dead for this
 			return 1
 		return 0
 	return 1
@@ -118,7 +120,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 				return 1
 
 		var/turf/T = get_turf(target.current)
-		if(T && !is_station_level(T.z))
+		if(T && T.z != 1)
 			return 1
 
 		return 0
@@ -147,7 +149,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 		if(isbrain(target.current))
 			return 1
 		var/turf/T = get_turf(target.current)
-		if(is_admin_level(T.z))
+		if(T.z == ZLEVEL_CENTCOMM)
 			return 0
 		return 0
 	return 1
@@ -520,7 +522,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 
 /datum/objective/destroy/check_completion()
 	if(target && target.current)
-		if(target.current.stat == DEAD || is_away_level(target.current.z) || !target.current.ckey)
+		if(target.current.stat == DEAD || target.current.z > MAX_Z || !target.current.ckey)
 			return 1
 		return 0
 	return 1
