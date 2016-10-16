@@ -1,5 +1,3 @@
-var/datum/stickyban/SSstickyban
-
 /datum/stickyban
 	var/list/cache = list()
 
