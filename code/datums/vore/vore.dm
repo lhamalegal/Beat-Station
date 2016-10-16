@@ -14,11 +14,9 @@
 
 /datum/vore_controller/proc/digest(mob/living/carbon/human/prey)
 	var/bruteloss = 1
-	while(1)
-		prey.adjustBruteLoss(bruteloss)
-		if(prey.health <= -90) // 0 = critical, -90 = death
-			absorb(prey)
-			break
+	prey.adjustBruteLoss(bruteloss)
+	if(prey.health <= -90) // 0 = critical, -90 = death
+		absorb(prey)
 
 /datum/vore_controller/proc/absorb(mob/living/carbon/human/prey)
 	owner.nutrition = 450
