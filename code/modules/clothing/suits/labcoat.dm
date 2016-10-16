@@ -36,6 +36,12 @@
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
 
+/obj/item/clothing/suit/storage/labcoat/emt
+	name = "EMT labcoat"
+	desc = "A comfortable suit for paramedics. Has dark colours."
+	icon_state = "labcoat_emt_open"
+	item_state = "labcoat_emt_open"
+
 /obj/item/clothing/suit/storage/labcoat/genetics
 	name = "geneticist labcoat"
 	desc = "A suit that protects against minor chemical spills. Has a blue stripe on the shoulder."

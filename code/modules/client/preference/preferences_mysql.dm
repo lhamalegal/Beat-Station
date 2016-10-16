@@ -155,6 +155,7 @@
 					speciesprefs,
 					socks,
 					body_accessory,
+					gear,
 					virgin,
 					anal_virgin
 				 	FROM [format_table_name("characters")] WHERE ckey='[C.ckey]' AND slot='[slot]'"})
@@ -235,8 +236,8 @@
 		socks = query.item[58]
 		body_accessory = query.item[59]
 
-		virgin = query.item[60]
-		anal_virgin = query.item[61]
+		virgin = query.item[61]
+		anal_virgin = query.item[62]
 
 	//Sanitize
 	metadata		= sanitize_text(metadata, initial(metadata))
@@ -295,13 +296,16 @@
 	socks			= sanitize_text(socks, initial(socks))
 	body_accessory	= sanitize_text(body_accessory, initial(body_accessory))
 
+	gear = params2list(query.item[60])
+
 	virgin = sanitize_integer(virgin, 0, 1, initial(virgin))
 	anal_virgin = sanitize_integer(anal_virgin, 0, 1, initial(anal_virgin))
 
 //	if(isnull(disabilities)) disabilities = 0
 	if(!player_alt_titles) player_alt_titles = new()
-	if(!organ_data) src.organ_data = list()
-	if(!rlimb_data) src.rlimb_data = list()
+	if(!organ_data) organ_data = list()
+	if(!rlimb_data) rlimb_data = list()
+	if(!gear) gear = list()
 
 	return 1
 
@@ -309,12 +313,15 @@
 	var/organlist
 	var/rlimblist
 	var/playertitlelist
+	var/gearlist
 	if(!isemptylist(organ_data))
 		organlist = list2params(organ_data)
 	if(!isemptylist(rlimb_data))
 		rlimblist = list2params(rlimb_data)
 	if(!isemptylist(player_alt_titles))
 		playertitlelist = list2params(player_alt_titles)
+	if(!isemptylist(gear))
+		gearlist = list2params(gear)
 
 	var/DBQuery/firstquery = dbcon.NewQuery("SELECT slot FROM [format_table_name("characters")] WHERE ckey='[C.ckey]' ORDER BY slot")
 	firstquery.Execute()
@@ -379,6 +386,7 @@
 												speciesprefs='[speciesprefs]',
 												socks='[socks]',
 												body_accessory='[body_accessory]',
+												gear='[gearlist]',
 												virgin='[virgin]',
 												anal_virgin='[anal_virgin]'
 												WHERE ckey='[C.ckey]'
@@ -411,7 +419,7 @@
 											flavor_text, med_record, sec_record, gen_record,
 											player_alt_titles,
 											disabilities, organ_data, rlimb_data, nanotrasen_relation, speciesprefs,
-											socks, body_accessory, virgin, anal_virgin)
+											socks, body_accessory, gear, virgin, anal_virgin)
 
 					VALUES
 											('[C.ckey]', '[default_slot]', '[sql_sanitize_text(metadata)]', '[sql_sanitize_text(real_name)]', '[be_random_name]','[gender]',
@@ -432,7 +440,7 @@
 											'[sql_sanitize_text(html_encode(flavor_text))]', '[sql_sanitize_text(html_encode(med_record))]', '[sql_sanitize_text(html_encode(sec_record))]', '[sql_sanitize_text(html_encode(gen_record))]',
 											'[playertitlelist]',
 											'[disabilities]', '[organlist]', '[rlimblist]', '[nanotrasen_relation]', '[speciesprefs]',
-											'[socks]', '[body_accessory]', '[virgin]', '[anal_virgin]')
+											'[socks]', '[body_accessory]', '[gearlist]', '[virgin]', '[anal_virgin]')
 
 "}
 )

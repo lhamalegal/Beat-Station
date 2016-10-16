@@ -24,6 +24,14 @@
 	item_color = "qm"
 	flags = ONESIZEFITSALL
 
+/obj/item/clothing/under/rank/cargo/skirt
+	name = "quartermaster's jumpskirt"
+	desc = "It's a jumpskirt worn by the quartermaster. It's specially designed to prevent back injuries caused by pushing paper."
+	icon_state = "qmf"
+	item_color = "qmf"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	flags = null
+
 
 /obj/item/clothing/under/rank/cargotech
 	name = "cargo technician's jumpsuit"
@@ -32,6 +40,13 @@
 	item_state = "lb_suit"
 	item_color = "cargo"
 	flags = ONESIZEFITSALL
+
+/obj/item/clothing/under/rank/cargotech/skirt
+	name = "cargo technician's jumpskirt"
+	desc = "Skirrrrrts! They're comfy and easy to wear!"
+	icon_state = "cargof"
+	item_color = "cargof"
+	flags = null
 
 
 /obj/item/clothing/under/rank/chaplain

@@ -154,6 +154,7 @@
 	desc = "Such a dapper eyepiece!"
 	icon_state = "monocle"
 	item_state = "headset" // lol
+	prescription_upgradable = 1
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
@@ -232,6 +233,10 @@
 		"Drask" = 'icons/mob/species/drask/eyes.dmi'
 		)
 
+/obj/item/clothing/glasses/sunglasses/fake
+	name = "cheap sunglasses"
+	desc = "Cheap, plastic sunglasses. They don't even have UV protection."
+	flash_protect = 0
 
 /obj/item/clothing/glasses/sunglasses/noir
 	name = "noir sunglasses"

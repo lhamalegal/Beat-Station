@@ -86,10 +86,11 @@
 	throwforce = 2
 	slot_flags = SLOT_EARS
 
-/obj/item/clothing/ears/attack_hand(mob/user as mob)
-	if (!user) return
+/obj/item/clothing/ears/attack_hand(mob/user)
+	if(!user)
+		return
 
-	if (src.loc != user || !istype(user,/mob/living/carbon/human))
+	if(loc != user || !ishuman(user))
 		..()
 		return
 
@@ -105,7 +106,7 @@
 	if(slot_flags & SLOT_TWOEARS )
 		O = (H.l_ear == src ? H.r_ear : H.l_ear)
 		user.unEquip(O)
-		if(!istype(src,/obj/item/clothing/ears/offear))
+		if(!istype(src, /obj/item/clothing/ears/offear))
 			qdel(O)
 			O = src
 	else
@@ -117,8 +118,9 @@
 		user.put_in_hands(O)
 		O.add_fingerprint(user)
 
-	if(istype(src,/obj/item/clothing/ears/offear))
+	if(istype(src, /obj/item/clothing/ears/offear))
 		qdel(src)
+
 
 /obj/item/clothing/ears/offear
 	name = "Other ear"
@@ -127,21 +129,12 @@
 	icon_state = "block"
 	slot_flags = SLOT_EARS | SLOT_TWOEARS
 
-	New(var/obj/O)
-		name = O.name
-		desc = O.desc
-		icon = O.icon
-		icon_state = O.icon_state
-		dir = O.dir
-
-/obj/item/clothing/ears/earmuffs
-	name = "earmuffs"
-	desc = "Protects your hearing from loud noises, and quiet ones as well."
-	icon_state = "earmuffs"
-	item_state = "earmuffs"
-	flags = EARBANGPROTECT
-	strip_delay = 15
-	put_on_delay = 25
+/obj/item/clothing/ears/offear/New(var/obj/O)
+	name = O.name
+	desc = O.desc
+	icon = O.icon
+	icon_state = O.icon_state
+	dir = O.dir
 
 //Glasses
 /obj/item/clothing/glasses
