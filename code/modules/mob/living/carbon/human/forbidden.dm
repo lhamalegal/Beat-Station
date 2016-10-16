@@ -67,17 +67,25 @@
 					if("anus")
 						user.erp_controller.masturbate(ANAL)
 
+
+
 // Helper procs
 /mob/living/carbon/human/proc/is_nude()
 	return (!istype(w_uniform, /obj/item/clothing/under) && !istype(underpants, /obj/item/clothing/underwear/underpants))
 
 /mob/living/carbon/human/proc/is_face_clean()
-	if(!wear_mask && !head)
+	if(!wear_mask)
 		return 1
-	if((head && (head.flags & HEADCOVERSMOUTH)) || ((wear_mask.flags & MASKCOVERSMOUTH) && !wear_mask.mask_adjusted))
+	if((wear_mask.flags & MASKCOVERSMOUTH) && !wear_mask.mask_adjusted)
+		return 0
+	if(!head)
+		return 1
+	if((head.flags & HEADCOVERSMOUTH))
 		return 0
 	return 1
 // Helper procs end
+
+
 
 // Anus insertion
 /mob/living/carbon/human/attackby(obj/item/I, mob/user, params)

@@ -134,8 +134,9 @@ Works together with spawning an observer, noted above.
 		if(ghost.can_reenter_corpse)
 			respawnable_list += ghost
 		ghost.key = key
-		if(!ghost.client.holder && !config.antag_hud_allowed)    // For new ghosts we remove the verb from even showing up if it's not allowed.
-			ghost.verbs -= /mob/dead/observer/verb/toggle_antagHUD  // Poor guys, don't know what they are missing!
+		if(ghost.client)
+			if(!ghost.client.holder && !config.antag_hud_allowed)    // For new ghosts we remove the verb from even showing up if it's not allowed.
+				ghost.verbs -= /mob/dead/observer/verb/toggle_antagHUD  // Poor guys, don't know what they are missing!
 		return ghost
 
 /*
