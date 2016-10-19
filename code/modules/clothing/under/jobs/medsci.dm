@@ -8,7 +8,7 @@
 	item_state = "g_suit"
 	item_color = "director"
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 10, bio = 10, rad = 0)
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/scientist
 	desc = "It's made of a special fiber that provides minor protection against biohazards. It has markings that denote the wearer as a scientist."
@@ -18,14 +18,14 @@
 	item_color = "toxinswhite"
 	permeability_coefficient = 0.50
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 10, bio = 0, rad = 0)
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/scientist/skirt
 	name = "scientist's jumpskirt"
 	icon_state = "sciencewhitef"
 	item_color = "sciencewhitef"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-	flags = null
+	flags_size = null
 
 
 /obj/item/clothing/under/rank/chemist
@@ -36,14 +36,14 @@
 	item_color = "chemistrywhite"
 	permeability_coefficient = 0.50
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/chemist/skirt
 	name = "chemist's jumpskirt"
 	icon_state = "chemistrywhitef"
 	item_color = "chemistrywhitef"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-	flags = null
+	flags_size = null
 
 
 /*
@@ -57,7 +57,7 @@
 	item_color = "cmo"
 	permeability_coefficient = 0.50
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/chief_medical_officer/skirt
 	desc = "It's a jumpskirt worn by those with the experience to be \"Chief Medical Officer\". It provides minor biological protection."
@@ -65,7 +65,7 @@
 	icon_state = "cmof"
 	item_color = "cmof"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-	flags = null
+	flags_size = null
 
 
 /obj/item/clothing/under/rank/geneticist
@@ -76,14 +76,14 @@
 	item_color = "geneticswhite"
 	permeability_coefficient = 0.50
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/geneticist/skirt
 	name = "geneticist's jumpskirt"
 	icon_state = "geneticswhitef"
 	item_color = "geneticswhitef"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-	flags = null
+	flags_size = null
 
 
 /obj/item/clothing/under/rank/virologist
@@ -94,14 +94,14 @@
 	item_color = "virologywhite"
 	permeability_coefficient = 0.50
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/virologist/skirt
 	name = "virologist's jumpskirt"
 	icon_state = "virologywhitef"
 	item_color = "virologywhitef"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-	flags = null
+	flags_size = null
 
 
 /obj/item/clothing/under/rank/nursesuit
@@ -112,7 +112,7 @@
 	item_color = "nursesuit"
 	permeability_coefficient = 0.50
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/nurse
 	desc = "A dress commonly worn by the nursing staff in the medical department."
@@ -122,7 +122,7 @@
 	item_color = "nurse"
 	permeability_coefficient = 0.50
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/orderly
 	desc = "A white suit to be worn by orderly people who love orderly things."
@@ -132,7 +132,7 @@
 	item_color = "orderly"
 	permeability_coefficient = 0.50
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/medical
 	desc = "It's made of a special fiber that provides minor protection against biohazards. It has a cross on the chest denoting that the wearer is trained medical personnel."
@@ -142,14 +142,14 @@
 	item_color = "medical"
 	permeability_coefficient = 0.50
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/medical/skirt
 	name = "medical doctor's jumpskirt"
 	icon_state = "medicalf"
 	item_color = "medicalf"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-	flags = null
+	flags_size = null
 
 
 /obj/item/clothing/under/rank/medical/blue
@@ -157,28 +157,28 @@
 	desc = "It's made of a special fiber that provides minor protection against biohazards. This one is in baby blue."
 	icon_state = "scrubsblue"
 	item_color = "scrubsblue"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/medical/green
 	name = "medical scrubs"
 	desc = "It's made of a special fiber that provides minor protection against biohazards. This one is in dark green."
 	icon_state = "scrubsgreen"
 	item_color = "scrubsgreen"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/medical/purple
 	name = "medical scrubs"
 	desc = "It's made of a special fiber that provides minor protection against biohazards. This one is in deep purple."
 	icon_state = "scrubspurple"
 	item_color = "scrubspurple"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/medical/mortician
 	name = "coroner's scrubs"
 	desc = "It's made of a special fiber that provides minor protection against biohazards. This one is as dark as an emo's poetry."
 	icon_state = "scrubsblack"
 	item_color = "scrubsblack"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 //paramedic
 /obj/item/clothing/under/rank/medical/paramedic
@@ -189,7 +189,7 @@
 	item_color = "paramedic"
 	permeability_coefficient = 0.50
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 10)
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/psych
 	desc = "A basic white jumpsuit. It has turqouise markings that denote the wearer as a psychiatrist."
@@ -197,7 +197,7 @@
 	icon_state = "psych"
 	item_state = "w_suit"
 	item_color = "psych"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/psych/turtleneck
 	desc = "A turqouise turtleneck and a pair of dark blue slacks, belonging to a psychologist."
@@ -205,7 +205,7 @@
 	icon_state = "psychturtle"
 	item_state = "b_suit"
 	item_color = "psychturtle"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 
 /*
@@ -219,7 +219,7 @@
 	item_color = "genetics_new"
 	permeability_coefficient = 0.50
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/chemist_new
 	desc = "It's made of a special fiber which provides minor protection against biohazards."
@@ -229,7 +229,7 @@
 	item_color = "chemist_new"
 	permeability_coefficient = 0.50
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/scientist_new
 	desc = "Made of a special fiber that gives special protection against biohazards and small explosions."
@@ -239,7 +239,7 @@
 	item_color = "scientist_new"
 	permeability_coefficient = 0.50
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 10, bio = 0, rad = 0)
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/virologist_new
 	desc = "Made of a special fiber that gives increased protection against biohazards."
@@ -249,4 +249,4 @@
 	item_color = "virologist_new"
 	permeability_coefficient = 0.50
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
