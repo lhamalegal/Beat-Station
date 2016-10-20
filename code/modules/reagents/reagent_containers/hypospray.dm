@@ -60,8 +60,8 @@
 /obj/item/weapon/reagent_containers/hypospray/autoinjector
 	name = "emergency autoinjector"
 	desc = "A rapid and safe way to stabilize patients in critical condition for personnel without advanced medical knowledge."
-	icon_state = "autoinjector1"
-	item_state = "autoinjector1"
+	icon_state = "autoinjector"
+	item_state = "autoinjector"
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(10)
 	volume = 10
@@ -78,7 +78,7 @@
 
 /obj/item/weapon/reagent_containers/hypospray/autoinjector/update_icon()
 	if(reagents.total_volume > 0)
-		icon_state = initial(icon_state)
+		icon_state = "[initial(icon_state)]1"
 	else
 		icon_state = "[initial(icon_state)]0"
 
