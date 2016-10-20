@@ -875,12 +875,7 @@
 										modified = 1
 
 										spawn()
-											if(istype(usr,/mob/living/carbon/human))
-												//var/mob/living/carbon/human/U = usr
-												sec_hud_set_security_status()
-											if(istype(usr,/mob/living/silicon/robot))
-												//var/mob/living/silicon/robot/U = usr
-												sec_hud_set_security_status()
+											sec_hud_set_security_status()
 
 			if(!modified)
 				to_chat(usr, "\red Unable to locate a data core entry for this person.")
@@ -1005,12 +1000,7 @@
 										PDA_Manifest.Cut()
 
 									spawn()
-										if(istype(usr,/mob/living/carbon/human))
-											//var/mob/living/carbon/human/U = usr
-											sec_hud_set_security_status()
-										if(istype(usr,/mob/living/silicon/robot))
-											//var/mob/living/silicon/robot/U = usr
-											sec_hud_set_security_status()
+										sec_hud_set_security_status()
 
 			if(!modified)
 				to_chat(usr, "\red Unable to locate a data core entry for this person.")
