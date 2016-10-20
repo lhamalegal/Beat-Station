@@ -80,7 +80,8 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 	appearance_flags |= KEEP_TOGETHER
 	ghost_darkness_images |= ghostimage
 	updateallghostimages()
-	if(!T)	T = pick(latejoin)			//Safety in case we cannot find the body's position
+	if(!T)
+		T = pick(latejoin)			//Safety in case we cannot find the body's position
 	forceMove(T)
 
 	if(!name)							//To prevent nameless ghosts
@@ -241,10 +242,16 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	mind.current.key = key
 
 	var/obj/structure/morgue/Morgue = locate() in mind.current.loc
-	if(istype(mind.current.loc,/obj/structure/morgue))
+	if(istype(mind.current.loc, /obj/structure/morgue))
 		Morgue = mind.current.loc
 	if(Morgue)
 		Morgue.update()
+	if(istype(M.loc, /obj/machinery/cryopod))
+		var/obj/machinery/cryopod/P = M.loc
+		if(!P.control_computer)
+			P.find_control_computer(urgent=1)
+		if(P.control_computer)
+			P.despawn_occupant()
 
 	return 1
 
