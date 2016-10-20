@@ -313,7 +313,7 @@
 	throw_range = 3
 	w_class = 4
 	var/extend = 1
-	flags = NOSHIELD | CONDUCT
+	flags = CONDUCT
 	armour_penetration = 20
 	slot_flags = SLOT_BACK
 	origin_tech = "materials=2;combat=2"
@@ -332,14 +332,13 @@
 	icon_state = "tscythe0"
 	name = "telescopic scythe"
 	desc = "A sharp and curved blade on a collapsable fibremetal handle, this tool is the pinnacle of covert reaping technology."
-	force = 3.0
+	force = 3
 	sharp = 0
 	edge = 0
 	throw_speed = 2
 	throw_range = 3
-	w_class = 2.0
+	w_class = 2
 	extend = 0
-	flags = NOSHIELD
 	armour_penetration = 20
 	slot_flags = SLOT_BELT
 	origin_tech = "materials=3;combat=3"
