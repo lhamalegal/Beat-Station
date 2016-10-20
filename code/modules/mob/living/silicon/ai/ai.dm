@@ -1062,3 +1062,25 @@ var/list/ai_verbs_default = list(
 	eyeobj.setLoc(get_turf(C))
 	client.eye = eyeobj
 	return 1
+
+/mob/living/silicon/ai/proc/malfhacked(obj/machinery/power/apc/apc)
+	malfhack = null
+	malfhacking = 0
+	clear_alert("hackingapc")
+
+	if(!istype(apc) || qdeleted(apc) || apc.stat & BROKEN)
+		to_chat(src, "<span class='danger'>Hack aborted. The designated APC no longer exists on the power network.</span>")
+		playsound(get_turf(src), 'sound/machines/buzz-two.ogg', 50, 1)
+	else if(apc.aidisabled)
+		to_chat(src, "<span class='danger'>Hack aborted. [apc] is no longer responding to our systems.</span>")
+		playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 1)
+	else
+		malf_picker.processing_time += 10
+
+		apc.malfai = parent || src
+		apc.malfhack = TRUE
+		apc.locked = TRUE
+
+		playsound(get_turf(src), 'sound/machines/ding.ogg', 50, 1)
+		to_chat(src, "Hack complete. [apc] is now under your exclusive control.")
+		apc.update_icon()
