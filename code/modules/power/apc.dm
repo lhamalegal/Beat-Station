@@ -983,7 +983,7 @@
 					if(ticker.mode.config_tag == "malfunction")
 						if((z in config.station_levels)) //if (is_type_in_list(get_area(src), the_station_areas))
 							ticker.mode:apcs++
-					if(usr.parent)
+					if(AI.parent)
 						malfai = AI.parent
 					else
 						malfai = AI
