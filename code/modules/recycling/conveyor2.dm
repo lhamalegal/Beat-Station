@@ -286,13 +286,13 @@
 		update_multitool_menu(user)
 		return 1
 
-	/obj/machinery/conveyor_switch/multitool_topic(var/mob/user,var/list/href_list,var/obj/O)
+/obj/machinery/conveyor_switch/multitool_topic(mob/user, list/href_list, obj/O)
 	..()
 	if("toggle_logic" in href_list)
 		convdir = !convdir //reverses?
 
 
-/obj/machinery/conveyor_switch/multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
+/obj/machinery/conveyor_switch/multitool_menu(mob/user, obj/item/device/multitool/P)
 	return {"
 	<ul>
 	<li><b>One direction only:</b> <a href='?src=\ref[src];toggle_logic=1'>[convdir ? "On" : "Off"]</a></li>
