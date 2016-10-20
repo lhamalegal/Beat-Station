@@ -748,11 +748,12 @@
 
 
 /obj/machinery/power/apc/proc/get_malf_status(mob/user)
-	if (ticker && ticker.mode && (user.mind in ticker.mode.malf_ai) && istype(user, /mob/living/silicon/ai))
-		if (src.malfai == (user:parent ? user:parent : user))
-			if (src.occupier == user)
+	if(ticker && ticker.mode && (user.mind in ticker.mode.malf_ai) && isAI(user))
+		var/mob/living/silicon/ai/AI = user
+		if((malfai == AI || malfai == AI.parent))
+			if(occupier == user)
 				return 3 // 3 = User is shunted in this APC
-			else if (istype(user.loc, /obj/machinery/power/apc))
+			else if(istype(user.loc, /obj/machinery/power/apc))
 				return 4 // 4 = User is shunted in another APC
 			else
 				return 2 // 2 = APC hacked by user, and user is in its core.
@@ -965,28 +966,28 @@
 			src.overload_lighting()
 
 	else if (href_list["malfhack"])
-		var/mob/living/silicon/ai/malfai = usr
-		if(get_malf_status(malfai)==1)
-			if (malfai.malfhacking)
-				to_chat(malfai, "You are already hacking an APC.")
+		var/mob/living/silicon/ai/AI = usr
+		if(get_malf_status(AI) == 1)
+			if(AI.malfhacking)
+				to_chat(AI, "<span class='warning'>You are already hacking an APC.</span>")
 				return 0
-			to_chat(malfai, "Beginning override of APC systems. This takes some time, and you cannot perform other actions during the process.")
-			malfai.malfhack = src
-			malfai.malfhacking = 1
+			to_chat(AI, "<span class='notice'>Beginning override of APC systems. This takes some time, and you cannot perform other actions during the process.</span>")
+			AI.malfhack = src
+			AI.malfhacking = 1
 			sleep(600)
 			if(src)
 				if (!aidisabled)
-					malfai.malfhack = null
-					malfai.malfhacking = 0
+					AI.malfhack = null
+					AI.malfhacking = 0
 					locked = 1
-					if (ticker.mode.config_tag == "malfunction")
-						if ((src.z in config.station_levels)) //if (is_type_in_list(get_area(src), the_station_areas))
+					if(ticker.mode.config_tag == "malfunction")
+						if((z in config.station_levels)) //if (is_type_in_list(get_area(src), the_station_areas))
 							ticker.mode:apcs++
-					if(usr:parent)
-						malfai = usr:parent
+					if(usr.parent)
+						malfai = AI.parent
 					else
-						malfai = usr
-					to_chat(malfai, "Hack complete. The APC is now under your exclusive control.")
+						malfai = AI
+					to_chat(AI, "<span class='notice'>Hack complete. The APC is now under your exclusive control.</span>")
 					update_icon()
 
 	else if (href_list["occupyapc"])
@@ -1000,7 +1001,7 @@
 	else if (href_list["toggleaccess"])
 		if(istype(usr, /mob/living/silicon))
 			if(emagged || aidisabled || (stat & (BROKEN|MAINT)))
-				to_chat(usr, "The APC does not respond to the command.")
+				to_chat(usr, "<span class='warning'>he APC does not respond to the command.</span>")
 			else
 				locked = !locked
 				update_icon()
