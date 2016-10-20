@@ -994,10 +994,6 @@
 	malf.malfhack = src
 	malf.malfhacking = addtimer(malf, "malfhacked", 600, FALSE, src)
 
-	var/obj/screen/alert/hackingapc/A
-	A = malf.throw_alert("hackingapc", /obj/screen/alert/hackingapc)
-	A.target = src
-
 /obj/machinery/power/apc/proc/malfoccupy(mob/living/silicon/ai/malf)
 	if(!istype(malf))
 		return
@@ -1006,7 +1002,6 @@
 		return
 	if(!malf.can_shunt)
 		to_chat(malf, "<span class='warning'>You cannot shunt!</span>")
-		return
 	if(!(src.z in config.station_levels))
 		return
 	occupier = new /mob/living/silicon/ai(src,malf.laws,null,1)
@@ -1017,7 +1012,6 @@
 		occupier.parent = malf.parent
 	else
 		occupier.parent = malf
-	malf.shunted = 1
 	malf.mind.transfer_to(occupier)
 	occupier.eyeobj.name = "[occupier.name] (AI Eye)"
 	if(malf.parent)
@@ -1333,7 +1327,7 @@
 	if(malfai && operating)
 		if(ticker.mode.config_tag == "malfunction")
 			if((src.z in config.station_levels)) //if (is_type_in_list(get_area(src), the_station_areas))
-				ticker.mode.apcs--
+				ticker.mode:apcs--
 	stat |= BROKEN
 	operating = 0
 	if(occupier)
