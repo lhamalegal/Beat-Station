@@ -851,14 +851,14 @@
 	if (istype(user, /mob/living/silicon))
 		var/mob/living/silicon/ai/AI = user
 		var/mob/living/silicon/robot/robot = user
-		if(aidisabled || malfhack && istype(malfai) && ((istype(AI) && (malfai != AI && malfai != AI.parent)) || (istype(robot) && (robot in malfai.connected_robots)))                                                            \)
+		if(aidisabled || malfhack && istype(malfai) && ((istype(AI) && (malfai != AI && malfai != AI.parent)) || (istype(robot) && (robot in malfai.connected_robots)))                                                           \)
 			if(!loud)
 				to_chat(user, "<span class='danger'>\The [src] has AI control disabled!</span>")
 				user << browse(null, "window=apc")
 				user.unset_machine()
 			return 0
 	else
-		if ((!in_range(src, user) || !istype(src.loc, /turf)))
+		if((!in_range(src, user) || !istype(src.loc, /turf)))
 			return 0
 
 	var/mob/living/carbon/human/H = user
