@@ -15,7 +15,7 @@
 	icon_state = "armor"
 	item_state = "armor"
 	blood_overlay_type = "armor"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 	armor = list(melee = 25, bullet = 15, laser = 25, energy = 10, bomb = 25, bio = 0, rad = 0)
 
 /obj/item/clothing/suit/armor/vest/jacket
@@ -31,7 +31,7 @@
 	icon_state = "armor-combat"
 	item_state = "bulletproof"
 	blood_overlay_type = "armor"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/suit/armor/vest/security
 	name = "security armor"
@@ -225,35 +225,31 @@
 	icon_state = "detective-armor"
 	item_state = "armor"
 	blood_overlay_type = "armor"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 	allowed = list(/obj/item/weapon/tank/emergency_oxygen,/obj/item/weapon/reagent_containers/spray/pepper,/obj/item/device/flashlight,/obj/item/weapon/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs,/obj/item/weapon/storage/fancy/cigarettes,/obj/item/weapon/lighter,/obj/item/device/detective_scanner,/obj/item/device/taperecorder)
 
 
 //Reactive armor
-//When the wearer gets hit, this armor will teleport the user a short distance away (to safety or to more danger, no one knows. That's the fun of it!)
 /obj/item/clothing/suit/armor/reactive
-	name = "Reactive Teleport Armor"
-	desc = "Someone seperated our Research Director from his own head!"
-	var/active = 0.0
+	name = "reactive armor"
+	desc = "Doesn't seem to do much for some reason."
+	var/active = 0
 	icon_state = "reactiveoff"
 	item_state = "reactiveoff"
 	blood_overlay_type = "armor"
-	actions_types = list(/datum/action/item_action/toggle)
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	actions_types = list(/datum/action/item_action/toggle)
+	unacidable = 1
+	hit_reaction_chance = 50
 
-/obj/item/clothing/suit/armor/reactive/IsShield()
-	if(active)
-		return 1
-	return 0
-
-/obj/item/clothing/suit/armor/reactive/attack_self(mob/user as mob)
+/obj/item/clothing/suit/armor/reactive/attack_self(mob/user)
 	active = !(active)
 	if (src.active)
-		to_chat(user, "\blue The reactive armor is now active.")
+		to_chat(user, "<span class='notice'>[src] is now active.</span>")
 		icon_state = "reactive"
 		item_state = "reactive"
 	else
-		to_chat(user, "\blue The reactive armor is now inactive.")
+		to_chat(user, "<span class='notice'>[src] is now inactive.</span>")
 		icon_state = "reactiveoff"
 		item_state = "reactiveoff"
 		add_fingerprint(user)
@@ -266,7 +262,95 @@
 	active = 0
 	icon_state = "reactiveoff"
 	item_state = "reactiveoff"
+
+	if(istype(loc, /mob/living/carbon/human))
+		var/mob/living/carbon/human/C = loc
+		C.update_inv_wear_suit()
 	..()
+
+//When the wearer gets hit, this armor will teleport the user a short distance away (to safety or to more danger, no one knows. That's the fun of it!)
+/obj/item/clothing/suit/armor/reactive/teleport
+	name = "reactive teleport armor"
+	desc = "Someone seperated our Research Director from his own head!"
+	var/tele_range = 6
+
+/obj/item/clothing/suit/armor/reactive/teleport/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance)
+	if(!active)
+		return 0
+	if(prob(hit_reaction_chance))
+		var/mob/living/carbon/human/H = owner
+		owner.visible_message("<span class='danger'>The reactive teleport system flings [H] clear of [attack_text], shutting itself off in the process!</span>")
+		var/list/turfs = new/list()
+		for(var/turf/T in orange(tele_range, H))
+			if(istype(T, /turf/space))
+				continue
+			if(T.density)
+				continue
+			if(T.x>world.maxx-tele_range || T.x<tele_range)
+				continue
+			if(T.y>world.maxy-tele_range || T.y<tele_range)
+				continue
+			turfs += T
+		if(!turfs.len)
+			turfs += pick(/turf in orange(tele_range, H))
+		var/turf/picked = pick(turfs)
+		if(!isturf(picked))
+			return
+		if(H.buckled)
+			H.buckled.unbuckle_mob()
+		H.forceMove(picked)
+		return 1
+	return 0
+
+/obj/item/clothing/suit/armor/reactive/fire
+	name = "reactive incendiary armor"
+
+/obj/item/clothing/suit/armor/reactive/fire/hit_reaction(mob/living/carbon/human/owner, attack_text)
+	if(!active)
+		return 0
+	if(prob(hit_reaction_chance))
+		owner.visible_message("<span class='danger'>The [src] blocks the [attack_text], sending out jets of flame!</span>")
+		for(var/mob/living/carbon/C in range(6, owner))
+			if(C != owner)
+				C.fire_stacks += 8
+				C.IgniteMob()
+		owner.fire_stacks = -20
+		return 1
+	return 0
+
+
+/obj/item/clothing/suit/armor/reactive/stealth
+	name = "reactive stealth armor"
+
+/obj/item/clothing/suit/armor/reactive/stealth/hit_reaction(mob/living/carbon/human/owner, attack_text)
+	if(!active)
+		return 0
+	if(prob(hit_reaction_chance))
+		var/mob/living/simple_animal/hostile/illusion/escape/E = new(owner.loc)
+		E.Copy_Parent(owner, 50)
+		E.GiveTarget(owner) //so it starts running right away
+		E.Goto(owner, E.move_to_delay, E.minimum_distance)
+		owner.alpha = 0
+		owner.visible_message("<span class='danger'>[owner] is hit by [attack_text] in the chest!</span>") //We pretend to be hit, since blocking it would stop the message otherwise
+		spawn(40)
+			owner.alpha = initial(owner.alpha)
+		return 1
+
+/obj/item/clothing/suit/armor/reactive/tesla
+	name = "reactive tesla armor"
+
+/obj/item/clothing/suit/armor/reactive/tesla/hit_reaction(mob/living/carbon/human/owner, attack_text)
+	if(!active)
+		return 0
+	if(prob(hit_reaction_chance))
+		owner.visible_message("<span class='danger'>The [src] blocks the [attack_text], sending out arcs of lightning!</span>")
+		for(var/mob/living/M in view(6, owner))
+			if(M == owner)
+				continue
+			owner.Beam(M,icon_state="lightning[rand(1, 12)]",icon='icons/effects/effects.dmi',time=5)
+			M.adjustFireLoss(25)
+			playsound(M, 'sound/machines/defib_zap.ogg', 50, 1, -1)
+		return 1
 
 
 //All of the armor below is mostly unused
