@@ -282,7 +282,7 @@
 			user.client.statpanel = T.name
 			// If we had a method to force a `Stat` update, it would go here
 		else
- 			user.listed_turf = null
+			user.listed_turf = null
 	return
 
 /mob/proc/TurfAdjacent(var/turf/T)
