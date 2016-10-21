@@ -23,8 +23,9 @@
 
 // can fuck
 /datum/forbidden_controller/proc/can_fuck(mob/living/carbon/human/who, action)
-	if(!istype(who))
+	if(!istype(who) || owner.stat == DEAD)
 		return 0
+
 	if(!who.erp_controller || !check_species(owner) || !check_species(who))
 		return 0
 

@@ -67,19 +67,21 @@
 
 	// Lose virginity
 	if(virgin && action == VAGINAL && owner.gender == FEMALE)
-		owner.emote("scream")
+		if(owner.stat != DEAD)
+			owner.emote("scream")
 		new /obj/effect/decal/cleanable/blood(owner.loc)
 		virgin = 0
 
 	if(anal_virgin && action == ANAL)
 		anal_virgin = 0
 
-	// Pleasure messages
-	if(pleasure >= 70 && prob(15) && owner.gender == FEMALE)
-		owner.visible_message("<span class='erp'><b>[owner]</b> twists in orgasm!</span>")
+	if(owner.stat != DEAD)
+		// Pleasure messages
+		if(pleasure >= 70 && prob(15) && owner.gender == FEMALE)
+			owner.visible_message("<span class='erp'><b>[owner]</b> twists in orgasm!</span>")
 
-	if(pleasure >= 30 && prob(12))
-		owner.visible_message("<span class='erp'><b>[owner]</b> [owner.gender == FEMALE ? pick("moans in pleasure", "moans") : "moans"].</span>")
+		if(pleasure >= 30 && prob(12))
+			owner.visible_message("<span class='erp'><b>[owner]</b> [owner.gender == FEMALE ? pick("moans in pleasure", "moans") : "moans"].</span>")
 
 /datum/forbidden_controller/proc/fucking(mob/living/carbon/human/who, action, auto_pleasure = 1)
 
@@ -105,9 +107,9 @@
 		begins_text(action, who)
 		who.erp_controller.fucking_list.Add(owner)
 
-		var/log_text = "<span class='warning'>[owner] begins to fuck [who] - Type = [action_string(action)]</span>"
-		transa_log.Add(log_text)
-		who.erp_controller.transa_log.Add(log_text)
+		var/log_text = "<span class='warning'>[owner] begins to fuck [who] - Type</span>"
+		transa_log[log_text] = action_string(action)
+		who.erp_controller.transa_log[log_text] = action_string(action)
 
 	who.erp_controller.fucked(owner, action)
 
@@ -124,6 +126,9 @@
 /datum/forbidden_controller/proc/masturbate(action)
 	if(!click_check())
 		return 0
+	if(owner.stat == DEAD)
+		return 0
+
 	var/message = ""
 	if(action == ANAL)
 		if(fucked_action == ANAL)
