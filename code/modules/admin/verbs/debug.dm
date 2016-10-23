@@ -23,7 +23,7 @@
 	if(!check_rights(R_DEBUG))
 		return
 
-	if(Debug2)
+	if(DebugGameMode)
 		DebugGameMode = 0
 		message_admins("[key_name_admin(src)] toggled debugging off.")
 		log_admin("[key_name(src)] toggled debugging off.")
