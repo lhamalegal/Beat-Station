@@ -16,6 +16,24 @@
 
 	feedback_add_details("admin_verb","DG2") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/client/proc/DebugGameMode()
+	set category = "Debug"
+	set name = "Debug-Game-Mode"
+
+	if(!check_rights(R_DEBUG))
+		return
+
+	if(Debug2)
+		DebugGameMode = 0
+		message_admins("[key_name_admin(src)] toggled debugging off.")
+		log_admin("[key_name(src)] toggled debugging off.")
+	else
+		DebugGameMode = 1
+		message_admins("[key_name_admin(src)] toggled debugging on.")
+		log_admin("[key_name(src)] toggled debugging on.")
+
+	feedback_add_details("admin_verb","DGM") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
 
 /* 21st Sept 2010
 Updated by Skie -- Still not perfect but better!
