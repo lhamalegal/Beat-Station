@@ -52,7 +52,7 @@
 		if((player.client)&&(player.ready))
 			playerC++
 
-	if(playerC >= required_players || Debug2)
+	if(playerC >= required_players || DebugGameMode)
 		return 1
 	return 0
 
