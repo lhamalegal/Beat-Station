@@ -265,15 +265,16 @@ var/global/datum/controller/occupations/job_master
 		HandleFeedbackGathering()
 
 		//People who wants to be assistants, sure, go on.
-		Debug("DO, Running Civilian Check 1")
-		var/datum/job/civ = new /datum/job/civilian()
-		var/list/civilian_candidates = FindOccupationCandidates(civ, 3)
-		Debug("AC1, Candidates: [civilian_candidates.len]")
-		for(var/mob/new_player/player in civilian_candidates)
-			Debug("AC1 pass, Player: [player]")
-			AssignRole(player, "Civilian")
-			civilian_candidates -= player
-		Debug("DO, AC1 end")
+		if(civilian_allowed)
+			Debug("DO, Running Civilian Check 1")
+			var/datum/job/civ = new /datum/job/civilian()
+			var/list/civilian_candidates = FindOccupationCandidates(civ, 3)
+			Debug("AC1, Candidates: [civilian_candidates.len]")
+			for(var/mob/new_player/player in civilian_candidates)
+				Debug("AC1 pass, Player: [player]")
+				AssignRole(player, "Civilian")
+				civilian_candidates -= player
+			Debug("DO, AC1 end")
 
 		//Select one head
 		Debug("DO, Running Head Check")
