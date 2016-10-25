@@ -52,7 +52,7 @@ var/global/datum/controller/occupations/job_master
 			if(jobban_isbanned(player, rank))	return 0
 			if(!job.player_old_enough(player.client)) return 0
 			if(!is_job_whitelisted(player, rank)) return 0
-			if(istype(job, GetJob("Civilian")) && !civilian_allowed) return 0
+			if(istype(job, GetJob("Civilian")) && !config.civilian_allowed) return 0
 			var/position_limit = job.total_positions
 			if(!latejoin)
 				position_limit = job.spawn_positions
@@ -266,7 +266,7 @@ var/global/datum/controller/occupations/job_master
 		HandleFeedbackGathering()
 
 		//People who wants to be assistants, sure, go on.
-		if(civilian_allowed)
+		if(config.civilian_allowed)
 			Debug("DO, Running Civilian Check 1")
 			var/datum/job/civ = new /datum/job/civilian()
 			var/list/civilian_candidates = FindOccupationCandidates(civ, 3)
