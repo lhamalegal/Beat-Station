@@ -50,8 +50,21 @@ proc/isNonCrewAntag(A)
 
 	var/mob/living/carbon/C = A
 	var/special_role = C.mind.special_role
-	var/list/crew_roles = list("traitor", "Changeling", "Vampire", "Cultist", "Head Revolutionary", "Revolutionary", "malfunctioning AI", "Shadowling", "loyalist", "mutineer", "Response Team")
-	if((special_role in crew_roles))
+	var/list/crew_roles = list(
+		SPECIAL_ROLE_BLOB,
+		SPECIAL_ROLE_CULTIST,
+		SPECIAL_ROLE_CHANGELING,
+		SPECIAL_ROLE_ERT,
+		SPECIAL_ROLE_HEAD_REV,
+		SPECIAL_ROLE_MALF,
+		SPECIAL_ROLE_REV,
+		SPECIAL_ROLE_SHADOWLING,
+		SPECIAL_ROLE_SHADOWLING_THRALL,
+		SPECIAL_ROLE_TRAITOR,
+		SPECIAL_ROLE_VAMPIRE,
+		SPECIAL_ROLE_VAMPIRE_THRALL
+	)
+	if(special_role in crew_roles)
 		return 0
 
 	return 1
@@ -497,11 +510,11 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 					search_pda = 0
 
 		//Fixes renames not being reflected in objective text
-		var/list/O = subtypesof(/datum/objective)
 		var/length
 		var/pos
-		for(var/datum/objective/objective in O)
-			if(objective.target != mind) continue
+		for(var/datum/objective/objective in all_objectives)
+			if(!mind || objective.target != mind)
+				continue
 			length = lentext(oldname)
 			pos = findtextEx(objective.explanation_text, oldname)
 			objective.explanation_text = copytext(objective.explanation_text, 1, pos)+newname+copytext(objective.explanation_text, pos+length)

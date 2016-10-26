@@ -26,7 +26,7 @@
 			ticker.mode.red_deity_followers |= src
 			to_chat(current, "<span class='danger'><B>You are now a follower of the red cult's god!</b></span>")
 
-			special_role = "Hand of God: Red Follower"
+			special_role = SPECIAL_ROLE_RED_FOLLOWER
 			. = 1
 		if("blue")
 			//Remove old allegiances
@@ -45,7 +45,7 @@
 			ticker.mode.blue_deity_followers |= src
 			to_chat(current, "<span class='danger'><B>You are now a follower of the blue cult's god!</b></span>")
 
-			special_role = "Hand of God: Blue Follower"
+			special_role = SPECIAL_ROLE_BLUE_FOLLOWER
 			. = 1
 		else
 			return 0
@@ -54,7 +54,7 @@
 	ticker.mode.update_hog_icons_removed(src,"blue")
 	//ticker.mode.greet_hog_follower(src,colour)
 	ticker.mode.update_hog_icons_added(src, colour)
-	
+
 /datum/mind/proc/make_Handofgod_prophet(colour)
 	. = 0
 	switch(colour)
@@ -73,7 +73,7 @@
 			ticker.mode.red_deity_prophets |= src
 			to_chat(current, "<span class='danger'><B>You are now a prophet of the red cult's god!</b></span>")
 
-			special_role = "Hand of God: Red Prophet"
+			special_role = SPECIAL_ROLE_RED_PROPHET
 			. = 1
 		if("blue")
 			//Remove old allegiances
@@ -90,7 +90,7 @@
 			ticker.mode.blue_deity_prophets |= src
 			to_chat(current, "<span class='danger'><B>You are now a prophet of the blue cult's god!</b></span>")
 
-			special_role = "Hand of God: Blue Prophet"
+			special_role = SPECIAL_ROLE_BLUE_PROPHET
 			. = 1
 
 		else
@@ -100,7 +100,7 @@
 	ticker.mode.update_hog_icons_removed(src,"blue")
 	ticker.mode.greet_hog_follower(src,colour)
 	ticker.mode.update_hog_icons_added(src, colour)
-	
+
 
 /datum/mind/proc/make_Handofgod_god(colour)
 	switch(colour)

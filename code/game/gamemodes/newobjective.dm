@@ -651,7 +651,7 @@ datum
 						return 10
 					else
 						return 20
-						
+
 
 			/*burger
 				steal_target = /obj/item/weapon/reagent_containers/food/snacks/human/burger
