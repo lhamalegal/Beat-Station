@@ -53,6 +53,7 @@
 	var/allow_ai = 1					// allow ai job
 	var/hostedby = null
 	var/respawn = 0
+	var/civilian_allowed = 0
 	var/guest_jobban = 1
 	var/usewhitelist = 0
 	var/mods_are_mentors = 0
@@ -64,7 +65,7 @@
 
 	var/reactionary_explosions = 0 //If we use reactionary explosions, explosions that react to walls and doors
 
-	var/assistantlimit = 0 //enables assistant limiting
+	var/assistantlimit = 1 //enables assistant limiting
 	var/assistantratio = 2 //how many assistants to security members
 
 	var/traitor_objectives_amount = 2

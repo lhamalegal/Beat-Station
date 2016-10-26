@@ -73,7 +73,9 @@ var/list/admin_verbs_admin = list(
 	/client/proc/change_human_appearance_self,	/* Allows the human-based mob itself change its basic appearance */
 	/client/proc/debug_variables,
 	/client/proc/show_snpc_verbs,
-	/client/proc/reset_all_tcs			/*resets all telecomms scripts*/
+	/client/proc/reset_all_tcs,			/*resets all telecomms scripts*/
+	/client/proc/DebugGameMode,
+	/client/proc/toggle_civilians
 )
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
@@ -133,7 +135,8 @@ var/list/admin_verbs_server = list(
 	/client/proc/toggle_antagHUD_use,
 	/client/proc/toggle_antagHUD_restrictions,
 	/client/proc/set_ooc,
-	/client/proc/reset_ooc
+	/client/proc/reset_ooc,
+	/client/proc/toggle_civilians
 	)
 var/list/admin_verbs_debug = list(
 	/client/proc/cmd_admin_list_open_jobs,
@@ -160,7 +163,8 @@ var/list/admin_verbs_debug = list(
 	/proc/machine_upgrade,
 	/client/proc/map_template_load,
 	/client/proc/map_template_upload,
-	/client/proc/view_runtimes
+	/client/proc/view_runtimes,
+	/client/proc/DebugGameMode
 	)
 var/list/admin_verbs_possess = list(
 	/proc/possess,
@@ -868,6 +872,17 @@ var/list/admin_verbs_snpc = list(
 		job_master.FreeRole(job)
 		log_admin("[key_name(usr)] has freed a job slot for [job].")
 		message_admins("[key_name_admin(usr)] has freed a job slot for [job].")
+
+/client/proc/toggle_civilians()
+	set name = "Toggle Civilians entry"
+	set category = "Server"
+
+	if(!check_rights(R_SERVER))
+		return
+
+	config.civilian_allowed = !(config.civilian_allowed )
+	log_admin("[key_name(usr)] has [config.civilian_allowed  ? "enabled" : "disabled"] civilians.")
+	message_admins("[key_name_admin(usr)] has [config.civilian_allowed  ? "enabled" : "disabled"] civilians.")
 
 /client/proc/toggleattacklogs()
 	set name = "Toggle Attack Log Messages"

@@ -246,7 +246,7 @@
 	if(!is_job_whitelisted(src, rank))	 return 0
 	if(!job.player_old_enough(src.client))	return 0
 	if(job.admin_only && !(check_rights(R_ADMIN, 0))) return 0
-
+	if(job.title == "Civilian"&& !config.civilian_allowed) return 0
 	if(config.assistantlimit)
 		if(job.title == "Civilian")
 			var/count = 0

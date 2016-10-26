@@ -52,6 +52,7 @@ var/global/datum/controller/occupations/job_master
 			if(jobban_isbanned(player, rank))	return 0
 			if(!job.player_old_enough(player.client)) return 0
 			if(!is_job_whitelisted(player, rank)) return 0
+			if(istype(job, GetJob("Civilian")) && !config.civilian_allowed) return 0
 			var/position_limit = job.total_positions
 			if(!latejoin)
 				position_limit = job.spawn_positions
@@ -265,15 +266,16 @@ var/global/datum/controller/occupations/job_master
 		HandleFeedbackGathering()
 
 		//People who wants to be assistants, sure, go on.
-		Debug("DO, Running Civilian Check 1")
-		var/datum/job/civ = new /datum/job/civilian()
-		var/list/civilian_candidates = FindOccupationCandidates(civ, 3)
-		Debug("AC1, Candidates: [civilian_candidates.len]")
-		for(var/mob/new_player/player in civilian_candidates)
-			Debug("AC1 pass, Player: [player]")
-			AssignRole(player, "Civilian")
-			civilian_candidates -= player
-		Debug("DO, AC1 end")
+		if(config.civilian_allowed)
+			Debug("DO, Running Civilian Check 1")
+			var/datum/job/civ = new /datum/job/civilian()
+			var/list/civilian_candidates = FindOccupationCandidates(civ, 3)
+			Debug("AC1, Candidates: [civilian_candidates.len]")
+			for(var/mob/new_player/player in civilian_candidates)
+				Debug("AC1 pass, Player: [player]")
+				AssignRole(player, "Civilian")
+				civilian_candidates -= player
+			Debug("DO, AC1 end")
 
 		//Select one head
 		Debug("DO, Running Head Check")
