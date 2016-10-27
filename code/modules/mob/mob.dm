@@ -961,17 +961,7 @@ var/list/slot_equipment_priority = list( \
 /mob/Stat()
 	..()
 
-	if(listed_turf && client)
-		if(!TurfAdjacent(listed_turf))
-			listed_turf = null
-		else
-			statpanel(listed_turf.name, null, listed_turf)
-			for(var/atom/A in listed_turf)
-				if(A.invisibility > see_invisible)
-					continue
-				if(is_type_in_list(A, shouldnt_see))
-					continue
-				statpanel(listed_turf.name, null, A)
+	show_stat_turf_contents()
 
 	statpanel("Status") // We only want alt-clicked turfs to come before Status
 
@@ -998,6 +988,7 @@ var/list/slot_equipment_priority = list( \
 
 	statpanel("Status") // Switch to the Status panel again, for the sake of the lazy Stat procs
 
+
 // this function displays the station time in the status panel
 /mob/proc/show_stat_station_time()
 	stat(null, "Station Time: [worldtime2text()]")
@@ -1008,10 +999,28 @@ var/list/slot_equipment_priority = list( \
 	if(ETA)
 		stat(null, "[ETA] [shuttle_master.emergency.getTimerStr()]")
 
+/mob/proc/show_stat_turf_contents()
+	if(listed_turf && client)
+		if(!TurfAdjacent(listed_turf))
+			listed_turf = null
+		else
+			statpanel(listed_turf.name, null, listed_turf)
+			var/list/statpanel_things = list()
+			for(var/foo in listed_turf)
+				var/atom/A = foo
+				if(A.invisibility > see_invisible)
+					continue
+				if(is_type_in_list(A, shouldnt_see))
+					continue
+				statpanel_things += A
+			statpanel(listed_turf.name, null, statpanel_things)
+
+
 /mob/proc/add_stings_to_statpanel(var/list/stings)
 	for(var/obj/effect/proc_holder/changeling/S in stings)
 		if(S.chemical_cost >=0 && S.can_be_used_by(src))
 			statpanel("[S.panel]",((S.chemical_cost > 0) ? "[S.chemical_cost]" : ""),S)
+
 /mob/proc/add_spell_to_statpanel(var/obj/effect/proc_holder/spell/S)
 	switch(S.charge_type)
 		if("recharge")
