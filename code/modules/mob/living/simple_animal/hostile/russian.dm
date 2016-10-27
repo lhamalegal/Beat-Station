@@ -44,7 +44,3 @@
 	..()
 	qdel(src)
 	return
-
-/mob/living/simple_animal/hostile/russian/Aggro()
-	say(pick("сука блять", "иди нахуй"))
-	return ..()

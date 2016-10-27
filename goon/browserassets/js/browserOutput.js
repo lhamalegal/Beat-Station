@@ -97,17 +97,43 @@ function linkify(text) {
 	});
 }
 
-// Colorizes the highlight spans
-function setHighlightColor(match) {
-	match.style.background = opts.highlightColor
+//Actually turns the highlight term match into appropriate html
+function addHighlightMarkup(match) {
+	var extra = '';
+	if (opts.highlightColor) {
+		extra += ' style="background-color: '+opts.highlightColor+'"';
+	}
+	return '<span class="highlight"'+extra+'>'+match+'</span>';
 }
 
 //Highlights words based on user settings
 function highlightTerms(el) {
-	for (var i = 0; i < opts.highlightTerms.length; i++) { //Each highlight term
-		if(opts.highlightTerms[i]) {
-			$(el).mark(opts.highlightTerms[i], {"element" : "span", "each" : setHighlightColor});
+	if (el.children.length > 0) {
+		for(var h = 0; h < el.children.length; h++){
+			highlightTerms(el.children[h]);
 		}
+	}
+	if (el.childNodes.length > 0 && typeof el.childNodes[0].data !== 'undefined' && el.childNodes[0].data.length > 0) { //If element actually has text
+		var newText = '';
+		for (var c = 0; c < el.childNodes.length; c++) { //Each child element
+			if (el.childNodes[c].nodeType === 3) { //Is it text only?
+				var words = el.childNodes[c].data.split(' ');
+				for (var w = 0; w < words.length; w++) { //Each word in the text
+					var newWord = null;
+					for (var i = 0; i < opts.highlightTerms.length; i++) { //Each highlight term
+						if (opts.highlightTerms[i] && words[w].toLowerCase().indexOf(opts.highlightTerms[i].toLowerCase()) > -1) { //If a match is found
+							newWord = words[w].replace(new RegExp(opts.highlightTerms[i], 'gi'), addHighlightMarkup);
+							break;
+						}
+					}
+					newText += newWord ? newWord : words[w];
+					newText += w >= words.length ? '' : ' ';
+				}
+			} else { //Every other type of element
+				newText += outerHTML(el.childNodes[c]);
+			}
+		}
+		el.innerHTML = newText;
 	}
 }
 
@@ -122,12 +148,6 @@ function output(message, flag) {
 
 	if (flag !== 'internal')
 		opts.lastPang = Date.now();
-
-	// Basically we url_encode twice server side so we can manually read the encoded version and actually do UTF-8.
-	// The replace for + is because FOR SOME REASON, BYOND replaces spaces with a + instead of %20, and a plus with %2b.
-	// Marvelous.
-	message = message.replace(/\+/g, "%20")
-	message = decoder(message)
 
 	//The behemoth of filter-code (for Admin message filters)
 	//Note: This is proooobably hella inefficient
@@ -248,11 +268,6 @@ function output(message, flag) {
 	}
 }
 
-function internalOutput(message, flag)
-{
-	output(escaper(message), flag)
-}
-
 //Runs a route within byond, client or server side. Consider this "ehjax" for byond.
 function runByond(uri) {
 	window.location = uri;
@@ -352,7 +367,7 @@ function ehjaxCallback(data) {
 		$('#pingDot').css('color', '#'+hex);
 	} else if (data == 'roundrestart') {
 		opts.restarting = true;
-		internalOutput('<div class="connectionClosed internal restarting">The connection has been closed because the server is restarting. Please wait while you automatically reconnect.</div>', 'internal');
+		output('<div class="connectionClosed internal restarting">The connection has been closed because the server is restarting. Please wait while you automatically reconnect.</div>', 'internal');
 	} else if (data == 'stopaudio') {
 		$('.dectalk').remove();
 	} else {
@@ -387,9 +402,9 @@ function ehjaxCallback(data) {
 			changeMode(data.modeChange);
 		} else if (data.firebug) {
 			if (data.trigger) {
-				internalOutput('<span class="internal boldnshit">Loading firebug console, triggered by '+data.trigger+'...</span>', 'internal');
+				output('<span class="internal boldnshit">Loading firebug console, triggered by '+data.trigger+'...</span>', 'internal');
 			} else {
-				internalOutput('<span class="internal boldnshit">Loading firebug console...</span>', 'internal');
+				output('<span class="internal boldnshit">Loading firebug console...</span>', 'internal');
 			}
 			var firebugEl = document.createElement('script');
 			firebugEl.src = 'https://getfirebug.com/firebug-lite-debug.js';
@@ -400,7 +415,7 @@ function ehjaxCallback(data) {
 				message = '<a href="#" class="stopAudio icon-stack" title="Stop Audio" style="color: black;"><i class="icon-volume-off"></i><i class="icon-ban-circle" style="color: red;"></i></a> '+
 				'<span class="italic">You hear a strange robotic voice...</span>' + message;
 			}
-			internalOutput(message, 'preventLink');
+			output(message, 'preventLink');
 		}
 	}
 }
@@ -464,7 +479,7 @@ $(function() {
 			if (!opts.noResponse) { //Only actually append a message if the previous ping didn't also fail (to prevent spam)
 				opts.noResponse = true;
 				opts.noResponseCount++;
-				internalOutput('<div class="connectionClosed internal" data-count="'+opts.noResponseCount+'">You are either AFK, experiencing lag or the connection has closed.</div>', 'internal');
+				output('<div class="connectionClosed internal" data-count="'+opts.noResponseCount+'">You are either AFK, experiencing lag or the connection has closed.</div>', 'internal');
 			}
 		} else if (opts.noResponse) { //Previous ping attempt failed ohno
 			$('.connectionClosed[data-count="'+opts.noResponseCount+'"]:not(.restored)').addClass('restored').text('Your connection has been restored (probably)!');
@@ -489,18 +504,18 @@ $(function() {
 
 	if (savedConfig.sfontSize) {
 		$messages.css('font-size', savedConfig.sfontSize);
-		internalOutput('<span class="internal boldnshit">Loaded font size setting of: '+savedConfig.sfontSize+'</span>', 'internal');
+		output('<span class="internal boldnshit">Loaded font size setting of: '+savedConfig.sfontSize+'</span>', 'internal');
 	}
 	if (savedConfig.sfontType) {
 		$messages.css('font-family', savedConfig.sfontType);
-		internalOutput('<span class="internal boldnshit">Loaded font type setting of: '+savedConfig.sfontType+'</span>', 'internal');
+		output('<span class="internal boldnshit">Loaded font type setting of: '+savedConfig.sfontType+'</span>', 'internal');
 	}
 	if (savedConfig.spingDisabled) {
 		if (savedConfig.spingDisabled == 'true') {
 			opts.pingDisabled = true;
 			$('#ping').hide();
 		}
-		internalOutput('<span class="internal boldnshit">Loaded ping display of: '+(opts.pingDisabled ? 'hidden' : 'visible')+'</span>', 'internal');
+		output('<span class="internal boldnshit">Loaded ping display of: '+(opts.pingDisabled ? 'hidden' : 'visible')+'</span>', 'internal');
 	}
 	if (savedConfig.shighlightTerms) {
 		var savedTerms = $.parseJSON(savedConfig.shighlightTerms);
@@ -512,13 +527,13 @@ $(function() {
 		}
 		if (actualTerms) {
 			actualTerms = actualTerms.substring(0, actualTerms.length - 2);
-			internalOutput('<span class="internal boldnshit">Loaded highlight strings of: ' + actualTerms+'</span>', 'internal');
+			output('<span class="internal boldnshit">Loaded highlight strings of: ' + actualTerms+'</span>', 'internal');
 			opts.highlightTerms = savedTerms;
 		}
 	}
 	if (savedConfig.shighlightColor) {
 		opts.highlightColor = savedConfig.shighlightColor;
-		internalOutput('<span class="internal boldnshit">Loaded highlight color of: '+savedConfig.shighlightColor+'</span>', 'internal');
+		output('<span class="internal boldnshit">Loaded highlight color of: '+savedConfig.shighlightColor+'</span>', 'internal');
 	}
 
 	(function() {
@@ -612,7 +627,7 @@ $(function() {
 		// Hardcoded because else there would be no feedback message.
 		if (k == 113) { // F2
 			runByond('byond://winset?screenshot=auto');
-			internalOutput('Screenshot taken', 'internal');
+			output('Screenshot taken', 'internal');
 		}
 
 		var c = "";
@@ -746,7 +761,7 @@ $(function() {
 		fontSize = fontSize - 1 + 'px';
 		$messages.css({'font-size': fontSize});
 		setCookie('fontsize', fontSize, 365);
-		internalOutput('<span class="internal boldnshit">Font size set to '+fontSize+'</span>', 'internal');
+		output('<span class="internal boldnshit">Font size set to '+fontSize+'</span>', 'internal');
 	});
 
 	$('#increaseFont').click(function(e) {
@@ -754,7 +769,7 @@ $(function() {
 		fontSize = fontSize + 1 + 'px';
 		$messages.css({'font-size': fontSize});
 		setCookie('fontsize', fontSize, 365);
-		internalOutput('<span class="internal boldnshit">Font size set to '+fontSize+'</span>', 'internal');
+		output('<span class="internal boldnshit">Font size set to '+fontSize+'</span>', 'internal');
 	});
 
 	$('#chooseFont').click(function(e) {
