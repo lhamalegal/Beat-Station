@@ -1,7 +1,6 @@
 var/list/chatResources = list(
 	"goon/browserassets/js/jquery.min.js",
 	"goon/browserassets/js/json2.min.js",
-	"goon/browserassets/js/jquery.mark.min.js",
 	"goon/browserassets/js/browserOutput.js",
 	"goon/browserassets/css/fonts/fontawesome-webfont.eot",
 	"goon/browserassets/css/fonts/fontawesome-webfont.svg",
@@ -260,5 +259,4 @@ var/to_chat_src
 				return
 
 
-		// url_encode it TWICE, this way any UTF-8 characters are able to be decoded by the Javascript.
-		target << output(url_encode(url_encode(message)), "browseroutput:output")
+		target << output(url_encode(message), "browseroutput:output")
