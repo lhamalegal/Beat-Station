@@ -374,10 +374,19 @@
 	if(ticker)
 		cameranet.updateVisibility(src)
 
-/turf/proc/get_lumcount() //Gets the lighting level of a given turf.
-	if(lighting_overlay)
-		return lighting_overlay.get_clamped_lum()
-	return 1
+/turf/proc/get_lumcount(var/minlum = 0, var/maxlum = 1)
+	if (!lighting_overlay)
+		return 0.5
+
+	var/totallums = 0
+	for (var/datum/lighting_corner/L in corners)
+		totallums += L.lum_r + L.lum_b + L.lum_g
+
+	totallums /= 12 // 4 corners, each with 3 channels, get the average.
+
+	totallums = (totallums - minlum) / (maxlum - minlum)
+
+	return CLAMP01(totallums)
 
 /turf/attackby(obj/item/C, mob/user, params)
 	if(can_lay_cable() && istype(C, /obj/item/stack/cable_coil))

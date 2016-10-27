@@ -824,7 +824,7 @@
 	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
 	if(isturf(H.loc)) //else, there's considered to be no light
 		var/turf/T = H.loc
-		light_amount = min(T.get_lumcount()*10, 5)  //hardcapped so it's not abused by having a ton of flashlights
+		light_amount = T.get_lumcount() * 10
 	H.nutrition += light_amount
 	H.traumatic_shock -= light_amount
 
@@ -837,7 +837,7 @@
 		H.adjustOxyLoss(-(light_amount))
 
 	if(H.nutrition < 200)
-		H.take_overall_damage(10,0)
+		H.take_overall_damage(10, 0)
 		H.traumatic_shock++
 
 /datum/species/machine

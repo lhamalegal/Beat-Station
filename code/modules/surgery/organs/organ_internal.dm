@@ -470,10 +470,10 @@
 /obj/item/organ/internal/shadowtumor/process()
 	if(isturf(loc))
 		var/turf/T = loc
-		var/light_count = T.get_lumcount()*10
-		if(light_count > 4 && health > 0) //Die in the light
+		var/light_count = T.get_lumcount() * 10
+		if(light_count >= 7 && health > 0) //Die in the light
 			health--
-		else if(light_count < 2 && health < 3) //Heal in the dark
+		else if(light_count < 3 && health < 3) //Heal in the dark
 			health++
 		if(health <= 0)
 			visible_message("<span class='warning'>[src] collapses in on itself!</span>")

@@ -1,5 +1,5 @@
-#define LIGHT_DAM_THRESHOLD 4
-#define LIGHT_HEAL_THRESHOLD 2
+#define LIGHT_DAM_THRESHOLD 7
+#define LIGHT_HEAL_THRESHOLD 3
 #define LIGHT_DAMAGE_TAKEN 7
 
 /*
@@ -320,7 +320,7 @@ Made by Xhuis
 	if(isturf(H.loc))
 		var/turf/T = H.loc
 		light_amount = T.get_lumcount() * 10
-		if(light_amount > LIGHT_DAM_THRESHOLD && !H.incorporeal_move) //Can survive in very small light levels. Also doesn't take damage while incorporeal, for shadow walk purposes
+		if(light_amount >= LIGHT_DAM_THRESHOLD && !H.incorporeal_move) //Can survive in very small light levels. Also doesn't take damage while incorporeal, for shadow walk purposes
 			H.take_overall_damage(0, LIGHT_DAMAGE_TAKEN)
 			if(H.stat != DEAD)
 				to_chat(H, "<span class='userdanger'>The light burns you!</span>")//Message spam to say "GET THE FUCK OUT"

@@ -29,9 +29,9 @@
 	var/light_amount = 0
 	if(isturf(H.loc))
 		var/turf/T = H.loc
-		light_amount = T.get_lumcount()*10
+		light_amount = T.get_lumcount() * 10
 
-		if(light_amount > 2) //if there's enough light, start dying
+		if(light_amount > 6) //if there's enough light, start dying
 			H.take_overall_damage(1,1)
-		else if (light_amount < 2) //heal in the dark
+		else if (light_amount < 3) //heal in the dark
 			H.heal_overall_damage(1,1)
