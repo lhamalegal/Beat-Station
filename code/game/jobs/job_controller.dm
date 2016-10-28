@@ -745,6 +745,12 @@ var/global/datum/controller/occupations/job_master
 		if(job != scientist)
 			if(scientist.current_positions < 1)
 				return 0
+
+		// Misc
+		var/datum/job/miner = job_master.GetJob("Shaft Miner")
+		if(job != miner)
+			if(miner.current_positions < 1)
+				return 0
 	else
 		return 0
 
