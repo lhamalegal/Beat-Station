@@ -255,6 +255,9 @@
 	if(rank == "Civilian" && !config.civilian_allowed)
 		return 0
 
+	if(config.job_limit && !job_master.JobLimitConditions(rank))
+		return 0
+
 	if(config.assistantlimit)
 		if(job.title == "Civilian")
 			var/count = 0
@@ -266,9 +269,6 @@
 				if(count >= 5) // if theres more than 5 security on the station just let assistants join regardless, they should be able to handle the tide
 					return 1
 				return 0
-
-	if(config.job_limit && !job_master.JobLimitConditions(rank))
-		return 0
 
 	return 1
 
