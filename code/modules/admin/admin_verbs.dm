@@ -75,7 +75,8 @@ var/list/admin_verbs_admin = list(
 	/client/proc/show_snpc_verbs,
 	/client/proc/reset_all_tcs,			/*resets all telecomms scripts*/
 	/client/proc/DebugGameMode,
-	/client/proc/toggle_civilians
+	/client/proc/toggle_civilians,
+	/client/proc/toggle_joblimit
 )
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
@@ -136,7 +137,8 @@ var/list/admin_verbs_server = list(
 	/client/proc/toggle_antagHUD_restrictions,
 	/client/proc/set_ooc,
 	/client/proc/reset_ooc,
-	/client/proc/toggle_civilians
+	/client/proc/toggle_civilians,
+	/client/proc/toggle_joblimit
 	)
 var/list/admin_verbs_debug = list(
 	/client/proc/cmd_admin_list_open_jobs,
@@ -873,6 +875,17 @@ var/list/admin_verbs_snpc = list(
 		log_admin("[key_name(usr)] has freed a job slot for [job].")
 		message_admins("[key_name_admin(usr)] has freed a job slot for [job].")
 
+/client/proc/toggle_joblimit()
+	set name = "Toggle Joblimit"
+	set category = "Server"
+
+	if(!check_rights(R_SERVER))
+		return
+
+	config.job_limit = !(config.job_limit)
+	log_admin("[key_name(usr)] has [config.job_limit  ? "enabled" : "disabled"] joblimit.")
+	message_admins("[key_name_admin(usr)] has [config.job_limit  ? "enabled" : "disabled"] joblimit.")
+
 /client/proc/toggle_civilians()
 	set name = "Toggle Civilians entry"
 	set category = "Server"
@@ -880,7 +893,7 @@ var/list/admin_verbs_snpc = list(
 	if(!check_rights(R_SERVER))
 		return
 
-	config.civilian_allowed = !(config.civilian_allowed )
+	config.civilian_allowed = !(config.civilian_allowed)
 	log_admin("[key_name(usr)] has [config.civilian_allowed  ? "enabled" : "disabled"] civilians.")
 	message_admins("[key_name_admin(usr)] has [config.civilian_allowed  ? "enabled" : "disabled"] civilians.")
 

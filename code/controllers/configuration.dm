@@ -54,6 +54,7 @@
 	var/hostedby = null
 	var/respawn = 0
 	var/civilian_allowed = 0
+	var/job_limit = 1
 	var/guest_jobban = 1
 	var/usewhitelist = 0
 	var/mods_are_mentors = 0
