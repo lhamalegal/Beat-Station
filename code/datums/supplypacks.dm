@@ -625,7 +625,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/conveyor_construct,
 					/obj/item/conveyor_construct,
 					/obj/item/conveyor_switch_construct,
-					/obj/item/weapon/paper/conveyor)
+					/obj/item/weapon/book/manual/conveyor)
 	cost = 15
 	containername = "conveyor assembly crate"
 
