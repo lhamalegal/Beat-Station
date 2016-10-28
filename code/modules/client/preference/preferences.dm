@@ -1999,8 +1999,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			character.change_gender(MALE)
 
 	// Forbidden Fruits
-	character.erp_controller.virgin = virgin
-	character.erp_controller.anal_virgin = anal_virgin
+	character.virgin = virgin
+	character.anal_virgin = anal_virgin
 
 	character.dna.ready_dna(character, flatten_SE = 0)
 	character.sync_organ_dna(assimilate=1)

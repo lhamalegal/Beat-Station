@@ -2,6 +2,7 @@
 	var/skipgloves = 0
 	var/skipsuitstorage = 0
 	var/skipjumpsuit = 0
+	var/skipunderwear = 0
 	var/skipshoes = 0
 	var/skipmask = 0
 	var/skipears = 0
@@ -14,6 +15,8 @@
 		skipsuitstorage = wear_suit.flags_inv & HIDESUITSTORAGE
 		skipjumpsuit = wear_suit.flags_inv & HIDEJUMPSUIT
 		skipshoes = wear_suit.flags_inv & HIDESHOES
+
+	skipunderwear = (skipjumpsuit || w_uniform)
 
 	if(head)
 		skipmask = head.flags_inv & HIDEMASK
@@ -83,6 +86,13 @@
 			msg += "<span class='warning'>[t_He] [t_is] wearing [bicon(w_uniform)] [w_uniform.gender==PLURAL?"some":"a"] [w_uniform.blood_color != "#030303" ? "blood-stained":"oil-stained"] [w_uniform.name][tie_msg]!</span>\n"
 		else
 			msg += "[t_He] [t_is] wearing [bicon(w_uniform)] \a [w_uniform][tie_msg].\n"
+
+	//underwear
+	if(!skipunderwear)
+		if(undershirt)
+			msg += "[t_He] [t_is] wearing [bicon(undershirt)] \a [undershirt].\n"
+		if(underpants)
+			msg += "[t_He] [t_is] wearing [bicon(underpants)] \a [underpants].\n"
 
 	//head
 	if(head && !(head.flags & ABSTRACT))
@@ -502,11 +512,11 @@
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
 		msg += "\n[t_He] is [pose]"
 
-	if(is_nude() && erp_controller.check_species(src))
+	if(is_nude() && species.genitals)
 		msg += "<span class='info'>\n"
-		if(gender == MALE)
-			msg += "<span class='erp'>Penis size: [erp_controller.penis_size] cm.</span>"
-		else if(gender == FEMALE && erp_controller.virgin)
+		if(has_penis())
+			msg += "<span class='erp'>Penis size: [penis_size] cm.</span>"
+		else if(has_vagina() && virgin)
 			msg += "<span class='erp'>[t_He] is a virgin!</span>"
 		msg += "\n*---------*</span>"
 

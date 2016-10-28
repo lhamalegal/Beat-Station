@@ -55,6 +55,8 @@
 				return
 		if("scream", "screams")
 			on_CD = handle_emote_CD(50) //longer cooldown
+		if("moan", "moans")
+			on_CD = handle_emote_CD(50) //longer cooldown
 		if("fart", "farts", "flip", "flips", "snap", "snaps")
 			on_CD = handle_emote_CD()				//proc located in code\modules\mob\emote.dm
 		//Everything else, including typos of the above emotes
@@ -559,14 +561,6 @@
 					message = "<B>[src]</B> makes a loud noise."
 					m_type = 2
 
-		if ("moan", "moans")
-			if(miming)
-				message = "<B>[src]</B> appears to moan!"
-				m_type = 1
-			else
-				message = "<B>[src]</B> moans!"
-				m_type = 2
-
 		if ("johnny")
 			var/M
 			if (param)
@@ -775,6 +769,21 @@
 						playsound(src.loc, "[species.female_scream_sound]", 80, 1, 0, pitch = get_age_pitch())
 					else
 						playsound(src.loc, "[species.male_scream_sound]", 80, 1, 0, pitch = get_age_pitch()) //default to male screams if no gender is present.
+
+				else
+					message = "<B>[src]</B> makes a very loud noise."
+					m_type = 2
+
+		if ("moan", "moans")
+			if (miming)
+				message = "<B>[src]</B> appears to moan!"
+				m_type = 1
+			else
+				if (!muzzled)
+					message = "<B>[src]</B> moans!"
+					m_type = 2
+					if(gender == FEMALE)
+						playsound(src.loc, "sound/forbidden/erp/moan_f[rand(1, 7)].ogg", 50, 1, 0, pitch = get_age_pitch())
 
 				else
 					message = "<B>[src]</B> makes a very loud noise."

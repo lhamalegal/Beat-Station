@@ -54,7 +54,6 @@ var/global/default_martial_art = new/datum/martial_art
 	var/obj/item/undershirt = null
 
 	// ERP Controller
-	var/datum/forbidden_controller/erp_controller
 	var/obj/item/weapon/storage/ass/ass_storage = new()
 
 	var/icon/stand_icon = null

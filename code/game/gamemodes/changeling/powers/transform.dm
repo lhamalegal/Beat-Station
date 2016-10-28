@@ -22,11 +22,11 @@
 	user.UpdateAppearance()
 	domutcheck(user, null)
 
-	if(chosen_dna in changeling.absorbed_forbidden && user.erp_controller)
-		var/datum/forbidden_controller/fc = changeling.absorbed_forbidden[chosen_dna]
-		user.erp_controller.penis_size = fc.penis_size
-		user.erp_controller.virgin = fc.virgin
-		user.erp_controller.anal_virgin = fc.anal_virgin
+	if(chosen_dna in changeling.absorbed_forbidden)
+		var/list/forbidden = changeling.absorbed_forbidden[chosen_dna]
+		user.penis_size = forbidden["penis_size"]
+		user.virgin = forbidden["virgin"]
+		user.anal_virgin = forbidden["anal_virgin"]
 
 	user.changeling_update_languages(changeling.absorbed_languages)
 
