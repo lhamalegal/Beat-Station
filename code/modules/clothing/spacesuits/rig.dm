@@ -296,7 +296,7 @@
 /obj/item/clothing/head/helmet/space/rig/syndi
 	name = "blood-red hardsuit helmet"
 	desc = "A dual-mode advanced helmet designed for work in special operations. It is in travel mode. Property of Gorlex Marauders."
-	icon_state = "hardsuit1-syndi"
+	icon_state = "rig1-syndi"
 	item_state = "syndie_helm"
 	item_color = "syndi"
 	armor = list(melee = 40, bullet = 50, laser = 30, energy = 15, bomb = 35, bio = 100, rad = 50)
@@ -337,7 +337,7 @@
 /obj/item/clothing/suit/space/rig/syndi
 	name = "blood-red hardsuit"
 	desc = "A dual-mode advanced hardsuit designed for work in special operations. It is in travel mode. Property of Gorlex Marauders."
-	icon_state = "hardsuit1-syndi"
+	icon_state = "rig1-syndi"
 	item_state = "syndie_hardsuit"
 	item_color = "syndi"
 	w_class = 3
@@ -591,7 +591,7 @@
 /obj/item/clothing/suit/space/rig/shielded/syndi
 	name = "blood-red hardsuit"
 	desc = "An advanced hardsuit with built in energy shielding."
-	icon_state = "hardsuit1-syndi"
+	icon_state = "rig1-syndi"
 	item_state = "syndie_hardsuit"
 	item_color = "syndi"
 	armor = list(melee = 40, bullet = 50, laser = 30, energy = 15, bomb = 35, bio = 100, rad = 50)
@@ -609,7 +609,7 @@
 /obj/item/clothing/head/helmet/space/rig/shielded/syndi
 	name = "blood-red hardsuit helmet"
 	desc = "An advanced hardsuit helmet with built in energy shielding."
-	icon_state = "hardsuit1-syndi"
+	icon_state = "rig1-syndi"
 	item_state = "syndie_helm"
 	item_color = "syndi"
 	armor = list(melee = 40, bullet = 50, laser = 30, energy = 15, bomb = 35, bio = 100, rad = 50)
