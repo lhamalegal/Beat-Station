@@ -700,7 +700,6 @@ var/global/datum/controller/occupations/job_master
 	var/datum/job/cmo = GetJob("Chief Medical Officer")
 	var/datum/job/hos = GetJob("Head of Security")
 	var/datum/job/rd = GetJob("Research Director")
-	var/datum/job/nt = GetJob("Nanotrasen Representative")
 
 	if(job != captain && job != hop && job != ce && job != cmo && job != hos && job != rd)
 		if(captain.current_positions < 1)
