@@ -78,7 +78,7 @@
 
 /obj/item/weapon/reagent_containers/hypospray/autoinjector/update_icon()
 	if(reagents.total_volume > 0)
-		icon_state = "[initial(icon_state)]1"
+		icon_state = initial(icon_state)
 	else
 		icon_state = "[initial(icon_state)]0"
 
@@ -92,13 +92,13 @@
 /obj/item/weapon/reagent_containers/hypospray/autoinjector/teporone //basilisks
 	name = "teporone autoinjector"
 	desc = "A rapid way to regulate your body's temperature in the event of a hardsuit malfunction."
-	icon_state = "lepopen1"
+	icon_state = "lepopen"
 	list_reagents = list("teporone" = 10)
 
 /obj/item/weapon/reagent_containers/hypospray/autoinjector/stimpack //goliath kiting
 	name = "stimpack autoinjector"
 	desc = "A rapid way to stimulate your body's adrenaline, allowing for freer movement in restrictive armor."
-	icon_state = "stimpen1"
+	icon_state = "stimpen"
 	volume = 20
 	amount_per_transfer_from_this = 20
 	list_reagents = list("methamphetamine" = 10, "coffee" = 10)
@@ -106,7 +106,7 @@
 /obj/item/weapon/reagent_containers/hypospray/autoinjector/stimulants
 	name = "Stimulants autoinjector"
 	desc = "Rapidly stimulates and regernates the body's organ system."
-	icon_state = "stimpen1"
+	icon_state = "stimpen"
 	amount_per_transfer_from_this = 50
 	possible_transfer_amounts = list(50)
 	volume = 50
