@@ -1160,7 +1160,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_or_collect(new /obj/item/device/radio/headset/ert(M), slot_l_ear)
 			M.equip_or_collect(new /obj/item/device/pda/(M), slot_wear_pda)
 			equip_special_id(M,get_centcom_access("VIP Guest"), "VIP Guest", /obj/item/weapon/card/id/centcom)
- 
+
 		if("nt navy officer")
 
 			M.equip_or_collect(new /obj/item/clothing/under/rank/centcom/officer(M), slot_w_uniform)
@@ -1194,7 +1194,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_or_collect(new /obj/item/clothing/glasses/hud/security/sunglasses(M), slot_glasses)
 			M.equip_or_collect(new /obj/item/weapon/gun/energy/pulse/pistol(M), slot_belt)
 			M.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(M), slot_back)
-			
+
 			M.equip_or_collect(new /obj/item/weapon/implanter/dust(M), slot_in_backpack)
 			M.equip_or_collect(new /obj/item/weapon/implanter/death_alarm(M), slot_in_backpack)
 			M.equip_or_collect(new /obj/item/weapon/storage/box/engineer(M), slot_in_backpack)
@@ -1442,19 +1442,25 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(alert("Are you sure? This will start up the engine. Should only be used during debug!",,"Yes","No") != "Yes")
 		return
 
-	for(var/obj/machinery/power/emitter/E in world)
+	for(var/obj/machinery/power/emitter/E in machines)
 		if(E.anchored)
 			E.active = 1
 
-	for(var/obj/machinery/field/generator/F in world)
-		if(F.anchored)
-			F.Varedit_start = 1
+	for(var/obj/machinery/field/generator/F in machines)
+		if(F.active == 0)
+			F.active = 1
+			F.state = 2
+			F.power = 250
+			F.anchored = 1
+			F.warming_up = 3
+			F.start_fields()
+			F.update_icon()
+
 	spawn(30)
-		for(var/obj/machinery/the_singularitygen/G in world)
+		for(var/obj/machinery/the_singularitygen/G in machines)
 			if(G.anchored)
 				var/obj/singularity/S = new /obj/singularity(get_turf(G), 50)
-				spawn(0)
-					qdel(G)
+//				qdel(G)
 				S.energy = 1750
 				S.current_size = 7
 				S.icon = 'icons/effects/224x224.dmi'
@@ -1468,7 +1474,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 				//S.dissipate_track = 0
 				//S.dissipate_strength = 10
 
-	for(var/obj/machinery/power/rad_collector/Rad in world)
+	for(var/obj/machinery/power/rad_collector/Rad in machines)
 		if(Rad.anchored)
 			if(!Rad.P)
 				var/obj/item/weapon/tank/plasma/Plasma = new/obj/item/weapon/tank/plasma(Rad)
