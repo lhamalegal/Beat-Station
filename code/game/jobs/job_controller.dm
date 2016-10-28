@@ -717,9 +717,9 @@ var/global/datum/controller/occupations/job_master
 
 	if(head)
 		// Security
-		var/datum/job/officer = job_master.GetJob("Security Officer")
 		var/datum/job/warden = job_master.GetJob("Warden")
-		if(job != officer || job != warden)
+		var/datum/job/officer = job_master.GetJob("Security Officer")
+		if(job != warden || job != officer)
 			if(warden.current_positions < 1)
 				return 0
 			if(officer.current_positions < 4)
@@ -748,14 +748,14 @@ var/global/datum/controller/occupations/job_master
 
 		// Cargo
 		var/datum/job/qt = job_master.GetJob("Quartermaster")
-		var/datum/job/ct = job_master.GetJob("Cargo Technician")
 		var/datum/job/miner = job_master.GetJob("Shaft Miner")
+		var/datum/job/ct = job_master.GetJob("Cargo Technician")
 		if(job != qt || job != ct  || job != miner)
 			if(qt.current_positions < 1)
 				return 0
-			if(ct.current_positions < 1)
-				return 0
 			if(miner.current_positions < 1)
+				return 0
+			if(ct.current_positions < 1)
 				return 0
 	else
 		return 0
