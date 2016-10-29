@@ -719,44 +719,39 @@ var/global/datum/controller/occupations/job_master
 		// Security
 		var/datum/job/warden = job_master.GetJob("Warden")
 		var/datum/job/officer = job_master.GetJob("Security Officer")
-		if(job != warden || job != officer)
-			if(warden.current_positions < 1)
-				return 0
-			if(officer.current_positions < 4)
-				return 0
+		if(warden.current_positions < 1 && job != warden)
+			return 0
+		if(officer.current_positions < 4 && job != officer)
+			return 0
 
 		// Engineering
 		var/datum/job/engineer = job_master.GetJob("Station Engineer")
-		if(job != engineer)
-			if(engineer.current_positions < 3)
-				return 0
+		if(engineer.current_positions < 3 && job != engineer)
+			return 0
 
 		// Medical
 		var/datum/job/doctor = job_master.GetJob("Medical Doctor")
 		var/datum/job/chemist = job_master.GetJob("Chemist")
-		if(job != doctor || job != chemist)
-			if(doctor.current_positions < 2)
-				return 0
-			if(chemist.current_positions < 1)
-				return 0
+		if(doctor.current_positions < 2 && job != doctor)
+			return 0
+		if(chemist.current_positions < 1 && job != chemist)
+			return 0
 
 		// Science
 		var/datum/job/scientist = job_master.GetJob("Scientist")
-		if(job != scientist)
-			if(scientist.current_positions < 1)
-				return 0
+		if(scientist.current_positions < 1 && job != scientist)
+			return 0
 
 		// Cargo
 		var/datum/job/qt = job_master.GetJob("Quartermaster")
 		var/datum/job/miner = job_master.GetJob("Shaft Miner")
 		var/datum/job/ct = job_master.GetJob("Cargo Technician")
-		if(job != qt || job != ct  || job != miner)
-			if(qt.current_positions < 1)
-				return 0
-			if(miner.current_positions < 1)
-				return 0
-			if(ct.current_positions < 1)
-				return 0
+		if(qt.current_positions < 1 && job != qt)
+			return 0
+		if(miner.current_positions < 1 && job != ct)
+			return 0
+		if(ct.current_positions < 1 && job != miner)
+			return 0
 	else
 		return 0
 
