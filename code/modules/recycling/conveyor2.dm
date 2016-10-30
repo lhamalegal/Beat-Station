@@ -202,7 +202,6 @@
 
 	var/list/conveyors		// the list of converyors that are controlled by this switch
 	anchored = 1
-	speed_process = 1
 
 /obj/machinery/conveyor_switch/New(newloc, newid)
 	..(newloc)
