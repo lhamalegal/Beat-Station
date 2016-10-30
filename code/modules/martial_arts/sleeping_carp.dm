@@ -9,6 +9,11 @@
 	deflection_chance = 100
 	help_verb = /mob/living/carbon/human/proc/sleeping_carp_help
 
+
+/datum/martial_art/the_sleeping_carp/admin
+	..()
+	name = "The Admin Carp"
+
 /datum/martial_art/the_sleeping_carp/proc/check_streak(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 	if(findtext(streak,WRIST_WRENCH_COMBO))
 		streak = ""
