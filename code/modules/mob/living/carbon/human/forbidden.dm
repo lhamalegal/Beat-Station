@@ -291,8 +291,8 @@
 			visible_message("<span class='erp'><b>[src]</b> twists in orgasm!</span>")
 		if(pleasure >= 30 && prob(12))
 			visible_message("<span class='erp'><b>[src]</b> [gender == FEMALE ? pick("moans in pleasure", "moans") : "moans"].</span>")
-			if(gender == FEMALE)
-				playsound(loc, "sound/forbidden/erp/moan_f[rand(1, 7)].ogg", 50, 1, 0, pitch = get_age_pitch())
+			//if(gender == FEMALE)
+			//	playsound(loc, "sound/forbidden/erp/moan_f[rand(1, 7)].ogg", 50, 1, 0, pitch = get_age_pitch())
 
 /mob/living/carbon/human/proc/cum(mob/living/carbon/human/P, hole = "floor")
 	if(stat == DEAD)
@@ -317,7 +317,7 @@
 		visible_message("<span class='cum'>[src] cums!</span>")
 		var/obj/effect/decal/cleanable/sex/cum = new /obj/effect/decal/cleanable/sex/femjuice(loc)
 		cum.add_blood_list(src)
-		playsound(loc, "sound/forbidden/erp/final_f[rand(1, 3)].ogg", 50, 1, 0, pitch = get_age_pitch())
+		//playsound(loc, "sound/forbidden/erp/final_f[rand(1, 3)].ogg", 50, 1, 0, pitch = get_age_pitch())
 	else
 		visible_message("<span class='cum'>[src] cums!</span>")
 
@@ -336,9 +336,10 @@
 		lastfucked = null
 		lfaction = null
 
-	if(world.time >= pleasure_CD && (!lastfucked && !lastreceived))
-		pleasure -= 3
-		pleasure_CD = world.time + 10
+		if(world.time >= pleasure_CD)
+			pleasure -= 3
+			pleasure_CD = world.time + 10
+
 
 	if(pleasure <= 0)
 		pleasure = 0

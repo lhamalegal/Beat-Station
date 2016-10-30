@@ -119,17 +119,17 @@
 		return -1
 	if(H.incapacitated())
 		return -1
+	if(H == P)
+		return -1
 	if(!H.check_has_mouth() || !P.has_penis())
 		return -1
-
 	if(isfuck(P.lfaction))
+		return 0
+	if(isvagina(P.lfaction))
 		return 0
 	if(!H.is_face_clean())
 		return 0
 	if(!P.is_nude())
-		return 0
-
-	if(P.lastfucked != H && istype(P.lfaction, /datum/forbidden/action/fuck))
 		return 0
 
 	return 1
@@ -177,7 +177,7 @@
 
 	if(!H.is_nude() || !P.is_nude())
 		return 0
-	if(H.lastreceived != P && istype(H.lraction, /datum/forbidden/action/vagina/mount))
+	if(H.lastreceived != P && isvagina(H.lraction))
 		return 0
 
 	return 1
@@ -198,8 +198,6 @@
 	if(P.anal_virgin && !begins)
 		P.anal_virgin = 0
 	P.moan()
-
-	P.staminaloss += H.pleasure * 0.2
 
 	..()
 
@@ -228,9 +226,9 @@
 
 	if(P.lastreceived != H && istype(P.lraction, type))
 		return 0
-	if(H.lastreceived != P && istype(H.lraction, /datum/forbidden/action/vagina/mount))
+	if(H.lastreceived != P && isvagina(H.lraction))
 		return 0
-	if(P.lastfucked != H && istype(P.lfaction, /datum/forbidden/action/vagina/mount))
+	if(P.lastfucked != H && isvagina(P.lfaction))
 		return 0
 	if(!H.is_nude() || !P.is_nude())
 		return 0
@@ -255,8 +253,6 @@
 		new /obj/effect/decal/cleanable/blood(P.loc)
 		P.virgin = 0
 	P.moan()
-
-	P.staminaloss += H.pleasure * 0.2
 
 	..()
 
@@ -287,9 +283,9 @@
 
 	if(!P.is_face_clean() || !H.is_nude())
 		return 0
-	if(H.lastreceived != P && istype(H.lraction, /datum/forbidden/action/vagina/mount))
+	if(H.lastreceived != P && isvagina(H.lraction))
 		return 0
-	if(P.lastfucked != H && istype(P.lfaction, /datum/forbidden/action/oral))
+	if(P.lastfucked != H && isoral(P.lfaction))
 		return 0
 
 	return 1
@@ -330,7 +326,7 @@
 		return -1
 	if(P.lastreceived != H && istype(P.lraction, type))
 		return -1
-	if(istype(P.lfaction, /datum/forbidden/action/fuck/vaginal))
+	if(P.lastfucked != H && isfuck(P.lfaction))
 		return -1
 	if(!P.has_penis() || !H.has_vagina())
 		return -1
@@ -340,11 +336,6 @@
 	if(!P.lying)
 		return 0
 	if(!H.is_nude() || !P.is_nude())
-		return 0
-
-	if(P.lastreceived != H && istype(P.lraction, /datum/forbidden/action/vagina/mount))
-		return 0
-	if(P.lastfucked != H && istype(P.lfaction, /datum/forbidden/action/fuck))
 		return 0
 
 	return 1
@@ -364,8 +355,6 @@
 		new /obj/effect/decal/cleanable/blood(P.loc)
 		H.virgin = 0
 	H.moan()
-
-	H.staminaloss += P.pleasure * 0.2
 
 	..()
 
@@ -476,7 +465,9 @@
 
 	if(!P.is_nude())
 		return 0
-	if(P.lastfucked != H && istype(P.lfaction, /datum/forbidden/action/fuck))
+	if(isfuck(P.lfaction))
+		return 0
+	if(isvagina(P.lraction))
 		return 0
 
 	return 1

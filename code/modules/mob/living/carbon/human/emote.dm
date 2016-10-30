@@ -782,8 +782,8 @@
 				if (!muzzled)
 					message = "<B>[src]</B> moans!"
 					m_type = 2
-					if(gender == FEMALE)
-						playsound(src.loc, "sound/forbidden/erp/moan_f[rand(1, 7)].ogg", 50, 1, 0, pitch = get_age_pitch())
+					//if(gender == FEMALE)
+					//	playsound(src.loc, "sound/forbidden/erp/moan_f[rand(1, 7)].ogg", 50, 1, 0, pitch = get_age_pitch())
 
 				else
 					message = "<B>[src]</B> makes a very loud noise."
