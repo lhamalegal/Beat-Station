@@ -154,7 +154,7 @@
 
 /obj/item/weapon/sleeping_carp_scroll/admin
 	name = "mysterious scroll"
-	desc = "A scroll filled with altered, but strange markins. It seems to be the altered drawings of some sort of martial art."
+	desc = "A scroll filled with altered, but strange markings. It seems to be the altered drawings of some sort of martial art."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll2"
 
