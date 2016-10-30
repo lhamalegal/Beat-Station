@@ -259,3 +259,6 @@
 	origin_tech = "combat=4;materials=3;syndicate=8"
 	icon_state = "fnfal"
 	mag_type = /obj/item/ammo_box/magazine/fnfal
+
+/obj/item/weapon/gun/projectile/automatic/shotgun/bulldog/update_icon()
+	icon_state = "fnfal"
