@@ -716,8 +716,18 @@ var/global/datum/controller/occupations/job_master
 		head = 0
 
 
-	if((job != captain && job != hop && job != ce && job != cmo && job != hos && job != rd) && !head)
-		return 0
+	if(job != captain && job != hop && job != ce && job != cmo && job != hos && job != rd)
+		if(!head)
+			if(rank == "Nanotrasen Representative")
+				return 1
+			if(rank == "Blueshield")
+				return 1
+			return 0
+		else
+			if(rank == "AI")
+				return 1
+			if(rank == "Cyborg")
+				return 1
 	else
 		return 1
 
