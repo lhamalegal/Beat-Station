@@ -691,6 +691,8 @@ var/global/datum/controller/occupations/job_master
 /datum/controller/occupations/proc/JobLimitConditions(rank)
 	var/datum/job/job = GetJob(rank)
 
+	to_chat(world, "Trying to add job [rank].")
+
 	var/head = 1
 
 	// Command
@@ -704,21 +706,29 @@ var/global/datum/controller/occupations/job_master
 
 	if(captain.current_positions < 1)
 		head = 0
+		to_chat(world, "[rank] - No Captain")
 	if(hop.current_positions < 1)
 		head = 0
+		to_chat(world, "[rank] - No HoP")
 	if(ce.current_positions < 1)
 		head = 0
+		to_chat(world, "[rank] - No CE")
 	if(cmo.current_positions < 1)
 		head = 0
+		to_chat(world, "[rank] - No CMO")
 	if(hos.current_positions < 1)
 		head = 0
+		to_chat(world, "[rank] - No HOS")
 	if(rd.current_positions < 1)
 		head = 0
+		to_chat(world, "[rank] - No RD")
 
 
 	if((job != captain && job != hop && job != ce && job != cmo && job != hos && job != rd) && !head)
+		to_chat(world, "[rank] - No heads, returning 0")
 		return 0
 	else
+		to_chat(world, "[rank] - Head job detected, returning 1")
 		return 1
 
 
@@ -726,26 +736,32 @@ var/global/datum/controller/occupations/job_master
 	var/datum/job/warden = job_master.GetJob("Warden")
 	var/datum/job/officer = job_master.GetJob("Security Officer")
 	if(warden.current_positions < 1 && job != warden)
+		to_chat(world, "[rank] - No Warden")
 		return 0
 	if(officer.current_positions < 4 && job != officer)
+		to_chat(world, "[rank] - No Officer")
 		return 0
 
 	// Engineering
 	var/datum/job/engineer = job_master.GetJob("Station Engineer")
 	if(engineer.current_positions < 3 && job != engineer)
+		to_chat(world, "[rank] - No Engineer")
 		return 0
 
 	// Medical
 	var/datum/job/doctor = job_master.GetJob("Medical Doctor")
 	var/datum/job/chemist = job_master.GetJob("Chemist")
 	if(doctor.current_positions < 2 && job != doctor)
+		to_chat(world, "[rank] - No Doctor")
 		return 0
 	if(chemist.current_positions < 1 && job != chemist)
+		to_chat(world, "[rank] - No Chemist")
 		return 0
 
 	// Science
 	var/datum/job/scientist = job_master.GetJob("Scientist")
 	if(scientist.current_positions < 1 && job != scientist)
+		to_chat(world, "[rank] - No Scientist")
 		return 0
 
 	// Cargo
@@ -753,11 +769,15 @@ var/global/datum/controller/occupations/job_master
 	var/datum/job/miner = job_master.GetJob("Shaft Miner")
 	var/datum/job/ct = job_master.GetJob("Cargo Technician")
 	if(qt.current_positions < 1 && job != qt)
+		to_chat(world, "[rank] - No QT")
 		return 0
 	if(miner.current_positions < 1 && job != ct)
+		to_chat(world, "[rank] - No Cargo Tech")
 		return 0
 	if(ct.current_positions < 1 && job != miner)
+		to_chat(world, "[rank] - No Miner")
 		return 0
 
 
+	to_chat(world, "[rank] - All check, returning 1")
 	return 1
