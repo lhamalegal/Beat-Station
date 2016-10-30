@@ -258,6 +258,7 @@
 	actions_types = list(/datum/action/item_action/toggle_firemode)
 	origin_tech = "combat=4;materials=3;syndicate=8"
 	icon_state = "fnfal"
+	item_state = "fnfal"
 	mag_type = /obj/item/ammo_box/magazine/fnfal
 
 /obj/item/weapon/gun/projectile/automatic/shotgun/bulldog/update_icon()
