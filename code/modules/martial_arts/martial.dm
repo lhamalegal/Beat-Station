@@ -152,6 +152,12 @@
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll2"
 
+/obj/item/weapon/sleeping_carp_scroll/admin
+	name = "mysterious scroll"
+	desc = "A scroll filled with strange, albeit different, markings. It seems to be the altered drawings of some sort of martial art."
+	icon = 'icons/obj/wizard.dmi'
+	icon_state = "scroll2"
+
 /obj/item/weapon/sleeping_carp_scroll/attack_self(mob/living/carbon/human/user as mob)
 	if(!istype(user) || !user)
 		return
@@ -162,6 +168,22 @@
 
 
 	var/datum/martial_art/the_sleeping_carp/theSleepingCarp = new(null)
+	theSleepingCarp.teach(user)
+	user.drop_item()
+	visible_message("<span class='warning'>[src] lights up in fire and quickly burns to ash.</span>")
+	new /obj/effect/decal/cleanable/ash(get_turf(src))
+	qdel(src)
+
+/obj/item/weapon/sleeping_carp_scroll/admin/attack_self(mob/living/carbon/human/user as mob)
+	if(!istype(user) || !user)
+		return
+	to_chat(user, "<span class='sciradio'>You have learned the ancient martial art of the Sleeping Carp! \
+					Your hand-to-hand combat has become much more effective, and you are now able to deflect any projectiles directed toward you. \
+					You can learn more about your newfound art by using the Recall Teachings verb in the Sleeping Carp tab.\
+					This however, doesn't affect your shooting abilities. It seems that you used a altered scroll.</span>")
+
+
+	var/datum/martial_art/the_sleeping_carp/admin/theSleepingCarp = new(null)
 	theSleepingCarp.teach(user)
 	user.drop_item()
 	visible_message("<span class='warning'>[src] lights up in fire and quickly burns to ash.</span>")
