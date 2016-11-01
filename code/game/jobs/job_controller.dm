@@ -729,9 +729,9 @@ var/global/datum/controller/occupations/job_master
 
 
 	if(rank == "AI")
-				return 1
-			if(rank == "Cyborg")
-				return 1
+		return 1
+	if(rank == "Cyborg")
+		return 1
 
 
 	// Security
@@ -746,7 +746,8 @@ var/global/datum/controller/occupations/job_master
 	if(job != officer)
 		if(officer.current_positions < 2)
 			return 0
-	else return 1
+	else
+		return 1
 
 
 
