@@ -26,6 +26,7 @@
 	item_state = "r_suit"
 	item_color = "wardenf"
 	flags_size = null
+	flags = SHOWUNDERWEAR
 
 
 /obj/item/clothing/under/rank/security
@@ -45,6 +46,7 @@
 	item_state = "r_suit"
 	item_color = "secredf"
 	flags_size = null
+	flags = SHOWUNDERWEAR
 
 
 /obj/item/clothing/under/rank/dispatch
@@ -111,6 +113,7 @@
 	item_state = "r_suit"
 	item_color = "hosredf"
 	flags_size = null
+	flags = SHOWUNDERWEAR
 
 
 /obj/item/clothing/under/rank/head_of_security/corp

@@ -26,6 +26,7 @@
 	item_color = "sciencewhitef"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	flags_size = null
+	flags = SHOWUNDERWEAR
 
 
 /obj/item/clothing/under/rank/chemist
@@ -44,6 +45,7 @@
 	item_color = "chemistrywhitef"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	flags_size = null
+	flags = SHOWUNDERWEAR
 
 
 /*
@@ -66,6 +68,7 @@
 	item_color = "cmof"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	flags_size = null
+	flags = SHOWUNDERWEAR
 
 
 /obj/item/clothing/under/rank/geneticist
@@ -84,6 +87,7 @@
 	item_color = "geneticswhitef"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	flags_size = null
+	flags = SHOWUNDERWEAR
 
 
 /obj/item/clothing/under/rank/virologist
@@ -102,6 +106,7 @@
 	item_color = "virologywhitef"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	flags_size = null
+	flags = SHOWUNDERWEAR
 
 
 /obj/item/clothing/under/rank/nursesuit
@@ -150,6 +155,7 @@
 	item_color = "medicalf"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	flags_size = null
+	flags = SHOWUNDERWEAR
 
 
 /obj/item/clothing/under/rank/medical/blue

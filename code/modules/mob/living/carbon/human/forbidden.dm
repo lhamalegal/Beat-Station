@@ -192,9 +192,9 @@
 /mob/living/carbon/human/proc/is_nude()
 	if(wear_suit && wear_suit.flags_inv & HIDEJUMPSUIT)
 		return 0
-	if(istype(w_uniform, /obj/item/clothing/under))
+	if(w_uniform && !(w_uniform.flags & SHOWUNDERWEAR))
 		return 0
-	if(istype(underpants, /obj/item/clothing/underwear/underpants))
+	if(underpants)
 		return 0
 
 	return 1

@@ -170,7 +170,7 @@
 		return -1
 	if(get_dist(H, P) >= 1)
 		return -1
-	if(P.lastreceived != H && istype(P.lraction, type))
+	if(H.lastreceived != P && istype(P.lraction, type))
 		return -1
 	if(!P.species.anus || !H.has_penis())
 		return -1
