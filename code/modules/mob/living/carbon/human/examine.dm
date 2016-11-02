@@ -516,9 +516,10 @@
 		msg += "<span class='info'>\n"
 		if(has_penis())
 			msg += "<span class='erp'>Penis size: [penis_size] cm.</span>"
+			msg += "\n*---------*</span>"
 		else if(has_vagina() && virgin)
 			msg += "<span class='erp'>[t_He] is a virgin!</span>"
-		msg += "\n*---------*</span>"
+			msg += "\n*---------*</span>"
 
 	to_chat(user, msg)
 
