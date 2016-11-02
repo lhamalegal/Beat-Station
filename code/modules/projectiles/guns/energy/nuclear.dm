@@ -57,7 +57,7 @@
 
 /obj/item/weapon/gun/energy/gun/hos/centcomm
 	name = "\improper X-02 MultiPhase Energy Gun"
-	desc = "This is a rare and extremely expensive upgrade of the X-01 energy gun. This gun has several unique firemodes, and even recharges over time. Only NT officers are allowed to posses it."
+	desc = "This is a rare and extremely expensive upgrade of the X-01 energy gun. This gun has several unique firemodes, and even recharges over time. Only NT officers are allowed to possess it."
 	icon_state = "hoslaser"
 	force = 10
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/laser/hos, /obj/item/ammo_casing/energy/disabler)
