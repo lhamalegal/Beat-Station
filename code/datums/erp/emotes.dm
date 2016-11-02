@@ -121,3 +121,75 @@
 
 /datum/forbidden/emote/lick/doAction(mob/living/carbon/human/H, mob/living/carbon/human/P)
 	..()
+
+// French Kiss
+/datum/forbidden/emote/frenchkiss
+	name = "french-kiss"
+	HPleasure = 1	// How much pleasure who is giving the action receive
+	PPleasure = 1	// How much pleasure who is receiving the action receive
+
+	HHole = "floor"
+	PHole = "floor"
+
+/datum/forbidden/emote/frenchkiss/actionButton(mob/living/carbon/human/H, mob/living/carbon/human/P)
+	return "Give [P.gender == FEMALE ? "her" : "him"] a french kiss"
+
+/datum/forbidden/emote/frenchkiss/conditions(mob/living/carbon/human/H, mob/living/carbon/human/P)
+	if(get_dist(H, P) > 1)
+		return -1
+	if(H.incapacitated())
+		return -1
+	if(P == H)
+		return -1
+	if(!H.check_has_mouth() || !P.check_has_mouth())
+		return -1
+
+	if(!H.is_face_clean() || !P.is_face_clean())
+		return 0
+
+	return 1
+
+/datum/forbidden/emote/frenchkiss/showText(mob/living/carbon/human/H, mob/living/carbon/human/P)
+	H.visible_message("<span class='erp'><b>[H]</b> gives <b>[P]</b> a french kiss.</span>")
+
+/datum/forbidden/emote/frenchkiss/logAction(mob/living/carbon/human/H, mob/living/carbon/human/P)
+	..(H, P, "french-kissed")
+
+/datum/forbidden/emote/frenchkiss/doAction(mob/living/carbon/human/H, mob/living/carbon/human/P)
+	..()
+
+// Cheek Kiss
+/datum/forbidden/emote/cheekkiss
+	name = "cheek-kiss"
+	HPleasure = 1	// How much pleasure who is giving the action receive
+	PPleasure = 1	// How much pleasure who is receiving the action receive
+
+	HHole = "floor"
+	PHole = "floor"
+
+/datum/forbidden/emote/cheekkiss/actionButton(mob/living/carbon/human/H, mob/living/carbon/human/P)
+	return "Give [P.gender == FEMALE ? "her" : "him"] a cheek kiss"
+
+/datum/forbidden/emote/cheekkiss/conditions(mob/living/carbon/human/H, mob/living/carbon/human/P)
+	if(get_dist(H, P) > 1)
+		return -1
+	if(H.incapacitated())
+		return -1
+	if(P == H)
+		return -1
+	if(!H.check_has_mouth() || !P.check_has_mouth())
+		return -1
+
+	if(!H.is_face_clean() || !P.is_face_clean())
+		return 0
+
+	return 1
+
+/datum/forbidden/emote/cheekkiss/showText(mob/living/carbon/human/H, mob/living/carbon/human/P)
+	H.visible_message("<span class='erp'><b>[H]</b> gives <b>[P]</b> a cheek kiss.</span>")
+
+/datum/forbidden/emote/cheekkiss/logAction(mob/living/carbon/human/H, mob/living/carbon/human/P)
+	..(H, P, "cheek-kissed")
+
+/datum/forbidden/emote/cheekkiss/doAction(mob/living/carbon/human/H, mob/living/carbon/human/P)
+	..()
