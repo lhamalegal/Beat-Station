@@ -513,11 +513,12 @@
 		msg += "\n[t_He] is [pose]"
 
 	if(is_nude() && species.genitals)
-		msg += "<span class='info'>\n"
 		if(has_penis())
+			msg += "<span class='info'>\n"
 			msg += "<span class='erp'>Penis size: [penis_size] cm.</span>"
 			msg += "\n*---------*</span>"
 		else if(has_vagina() && virgin)
+			msg += "<span class='info'>\n"
 			msg += "<span class='erp'>[t_He] is a virgin!</span>"
 			msg += "\n*---------*</span>"
 
