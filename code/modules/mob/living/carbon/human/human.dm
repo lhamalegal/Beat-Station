@@ -1108,7 +1108,14 @@
 
 	if(href_list["pull_underwear_aside"])
 		var/obj/item/clothing/underwear/underpants/up = underpants
-		up.adjust()
+		if(istype(up))
+			to_chat(src, "<span class='warning'>[usr] is trying to [up.adjusted ? "pull [up] aside" : "put [up] back in place"]!</span>")
+			if(do_after(usr, 30, target=src))
+				up.adjust()
+				if(up.adjusted)
+					src.visible_message("<span class='notice'>[usr] pulls [src]'s [up] aside.</span>")
+				else
+					src.visible_message("<span class='notice'>[usr] puts [src]'s [up] back in place.</span>")
 
 
 	/*              ERP                 */
