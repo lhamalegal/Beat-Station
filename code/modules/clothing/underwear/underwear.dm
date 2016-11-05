@@ -17,17 +17,17 @@
 	set category = "Object"
 	set src in view(1)
 
-	var/mob/living/carbon/L = usr
+	var/mob/living/carbon/C = usr
 
-	if(!istype(L) || L.incapacitated() || L.lying)
+	if(!istype(C) || C.incapacitated() || C.lying)
 		to_chat(usr, "<span class='warning'>You can't do that.</span>")
 		return
 
 	if(adjustable)
 		adjusted = !adjusted
 		if(adjusted)
-			to_chat(L, "<span class='notice'>You pull [src] aside.</span>")
+			to_chat(C, "<span class='notice'>You pull [src] aside.</span>")
 		else
-			to_chat(L, "<span class='notice'>You put [src] back in place.</span>")
+			to_chat(C, "<span class='notice'>You put [src] back in place.</span>")
 	else
-		to_chat(L, "<span class='warning'>You can't ajust this underwear.</span>")
+		to_chat(C, "<span class='warning'>You can't ajust this underwear.</span>")
