@@ -17,7 +17,7 @@
 	set category = "Object"
 	set src in view(1)
 
-	var/mob/carbon/living/L = usr
+	var/mob/living/carbon/L = usr
 
 	if(!istype(L) || L.incapacitated() || L.lying)
 		to_chat(usr, "<span class='warning'>You can't do that.</span>")
