@@ -493,6 +493,7 @@
 	item_state = "meido"
 	item_color = "meido"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+	flags = SHOWUNDERWEAR
 
 /obj/item/clothing/under/janimaid
 	name = "maid uniform"
@@ -501,6 +502,7 @@
 	item_state = "janimaid"
 	item_color = "janimaid"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+	flags = SHOWUNDERWEAR
 
 /obj/item/clothing/under/flappers
 	name = "flappers"
