@@ -16,7 +16,7 @@
 		skipjumpsuit = wear_suit.flags_inv & HIDEJUMPSUIT
 		skipshoes = wear_suit.flags_inv & HIDESHOES
 
-	skipunderwear = (skipjumpsuit || w_uniform)
+	skipunderwear = ((skipjumpsuit) || !(w_uniform.flags & SHOWUNDERWEAR))
 
 	if(head)
 		skipmask = head.flags_inv & HIDEMASK

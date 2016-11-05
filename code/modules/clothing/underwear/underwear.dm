@@ -7,3 +7,26 @@
 
 	var/standing_icon
 	var/use_gender
+
+/obj/item/clothing/underwear/underpants
+	var/adjustable = 0
+	var/adjusted = 0
+
+/obj/item/clothing/underwear/underpants/verb/adjust()
+	set name = "Adjust Underwear"
+	set category = "Object"
+	set src in view(1)
+
+	if(usr.stat || usr.restrained() || usr.lying || !iscarbon(usr))
+		to_chat(usr, "<span class='warning'>You can't do that.</span>")
+		return
+
+	if(adjustable)
+		adjusted = !adjusted
+
+		if(adjusted)
+			to_chat(usr, "<span class='notice'>You pull [src] aside.</span>")
+		else
+			to_chat(usr, "<span class='notice'>You put [src] back in place.</span>")
+	else
+		to_chat(usr, "<span class='warning'>You can't ajust this underwear.</span>")

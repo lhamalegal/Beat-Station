@@ -195,7 +195,9 @@
 	if(w_uniform && !(w_uniform.flags & SHOWUNDERWEAR))
 		return 0
 	if(underpants)
-		return 0
+		var/obj/item/clothing/underwear/underpants/up = underpants
+		if(!up.adjusted)
+			return 0
 
 	return 1
 

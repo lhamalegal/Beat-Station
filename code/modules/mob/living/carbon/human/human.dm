@@ -594,7 +594,13 @@
 			dat += "<tr><td><font color=grey><B>Underpants:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
 			dat += "<tr><td><font color=grey><B>Undershirt:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
 		else
-			dat += "<tr><td><B>Underpants:</B></td><td><A href='?src=\ref[src];item=[slot_underpants]'>[underpants ? underpants : "<font color=grey>Empty</font>"]</A></td></tr>"
+			dat += "<tr><td><B>Underpants:</B></td><td><A href='?src=\ref[src];item=[slot_underpants]'>[underpants ? underpants : "<font color=grey>Empty</font>"]</A>"
+			if(underpants)
+				var/obj/item/clothing/underwear/underpants/up = underpants
+				if(up.adjustable)
+					dat += "&nbsp;<A href='?src=\ref[src];pull_underwear_aside=1'>[up.adjusted ?  "Put back in place" : "Pull aside"]</A>"
+			dat += "</td></tr>"
+
 			dat += "<tr><td><B>Undershirt:</B></td><td><A href='?src=\ref[src];item=[slot_undershirt]'>[undershirt ? undershirt : "<font color=grey>Empty</font>"]</A></td></tr>"
 
 		if(slot_w_uniform in obscured)
@@ -1094,11 +1100,16 @@
 
 	if (href_list["lookitem"])
 		var/obj/item/I = locate(href_list["lookitem"])
-		src.examinate(I)
+		examinate(I)
 
 	if (href_list["lookmob"])
 		var/mob/M = locate(href_list["lookmob"])
-		src.examinate(M)
+		examinate(M)
+
+	if(href_list["pull_underwear_aside"])
+		var/obj/item/clothing/underwear/underpants/up = underpants
+		up.adjust()
+
 
 	/*              ERP                 */
 	if(ishuman(usr))

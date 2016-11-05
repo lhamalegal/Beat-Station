@@ -1,3 +1,7 @@
+/obj/item/clothing/underwear/underpants/attack_self(mob/user)
+	if(adjustable)
+		adjust()
+
 /obj/item/clothing/underwear/underpants/New()
 	icon_state = "uw_[standing_icon]_s"
 
@@ -86,24 +90,28 @@
 	standing_icon = "female_red"
 	use_gender = FEMALE
 	item_state = "r_shoes"
+	adjustable = 1
 
 /obj/item/clothing/underwear/underpants/female_green
 	name = "Ladies Green"
 	standing_icon = "female_green"
 	use_gender = FEMALE
 	item_state = "bgloves"
+	adjustable = 1
 
 /obj/item/clothing/underwear/underpants/female_white
 	name = "Ladies White"
 	standing_icon = "female_white"
 	use_gender = FEMALE
 	item_state = "lgloves"
+	adjustable = 1
 
 /obj/item/clothing/underwear/underpants/female_whiter
 	name = "Ladies Whiter"
 	standing_icon = "female_whiter"
 	use_gender = FEMALE
 	item_state = "lgloves"
+	adjustable = 1
 
 /obj/item/clothing/underwear/underpants/female_whitealt
 	name = "Ladies White Alt"
@@ -122,6 +130,7 @@
 	standing_icon = "female_blue"
 	use_gender = FEMALE
 	item_state = "bgloves"
+	adjustable = 1
 
 /obj/item/clothing/underwear/underpants/female_babyblue
 	name = "Ladies Baby Blue"
@@ -134,11 +143,13 @@
 	standing_icon = "female_black"
 	use_gender = FEMALE
 	item_state = "bgloves"
+	adjustable = 1
 
 /obj/item/clothing/underwear/underpants/female_blacker
 	name = "Ladies Blacker"
 	standing_icon = "female_blacker"
 	use_gender = FEMALE
+	adjustable = 1
 
 /obj/item/clothing/underwear/underpants/female_blackalt
 	name = "Ladies Black Alt"
@@ -151,12 +162,14 @@
 	standing_icon = "female_kinky"
 	use_gender = FEMALE
 	item_state = "r_shoes"
+	adjustable = 1
 
 /obj/item/clothing/underwear/underpants/female_babydoll
 	name = "Ladies Full Grey"
 	standing_icon = "female_babydoll"
 	use_gender = FEMALE
 	item_state = "bgloves"
+	adjustable = 1
 
 /obj/item/clothing/underwear/underpants/female_pink
 	name = "Ladies Pink"
@@ -169,3 +182,4 @@
 	standing_icon = "female_thong"
 	use_gender = FEMALE
 	item_state = "r_shoes"
+	adjustable = 1
