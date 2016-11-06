@@ -27,7 +27,7 @@
 
 /mob/living/carbon/human/MouseDrop_T(mob/living/carbon/human/target, mob/living/carbon/human/user)
 	// User drag himself to [src]
-	if(istype(target))
+	if(istype(target) && istype(user))
 		if(user == target && get_dist(user, src) <= 1)
 			ui_interact(user)
 	return ..()
