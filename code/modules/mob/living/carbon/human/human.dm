@@ -589,8 +589,7 @@
 		else
 			dat += "<tr><td><B>Gloves:</B></td><td><A href='?src=\ref[src];item=[slot_gloves]'>[(gloves && !(gloves.flags&ABSTRACT))		? gloves	: "<font color=grey>Empty</font>"]</A></td></tr>"
 
-		// Underwear
-		if(w_uniform != null || (slot_w_uniform in obscured))
+		if((w_uniform && !(w_uniform.flags & SHOWUNDERWEAR)) || slot_w_uniform in obscured)
 			dat += "<tr><td><font color=grey><B>Underpants:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
 			dat += "<tr><td><font color=grey><B>Undershirt:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
 		else
