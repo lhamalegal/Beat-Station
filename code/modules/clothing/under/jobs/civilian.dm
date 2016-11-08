@@ -31,6 +31,7 @@
 	item_color = "qmf"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	flags_size = null
+	flags = SHOWUNDERWEAR
 
 
 /obj/item/clothing/under/rank/cargotech
@@ -47,6 +48,7 @@
 	icon_state = "cargof"
 	item_color = "cargof"
 	flags_size = null
+	flags = SHOWUNDERWEAR
 
 
 /obj/item/clothing/under/rank/chaplain

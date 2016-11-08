@@ -27,7 +27,7 @@
 
 /mob/living/carbon/human/MouseDrop_T(mob/living/carbon/human/target, mob/living/carbon/human/user)
 	// User drag himself to [src]
-	if(istype(target))
+	if(istype(target) && istype(user))
 		if(user == target && get_dist(user, src) <= 1)
 			ui_interact(user)
 	return ..()
@@ -192,10 +192,12 @@
 /mob/living/carbon/human/proc/is_nude()
 	if(wear_suit && wear_suit.flags_inv & HIDEJUMPSUIT)
 		return 0
-	if(istype(w_uniform, /obj/item/clothing/under))
+	if(w_uniform && !(w_uniform.flags & SHOWUNDERWEAR))
 		return 0
-	if(istype(underpants, /obj/item/clothing/underwear/underpants))
-		return 0
+	if(underpants)
+		var/obj/item/clothing/underwear/underpants/up = underpants
+		if(!up.adjusted)
+			return 0
 
 	return 1
 
@@ -264,6 +266,9 @@
 	P.remove_CD = world.time + 100
 	remove_CD = world.time + 100
 
+	pleasure_CD = 150
+	P.pleasure_CD = 150
+
 	click_CD = world.time + 10
 
 	face_atom(P)
@@ -330,20 +335,20 @@
 
 /mob/living/carbon/human/proc/handle_lust()
 	if(world.time >= remove_CD)
-		if(lastfucked && lastfucked.lastreceived == src)
-			lastfucked.lastreceived = null
-			lastfucked.lraction = null
-		lastfucked = null
-		lfaction = null
+		if(lastfucked)
+			if(lastfucked.lastreceived == src)
+				lastfucked.lastreceived = null
+				lastfucked.lraction = null
+			lastfucked = null
+			lfaction = null
 
 		if(world.time >= pleasure_CD)
 			pleasure -= 3
-			pleasure_CD = world.time + 10
+			pleasure_CD = world.time + 150
 
 
 	if(pleasure <= 0)
 		pleasure = 0
-		remove_CD = 0
 
 /mob/living/carbon/human/proc/click_time()
 	if(world.time >= click_CD)

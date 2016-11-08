@@ -15,6 +15,7 @@
 	item_color = "chieff"
 	flags_size = null
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	flags = SHOWUNDERWEAR
 
 
 /obj/item/clothing/under/rank/atmospheric_technician
@@ -32,6 +33,7 @@
 	item_color = "atmosf"
 	flags_size = null
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	flags = SHOWUNDERWEAR
 
 
 /obj/item/clothing/under/rank/engineer
@@ -50,6 +52,7 @@
 	item_color = "enginef"
 	flags_size = null
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	flags = SHOWUNDERWEAR
 
 
 /obj/item/clothing/under/rank/roboticist
@@ -66,6 +69,7 @@
 	icon_state = "roboticsf"
 	item_color = "roboticsf"
 	flags_size = null
+	flags = SHOWUNDERWEAR
 
 
 /obj/item/clothing/under/rank/mechanic

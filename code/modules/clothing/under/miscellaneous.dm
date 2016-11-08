@@ -267,6 +267,7 @@
 	icon_state = "blackskirt"
 	item_color = "blackskirt"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	flags = SHOWUNDERWEAR
 
 /obj/item/clothing/under/schoolgirl
 	name = "schoolgirl uniform"
@@ -275,6 +276,7 @@
 	item_state = "schoolgirl"
 	item_color = "schoolgirl"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	flags = SHOWUNDERWEAR
 
 /obj/item/clothing/under/overalls
 	name = "laborer's overalls"
@@ -402,18 +404,21 @@
 	desc = "A preppy blue skirt with a white blouse."
 	icon_state = "plaid_blue"
 	item_color = "plaid_blue"
+	flags = SHOWUNDERWEAR
 
 /obj/item/clothing/under/dress/plaid_red
 	name = "red plaid skirt"
 	desc = "A preppy red skirt with a white blouse."
 	icon_state = "plaid_red"
 	item_color = "plaid_red"
+	flags = SHOWUNDERWEAR
 
 /obj/item/clothing/under/dress/plaid_purple
 	name = "blue purple skirt"
 	desc = "A preppy purple skirt with a white blouse."
 	icon_state = "plaid_purple"
 	item_color = "plaid_purple"
+	flags = SHOWUNDERWEAR
 
 //wedding stuff
 
@@ -423,6 +428,7 @@
 	icon_state = "bride_orange"
 	item_color = "bride_orange"
 	flags_inv = HIDESHOES
+	flags = SHOWUNDERWEAR
 
 /obj/item/clothing/under/wedding/bride_purple
 	name = "purple wedding dress"
@@ -430,6 +436,7 @@
 	icon_state = "bride_purple"
 	item_color = "bride_purple"
 	flags_inv = HIDESHOES
+	flags = SHOWUNDERWEAR
 
 /obj/item/clothing/under/wedding/bride_blue
 	name = "blue wedding dress"
@@ -437,6 +444,7 @@
 	icon_state = "bride_blue"
 	item_color = "bride_blue"
 	flags_inv = HIDESHOES
+	flags = SHOWUNDERWEAR
 
 /obj/item/clothing/under/wedding/bride_red
 	name = "red wedding dress"
@@ -444,6 +452,7 @@
 	icon_state = "bride_red"
 	item_color = "bride_red"
 	flags_inv = HIDESHOES
+	flags = SHOWUNDERWEAR
 
 /obj/item/clothing/under/wedding/bride_white
 	name = "orange wedding dress"
@@ -451,6 +460,7 @@
 	icon_state = "bride_white"
 	item_color = "bride_white"
 	flags_inv = HIDESHOES
+	flags = SHOWUNDERWEAR
 
 /obj/item/clothing/under/sundress
 	name = "sundress"
@@ -459,6 +469,7 @@
 	item_state = "sundress"
 	item_color = "sundress"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+	flags = SHOWUNDERWEAR
 
 /obj/item/clothing/under/captainparade
 	name = "captain's parade uniform"
@@ -482,6 +493,7 @@
 	item_state = "meido"
 	item_color = "meido"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+	flags = SHOWUNDERWEAR
 
 /obj/item/clothing/under/janimaid
 	name = "maid uniform"
@@ -490,6 +502,7 @@
 	item_state = "janimaid"
 	item_color = "janimaid"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+	flags = SHOWUNDERWEAR
 
 /obj/item/clothing/under/flappers
 	name = "flappers"
